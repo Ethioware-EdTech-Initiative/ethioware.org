@@ -8,13 +8,13 @@
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
   --hue: 300;
-  --first-color: hsl(var(--hue), 24%, 32%);
+  --first-color: hsl(var(--hue), 94%, 32%);
   --first-color-alt: hsl(var(--hue), 24%, 28%);
-  --first-color-light: hsl(var(--hue), 24%, 66%);
-  --first-color-lighten: hsl(var(--hue), 24%, 92%);
-  --title-color: hsl(var(--hue), 4%, 15%);
-  --text-color: hsl(var(--hue), 4%, 35%);
-  --text-color-light: hsl(var(--hue), 4%, 55%);
+  --first-color-light: hsl(var(--hue), 94%, 6%);
+  --first-color-lighten: hsl(var(--hue), 94%, 2%);
+  --title-color: hsl(var(--hue), 24%, 15%);
+  --text-color: hsl(var(--hue), 0%, 35%);
+  --text-color-light: hsl(var(--hue), 24%, 55%);
   --body-color: hsl(var(--hue), 0%, 100%);
   --container-color: #FFF;
 
@@ -83,7 +83,7 @@ body{
   margin: var(--header-height) 0 0 0;
   background-color: var(--body-color);
   color: var(--text-color);
-  transition: .4s; /*For animation dark mode*/
+  transition: .3s; /*For animation dark mode*/
 }
 
 button{
@@ -115,7 +115,7 @@ img{
 body.dark-theme{
   --first-color-dark: hsl(var(--hue), 8%, 20%);
   --title-color: hsl(var(--hue), 4%, 95%);
-  --text-color: hsl(var(--hue), 4%, 75%);
+  --text-color: hsl(var(--hue), 0%, 75%);
   --body-color: hsl(var(--hue), 8%, 12%);
   --container-color: hsl(var(--hue), 8%, 16%);
 }
@@ -190,7 +190,7 @@ the website, in dark theme
   top: 0;
   left: 0;
   z-index: var(--z-fixed);
-  transition: .4s; /*For animation dark mode*/
+  transition: .3s; /*For animation dark mode*/
 }
 
 /*=============== NAV ===============*/

@@ -1,11 +1,11 @@
 /*=============== THEME ===============*/
 /*========== Variables Dark theme ==========*/
 body.dark-theme{
-    --first-color-dark: hsl(var(--hue), 8%, 20%);
-    --title-color: hsl(var(--hue), 4%, 95%);
-    --text-color: hsl(var(--hue), 4%, 75%);
-    --body-color: hsl(var(--hue), 8%, 12%);
-    --container-color: hsl(var(--hue), 8%, 16%);
+    --first-color-dark: hsl(var(--hue), 28%, 20%);
+    --title-color: hsl(var(--hue), 94%, 95%);
+    --text-color: hsl(var(--hue), 94%, 75%);
+    --body-color: hsl(var(--hue), 48%, 12%);
+    --container-color: hsl(var(--hue), 48%, 16%);
 }
 
 /*========== Button Dark/Light ==========*/
@@ -36,5 +36,5 @@ the website, in dark theme
 }
 
 .dark-theme .scroll-header{
-    box-shadow: 0 1px 4px hsla(var(--hue), 4%, 4%, .3);
+    box-shadow: 0 1px 4px hsla(var(--hue), 24%, 4%, .3);
 }
