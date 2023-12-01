@@ -876,14 +876,42 @@ the website, in dark theme
     padding: 1.5rem;
   }
 
+  .steps__card_2{
+    padding: 1.5rem;
+    align-items: center;
+  }
+
   .product__container{
     grid-template-columns: .6fr;
     justify-content: center;
   }
 }
 
+.wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  padding-top: 25px;
+  height: 0;
+}
+.wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+
+
 /* For medium devices */
 @media screen and (min-width: 576px){
+  .wrapper iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
   .steps__container{
     grid-template-columns: repeat(2, 1fr);
   }
