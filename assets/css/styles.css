@@ -163,7 +163,12 @@ the website, in dark theme
   margin-bottom: var(--mb-2);
   line-height: 140%;
 }
-
+.section__text,
+.section__text-center{
+  font-size: 0.85rem;
+  margin-bottom: var(--mb-2);
+  line-height: 140%;
+}
 .section__title-center{
   text-align: center;
 }
@@ -357,7 +362,7 @@ the website, in dark theme
 }
 
 .home__social-link{
-  font-size: 1rem;
+  font-size: 1.5rem;
   color: var(--first-color);
   transition: .3s;
 }
