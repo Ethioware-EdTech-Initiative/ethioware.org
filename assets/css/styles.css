@@ -47,6 +47,18 @@
   --z-fixed: 100;
 }
 
+.pub {
+
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin-left: -150px;
+}
+.pub2 {
+  display: block;
+  justify-content: center;
+  align-items: center;
+}
 /* Responsive typography */
 @media screen and (min-width: 968px) {
   :root {
