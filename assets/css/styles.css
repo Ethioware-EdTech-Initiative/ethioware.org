@@ -874,7 +874,11 @@ the website, in dark theme
     margin-left: var(--mb-1);
     margin-right: var(--mb-1);
   }
-
+.bulb{
+  width: 100px;
+  height: 180px;
+  cursor: pointer;
+}
   .home__img {
     width: 180px;
   }
