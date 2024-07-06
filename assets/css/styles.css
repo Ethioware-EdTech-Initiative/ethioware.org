@@ -47,7 +47,6 @@
   --z-fixed: 100;
 }
 .pub {
-
   display: block;
   justify-content: center;
   align-items: center;
@@ -874,11 +873,11 @@ the website, in dark theme
     margin-left: var(--mb-1);
     margin-right: var(--mb-1);
   }
-.bulb{
-  width: 100px;
-  height: 180px;
-  cursor: pointer;
-}
+  .bulb {
+    width: 100px;
+    height: 180px;
+    cursor: pointer;
+  }
   .home__img {
     width: 180px;
   }
@@ -1124,5 +1123,111 @@ the website, in dark theme
 
   .scrollup {
     right: 3rem;
+  }
+}
+
+/* Volunteers */
+.main_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background-color: rgba(255, 255, 255, 0);
+  overflow: hidden;
+}
+.content {
+  text-align: center;
+  width: 100%;
+}
+
+.partner_title {
+  font-size: 2vw;
+  font-weight: bold;
+  color: #2d2728;
+  font-family: sans-serif;
+  margin-bottom: 2vw;
+}
+
+.partner-container {
+  width: 100%;
+  overflow: hidden;
+  background-color: #ffffff00;
+  padding: 10px 0;
+  box-shadow: 1px 2px 4px rgba(1, 1, 0, 0.1);
+  border-radius: 10px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.partner-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  width: fit-content;
+  white-space: nowrap;
+}
+
+.partner {
+  flex: 0 1 auto;
+}
+
+.partner img {
+  max-height: 8vw;
+  max-width: 150px;
+  width: auto;
+  display: block;
+}
+/* Responsive design */
+
+@media (max-width: 1200px) {
+  .title {
+    font-size: 4vw;
+  }
+
+  .partner img {
+    max-height: 10vw;
+    max-width: 120px;
+  }
+}
+
+@media (max-width: 992px) {
+  .title {
+    font-size: 5vw;
+  }
+
+  .partner img {
+    max-height: 12vw;
+    max-width: 100px;
+  }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 6vw;
+  }
+
+  .partner img {
+    max-height: 14vw;
+    max-width: 80px;
+  }
+}
+
+@media (max-width: 576px) {
+  .title {
+    font-size: 7vw;
+  }
+
+  .partner img {
+    max-height: 16vw;
+    max-width: 60px;
+  }
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
   }
 }
