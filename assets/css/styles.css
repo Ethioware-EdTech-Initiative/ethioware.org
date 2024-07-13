@@ -50,12 +50,7 @@
   display: block;
   justify-content: center;
   align-items: center;
-  margin-left: -150px;
-}
-.pub2 {
-  display: block;
-  justify-content: center;
-  align-items: center;
+  margin: 10px;
 }
 /* Responsive typography */
 @media screen and (min-width: 968px) {
@@ -642,6 +637,18 @@ the website, in dark theme
 
 .accordion-open .questions__icon {
   transform: rotate(45deg);
+}
+/*=============== Interviews ===============*/
+
+.interview_container {
+  left: 0;
+  width: 100%;
+  height: 0;
+  position: relative;
+  padding-bottom: 56.25%; /* Aspect ratio for 16:9 */
+  border-radius: 10px;
+  overflow: hidden;
+  margin: 2%;
 }
 
 /*=============== CONTACT ===============*/

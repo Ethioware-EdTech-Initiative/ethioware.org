@@ -1,8 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
   const wrapper = document.getElementById("partner-wrapper");
-  const clone = wrapper.innerHTML;
-  wrapper.innerHTML = clone + clone + clone;
+  const content = wrapper.innerHTML;
+  wrapper.innerHTML = content.repeat(3);
+  
   const contentWidth = wrapper.scrollWidth / 2;
   const animationDuration = contentWidth / 100;
-  wrapper.style.animation = `scroll ${animationDuration}s linear infinite`;
+  
+  wrapper.style.setProperty('--animation-duration', `${animationDuration}s`);
+  wrapper.style.animation = `scroll var(--animation-duration) linear infinite`;
 });
