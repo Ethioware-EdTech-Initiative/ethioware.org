@@ -47,10 +47,13 @@
   --z-fixed: 100;
 }
 .pub {
-  display: block;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+  width: calc(100% - 40px);
 }
 /* Responsive typography */
 @media screen and (min-width: 968px) {
