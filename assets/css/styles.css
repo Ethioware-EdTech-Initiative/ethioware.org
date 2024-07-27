@@ -7,8 +7,8 @@
 
   /*========== Colors ==========*/
   /*Color mode HSL(hue, saturation, lightness)*/
-  --hue: 285;
-  --first-color: hsl(var(--hue), 94%, 32%);
+  --hue: 215;
+  --first-color: hsl(var(--hue), 80%, 32%);
   --first-color-alt: hsl(var(--hue), 24%, 28%);
   --first-color-light: hsl(var(--hue), 24%, 66%);
   --first-color-lighten: hsl(var(--hue), 24%, 92%);
@@ -123,11 +123,11 @@ img {
 /*=============== THEME ===============*/
 /*========== Variables Dark theme ==========*/
 body.dark-theme {
-  --first-color-dark: hsl(var(--hue), 8%, 20%);
-  --title-color: hsl(var(--hue), 4%, 95%);
+  --first-color-dark: hsl(var(--hue), 80%, 20%);
+  --title-color: hsl(var(--hue), 30%, 95%);
   --text-color: hsl(var(--hue), 0%, 75%);
   --body-color: hsl(var(--hue), 8%, 12%);
-  --container-color: hsl(var(--hue), 8%, 16%);
+  --container-color: hsl(var(--hue), 40%, 16%);
 }
 
 /*========== Button Dark/Light ==========*/
