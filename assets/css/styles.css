@@ -76,7 +76,7 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
 }
 
 body,
@@ -165,6 +165,8 @@ the website, in dark theme
 /*=============== REUSABLE CSS CLASSES ===============*/
 .section {
   padding: 5.5rem 0 1rem;
+ 
+
 }
 
 .section__title,
@@ -215,13 +217,16 @@ the website, in dark theme
   justify-content: space-between;
   align-items: center;
 }
-.glass{
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+.glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
-  border:1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.18);
 }
-
 
 .nav__logo,
 .nav__toggle,
