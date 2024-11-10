@@ -1,18 +1,31 @@
 <!DOCTYPE html>
     <html lang="en">
     <head>
-        <!-- TrustBox script -->
-<script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
-<!-- End TrustBox script -->
-        <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-RYB205PY5C"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+        <script src="assets/js/sendmail.js"></script>
+                    <!-- TrustBox script -->
+            <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+            <!-- End TrustBox script -->
+                    <!-- Google tag (gtag.js) -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYB205PY5C"></script>
+            <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-  gtag('config', 'G-RYB205PY5C');
-</script>
+            gtag('config', 'G-RYB205PY5C');
+            </script>
+
+        <script type="text/javascript"
+                    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+        </script>
+        <script type="text/javascript">
+            (function(){
+                emailjs.init({
+                    publicKey: "tdtlEABcsUxAMpI8W",
+                });
+            })();
+        </script>
+        
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
@@ -28,6 +41,7 @@
 
         <title>Ethioware EdTech Initiative</title>
     </head>
+    
     <body>
         <!--==================== HEADER ====================-->
         <header class="header glass" id="header">
@@ -245,6 +259,9 @@
                         <div class="partner">
                             <a href="https://www.linkedin.com/in/henok-belachew/" target="_blank"><img src="assets/img/addissystems.png" alt="Addis Systems"/></a>
                         </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/hanna-girma-187974185/" target="_blank"><img src="assets/img/Chapa.png" alt="Addis Systems"/></a>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -344,26 +361,25 @@
                             </div>
                         </div>
                     </div>
-
-                    <form action="mailto:info@ethioware.org" class="contact__form">
+                    <form>
                         <div class="contact__inputs">
                             <div class="contact__content">
-                                <input type="email" placeholder=" " class="contact__input">
-                                <label for="" class="contact__label">Email Address</label>
+                                <input type="email" id = "email"class="contact__input" required>
+                                <label class="contact__label">Email Address</label>
                             </div>
 
                             <div class="contact__content">
-                                <input type="text" placeholder=" " class="contact__input">
-                                <label for="" class="contact__label">Subject</label>
+                                <input type="text" placeholder=" " id = "subject" class="contact__input" required>
+                                <label class="contact__label">Subject</label>
                             </div>
 
                             <div class="contact__content contact__area">
-                                <textarea name="message" placeholder=" " class="contact__input"></textarea>                              
-                                <label for="" class="contact__label">Message</label>
+                                <textarea name="message" placeholder=" " id = "message" class="contact__input" required>
+                                </textarea>   
+                                <label class="contact__label">Message</label>
                             </div>
                         </div>
-
-                        <button class="button button--flex" type="submit" value="Send">
+                        <button class="button button--flex" onclick="sendmessage()" type="submit">
                             Send Message
                             <i class="ri-arrow-right-up-line button__icon"></i>
                         </button>
@@ -371,7 +387,6 @@
                 </div>
             </section>
         </main>
-
         <!--==================== FOOTER ====================-->
         <footer class="footer section">
             <div class="footer__container container grid">
@@ -415,7 +430,7 @@
         
         <!--=============== MAIN JS ===============-->
         <script src="assets/js/main.js"></script>
-                <!--=============== Volunteers JS ===============-->
+        <!--=============== Volunteers JS ===============-->
                 <script src="assets/js/script.js"></script>
     </body>
 </html>
