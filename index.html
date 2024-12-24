@@ -1,31 +1,36 @@
 <!DOCTYPE html>
     <html lang="en">
     <head>
-        <script src="assets/js/sendmail.js"></script>
-                    <!-- TrustBox script -->
-            <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
-            <!-- End TrustBox script -->
-                    <!-- Google tag (gtag.js) -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYB205PY5C"></script>
-            <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+        <!-- TrustBox script -->
+<script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
+<!-- End TrustBox script -->
+        <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-RYB205PY5C"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
 
-            gtag('config', 'G-RYB205PY5C');
-            </script>
+  gtag('config', 'G-RYB205PY5C');
+</script>
+<script src="assets/js/sendmail.js"></script>
+<script type="text/javascript">
+    function loadScript(url, callback) {
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = url;
+        script.onload = callback;
+        script.onerror = function() {
+            console.error('Failed to load script:', url);
+            alert('Failed to load required resources. Please check your network connection.');
+        };
+        document.head.appendChild(script);
+    }
 
-        <script type="text/javascript"
-                    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-        </script>
-        <script type="text/javascript">
-            (function(){
-                emailjs.init({
-                    publicKey: "tdtlEABcsUxAMpI8W",
-                });
-            })();
-        </script>
-        
+    loadScript('https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js', function() {
+        emailjs.init("xwXUbe2qdNIXEhgdo");
+    });
+</script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
  
@@ -33,6 +38,7 @@
         
         <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
         
+
         <!--=============== REMIX ICONS ===============-->
         <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
 
@@ -41,7 +47,6 @@
 
         <title>Ethioware EdTech Initiative</title>
     </head>
-    
     <body>
         <!--==================== HEADER ====================-->
         <header class="header glass" id="header">
@@ -88,7 +93,6 @@
                 </div>
             </nav>
         </header>
-
         <main class="main">
             <!--==================== HOME ====================-->
             <section class="home" id="home">
@@ -103,13 +107,12 @@
                             Ethioware <br> EdTech Initiative
                         </h1>
                         <p class="home__description">
-                            Pre-Training Readiness
+                            Lessons from the doers
                         </p>
                         <a href="https://www.trustpilot.com/review/ethioware.org" class="button button--flex">
                             Rate us! <i class="ri-arrow-right-up-line button__icon"></i>
                         </a>
                     </div>
-
                     <div class="home__social">
                         <span class="home__social-follow">Follow Us</span>
 
@@ -120,26 +123,25 @@
                             <a href="https://www.telegram.me/ethioware" target="_blank" class="home__social-link">
                                 <i class="ri-telegram-line"></i>
                             </a>
-                            <a href="https://anchor.fm/ethioware" target="_blank" class="home__social-link">
-                                <i class="ri-spotify-fill"></i>
+                            <a href="https://youtube.com/@ethioware" target="_blank" class="home__social-link">
+                                <i class="ri-youtube-fill"></i>
                             </a>
-                           
                         </div>
                     </div>
                 </div>
             </section>
-
             <!--==================== ABOUT ====================-->
             <section class="about section container" id="about">
                         <h2 class="section__title about__title">
                             What do we do?<br> 
                         </h2>
                         <p class="about__description">
-                            We provide highschool graduates with direct anecdotal online sessions with experts in their field of interest. We call these sessions, pre-training readiness - where upon completion - they will know where to start, with whom to continue, and who to contacr for further guidance. <br/>
+                            We provide highschool graduates with direct anecdotal online sessions with experts in their field of interest. We call these sessions, pre-training readiness - where upon completion - they will know where to start, with whom to continue, and who to contact for further guidance. <br/>
                             Want to enroll your kids, contact us at 
                             <button class="glass" type="submit" action = "mailto:parents@ethioware.org" value="Send" style="margin:2px; color: #00abe7;border-radius: 2px">
                             parents@ethioware.org 
-                        </button>                        </p>                  
+                        </button>
+                        </p>    
                     </div>
                 </div>
             </section>
@@ -173,13 +175,11 @@
                 <div class="steps__container grid">
                 </div>
             </section>
-
             <!--==================== MISSION ====================-->
             <section class="steps section container" id="mission">
                 <div class="steps__bg">
                     <h2 class="section__title-center steps__title">
-                        Aid 200,000 African Youth <br/> make well-informed career choices by 2040 
-
+                        Direct 200,000 African Youth  <br/> to Intentionally Chosen Careers by 2040 
                     </h2>
 
                     <div class="steps__container grid">
@@ -229,13 +229,13 @@
                             <a href="https://www.linkedin.com/in/mihret-bekele/" target="_blank"><img src="assets/img/a2sv.png" alt="A2sv" /></a>
                         </div>
                         <div class="partner">
-                            <a href="https://www.linkedin.com/in/mukerem/" target="_blank"> <img src="assets/img/Turing.png" alt="Turing" /></a>
-                          </div>
-                          <div class="partner">
-                            <a href="https://www.linkedin.com/in/tamsul/" target="_blank"><img src="assets/img/disruptors.png" alt="Columbia University"/></a>
+                            <a href="https://www.linkedin.com/in/tamsul/" target="_blank"><img src="assets/img/disruptors.png" alt="The disruptors den"/></a>
                         </div>
                         <div class="partner">
-                            <a href="https://www.linkedin.com/in/abel-mulugeta/" target="_blank"><img src="assets/img/debofarm.png" alt="Debo Farm" /></a>
+                            <a href="https://www.linkedin.com/in/mukerem/" target="_blank"> <img src="assets/img/Turing.png" alt="Turing" /></a>
+                          </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/abel-mulugeta/" target="_blank"><img src="assets/img/yali.png" alt="Yali" /></a>
                         </div>
                         <div class="partner">
                             <a href="https://www.linkedin.com/in/abenezer-amanuel/" target="_blank"><img src="assets/img/duolingo.png" alt="Duolingo" /></a>                         
@@ -253,13 +253,28 @@
                             <a href="https://www.linkedin.com/in/abenezer-amanuel/" target="_blank"><img src="assets/img/columbia.png" alt="Columbia University"/></a>
                         </div>
                         <div class="partner">
-                            <a href="https://www.linkedin.com/in/mulu-tsega943/" target="_blank"><img src="assets/img/aevue.png" alt="Columbia University"/></a>
+                            <a href="https://www.linkedin.com/in/netsanet-meles-568424210/" target="_blank"><img src="assets/img/education.png" alt="Let's Talk About Education"/></a>
                         </div>
                         <div class="partner">
+                            <a href="https://www.linkedin.com/in/mulu-tsega943/" target="_blank"><img src="assets/img/aevue.png" alt="Columbia University"/></a>
+                        </div>
+                         <div class="partner">
                             <a href="https://www.linkedin.com/in/henok-belachew/" target="_blank"><img src="assets/img/addissystems.png" alt="Addis Systems"/></a>
                         </div>
                         <div class="partner">
-                            <a href="https://www.linkedin.com/in/hanna-girma-187974185/" target="_blank"><img src="assets/img/Chapa.png" alt="Addis Systems"/></a>
+                            <a href="https://www.linkedin.com/in/hanna-girma-187974185/" target="_blank"><img src="assets/img/Chapa.png" alt="Chapa"/></a>
+                        </div>
+                         <div class="partner">
+                            <a href="https://www.linkedin.com/in/dawitmammo/" target="_blank"><img src="assets/img/flawless.png" alt="Flawless Events"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/yvan-gatete/" target="_blank"><img src="assets/img/Google.png" alt="Google"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/amanuel-sisay-87b044201/" target="_blank"><img src="assets/img/Headstarter.png" alt="HeadStarter"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/tsion-molla-abreha-254494252/" target="_blank"><img src="assets/img/UVA.png" alt="University of Virginia"/></a>
                         </div>
                       </div>
                     </div>
@@ -273,8 +288,8 @@
                     Some of our <br> Publications
                 </h2>
                 <div class="questions__container container grid">
-                    <div class="pub" style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
-                        <div class="questions__item" style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
+                    <div class="pub">
+                        <div class="questions__item "style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
                             <header class="questions__header glass" style="border-top-right-radius: 10px;border-top-left-radius: 10px;">
                                 <i class="ri-add-line questions__icon"></i>
                                 <h3 class="questions__item-title">
@@ -287,11 +302,11 @@
                         </div>
                     </div>
                     <div class="pub">
-                        <div class="questions__item"style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
-                            <header class="questions__header glass" style="border-top-right-radius: 10px;border-top-left-radius: 10px;">
+                        <div class="questions__item" style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
+                            <header class="questions__header glass"style="border-top-right-radius: 10px;border-top-left-radius: 10px;">
                                 <i class="ri-add-line questions__icon"></i>
                                 <h3 class="questions__item-title">
-                                    Utilization of Educational Technologies at Selected High Schools in Addis Ababa.
+                                    Beyond Access: Utilization of Educational Technologies at Selected High Schools in Addis Ababa.
                                 </h3>
                             </header> 
                             <div class="questions__content" style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
@@ -308,11 +323,11 @@
             </h2>
 
             <div class="steps__container grid">
-                    <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%; border-radius: 10px;overflow: hidden; margin: 5%;"><iframe src="https://www.youtube.com/embed/AK36uWm5V5o?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"></iframe></div>
+                    <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%; border-radius: 10px;overflow: hidden; margin: 5%;"><iframe src="https://www.youtube.com/embed/rJLAD19idr0?si=J5dp3_cWYCEJz_Pi&amp;start=40" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"></iframe></div>
        
-                    <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;border-radius: 10px;overflow: hidden; margin: 5%;"><iframe src="https://www.youtube.com/embed/xhGM-fJMFEI?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"></iframe></div>
+                    <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;border-radius: 10px;overflow: hidden; margin: 5%;"><iframe src="https://www.youtube.com/embed/tiJKLReOyZM?si=XEo2YC6thfeU9IcD" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"></iframe></div>
 
-                    <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;border-radius: 10px;overflow: hidden; margin: 5%;"><iframe src="https://www.youtube.com/embed/Z288jGd8Whc?rel=0" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"></iframe></div>
+                    <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;border-radius: 10px;overflow: hidden; margin: 5%;"><iframe src="https://www.youtube.com/embed/WcGwa_XZQxI?si=21l3rpXuQgwwKPNt" style="top: 0; width: 90%; height: 100%; position:absolute; border: 0;" allowfullscreen scrolling="yes" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"></iframe></div>
             </div>
             </section>    
             <!--==================== Trainings ====================-->
@@ -320,7 +335,7 @@
                      <section class="product section container" id="train">
                 <h2 class="section__title-center" id="Trainings">
                     Current Training Programs </h2>
-                                <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 129.4118%;" class="questions__content"><iframe src="https://forms.office.com/r/BwCszzkuXK" style="border-radius: 30px; top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div>
+                                <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 129.4118%;" class="questions__content"><iframe src="https://forms.office.com/r/h0dRRB6h8u" style="border-radius: 30px; top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div>
                  </section>
             <!--==================== CONTACT ====================-->
             <section class="contact section container" id="contact">                
@@ -329,6 +344,7 @@
                         <h2 class="section__title">
                             Reach out to us
                         </h2>
+
                         <div class="contact__data">
                             <div class="contact__information">
                                 <h3 class="contact__subtitle">Text us for instant support</h3>
@@ -360,7 +376,8 @@
                             </div>
                         </div>
                     </div>
-                    <form>
+
+                    <form id="contactForm">
                         <div class="contact__inputs">
                             <div class="contact__content">
                                 <input type="email" id = "email"class="contact__input" required>
@@ -378,7 +395,7 @@
                                 <label class="contact__label">Message</label>
                             </div>
                         </div>
-                        <button class="button button--flex" onclick="sendmessage()" type="submit">
+                        <button class="button button--flex" type="submit" onclick="sendMail()" >
                             Send Message
                             <i class="ri-arrow-right-up-line button__icon"></i>
                         </button>
@@ -386,6 +403,7 @@
                 </div>
             </section>
         </main>
+
         <!--==================== FOOTER ====================-->
         <footer class="footer section">
             <div class="footer__container container grid">
@@ -397,7 +415,7 @@
                     <div class="footer__content">                          
                             
                             <div class="footer__social">
-                                <a href="https://www.youtube.com/@EthiowareSEG"  target="_blank" class="footer__social-link">
+                                <a href="https://youtube.com/@ethioware"  target="_blank" class="footer__social-link">
                                     <i class="ri-youtube-fill"></i>
                                 </a>
                                 <a href="https://instagram.com/ethioware_"  target="_blank" class="footer__social-link">
@@ -408,6 +426,9 @@
                                 </a>
                                 <a href="https://www.linkedin.com/company/ethioware" target="_blank" class="footer__social-link">
                                     <i class="ri-linkedin-fill"></i>
+                                </a>
+                                <a href="https://facebook.com/ethiowareEI" target="_blank" class="footer__social-link">
+                                    <i class="ri-facebook-fill"></i>
                                 </a>
                             </div>
                     </div>
@@ -429,7 +450,7 @@
         
         <!--=============== MAIN JS ===============-->
         <script src="assets/js/main.js"></script>
-        <!--=============== Volunteers JS ===============-->
+                <!--=============== Volunteers JS ===============-->
                 <script src="assets/js/script.js"></script>
     </body>
 </html>
