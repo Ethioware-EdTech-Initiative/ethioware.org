@@ -19,6 +19,13 @@
         gtag('config', 'G-RYB205PY5C');
     </script>
 
+<script src="assets/js/sendmail.js"></script>
+<link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">   
+<!-- Google Sign-In -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
     <!-- Remove # from URLs -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -93,18 +100,32 @@
             };
             document.head.appendChild(script);
         }
-
         loadScript('https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js', function() {
             emailjs.init("tdtlEABcsUxAMpI8W");
         });
     </script>
-
-    <script src="assets/js/sendmail.js"></script>
-    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+        #google-signin-container {
+            position:fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            display: none;
+        }
+    </style>
 </head>
 <body>
+     <!-- Google Sign-In button container -->
+     <div id="google-signin-container">
+        <div id="g_id_onload"
+             data-client_id="615874094558-7vat1vkdihe0htgq9siljg7sgk4sjlnv.apps.googleusercontent.com"
+             data-context="signin"
+             data-ux_mode="popup"
+             data-callback="handleCredentialResponse"
+             data-auto_prompt="true">
+        </div>
+        <div class="g_id_signin" data-type="standard"></div>
+    </div>
     <!--==================== HEADER ====================-->
     <header class="header glass" id="header">
         <nav class="nav container">
@@ -390,9 +411,8 @@
         <!--==================== Trainings ====================-->
         <section class="product section container" id="train">
             <h2 class="section__title-center" id="Trainings">
-                Current Training Programs
+                Current Training Programs <br/> Unavailable
             </h2>
-            <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 129.4118%;" class="questions__content"><iframe src="https://forms.office.com/r/h0dRRB6h8u" style="border-radius: 30px; top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe></div>
         </section>
         <!--==================== CONTACT ====================-->
         <section class="contact section container" id="contact">
@@ -505,5 +525,12 @@
     <script src="assets/js/scrollreveal.min.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/main.js"></script>
+
+    <script>
+        function handleCredentialResponse(response) {
+            console.log("Encoded JWT ID token: " + response.credential);
+            // Send the ID token to your server for verification and further processing
+        }
+    </script>
 </body>
 </html>

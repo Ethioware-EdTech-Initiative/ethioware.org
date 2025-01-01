@@ -1253,3 +1253,30 @@ the website, in dark theme
     transform: translateX(-50%);
   }
 }
+
+/* Google Sign-In Popup Styles */
+#google-signin-container {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: var(--z-fixed);
+  padding: 10px;
+}
+#google-signin-container .g_id_signin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#google-signin-container .g_id_signin button {
+  background-color: var(--first-color);
+  color: var(--body-color);
+  font-family: var(--body-font);
+  font-size: var(--normal-font-size);
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+#google-signin-container .g_id_signin button:hover {
+  background-color: var(--first-color-light);
+}
