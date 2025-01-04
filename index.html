@@ -6,11 +6,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Ethioware EdTech Initiative</title>
 
-    <!-- TrustBox script -->
-    <script type="text/javascript" src="//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js" async></script>
-    <!-- End TrustBox script -->
+    <!-- Lazy-load TrustBox script -->
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            const script = document.createElement("script");
+            script.src = "//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js";
+            script.async = true;
+            document.head.appendChild(script);
+        });
+    </script>
 
-    <!-- Google tag (gtag.js) -->
+    <!-- Async Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYB205PY5C"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -87,21 +93,15 @@
         });
     </script>
 
-    <!-- Load EmailJS -->
+    <!-- Load EmailJS lazily -->
     <script type="text/javascript">
-        function loadScript(url, callback) {
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = url;
-            script.onload = callback;
-            script.onerror = function() {
-                console.error('Failed to load script:', url);
-                alert('Failed to load required resources. Please check your network connection.');
+        document.addEventListener("DOMContentLoaded", function() {
+            const emailScript = document.createElement("script");
+            emailScript.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+            emailScript.onload = function() {
+                emailjs.init("tdtlEABcsUxAMpI8W");
             };
-            document.head.appendChild(script);
-        }
-        loadScript('https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js', function() {
-            emailjs.init("tdtlEABcsUxAMpI8W");
+            document.head.appendChild(emailScript);
         });
     </script>
     <style>
@@ -177,7 +177,6 @@
                 <a target="_blank" class="home__img glass" style="border-radius: 80px;margin: 20px;">
                     <img src="assets/img/plan.png">
                 </a>
-
                 <div class="home__data">
                     <h1 class="home__title">
                         Ethioware <br> EdTech Initiative
@@ -333,7 +332,7 @@
                             <a href="https://www.linkedin.com/in/abenezer-amanuel/" target="_blank"><img src="assets/img/columbia.png" alt="Columbia University"/></a>
                         </div>
                         <div class="partner">
-                            <a href="https://www.linkedin.com/in/netsanet-meles-568424210/" target="_blank"><img src="assets/img/education.png" alt="Let's Talk About Education"/></a>
+                            <a href="https://www.linkedin.com/in/netsanet-meles-568424210/" target="_blank"><img src="assets/img/education.webp" alt="Let's Talk About Education"/></a>
                         </div>
                         <div class="partner">
                             <a href="https://www.linkedin.com/in/mulu-tsega943/" target="_blank"><img src="assets/img/aevue.png" alt="Columbia University"/></a>
@@ -354,7 +353,7 @@
                             <a href="https://www.linkedin.com/in/amanuel-sisay-87b044201/" target="_blank"><img src="assets/img/Headstarter.png" alt="HeadStarter"/></a>
                         </div>
                         <div class="partner">
-                            <a href="https://www.linkedin.com/in/tsion-molla-abreha-254494252/" target="_blank"><img src="assets/img/UVA.png" alt="University of Virginia"/></a>
+                            <a href="https://www.linkedin.com/in/tsion-molla-abreha-254494252/" target="_blank"><img src="assets/img/UVA.webp" alt="University of Virginia"/></a>
                         </div>
                     </div>
                 </div>
@@ -522,9 +521,9 @@
     </a>
 
     <!--=============== SCROLL REVEAL ===============-->
-    <script src="assets/js/scrollreveal.min.js"></script>
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src="assets/js/scrollreveal.min.js" defer></script>
+    <script src="assets/js/script.js" defer></script>
+    <script src="assets/js/main.js" defer></script>
 
     <script>
         function handleCredentialResponse(response) {

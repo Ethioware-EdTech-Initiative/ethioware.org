@@ -1,17 +1,19 @@
 document.addEventListener("DOMContentLoaded", () => {
   const wrapper = document.getElementById("partner-wrapper");
 
-  // Check if wrapper has content before accessing scrollWidth
-  if (wrapper.scrollWidth > 0) {
+  // Ensure the wrapper exists and has scrollable content
+  if (wrapper && wrapper.scrollWidth > 0) {
     const content = wrapper.innerHTML;
-    wrapper.innerHTML = content.repeat(10);
+    const repeatCount = Math.ceil(window.innerWidth / wrapper.scrollWidth) * 10; // Dynamically adjust repetitions
+    wrapper.innerHTML = content.repeat(repeatCount);
 
-    const contentWidth = wrapper.scrollWidth; // Access scrollWidth after content is added
+    const contentWidth = wrapper.scrollWidth; // Access scrollWidth after updating content
     const animationDuration = contentWidth / 100; // Adjust divisor for desired speed
 
+    // Use a CSS variable for animation duration
     wrapper.style.setProperty("--animation-duration", `${animationDuration}s`);
-    wrapper.style.animation = `scroll var(--animation-duration) linear infinite`;
+    wrapper.classList.add("scroll-animation"); // Apply animation via CSS class
   } else {
-    console.warn("Partner wrapper has no content. Animation not applied.");
+    console.warn("Partner wrapper is missing or has no content. Animation not applied.");
   }
 });
