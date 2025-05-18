@@ -347,8 +347,8 @@ the website, in dark theme
     rgba(255, 255, 255, 0.1),
     rgba(255, 255, 255, 0)
   );
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
 }
 
@@ -970,6 +970,221 @@ the website, in dark theme
   font-size: var(--smaller-font-size);
   color: var(--text-color-light);
   margin: 5rem 0 1rem;
+}
+
+
+/* New footer design */
+
+.ft {
+  width: 100%;
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  align-self: stretch;
+  /* background: #273469; */
+  background: var(--first-color);
+  -webkit-backdrop-filter: blur(1rem);
+  backdrop-filter: blur(1rem);
+}
+
+.bars {
+  display: flex;
+  padding: 1.5rem;
+  align-items: flex-start;
+  gap: 0.5rem;
+  align-self: stretch;
+}
+
+.left-bar {
+  display: flex;
+  padding: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2rem;
+  flex: 1 0 auto;
+  align-self: stretch;
+}
+
+.left-logo {
+  display: flex;
+  padding: 0.5rem;
+  align-items: center;
+  gap: 2rem;
+  align-self: stretch;
+}
+
+.left-logo img {
+  width: 5rem;
+  height: 5rem;
+}
+
+.left-logo p {
+  color: #EEE;
+  font-family: "Josefin Sans";
+  font-size: 1.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.left-socials {
+  display: flex;
+  padding: 1rem 0.5rem;
+  align-items: center;
+  align-content: center;
+  gap: 1.5rem;
+  align-self: stretch;
+  flex-wrap: wrap;
+}
+
+.left-socials div {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.right-bar {
+  display: flex;
+  padding: 0.5rem;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  flex-shrink: 1;
+}
+
+.space {
+  height: 2.5rem;
+  width: 2.5rem;
+}
+
+.right-bar-links {
+  display: flex;
+  /* height: 296px; */
+  padding: 1rem;
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.right-bar-links .col {
+  display: flex;
+  padding: 0.5rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  align-self: stretch;
+}
+
+.right-bar-links .col a {
+  text-decoration: none;
+}
+
+.right-bar-links .col .head {
+  color: #EEE;
+  font-family: "Josefin Sans";
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.right-bar-links .col .sub {
+  color: #EEE;
+  font-family: "Josefin Sans";
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 300;
+  line-height: normal;
+}
+
+.right-review {
+  display: flex;
+  height: 4rem;
+  overflow: hidden;
+  /* padding: 2rem 1.5rem 1.5rem 1.5rem; */
+  justify-content: flex-end;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.copy-txt {
+  color: #EEE;
+  font-family: "Josefin Sans";
+  font-size: 0.8rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+/* Footer design end */
+
+/* Animations */
+
+.ft, .ft * {
+  transition: all 0.2s ease-in-out;
+}
+
+.left-socials div:hover {
+  transform: scale(1.3);
+  opacity: 0.9;
+}
+
+/* Animations End */
+
+/* Responsiveness */
+
+@media (max-width: 1200px) {
+  :root {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  :root {
+    font-size: 12px;
+  }
+  .bars {
+    flex-direction: column-reverse;
+    align-items: flex-start;
+    padding: 1.5rem 0rem;
+  }
+  .right-bar {
+    padding: 0;
+    align-items: flex-start;
+  }
+  .right-review {
+    display: none;
+  }
+  .right-bar-links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .left-logo {
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    font-size: 8px;
+  }
 }
 
 /*=============== SCROLL UP ===============*/
