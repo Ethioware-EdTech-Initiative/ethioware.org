@@ -368,6 +368,11 @@ the website, in dark theme
   transition: 0.3s;
 }
 
+.nav__logo img {
+  width: 2rem;
+  height: 2rem;
+}
+
 .nav__logo-icon {
   font-size: 1.15rem;
   color: var(--first-color);
@@ -1023,10 +1028,10 @@ the website, in dark theme
 
 .left-logo p {
   color: #EEE;
-  font-family: "Josefin Sans";
+  font-family: var(--body-font);
   font-size: 1.8rem;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   line-height: normal;
 }
 
@@ -1083,19 +1088,19 @@ the website, in dark theme
 
 .right-bar-links .col .head {
   color: #EEE;
-  font-family: "Josefin Sans";
+  font-family: var(--body-font);
   font-size: 1.2rem;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: normal;
 }
 
 .right-bar-links .col .sub {
   color: #EEE;
-  font-family: "Josefin Sans";
+  font-family: var(--body-font);
   font-size: 1rem;
   font-style: normal;
-  font-weight: 300;
+  font-weight: 200;
   line-height: normal;
 }
 
@@ -1118,10 +1123,10 @@ the website, in dark theme
 
 .copy-txt {
   color: #EEE;
-  font-family: "Josefin Sans";
+  font-family: var(--body-font);
   font-size: 0.8rem;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 300;
   line-height: normal;
 }
 
