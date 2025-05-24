@@ -5,11 +5,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const desc = document.querySelectorAll(".job-desc");
     const descToggle = document.querySelectorAll(".tag-close");
 
-
-
-
-
-
     menuToggle.addEventListener("click", e => {
         menu.classList.add("show-menu");
     });

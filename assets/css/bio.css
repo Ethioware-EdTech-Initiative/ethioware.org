@@ -656,10 +656,6 @@ h3 {
     cursor: pointer;
 }
 
-.turn {
-    transform: rotate(0deg);
-}
-
 .job-desc {
     color: #fff;
 }
@@ -810,11 +806,52 @@ h3 {
     justify-content: center;
 }
 
+/* Review */
+
+.reviews {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    align-self: stretch;
+}
+
+.review-list {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.review {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    background: var(--primary);
+    padding: 1rem;
+    border-radius: 1rem;
+}
+
+.review-expand a {
+    font-size: 1rem;
+    color: #FFF;
+    cursor: pointer;
+}
+
+.review p {
+    font-size: 1rem;
+    color: #FFF;
+    
+}
+
+.stars {
+    font-size: 1rem;
+    color: #FEB705;
+}
+
 /* Contact */
-
-/* .contact {
-
-} */
 
 .contact .gr-b {
     width: 65%;
@@ -872,6 +909,14 @@ h3 {
     width: 1.8rem;
     height: 1.8rem;
 }
+
+.turn {
+    transform: rotate(0deg);
+}
+
+/* Design End */
+
+/* ================================================= */
 
 /* Animations */
 
@@ -941,7 +986,7 @@ h3 {
 
 /* Bio */
 
-.gr-s:hover, .tag:hover, .ach:hover, .prj-socials .social:hover, .project:hover, .social-grid-item .social:hover, .social-grid-item p:hover, .email .social:hover, .email p:hover {
+.gr-s:hover, .tag:hover, .ach:hover, .prj-socials .social:hover, .project:hover, .social-grid-item .social:hover, .social-grid-item p:hover, .email .social:hover, .email p:hover, h2:hover {
     transform: scale(1.05);
 }
 
@@ -951,7 +996,13 @@ h3 {
     transform: rotate(180deg) scale(1.1);
 }
 
+.review-expand:hover {
+    transform: rotate(360deg) scale(1.1);
+}
+
 /* Animations End */
+
+/* ================================================= */
 
 /* Responsiveness */
 
