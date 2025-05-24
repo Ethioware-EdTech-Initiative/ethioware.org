@@ -93,6 +93,19 @@ img {
     flex: 2 0 auto;
 }
 
+.spacer {
+    /* width: 2rem; */
+    height: 2rem;
+}
+
+.blue {
+    background-color: var(--brand);
+}
+
+.red {
+    background-color: rgb(230, 95, 40);
+}
+
 /* Nav Bar Design */
 
 .header {
@@ -479,6 +492,38 @@ img {
     flex: 2 0 auto;
 }
 
+/* Bio */
+
+.bio {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 4rem;
+}
+
+.gr-s h2 {
+    font-size: 4rem;
+}
+
+.gr-b {
+    width: 80%;
+}
+
+.body {
+    /* align-self: stretch; */
+    width: 100%;
+    color: var(--secondary-text);
+    font-family: var(--body);
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+    word-break: break-word;
+    word-wrap: break-word;
+}
+
 
 
 
@@ -760,6 +805,17 @@ img {
 
     .about .left-bar {
         word-break: break-word;
+    }
+
+    /* Bio */
+
+    .bio {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .gr-b {
+        width: 100%;
     }
 }
 
