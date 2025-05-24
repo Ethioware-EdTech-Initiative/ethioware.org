@@ -625,7 +625,7 @@ h3 {
     align-self: stretch;
     align-items: flex-start;
     gap: 0.5rem;
-    background-color: var(--primary);
+    background-color: var(--brand);
     padding: 1.5rem;
     border-radius: 1rem;
 }
@@ -678,8 +678,6 @@ h3 {
     gap: 1rem;
     flex-wrap: wrap;
 }
-
-
 
 /* From Uiverse.io by adeladel522 */ 
 .skill {
@@ -752,6 +750,65 @@ h3 {
   }
 }
 
+/* Portfolio */
+
+.portfolio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    gap: 2rem;
+    text-align: center;
+}
+
+.projects {
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.project {
+    max-width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background-color: var(--primary);
+    border-radius: 1rem;
+}
+
+.prj-img img {
+    width: 100%;
+    /* height: 14rem; */
+    border-radius: 1rem;
+}
+
+.prj-socials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.prj-desc {
+    font-family: var(--heading);
+    font-size: 2rem;
+    color: #FFF;
+}
+
+.prj-socials img {
+    width: 2rem;
+    height: 2rem;
+}
+
+.portfolio .buttons {
+    align-items: center;
+    justify-content: center;
+}
 
 
 
@@ -823,38 +880,17 @@ h3 {
 
 /* Bio */
 
-.gr-s:hover {
+.gr-s:hover, .tag:hover, .ach:hover, .prj-socials .social:hover, .project:hover {
     transform: scale(1.05);
 }
 
 /* Experience */
-
-.ach:hover {
-    transform: scale(1.05);
-}
-
-.tag:hover {
-    transform: scale(1.05);
-}
 
 .tag-close:hover {
     transform: rotate(180deg) scale(1.1);
 }
 
 /* Animations End */
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Responsiveness */
 
