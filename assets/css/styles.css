@@ -1132,7 +1132,18 @@ the website, in dark theme
 
 /* Animations */
 
-.ft, .ft * {
+.ft {
+width: 100%;
+  display: flex;
+  padding: 2rem;
+  flex-direction: column;
+  justify-content: center; /* This might be part of the issue for vertical alignment if not overridden by children */
+  align-items: center; /* This might be part of the issue for horizontal alignment if not overridden by children */
+  gap: 1rem;
+  align-self: stretch;
+  background: var(--first-color);
+  -webkit-backdrop-filter: blur(1rem);
+  backdrop-filter: blur(1rem);
   transition: all 0.2s ease-in-out;
 }
 
