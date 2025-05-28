@@ -365,6 +365,11 @@ img {
     padding: calc(var(--header-height) + 1rem) 0 0 0;
 }
 
+.nav, .ft, .main {
+    padding-left: 18vw;
+    padding-right: 18vw;
+}
+
 /* About */
 
 .about {
@@ -382,9 +387,13 @@ img {
     z-index: -9;
     width: 100%;
     height: 100%;
-    background: linear-gradient(0deg, var(--secondary) 0%, var(--secondary) 40%, rgba(255, 255, 255, 0.00) 100%);
+    background: linear-gradient(0deg, var(--secondary) 0%, var(--secondary) 25%, rgba(255, 255, 255, 0.00) 100%);
     top: var(--header-height);
     left: 0;
+}
+
+body.dark .gradient {
+    background: linear-gradient(0deg, var(--secondary) 0%, var(--secondary) 40%, rgba(255, 255, 255, 0.00) 100%);
 }
 
 .banner {
@@ -410,7 +419,7 @@ img {
 .name {
     align-self: stretch;
     color: var(--secondary-text);
-    font-size: 4rem;
+    font-size: 3.5rem;
     /* font-style: normal; */
     font-weight: 700;
     line-height: normal;
@@ -420,7 +429,7 @@ img {
     align-self: stretch;
     color: var(--secondary-text);
     font-family: var(--body);
-    font-size: 2rem;
+    font-size: 1.5rem;
     /* font-style: normal; */
     font-weight: 300;
     line-height: normal;
@@ -505,10 +514,10 @@ img {
 .bio {
     display: flex;
     width: 100%;
-    flex-direction: row;
-    align-items: flex-end;
-    justify-content: flex-end;
-    gap: 4rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
 }
 
 h2 {
@@ -530,6 +539,12 @@ h2 {
     line-height: normal;
     word-break: break-word;
     word-wrap: break-word;
+    text-align: justify;
+}
+
+.bio .body {
+    font-size: 1.1rem;
+    line-height: 150%;
 }
 
 /* Experience */
@@ -598,7 +613,7 @@ h3 {
     font-size: 1.25rem;
     border-radius: 1rem;
     padding: 0.5rem 1rem 0 1rem;
-    border: 0.05rem solid var(--tertiary);
+    /* border: 0.05rem solid var(--tertiary); */
 }
 
 .resp li {
@@ -992,7 +1007,7 @@ h3 {
 
 /* Experience */
 
-.tag-close:hover {
+.job:hover .tag-close {
     transform: rotate(180deg) scale(1.1);
 }
 
@@ -1075,6 +1090,14 @@ h3 {
         font-size: 12px;
     }
 
+    .main, .nav {
+        padding: 0 3rem;
+    }
+
+    .ft {
+        padding: 2rem;
+    }
+
     /* Footer Start */
 
     .bars {
@@ -1150,6 +1173,10 @@ h3 {
 
     #skills {
         padding-top: 4rem;
+    }
+
+    #skills .gr-b {
+        justify-content: center;
     }
 }
 
