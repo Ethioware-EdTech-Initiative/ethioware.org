@@ -6,7 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Ethioware EdTech Initiative</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/styles.css" />
     <!-- Lazy-load TrustBox script -->
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
@@ -131,7 +130,7 @@
     <header class="header glass" id="header">
         <nav class="nav container">
             <a href="/home" class="nav__logo">
-                <img src="assets/img/logo-mini.png" alt=""> Ethioware
+                <img src="assets/img/logo-mini.png"> Ethioware
             </a>
             <div class="nav__menu" id="nav-menu">
                 <ul class="nav__list">
@@ -171,7 +170,7 @@
         <section id="home" class="home">
             <div class="home__container container grid">
                 <a target="_blank" class="home__img glass" style="border-radius: 90px">
-                    <img src="assets/img/plan.webp" alt="">
+                    <img src="assets/img/plan.webp">
                 </a>
                 <div class="home__data">
                     <h1 class="home__title">
@@ -286,8 +285,6 @@
                 </h2>
                 <div class="partner-container">
                     <div class="partner-wrapper" id="partner-wrapper">
-                        <!-- Partner logos here (omitted for brevity, keep as in your code) -->
-                        <!-- ... -->
                     </div>
                 </div>
             </div>
@@ -407,86 +404,13 @@
         </section>
     </main>
     <!--==================== FOOTER ====================-->
-    <!-- <footer class="footer__container steps__bg">
-        <div class="footer-left container grid">
-            <div class="footer-left">
-                <a href="/home" class="footer__logo">
-                    <img src="assets/img/logo-mini.png"> Ethioware
-                </a>
-                <div class="footer__content">
-                    <div class="footer__social">
-                        <a href="https://youtube.com/@ethioware" target="_blank" class="footer__social-link">
-                            <i class="ri-youtube-fill"></i>
-                        </a>
-                        <a href="https://instagram.com/ethioware_" target="_blank" class="footer__social-link">
-                            <i class="ri-instagram-line"></i>
-                        </a>
-                        <a href="https://twitter.com/ethioware" target="_blank" class="footer__social-link">
-                            <i class="ri-twitter-fill"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/company/ethioware" target="_blank" class="footer__social-link">
-                            <i class="ri-linkedin-fill"></i>
-                        </a>
-                        <a href="https://t.me/ethioware" target="_blank" class="footer__social-link">
-                            <i class="ri-telegram-fill"></i>
-                        </a>
-                        <a href="https://facebook.com/ethiowareEI" target="_blank" class="footer__social-link">
-                            <i class="ri-facebook-fill"></i>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="footer-right">
-            <ul class="footer-nav">
-                <li><a href="/home">Home</a></li>
-                <li>
-                    <a href="/about">About Us</a>
-                    <ul>
-                        <li><a href="/mission">Vision</a></li>
-                        <li><a href="/approach">Approach</a></li>
-                        <li><a href="https://forms.office.com/r/3SepzQNHz2">Membership</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="https://wa.me/message/W4GUO2DOV4HWI1">Work With Us</a>
-                    <ul>
-                        <li><a href="https://www.skilledup.life/">Partners</a></li>
-                        <li><a href="https://forms.office.com/r/8MtrXwTY8R">Interns</a></li>
-                        <li><a href="https://forms.office.com/r/BwCszzkuXK">Trainees</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="/articles">Publication</a>
-                    <ul>
-                        <li><a href="/articles">Academic Papers</a></li>
-                        <li><a href="/articles">Interviews</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="/contact">Contact Us</a>
-                    <ul>
-                        <li><a href="mailto:info@ethioware.org">Send Us A Message</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-        TrustBox widget - Review Collector
-        <div class="trustpilot-widget" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6666fe238ece8b6766f5dfc3" data-style-height="52px" data-style-width="100%">
-            <a href="https://www.trustpilot.com/review/ethioware.org" target="_blank"></a>
-        </div>
-        End TrustBox widget
-        <p class="footer__copy">&#169; 2025 Ethioware EdTech Initiative. All Rights Reserved</p>
-    </footer> -->
-
-    <!-- New Footer -->
 
     <footer class="ft">
         <div class="bars">
             <div class="left-bar">
                 <div class="left-logo">
-                    <a href="/home"><img src="assets/img/white.png" alt="Ethioware-Logo"></a>
-                    <a href="/home"><p>ETHIOWARE</p></a>
+                    <a href="/index"><img src="/assets/img/white.png" alt="Ethioware-Logo"></a>
+                    <a href="/index"><p>ETHIOWARE</p></a>
                 </div>
                 <div class="left-socials">
                     <div><a href="https://www.linkedin.com/company/ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=84888&format=png&color=ffffff" alt="LinkedIn"></a></div>
@@ -500,7 +424,7 @@
             <div class="right-bar">
                 <div class="right-bar-links">
                     <div class="col">
-                        <a href="/home" class="head">Home</a>
+                        <a href="/index" class="head">Home</a>
                     </div>
                     <div class="col">
                         <a href="/about" class="head">About Us</a>
@@ -517,10 +441,10 @@
                     <div class="col">
                         <a href="/articles" class="head">Publications</a>
                         <a href="/articles" class="sub">Academic Papers</a>
-                        <a href="/articles" class="sub">Interviews</a>
+                        <a href="https://www.youtube.com/@ethioware" class="sub">Interviews</a>
                     </div>
                     <div class="col">
-                        <a href="/contact" class="head">Contact Us</a>
+                        <a href="/index" class="head">Contact Us</a>
                         <a href="mailto:info@ethioware.org" class="sub">Send Us A Message</a>
                     </div>
                 </div>
@@ -566,6 +490,7 @@
     <!--=============== SCROLL REVEAL ===============-->
     <script src="assets/js/scrollreveal.min.js"></script>
     <script src="assets/js/script.js"></script>
+     <script src="assets/js/bio.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 </html>
