@@ -6,7 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Ethioware EdTech Initiative</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <!-- Lazy-load TrustBox script -->
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
             const script = document.createElement("script");
@@ -15,8 +14,6 @@
             document.head.appendChild(script);
         });
     </script>
-
-    <!-- Async Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYB205PY5C"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -29,10 +26,8 @@
     <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/styles.css">
-    <!-- Google Sign-In -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
-    <!-- Remove # from URLs -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Check if the URL starts with a #
@@ -42,14 +37,19 @@
             }
 
             // Handle navigation without reloading
-            document.querySelectorAll('a[href^="/"]').forEach(anchor => {
+            document.querySelectorAll('a').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href').substring(1);
-                    const targetElement = document.getElementById(targetId);
-                    if (targetElement) {
-                        window.history.pushState(null, null, `/${targetId}`);
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    if (this.getAttribute('href').startsWith('/')) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href').substring(1);
+                        const targetElement = document.getElementById(targetId);
+                        if (targetElement) {
+                            window.history.pushState(null, null, `/${targetId}`);
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        } else if (targetId === '') {
+                            window.history.pushState(null, null, `/`);
+                            document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+                        }
                     }
                 });
             });
@@ -78,8 +78,8 @@
 
             // We validate if the user previously chose a topic
             if (selectedTheme) {
-                document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme);
-                themeButton.classList[selectedIcon === 'ri-moon-line' ? 'add' : 'remove'](iconTheme);
+                document.body.classList.toggle(darkTheme);
+                themeButton.classList.toggle(iconTheme);
             }
 
             // Activate / deactivate the theme manually with the button
@@ -93,7 +93,6 @@
         });
     </script>
 
-    <!-- Load EmailJS lazily -->
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function() {
             const emailScript = document.createElement("script");
@@ -112,10 +111,54 @@
             z-index: 1000;
             display: none;
         }
+
+        .stats__container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .stats__card {
+            background-color: var(--container-color);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: var(--box-shadow);
+        }
+
+        .stats__icon {
+            font-size: 2rem;
+            color: var(--first-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stats__number {
+            font-size: 1.5rem;
+            font-weight: var(--font-semi-bold);
+            color: var(--title-color);
+        }
+
+        .stats__title {
+            font-size: var(--small-font-size);
+            color: var(--text-color-light);
+        }
+
+        .animated-number {
+            display: inline-block;
+            overflow: hidden;
+            vertical-align: bottom;
+            height: 1.5rem; /* Adjust based on your font-size */
+        }
+
+        .animated-number span {
+            display: block;
+            line-height: 1.5rem; /* Should match the height */
+            transition: transform 0.5s ease-in-out;
+        }
     </style>
 </head>
 <body>
-    <!-- Google Sign-In button container -->
     <div id="google-signin-container">
         <div id="g_id_onload"
             data-client_id="615874094558-7vat1vkdihe0htgq9siljg7sgk4sjlnv.apps.googleusercontent.com"
@@ -126,7 +169,6 @@
         </div>
         <div class="g_id_signin" data-type="standard"></div>
     </div>
-    <!--==================== HEADER ====================-->
     <header class="header glass" id="header">
         <nav class="nav container">
             <a href="/home" class="nav__logo">
@@ -166,7 +208,6 @@
         </nav>
     </header>
     <main class="main">
-        <!--==================== HOME ====================-->
         <section id="home" class="home">
             <div class="home__container container grid">
                 <a target="_blank" class="home__img glass" style="border-radius: 90px">
@@ -199,7 +240,30 @@
                 </div>
             </div>
         </section>
-        <!--==================== ABOUT ====================-->
+         <section class="stats section container">
+            <div class="stats__container grid">
+                <div class="stats__card glass">
+                    <i class="fa fa-graduation-cap stats__icon"></i>
+                    <div class="stats__number"><span data-target="125">0</span>+</div>
+                    <h3 class="stats__title">Graduates</h3>
+                </div>
+                <div class="stats__card glass">
+                    <i class="fa fa-users stats__icon"></i>
+                    <div class="stats__number"><span data-target="26">0</span>+</div>
+                    <h3 class="stats__title">Mentors</h3>
+                </div>
+                <div class="stats__card glass">
+                    <i class="fa fa-handshake stats__icon"></i>
+                    <div class="stats__number"><span data-target="3">0</span></div>
+                    <h3 class="stats__title">Partnerships</h3>
+                </div>
+                <div class="stats__card glass">
+                    <i class="fa fa-globe stats__icon"></i>
+                    <div class="stats__number"><span data-target="8">0</span>+</div>
+                    <h3 class="stats__title">Nationals</h3>
+                </div>
+            </div>
+        </section>
         <section class="about section container" id="about">
             <h2 class="section__title about__title">
                 What do we do?<br>
@@ -211,8 +275,11 @@
                     parents@ethioware.org
                 </button>
             </p>
+            
         </section>
-        <!--==================== Approach ====================-->
+       
+        
+
         <section class="about section container" id="approach">
             <div class="steps__bg glass">
                 <h2 class="section__title-center steps__title">
@@ -221,32 +288,31 @@
                 <div class="steps__container grid about__container">
                     <div>
                         <img src="assets/img/interest.png" width="128px" height="128px" alt="">
-                        <h4 class="ssection__text-center steps__title">Interest <span>&#8594;</span></h4>
+                        <h4 class="ssection__text-center steps__title">Interest <span>→</span></h4>
                     </div>
                     <div>
                         <img src="assets/img/mentor.png" width="128px" height="128px" alt="">
-                        <h4 class="ssection__text-center steps__title">Expert Sessions <span>&#8594;</span></h4>
+                        <h4 class="ssection__text-center steps__title">Expert Sessions <span>→</span></h4>
                     </div>
                     <div>
                         <img src="assets/img/practical.png" width="128px" height="128px" alt="">
-                        <h4 class="ssection__text-center steps__title"> Practical Assessments <span>&#8595;</span></h4>
+                        <h4 class="ssection__text-center steps__title"> Practical Assessments <span>↓</span></h4>
                     </div>
                     <div>
                         <img src="assets/img/skill.png" width="128px" height="128px" alt="">
-                        <h4 class="ssection__text-center steps__title"> Skill Acquisition <span>&#8593;</span></h4>
+                        <h4 class="ssection__text-center steps__title"> Skill Acquisition <span>↑</span></h4>
                     </div>
                     <div>
                         <img src="assets/img/resources.png" width="128px" height="128px" alt="">
-                        <h4 class="ssection__text-center steps__title"> <span>&#8592;</span> Directed Resources </h4>
+                        <h4 class="ssection__text-center steps__title"> <span>←</span> Directed Resources </h4>
                     </div>
                     <div>
                         <img src="assets/img/target.png" width="128px" height="128px" alt="">
-                        <h4 class="ssection__text-center steps__title"> <span>&#8592;</span> Attainable Target </h4>
+                        <h4 class="ssection__text-center steps__title"> <span>←</span> Attainable Target </h4>
                     </div>
                 </div>
             </div>
         </section>
-        <!--==================== MISSION ====================-->
         <section class="steps section container" id="mission">
             <div class="steps__bg">
                 <h2 class="section__title-center steps__title">
@@ -277,19 +343,117 @@
                 </div>
             </div>
         </section>
-        <!--==================== Volunteers ====================-->
-        <div class="main_container">
+       <div class="main_container">
             <div class="content">
                 <h2 class="section__title about__title">
                     Our Volunteers<br> Are From<br>
                 </h2>
                 <div class="partner-container">
                     <div class="partner-wrapper" id="partner-wrapper">
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/sosna-achamyeleh/" target="_blank"><img src="assets/img/Addis_Ababa_University_logo.png" alt="AAU" />
+                            </a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/elshadai-tegegn/" target="_blank"> <img src="assets/img/amazon.png" alt="Amazon" /> </a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/sosna-achamyeleh/" target="_blank"><img src="assets/img/Esklate.png" alt="Esklate" /></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/mihret-bekele/" target="_blank"><img src="assets/img/a2sv.png" alt="A2sv" /></a>
+                        </div>
+                         <div class="partner">
+                            <a href="https://www.skilledup.life/" target="_blank"><img src="assets/img/skilledup.png" alt="SkilledUp Life" width="30%" height="10%"></a>
+                        </div>
+                         <div class="partner">
+                            <a href="https://www.linkedin.com/in/aschalew-chamiso/" target="_blank"><img src="assets/img/apple.png" alt="Apple"/></a>
+               </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/tamsul/" target="_blank"><img src="assets/img/disruptors.png" alt="The disruptors den"/></a>
+                        </div>
+                        <div class="partner">
+                    <a href="https://www.linkedin.com/in/liya-m-shibru-042a0b2b6/" target="_blank"> <img src="assets/img/dku.png" alt="Duke Kunshan" /></a>
+                  </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/mukerem/" target="_blank"> <img src="assets/img/Turing.png" alt="Turing" /></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/abel-mulugeta/" target="_blank"><img src="assets/img/yali.png" alt="Yali" /></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/abenezer-amanuel/" target="_blank"><img src="assets/img/duolingo.png" alt="Duolingo" /></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/hana-mekonen-951104209/" target="_blank"> <img src="assets/img/haramaya.png" alt="Haramaya" /></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/efridereje/" target="_blank"><img src="assets/img/Gebeya.png" alt="Gebeya" /></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/amanuel-dejene-38b671256/" target="_blank"><img src="assets/img/echo digitals.png" alt="Echo Digitals" /></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/abenezer-amanuel/" target="_blank"><img src="assets/img/columbia.png" alt="Columbia University"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/netsanet-meles-568424210/" target="_blank"><img src="assets/img/education.webp" alt="Let's Talk About Education"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/mulu-tsega943/" target="_blank"><img src="assets/img/aevue.png" alt="Columbia University"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/henok-belachew/" target="_blank"><img src="assets/img/addissystems.png" alt="Addis Systems"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/hanna-girma-187974185/" target="_blank"><img src="assets/img/Chapa.png" alt="Chapa"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/dawitmammo/" target="_blank"><img src="assets/img/flawless.png" alt="Flawless Events"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/yvan-gatete/" target="_blank"><img src="assets/img/Google.png" alt="Google"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/amanuel-sisay-87b044201/" target="_blank"><img src="assets/img/Headstarter.png" alt="HeadStarter"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/tsion-molla-abreha-254494252/" target="_blank"><img src="assets/img/UVA.webp" alt="University of Virginia"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/daniel-mekuriaw/" target="_blank"><img src="assets/img/microsoft.png" alt="Microsoft"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/rediet-gizachew-b23629224/" target="_blank"><img src="assets/img/rac.png" alt="Rotract Club of Atrons"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/bethelehem-mulugeta-0506a21a3/" target="_blank"><img src="assets/img/scitechvalley.webp" alt="SciTech Valley"/></a>
+                        </div>
+                         <div class="partner">
+                            <a href="https://www.linkedin.com/in/mihiret-girma-696a3813a/" target="_blank"><img src="assets/img/mmc.png" alt="Myungsung Medical College"/></a>
+                        </div>
+                         <div class="partner">
+                            <a href="https://www.linkedin.com/in/merat-semma-final/" target="_blank"><img src="assets/img/yale.png" alt="Yale University"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="mailto:meklityohannes96@gmail.com" target="_blank"><img src="assets/img/unity.webp" alt="Selam Medical College"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/lozamfant/" target="_blank"><img src="assets/img/black-lion.png" alt="Black Lion Hospital"/></a>
+                        </div>
+                        <div class="partner">
+                            <a href="https://www.linkedin.com/in/mister-twumasi/" target="_blank"><img src="assets/img/leti.jpeg" alt="Leti Art"/></a>
+                        </div>
+                         <div class="partner">
+                            <a href="https://www.linkedin.com/in/yosef-engdawork-a66a041a0/" target="_blank"><img src="assets/img/safaricom.png" alt="Safaricom"/></a>
+                        </div>
+                         <div class="partner">
+                            <a href="https://www.linkedin.com/in/nati-bekele/" target="_blank"><img src="assets/img/uc.png" alt="University of Chicago"/></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!--==================== Articles ====================-->
         <section class="questions section" id="articles">
             <h2 class="section__title-center">
                 Some of our <br> Publications
@@ -326,13 +490,12 @@
                     </div>
                 </div>
             </div>
-            <!--Exclusive interviews-->
             <h2 class="section__title-center">
                 Exclusive <br> Interviews
             </h2>
             <div class="steps__container grid">
                 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%; border-radius: 10px;overflow: hidden; margin: 5%;">
-                    <iframe src="https://www.youtube.com/embed/rJLAD19idr0?si=J5dp3_cWYCEJz_Pi&amp;start=40" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"></iframe>
+                    <iframe src="https://www.youtube.com/embed/rJLAD19idr0?si=J5dp3_cWYCEJz_Pi&start=40" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"></iframe>
                 </div>
                 <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;border-radius: 10px;overflow: hidden; margin: 5%;">
                     <iframe src="https://www.youtube.com/embed/tiJKLReOyZM?si=XEo2YC6thfeU9IcD" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"></iframe>
@@ -342,13 +505,11 @@
                 </div>
             </div>
         </section>
-        <!--==================== Trainings ====================-->
         <section class="product section container" id="train">
             <h2 class="section__title-center" id="Trainings">
                 Current Training Programs <br/> Unavailable
             </h2>
         </section>
-        <!--==================== CONTACT ====================-->
         <section class="contact section container" id="contact">
             <div class="contact__container grid">
                 <div class="contact__box">
@@ -403,8 +564,6 @@
             </div>
         </section>
     </main>
-    <!--==================== FOOTER ====================-->
-
     <footer class="ft">
         <div class="bars">
             <div class="left-bar">
@@ -448,17 +607,13 @@
                         <a href="mailto:info@ethioware.org" class="sub">Send Us A Message</a>
                     </div>
                 </div>
-                <!-- <div class="right-review"> -->
-                    <!-- TrustBox widget - Review Collector -->
-                    <div class="trustpilot-widget right-review" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6666fe238ece8b6766f5dfc3" data-style-height="4rem" data-style-width="100%">
+                <div class="trustpilot-widget right-review" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6666fe238ece8b6766f5dfc3" data-style-height="4rem" data-style-width="100%">
                         <a href="https://www.trustpilot.com/review/ethioware.org" target="_blank"></a>
                     </div>
-                    <!-- End TrustBox widget -->
-                <!-- </div> -->
-            </div>
+                    </div>
         </div>
         <div class="copy">
-            <p class="copy copy-txt">&#169; 2025 Ethioware EdTech Initiative. All Rights Reserved</p>
+            <p class="copy copy-txt">© 2025 Ethioware EdTech Initiative. All Rights Reserved</p>
         </div>
     </footer>
 
@@ -485,9 +640,41 @@
             } else {
                 console.warn("Partner wrapper is missing or has no content. Animation not applied.");
             }
+
+            const statsNumbers = document.querySelectorAll('.stats__number span');
+
+            const animateNumber = (el) => {
+                const target = parseInt(el.dataset.target);
+                const duration = 1500; // Animation duration in milliseconds
+                const frames = target;
+                const increment = target / duration;
+                let current = 0;
+
+                const timer = setInterval(() => {
+                    current += increment;
+                    el.textContent = Math.ceil(current);
+                    if (current >= target) {
+                        el.textContent = target;
+                        clearInterval(timer);
+                    }
+                }, 1);
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        statsNumbers.forEach(animateNumber);
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const statsSection = document.querySelector('.stats');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
         });
     </script>
-    <!--=============== SCROLL REVEAL ===============-->
     <script src="assets/js/scrollreveal.min.js"></script>
     <script src="assets/js/script.js"></script>
      <script src="assets/js/bio.js"></script>
