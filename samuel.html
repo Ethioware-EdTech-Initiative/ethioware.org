@@ -1,0 +1,689 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samuel W. Getaneh - Brand Lead | Ethioware</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="../assets/css/styles.css"> -->
+     <link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="../assets/css/bio.css">
+
+    <!-- External Scripts -->
+    <!-- Lazy-load TrustBox script -->
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function() {
+            const script = document.createElement("script");
+            script.src = "//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js";
+            script.async = true;
+            document.head.appendChild(script);
+        });
+    </script>
+    <!-- Async Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYB205PY5C"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-RYB205PY5C');
+    </script>
+    <!-- Dark Mode -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Check if the URL starts with a #
+            if (window.location.hash) {
+                const newUrl = window.location.href.replace('#', '');
+                window.history.replaceState(null, null, newUrl); // Remove # from the URL without reloading
+            }
+
+            // Handle navigation without reloading
+            document.querySelectorAll('a[href^="/"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    if (targetElement) {
+                        window.history.pushState(null, null, `/${targetId}`);
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // Scroll to the section if URL contains a path
+            const path = window.location.pathname.substring(1);
+            if (path) {
+                const targetElement = document.getElementById(path);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
+            }
+
+            // Theme change button
+            const themeButton = document.getElementById('theme-button');
+            const darkTheme = 'dark';
+            const iconTheme = 'ri-sun-line';
+
+            // Previously selected topic (if user selected)
+            const selectedTheme = localStorage.getItem('selected-theme');
+            const selectedIcon = localStorage.getItem('selected-icon');
+
+            // We obtain the current theme that the interface has by validating the dark-theme class
+            const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light';
+            const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'ri-moon-line' : 'ri-sun-line';
+
+            // We validate if the user previously chose a topic
+            if (selectedTheme) {
+                document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme);
+                themeButton.classList[selectedIcon === 'ri-moon-line' ? 'add' : 'remove'](iconTheme);
+            }
+
+            // Activate / deactivate the theme manually with the button
+            themeButton.addEventListener('click', () => {
+                document.body.classList.toggle(darkTheme);
+                themeButton.classList.toggle(iconTheme);
+                // We save the theme and the current icon that the user chose
+                localStorage.setItem('selected-theme', getCurrentTheme());
+                localStorage.setItem('selected-icon', getCurrentIcon());
+            });
+        });
+    </script>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <header class="header glass" id="header">
+        <nav class="nav">
+            <a href="../index.html" class="nav__logo">
+                <img src="../assets/img/logo-mini.png" alt=""> Ethioware
+            </a>
+            <div class="grower"></div>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="../index.html" class="nav__link">Home</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/about" class="nav__link">About</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/experience" class="nav__link">Experience</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/portfolio" class="nav__link">Portfolio</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/contact" class="nav__link">Contact</a>
+                    </li>
+                </ul>
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-line"></i>
+                </div>
+            </div>
+            <div class="nav__btns">
+                <i class="ri-moon-line change-theme" id="theme-button"></i>
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN -->
+    <main class="main">
+        <section class="about" id="about">
+            <img src="../assets/img/banners/lofiavatar.png" alt="banner" class="banner">
+            <div class="gradient"></div>
+
+            <div class="left-bar">
+                <h1 class="name">Samuel W. Getaneh</h1>
+                <h3 class="title">Brand Lead | Front End Engineer | Ethioware</h3>
+                <div class="buttons">
+                    <a href="../assets/resumes/sami.pdf" download class="main-button"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" fill="none" class="main-arrow">
+  <path d="M5.18333 21.5167L0.5 16.8334L11.1167 6.20006H2.86667V0.483398H21.5333V19.1501H15.8333V10.9001L5.18333 21.5167Z" fill="white"/>
+</svg> Resume</a>
+                    <a href="mailto:samuelworash@ethioware.org" class="main-button"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" fill="none" class="main-arrow">
+  <path d="M5.18333 21.5167L0.5 16.8334L11.1167 6.20006H2.86667V0.483398H21.5333V19.1501H15.8333V10.9001L5.18333 21.5167Z" fill="white"/>
+</svg> Contact</a>
+                </div>
+            </div>
+            <div class="right-bar">
+                <div class="portrait"><img src="../assets/img/portraits/moai.png" alt="portrait"></div>
+                <div class="socials">
+                    <div class="bar"></div>
+                    <a href="https://www.linkedin.com/in/samuel-worash-getaneh" target="_blank"><img src="https://img.icons8.com/?size=100&id=84888&format=png&color=104793" alt="lnkdin" class="social"></a>
+                    <a href="https://www.github.com/kmab5" target="_blank"><img src="https://img.icons8.com/?size=100&id=106562&format=png&color=104793" alt="github" class="social"></a>
+                    <a href="https://t.me/k_m_a_b" target="_blank"><img src="https://img.icons8.com/?size=100&id=85428&format=png&color=104793" alt="tg" class="social"></a>
+                    <a href="https://www.instagram.com/@k_m_a_b_" target="_blank"><img src="https://img.icons8.com/?size=100&id=84884&format=png&color=104793" alt="insta" class="social"></a>
+                    <a href="https://www.x.com/kmab5" target="_blank"><img src="https://img.icons8.com/?size=100&id=102907&format=png&color=104793" alt="twitter" class="social"></a>
+                    <div class="bar"></div>
+                </div>
+            </div>
+        </section>
+        <section class="bio" id="bio">
+            <p class="body">
+                Lorem ipsum dolor sit amet <span class="glass">consectetur adipisicing elit.</span> Eligendi a soluta veniam fugit similique eveniet laboriosam eum voluptatum reprehenderit deleniti officiis ut labore facere inventore obcaecati excepturi, ipsa quibusdam aperiam!
+
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatum harum excepturi voluptas illum, sequi necessitatibus pariatur fugiat dolor accusamus officiis, dolorem maiores placeat ducimus libero voluptatem quasi veritatis dolore ad.
+            </p>
+        </section>
+        <section class="experience" id="experience">
+            <h2>Experience</h2>
+            <h3>Brand Lead of Ethioware | Aug 2024 - Present</h3>
+            <div class="achievements">
+                <div class="ach">
+                    <p class="num">200%</p>
+                    <p class="desc">Increase in all Social Media Reach</p>
+                </div>
+                <div class="ach">
+                    <p class="num">200%</p>
+                    <p class="desc">Increase in all Social Media Reach</p>
+                </div>
+                <div class="ach">
+                    <p class="num">200%</p>
+                    <p class="desc">Increase in all Social Media Reach</p>
+                </div>
+            </div>
+            <div class="responsibilities">
+                <p class="body responsible-head">Responsibilities at Ethioware as Brand Lead:</p>
+                <ul class="resp">
+                    <li>Lorem ipsum dolor sit amet consectetur adipisicing elit.</li>
+                    <li>Eligendi a soluta veniam fugit similique eveniet laboriosam eum.</li>
+                    <li>Voluptatum reprehenderit deleniti officiis ut labore facere inventore obcaecati excepturi.</li>
+                    <li>Ipsa quibusdam aperiam!</li>
+                    <li>Eligendi a soluta veniam fugit similique eveniet laboriosam eum.</li>
+                    <li>Voluptatum reprehenderit deleniti officiis ut labore facere inventore obcaecati excepturi.</li>
+                </ul>
+            </div>
+
+            <div class="jobs">
+                <div class="job">
+                    <div class="tags">
+                        <div class="tag job-title">Job Title</div>
+                        <div class="tag job-location">Job Location</div>
+                        <div class="tag job-duration">Job Duration</div>
+                        <div class="grower"></div>
+                        <div class="tag-close">
+                            <i class="ri-close-line"></i>
+                        </div>
+                    </div>
+                    <p class="body job-desc hidden">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi a soluta veniam fugit similique eveniet laboriosam eum voluptatum reprehenderit deleniti officiis ut labore facere inventore obcaecati excepturi, ipsa quibusdam aperiam!
+                    </p>
+                </div>
+                <div class="job">
+                    <div class="tags">
+                        <div class="tag job-title">Job Title</div>
+                        <div class="tag job-location">Job Location</div>
+                        <div class="tag job-duration">Job Duration</div>
+                        <div class="grower"></div>
+                        <div class="tag-close">
+                            <i class="ri-close-line"></i>
+                        </div>
+                    </div>
+                    <p class="body job-desc hidden">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi a soluta veniam fugit similique eveniet laboriosam eum voluptatum reprehenderit deleniti officiis ut labore facere inventore obcaecati excepturi, ipsa quibusdam aperiam!
+                    </p>
+                </div>
+                <div class="job">
+                    <div class="tags">
+                        <div class="tag job-title">Job Title</div>
+                        <div class="tag job-location">Job Location</div>
+                        <div class="tag job-duration">Job Duration</div>
+                        <div class="grower"></div>
+                        <div class="tag-close">
+                            <i class="ri-close-line"></i>
+                        </div>
+                    </div>
+                    <p class="body job-desc hidden">
+                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi a soluta veniam fugit similique eveniet laboriosam eum voluptatum reprehenderit deleniti officiis ut labore facere inventore obcaecati excepturi, ipsa quibusdam aperiam!
+                    </p>
+                </div>
+            </div>
+        </section>
+        <section class="bio skills" id="skills">
+            <div class="gr-s">
+                <h2>Skills</h2>
+            </div>
+            <div class="gr-b">
+                <!-- From Uiverse.io by adeladel522 --> 
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+                <button class="skill">
+                <svg viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg" class="skill-icon">
+                <path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M7.00005 2.04999H5.52505C4.71043 2.04999 4.05005 2.71037 4.05005 3.52499C4.05005 4.33961 4.71043 4.99999 5.52505 4.99999H7.00005V2.04999ZM7.00005 1.04999H8.00005H9.47505C10.842 1.04999 11.95 2.15808 11.95 3.52499C11.95 4.33163 11.5642 5.04815 10.9669 5.49999C11.5642 5.95184 11.95 6.66836 11.95 7.475C11.95 8.8419 10.842 9.95 9.47505 9.95C8.92236 9.95 8.41198 9.76884 8.00005 9.46266V9.95L8.00005 11.425C8.00005 12.7919 6.89195 13.9 5.52505 13.9C4.15814 13.9 3.05005 12.7919 3.05005 11.425C3.05005 10.6183 3.43593 9.90184 4.03317 9.44999C3.43593 8.99814 3.05005 8.28163 3.05005 7.475C3.05005 6.66836 3.43594 5.95184 4.03319 5.5C3.43594 5.04815 3.05005 4.33163 3.05005 3.52499C3.05005 2.15808 4.15814 1.04999 5.52505 1.04999H7.00005ZM8.00005 2.04999V4.99999H9.47505C10.2897 4.99999 10.95 4.33961 10.95 3.52499C10.95 2.71037 10.2897 2.04999 9.47505 2.04999H8.00005ZM5.52505 8.94998H7.00005L7.00005 7.4788L7.00005 7.475L7.00005 7.4712V6H5.52505C4.71043 6 4.05005 6.66038 4.05005 7.475C4.05005 8.28767 4.70727 8.94684 5.5192 8.94999L5.52505 8.94998ZM4.05005 11.425C4.05005 10.6123 4.70727 9.95315 5.5192 9.94999L5.52505 9.95H7.00005L7.00005 11.425C7.00005 12.2396 6.33967 12.9 5.52505 12.9C4.71043 12.9 4.05005 12.2396 4.05005 11.425ZM8.00005 7.47206C8.00164 6.65879 8.66141 6 9.47505 6C10.2897 6 10.95 6.66038 10.95 7.475C10.95 8.28962 10.2897 8.95 9.47505 8.95C8.66141 8.95 8.00164 8.29121 8.00005 7.47794V7.47206Z"
+                    fill="#ffffff"
+                />
+                </svg>
+                Figma
+                </button>
+            </div>
+        </section>
+        <section class="portfolio" id="portfolio">
+            <h2>Portfolio</h2>
+            <div class="projects">
+                <div class="project">
+                    <div class="prj-img"><img src="/assets/img/projects/lambdadark.png" alt="Lambda Dark"></div>
+                    <div class="prj-desc">Ethioware Website</div>
+                    <div class="prj-socials">
+                        <a href="https://kmab5.github.io/" target="_blank"><img src="https://img.icons8.com/?size=100&id=1349&format=png&color=ffffff" alt="website" class="social"></a>
+                        <a href="https://www.linkedin.com/in/samuel-worash-getaneh" target="_blank"><img src="https://img.icons8.com/?size=100&id=84888&format=png&color=ffffff" alt="lnkdin" class="social"></a>
+                        <a href="https://www.x.com/kmab5" target="_blank"><img src="https://img.icons8.com/?size=100&id=102907&format=png&color=ffffff" alt="twitter" class="social"></a>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="prj-img"><img src="/assets/img/projects/lambdadark.png" alt="Lambda Dark"></div>
+                    <div class="prj-desc">Ethioware Website</div>
+                    <div class="prj-socials">
+                        <a href="https://kmab5.github.io/" target="_blank"><img src="https://img.icons8.com/?size=100&id=1349&format=png&color=ffffff" alt="website" class="social"></a>
+                        <a href="https://www.linkedin.com/in/samuel-worash-getaneh" target="_blank"><img src="https://img.icons8.com/?size=100&id=84888&format=png&color=ffffff" alt="lnkdin" class="social"></a>
+                        <a href="https://www.x.com/kmab5" target="_blank"><img src="https://img.icons8.com/?size=100&id=102907&format=png&color=ffffff" alt="twitter" class="social"></a>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="prj-img"><img src="/assets/img/projects/lambdadark.png" alt="Lambda Dark"></div>
+                    <div class="prj-desc">Ethioware Website</div>
+                    <div class="prj-socials">
+                        <a href="https://kmab5.github.io/" target="_blank"><img src="https://img.icons8.com/?size=100&id=1349&format=png&color=ffffff" alt="website" class="social"></a>
+                        <a href="https://www.linkedin.com/in/samuel-worash-getaneh" target="_blank"><img src="https://img.icons8.com/?size=100&id=84888&format=png&color=ffffff" alt="lnkdin" class="social"></a>
+                        <a href="https://www.x.com/kmab5" target="_blank"><img src="https://img.icons8.com/?size=100&id=102907&format=png&color=ffffff" alt="twitter" class="social"></a>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="prj-img"><img src="/assets/img/projects/lambdadark.png" alt="Lambda Dark"></div>
+                    <div class="prj-desc">Ethioware Website</div>
+                    <div class="prj-socials">
+                        <a href="https://kmab5.github.io/" target="_blank"><img src="https://img.icons8.com/?size=100&id=1349&format=png&color=ffffff" alt="website" class="social"></a>
+                        <a href="https://www.linkedin.com/in/samuel-worash-getaneh" target="_blank"><img src="https://img.icons8.com/?size=100&id=84888&format=png&color=ffffff" alt="lnkdin" class="social"></a>
+                        <a href="https://www.x.com/kmab5" target="_blank"><img src="https://img.icons8.com/?size=100&id=102907&format=png&color=ffffff" alt="twitter" class="social"></a>
+                    </div>
+                </div>
+                <div class="project">
+                    <div class="prj-img"><img src="/assets/img/projects/lambdadark.png" alt="Lambda Dark"></div>
+                    <div class="prj-desc">Ethioware Website</div>
+                    <div class="prj-socials">
+                        <a href="https://kmab5.github.io/" target="_blank"><img src="https://img.icons8.com/?size=100&id=1349&format=png&color=ffffff" alt="website" class="social"></a>
+                        <a href="https://www.linkedin.com/in/samuel-worash-getaneh" target="_blank"><img src="https://img.icons8.com/?size=100&id=84888&format=png&color=ffffff" alt="lnkdin" class="social"></a>
+                        <a href="https://www.x.com/kmab5" target="_blank"><img src="https://img.icons8.com/?size=100&id=102907&format=png&color=ffffff" alt="twitter" class="social"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="buttons">
+                <a href="https://kmab5.github.io/" target="_blank" class="main-button"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" fill="none" class="main-arrow">
+<path d="M5.18333 21.5167L0.5 16.8334L11.1167 6.20006H2.86667V0.483398H21.5333V19.1501H15.8333V10.9001L5.18333 21.5167Z" fill="white"/>
+</svg> Website</a>
+                <a href="/assets/resumes/sami.pdf" class="main-button" download><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" fill="none" class="main-arrow">
+<path d="M5.18333 21.5167L0.5 16.8334L11.1167 6.20006H2.86667V0.483398H21.5333V19.1501H15.8333V10.9001L5.18333 21.5167Z" fill="white"/>
+</svg> Resume</a>
+            </div>
+        </section>
+        <section class="reviews" id="reviews">
+            <h2>Reviews</h2>
+            <div class="review-list">
+                <div class="review">
+                    <div class="review-expand">
+                        <a href="https://trustpilot.com/" target="_blank"><i class="ri-lightbulb-line"></i></a>
+                    </div>
+                    <p>Samuel Worash Getaneh</p>
+                    <div class="stars">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="review-expand">
+                        <a href="https://trustpilot.com/" target="_blank"><i class="ri-lightbulb-line"></i></a>
+                    </div>
+                    <p>Samuel Worash Getaneh</p>
+                    <div class="stars">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="review-expand">
+                        <a href="https://trustpilot.com/" target="_blank"><i class="ri-lightbulb-line"></i></a>
+                    </div>
+                    <p>Samuel Worash Getaneh</p>
+                    <div class="stars">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="review-expand">
+                        <a href="https://trustpilot.com/" target="_blank"><i class="ri-lightbulb-line"></i></a>
+                    </div>
+                    <p>Samuel Worash Getaneh</p>
+                    <div class="stars">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="review-expand">
+                        <a href="https://trustpilot.com/" target="_blank"><i class="ri-lightbulb-line"></i></a>
+                    </div>
+                    <p>Samuel Worash Getaneh</p>
+                    <div class="stars">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="review-expand">
+                        <a href="https://trustpilot.com/" target="_blank"><i class="ri-lightbulb-line"></i></a>
+                    </div>
+                    <p>Samuel Worash Getaneh</p>
+                    <div class="stars">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="review-expand">
+                        <a href="https://trustpilot.com/" target="_blank"><i class="ri-lightbulb-line"></i></a>
+                    </div>
+                    <p>Samuel Worash Getaneh</p>
+                    <div class="stars">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                </div>
+                <div class="review">
+                    <div class="review-expand">
+                        <a href="https://trustpilot.com/" target="_blank"><i class="ri-lightbulb-line"></i></a>
+                    </div>
+                    <p>Samuel Worash Getaneh</p>
+                    <div class="stars">
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-fill"></i>
+                        <i class="ri-star-half-fill"></i>
+                        <i class="ri-star-line"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="bio contact" id="contact">
+            <div class="gr-s">
+                <h2>Contact</h2>
+            </div>
+            <div class="gr-b">
+                <div class="email">
+                    <img src="https://img.icons8.com/?size=100&id=86840&format=png&color=104793" alt="email" class="social">
+                    <p>samuelworash@ethioware.org</p>
+                    <a href="mailto:samuelworash@ethioware.org" target="_blank"><button class="main-button"><svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" fill="none" class="main-arrow"><path d="M5.18333 21.5167L0.5 16.8334L11.1167 6.20006H2.86667V0.483398H21.5333V19.1501H15.8333V10.9001L5.18333 21.5167Z" fill="white"/></svg> Email</button></a>
+                </div>
+                <div class="social-grid">
+                    <a href="https://kmab5.github.io" target="_blank" class="social-grid-item">
+                        <img src="https://img.icons8.com/?size=100&id=1349&format=png&color=104793" alt="website" class="social">
+                        <p class="body">kmab5.github.io</p>
+                    </a>
+                    <a href="https://kmab5.github.io" target="_blank" class="social-grid-item">
+                        <img src="https://img.icons8.com/?size=100&id=1349&format=png&color=104793" alt="website" class="social">
+                        <p class="body">kmab5.github.io</p>
+                    </a>
+                    <a href="https://kmab5.github.io" target="_blank" class="social-grid-item">
+                        <img src="https://img.icons8.com/?size=100&id=1349&format=png&color=104793" alt="website" class="social">
+                        <p class="body">kmab5.github.io</p>
+                    </a>
+                    <a href="https://kmab5.github.io" target="_blank" class="social-grid-item">
+                        <img src="https://img.icons8.com/?size=100&id=1349&format=png&color=104793" alt="website" class="social">
+                        <p class="body">kmab5.github.io</p>
+                    </a>
+                    <a href="https://kmab5.github.io" target="_blank" class="social-grid-item">
+                        <img src="https://img.icons8.com/?size=100&id=1349&format=png&color=104793" alt="website" class="social">
+                        <p class="body">kmab5.github.io</p>
+                    </a>
+                    <a href="https://kmab5.github.io" target="_blank" class="social-grid-item">
+                        <img src="https://img.icons8.com/?size=100&id=1349&format=png&color=104793" alt="website" class="social">
+                        <p class="body">kmab5.github.io</p>
+                    </a>
+                    <a href="https://kmab5.github.io" target="_blank" class="social-grid-item">
+                        <img src="https://img.icons8.com/?size=100&id=1349&format=png&color=104793" alt="website" class="social">
+                        <p class="body">kmab5.github.io</p>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="ft">
+        <div class="bars">
+            <div class="left-bar">
+                <div class="left-logo">
+                    <a href="../index.html"><img src="../assets/img/white.png" alt="Ethioware-Logo"></a>
+                    <a href="../index.html"><p>ETHIOWARE</p></a>
+                </div>
+                <div class="left-socials">
+                    <div><a href="https://www.linkedin.com/company/ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=84888&format=png&color=ffffff" alt="LinkedIn"></a></div>
+                    <div><a href="https://facebook.com/ethiowareEI" target="_blank"><img src="https://img.icons8.com/?size=100&id=118490&format=png&color=ffffff" alt="Facebook"></a></div>
+                    <div><a href="https://instagram.com/ethioware_" target="_blank"><img src="https://img.icons8.com/?size=100&id=84884&format=png&color=ffffff" alt="Instagram"></a></div>
+                    <div><a href="https://twitter.com/ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=102907&format=png&color=ffffff" alt="Twitter"></a></div>
+                    <div><a href="https://youtube.com/@ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=37326&format=png&color=ffffff" alt="YouTube"></a></div>
+                    <div><a href="https://t.me/ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=85428&format=png&color=ffffff" alt="Telegram"></a></div>
+                </div>
+            </div>
+            <div class="right-bar">
+                <div class="right-bar-links">
+                    <div class="col">
+                        <a href="../index.html" class="head">Home</a>
+                    </div>
+                    <div class="col">
+                        <a href="../index.html" class="head">About Us</a>
+                        <a href="../index.html" class="sub">Mission</a>
+                        <a href="../index.html" class="sub">Approach</a>
+                        <a href="https://forms.office.com/r/3SepzQNHz2" class="sub">Membership</a>
+                    </div>
+                    <div class="col">
+                        <a href="https://wa.me/message/W4GUO2DOV4HWI1" class="head">Work With Us</a>
+                        <a href="https://www.skilledup.life/" class="sub">Partners</a>
+                        <a href="https://forms.office.com/r/8MtrXwTY8R" class="sub">Interns</a>
+                        <a href="https://forms.office.com/r/BwCszzkuXK" class="sub">Trainees</a>
+                    </div>
+                    <div class="col">
+                        <a href="../index.html" class="head">Publications</a>
+                        <a href="../index.html" class="sub">Academic Papers</a>
+                        <a href="../index.html" class="sub">Interviews</a>
+                    </div>
+                    <div class="col">
+                        <a href="../index.html" class="head">Contact Us</a>
+                        <a href="mailto:info@ethioware.org" class="sub">Send Us A Message</a>
+                    </div>
+                </div>
+                <!-- <div class="right-review"> -->
+                    <!-- TrustBox widget - Review Collector -->
+                    <div class="trustpilot-widget right-review" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6666fe238ece8b6766f5dfc3" data-style-height="4rem" data-style-width="100%">
+                        <a href="https://www.trustpilot.com/review/ethioware.org" target="_blank"></a>
+                    </div>
+                    <!-- End TrustBox widget -->
+                <!-- </div> -->
+            </div>
+        </div>
+        <div class="copy">
+            <p class="copy copy-txt">&#169; 2025 Ethioware EdTech Initiative. All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script src="../assets/js/scrollreveal.min.js"></script>
+    <script src="../assets/js/bio.js"></script>
+</body>
+</html>
+
