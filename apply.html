@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EthioWare Pre-Training Application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* gray-100 */
+        }
+        .form-container {
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+        #form-wrapper {
+            transition: max-width 0.5s ease-in-out;
+        }
+        .question-slide {
+            display: none;
+            animation: fadeIn 0.7s ease-in-out;
+        }
+        .question-slide.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        input[type="text"], input[type="email"], input[type="tel"], select {
+            border: none;
+            border-bottom: 2px solid #9ca3af; /* gray-400 */
+            background-color: transparent;
+            transition: border-color 0.3s;
+            outline: none;
+            width: 100%;
+            font-size: 1.5rem;
+            padding: 8px 0;
+        }
+        input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, select:focus {
+            border-bottom-color: #3b82f6; /* blue-500 */
+        }
+        .radio-option {
+            border: 2px solid #d1d5db; /* gray-300 */
+            transition: all 0.3s;
+        }
+        .radio-option:hover {
+            border-color: #6b7280; /* gray-500 */
+        }
+        .radio-option.selected {
+            border-color: #3b82f6; /* blue-500 */
+            background-color: #eff6ff; /* blue-50 */
+        }
+        .progress-bar-fill {
+            transition: width 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+
+    <div id="form-wrapper" class="w-full max-w-2xl p-4 md:p-8">
+        <!-- Progress Bar -->
+        <div class="w-full bg-gray-200 rounded-full h-2.5 mb-8">
+            <div id="progress-bar" class="bg-blue-600 h-2.5 rounded-full progress-bar-fill" style="width: 0%"></div>
+        </div>
+
+        <div id="form-container" class="form-container">
+            <!-- Welcome Slide -->
+            <div id="slide-0" class="question-slide active text-center">
+                <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Join the Next Cohort of Innovators</h1>
+                <p class="text-lg text-gray-600 mb-8">Let's get to know you a little better. It will only take a couple of minutes.</p>
+                <button onclick="nextQuestion()" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">Start Application</button>
+            </div>
+
+            <!-- Questions -->
+            <div id="slide-1" class="question-slide">
+                <label for="full_name" class="block text-2xl font-medium text-gray-700 mb-4">1. What's your full name?</label>
+                <input type="text" id="full_name" name="full_name" placeholder="e.g., Abebe Bikila" onkeydown="handleEnter(event)">
+            </div>
+
+            <div id="slide-2" class="question-slide">
+                <label for="email" class="block text-2xl font-medium text-gray-700 mb-4">2. And your email address?</label>
+                <input type="email" id="email" name="email" placeholder="e.g., abebe.b@example.com" onkeydown="handleEnter(event)">
+            </div>
+            
+            <div id="slide-3" class="question-slide">
+                <label for="highschool" class="block text-2xl font-medium text-gray-700 mb-4">3. What's the name of your high school?</label>
+                <input type="text" id="highschool" name="highschool" placeholder="e.g., St. Joseph School" onkeydown="handleEnter(event)">
+            </div>
+            
+            <div id="slide-4" class="question-slide">
+                <label for="citizenship" class="block text-2xl font-medium text-gray-700 mb-4">4. What is your citizenship?</label>
+                <input type="text" id="citizenship" name="citizenship" placeholder="e.g., Ethiopian" onkeydown="handleEnter(event)">
+            </div>
+
+            <div id="slide-5" class="question-slide">
+                <label class="block text-2xl font-medium text-gray-700 mb-6">5. Which pre-training are you interested in?</label>
+                <div class="space-y-4">
+                    <div onclick="selectRadio(this, 'Engineering Basics')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">Engineering Basics</span>
+                        <input type="radio" name="interest" value="Engineering Basics" class="hidden">
+                    </div>
+                    <div onclick="selectRadio(this, 'Medicine Basics')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">Medicine Basics</span>
+                        <input type="radio" name="interest" value="Medicine Basics" class="hidden">
+                    </div>
+                </div>
+            </div>
+
+            <div id="slide-6" class="question-slide">
+                <label for="commitment" class="block text-2xl font-medium text-gray-700 mb-4">6. How much time do you plan to commit per week?</label>
+                <input type="text" id="commitment" name="commitment" placeholder="e.g., 10-15 hours" onkeydown="handleEnter(event)">
+            </div>
+
+            <div id="slide-7" class="question-slide">
+                <label for="gpa" class="block text-2xl font-medium text-gray-700 mb-4">7. What is your Grade/GPA (out of 100 or 4.0)?</label>
+                <input type="text" id="gpa" name="gpa" placeholder="e.g., 95% or 3.8" onkeydown="handleEnter(event)">
+            </div>
+
+            <div id="slide-8" class="question-slide">
+                <label for="telegram" class="block text-2xl font-medium text-gray-700 mb-4">8. What's your Telegram username?</label>
+                <input type="text" id="telegram" name="telegram" placeholder="@your_username" onkeydown="handleEnter(event)">
+            </div>
+            
+            <div id="slide-9" class="question-slide">
+                <label class="block text-2xl font-medium text-gray-700 mb-6">9. Do you follow us on LinkedIn?</label>
+                <p class="text-gray-500 mb-4">Stay updated with our latest news and opportunities!</p>
+                <a href="https://www.linkedin.com/company/ethioware/" target="_blank" class="text-blue-600 hover:underline mb-6 inline-block">https://www.linkedin.com/company/ethioware/</a>
+                <div class="space-y-4">
+                     <div onclick="selectRadio(this, 'Yes')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">Yes, I do!</span>
+                        <input type="radio" name="linkedin_follow" value="Yes" class="hidden">
+                    </div>
+                    <div onclick="selectRadio(this, 'Not yet, but I will')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">Not yet, but I will</span>
+                        <input type="radio" name="linkedin_follow" value="Not yet, but I will" class="hidden">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Button -->
+            <div id="nav-button-container" class="mt-8 text-right hidden">
+                 <button id="next-btn" onclick="nextQuestion()" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors">Next</button>
+            </div>
+        </div>
+
+        <!-- Final Thank You / Video Slide -->
+        <div id="final-slide" class="hidden text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Thank You for Applying!</h2>
+            <p class="text-lg text-gray-600 mb-8">We've received your information. Watch this video to learn more about the impact of our program while we review your application.</p>
+            <!-- Responsive video container -->
+            <div class="w-full aspect-video rounded-lg overflow-hidden shadow-xl">
+                <iframe class="w-full h-full" src="https://www.youtube.com/embed/Z9lzl0DzWHQ?si=tFwddATLiNjYVw0h&amp;start=990" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <p id="submission-message" class="mt-6 text-green-600 font-medium"></p>
+        </div>
+    </div>
+<script>
+    let currentQuestion = 0;
+    const totalQuestions = 9;
+    const formData = {};
+
+    // This is where you would paste your Zapier Webhook URL
+    const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/23963340/uugybat/'; // Ensure this is your actual Zapier URL
+
+    function showQuestion(questionIndex) {
+        const slides = document.querySelectorAll('.question-slide');
+        slides.forEach((slide, index) => {
+            slide.classList.toggle('active', index === questionIndex);
+        });
+        updateProgressBar();
+
+        const navContainer = document.getElementById('nav-button-container');
+        if(questionIndex > 0 && questionIndex <= totalQuestions) {
+            navContainer.classList.remove('hidden');
+        } else {
+            navContainer.classList.add('hidden');
+        }
+
+        const nextBtn = document.getElementById('next-btn');
+        if (nextBtn) {
+            nextBtn.textContent = (questionIndex === totalQuestions) ? 'Submit' : 'Next';
+        }
+    }
+
+    function nextQuestion() {
+        if (currentQuestion > 0 && !validateAndSaveCurrent()) {
+            return; // Stop if validation fails
+        }
+
+        if (currentQuestion <= totalQuestions) {
+            currentQuestion++;
+        }
+
+        if (currentQuestion <= totalQuestions) {
+            showQuestion(currentQuestion);
+        } else {
+            // Last question was answered, now submit
+            submitForm();
+        }
+    }
+
+    function handleEnter(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            nextQuestion();
+        }
+    }
+
+    function validateAndSaveCurrent() {
+        const slide = document.getElementById(`slide-${currentQuestion}`);
+        const input = slide.querySelector('input[type="text"], input[type="email"], input[type="tel"]');
+        const radios = slide.querySelectorAll('input[type="radio"]');
+        let value;
+
+        if (input) {
+            if (input.type === 'email' && !/^\S+@\S+\.\S+$/.test(input.value)) {
+                alert('Please enter a valid email address.');
+                return false;
+            }
+            if (!input.value.trim()) {
+                alert('This field cannot be empty.');
+                return false;
+            }
+            value = input.value.trim();
+            formData[input.name] = value;
+        } else if (radios.length > 0) {
+            const selectedRadio = slide.querySelector('input[type="radio"]:checked');
+            if (!selectedRadio) {
+                alert('Please select an option.');
+                return false;
+            }
+            value = selectedRadio.value;
+            formData[radios[0].name] = value;
+        }
+        return true;
+    }
+
+    function selectRadio(element, value) {
+        const container = element.parentElement;
+        // Deselect others
+        container.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+        // Select this one
+        element.classList.add('selected');
+        // Check the actual radio button
+        const radioInput = element.querySelector('input[type="radio"]');
+        if (radioInput) {
+            radioInput.checked = true;
+        }
+        // Automatically move to the next question after a short delay
+        setTimeout(nextQuestion, 400);
+    }
+
+    function updateProgressBar() {
+        const progress = (currentQuestion / totalQuestions) * 100;
+        document.getElementById('progress-bar').style.width = `${progress}%`;
+    }
+
+    // --- START OF submitForm FUNCTION ---
+    async function submitForm() {
+        // Make the container wider for the video
+        const formWrapper = document.getElementById('form-wrapper');
+        formWrapper.classList.remove('max-w-2xl');
+        formWrapper.classList.add('max-w-4xl');
+
+        document.getElementById('form-container').style.display = 'none';
+        document.getElementById('final-slide').classList.remove('hidden');
+        document.getElementById('progress-bar').style.width = '100%';
+
+        console.log('Final form data:', formData);
+
+        const submissionMessage = document.getElementById('submission-message');
+
+        if (ZAPIER_WEBHOOK_URL) {
+            try {
+                // Convert formData object to URL-encoded string
+                const urlEncodedData = new URLSearchParams(formData).toString();
+
+                const response = await fetch(ZAPIER_WEBHOOK_URL, {
+                    method: 'POST',
+                    body: urlEncodedData, // Send as URL-encoded string
+                    headers: {
+                        // Change Content-Type to x-www-form-urlencoded
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    }
+                });
+                if (response.ok) {
+                    submissionMessage.textContent = "We've sent a confirmation to your email!";
+                    submissionMessage.classList.add('text-green-600');
+                } else {
+                    // If response is not OK, try to get more details from the server
+                    const errorText = await response.text();
+                    console.error('Server responded with error:', response.status, errorText);
+                    throw new Error('Network response was not ok: ' + response.status);
+                }
+            } catch (error) {
+                console.error('Error submitting to Zapier:', error);
+                submissionMessage.textContent = "There was an error submitting your application. Please try again later.";
+                submissionMessage.classList.add('text-red-600');
+            }
+        } else {
+             console.warn('Zapier Webhook URL is not set. Form data logged to console only.');
+             submissionMessage.textContent = "Submission successful (simulation).";
+             submissionMessage.classList.add('text-yellow-600');
+        }
+    }
+    // --- END OF submitForm FUNCTION ---
+
+    // Initialize the form
+    showQuestion(currentQuestion);
+</script>
+</body>
+</html>
