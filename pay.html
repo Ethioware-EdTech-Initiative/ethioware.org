@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pre-Training Payment | Ethioware EdTech Initiative</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <style>
+        /* General Page Setup */
+        :root {
+            --body-color: #f4f4f4;
+            --text-color: #333;
+            --header-height: 3.5rem;
+
+            /* Colors */
+            --first-color: #007bff;
+            --first-color-alt: #0069d9;
+            --first-color-dark: #0056b3;
+            --first-color-light: #66b3ff;
+            --first-color-lighter: #cce6ff;
+
+            --title-color: #333;
+            --text-color: #555;
+            --text-color-light: #888;
+            --body-color: #f4f7f9;
+            --container-color: #fff;
+            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+            /* Font and typography */
+            --body-font: 'Arial', sans-serif;
+            --h1-font-size: 2.25rem;
+            --h2-font-size: 1.5rem;
+            --h3-font-size: 1.25rem;
+            --normal-font-size: 1rem;
+            --small-font-size: 0.875rem;
+
+            /* Font weight */
+            --font-semi-bold: 600;
+            --font-bold: 700;
+
+            /* Z-index */
+            --z-tooltip: 10;
+            --z-fixed: 100;
+        }
+
+        body {
+            background-color: var(--body-color);
+            font-family: var(--body-font);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            display: grid;
+            place-items: center;
+            min-height: 100vh;
+        }
+        
+        .main {
+            padding: 2rem 0;
+            width: 100%;
+        }
+
+        .container {
+            max-width: 1024px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        /* Pricing Tier Styling */
+        .pricing-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pricing-tier {
+            background-color: var(--container-color);
+            border: 2px solid var(--first-color-alt);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+            position: relative;
+            cursor: pointer;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .pricing-tier:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        }
+
+        .pricing-tier.popular {
+            border: 3px solid var(--first-color);
+            transform: scale(1.1);
+            z-index: 10;
+        }
+
+        .pricing-tier.popular:hover {
+            transform: translateY(-10px) scale(1.1);
+        }
+
+        .popular-banner {
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--first-color);
+            color: #fff;
+            padding: 7px 20px;
+            border-radius: 20px;
+            font-size: var(--small-font-size);
+            font-weight: var(--font-semi-bold);
+        }
+        
+        .tier-header h2 {
+            font-size: var(--h2-font-size);
+            color: var(--title-color);
+            margin-top: 0;
+        }
+
+        .tier-header .description {
+            color: var(--text-color-light);
+            min-height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+
+        .discount-badge {
+            color: #27ae60;
+            background-color: #e8f8f5;
+            border-radius: 6px;
+            padding: 5px 10px;
+            font-weight: var(--font-semi-bold);
+            font-size: var(--small-font-size);
+        }
+        
+        .pricing-tier hr {
+            border: none;
+            height: 1px;
+            background-color: var(--first-color-lighter);
+            margin: 1.5rem 0;
+        }
+
+        .tier-price {
+            text-align: center;
+        }
+
+        .tier-price .anchor-price {
+            font-size: 1.25rem;
+            color: var(--text-color-light);
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s;
+            font-weight: var(--font-bold);
+        }
+
+        .tier-price .anchor-price::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--text-color-light);
+            transform: rotate(-15deg);
+            transform-origin: center;
+        }
+
+        .tier-price .current-price {
+            font-size: 2.5rem;
+            font-weight: var(--font-bold);
+            color: var(--title-color);
+            margin: 0.25rem 0;
+        }
+
+        .tier-price .currency {
+            font-size: 1.5rem;
+        }
+        
+        /* Custom Radio Button Styling */
+        .tier-selection {
+            margin-top: 1.5rem;
+        }
+        
+        .tier-selection input[type="radio"] {
+            opacity: 0;
+            position: fixed;
+            width: 0;
+        }
+
+        .tier-selection label {
+            display: inline-block;
+            background-color: var(--body-color);
+            padding: 14px 30px;
+            border: 2px solid var(--first-color-alt);
+            border-radius: 8px;
+            font-weight: var(--font-semi-bold);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            box-sizing: border-box;
+            color: var(--title-color);
+        }
+
+        .tier-selection input[type="radio"]:checked + label {
+            background-color: var(--first-color);
+            color: #fff;
+            border-color: var(--first-color);
+        }
+        
+        /* Form Styling */
+        .payment-form {
+            background: var(--container-color);
+            padding: 2.5rem;
+            border-radius: 1rem;
+            box-shadow: var(--box-shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: .5rem;
+            color: var(--title-color);
+            font-weight: var(--font-semi-bold);
+        }
+        
+        .form-group .label-note {
+            font-size: var(--small-font-size);
+            color: var(--text-color-light);
+            font-weight: normal;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group textarea,
+        .form-group input[type="file"] {
+            width: 100%;
+            padding: .75rem 1rem;
+            border: 2px solid var(--first-color-alt);
+            background-color: var(--body-color);
+            border-radius: .5rem;
+            color: var(--text-color);
+            font-family: var(--body-font);
+            font-size: var(--normal-font-size);
+            transition: border-color 0.3s;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--first-color);
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .program-options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .program-options .option {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .program-options input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--first-color-alt);
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .program-options input[type="radio"]:checked {
+            background-color: var(--first-color);
+            border-color: var(--first-color);
+        }
+
+        .program-options input[type="radio"]:checked::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .program-options label {
+            margin: 0;
+            cursor: pointer;
+        }
+        
+        .submit-btn {
+            background-color: var(--first-color);
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: .5rem;
+            font-size: 1rem;
+            font-weight: var(--font-semi-bold);
+            cursor: pointer;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--first-color-dark);
+        }
+
+        /* Responsive adjustments */
+        @media screen and (max-width: 768px) {
+            .nav__menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 70%;
+                height: 100vh;
+                background-color: var(--container-color);
+                transition: .3s;
+                padding: 3rem 1.5rem 0;
+            }
+            .nav__menu.show-menu {
+                right: 0;
+            }
+            .nav__list {
+                flex-direction: column;
+                row-gap: 2rem;
+            }
+            .nav__close {
+                position: absolute;
+                top: 1rem;
+                right: 1.5rem;
+                font-size: 1.5rem;
+                color: var(--title-color);
+                cursor: pointer;
+            }
+            .main {
+                padding-top: 4rem;
+            }
+            .pricing-container {
+                grid-template-columns: 1fr;
+            }
+            .pricing-tier.popular {
+                transform: none;
+            }
+        }
+
+        .section__title-center {
+            text-align: center;
+        }
+        
+        .sub-heading {
+            text-align: justify;
+            margin: 0 auto 3rem auto;
+            color: var(--text-color-light);
+        }
+    </style>
+</head>
+<body>
+      <header class="header glass" id="header">
+        <nav class="nav container">
+            <a href="/home" class="nav__logo">
+                <img src="assets/img/logo-mini.png"> Ethioware
+            </a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="/about" class="nav__link">About</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/approach" class="nav__link">How</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/mission" class="nav__link">Mission</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/articles" class="nav__link">Articles</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/train" class="nav__link">Register</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="/contact" class="nav__link">Contact Us</a>
+                    </li>
+                </ul>
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-line"></i>
+                </div>
+            </div>
+            <div class="nav__btns">
+                <i class="ri-moon-line change-theme" id="theme-button"></i>
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line"></i>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main class="main">
+        <section class="section container" id="payment">
+            <h2 class="section__title-center" style="margin-top: 8vh;">Pre-Training Deposit</h2>
+            <p class="sub-heading">
+                As outlined in your acceptance email, complete your payment by depositing ONLY ONE of the following options to CBE account <b style="color: var(--title-color);">1000584524972</b>. Then, select your package and fill out the form below. The program starts on <b style="color: var(--title-color);">July 07, 2025</b>. For further inquiries, you can use the Telegram link provided.
+            </p>
+
+            <form action="https://sheetdb.io/api/v1/h4qzn0watw8di/cache/purge/9e57f8f8" method="POST" class="payment-form glass" id="sheetdb-form">
+                <div class="form-group">
+                    <label style="margin-bottom: 8vh;">Step 1: Choose Your Payment Package *</label>
+                    <div class="pricing-container">
+                        <div class="pricing-tier" id="tier-solo">
+                            <div class="tier-header">
+                                <h2>Solo Learner</h2>
+                                <p class="description">For one learner taking a single course.</p>
+                            </div>
+                            <hr>
+                            <div class="tier-price">
+                                <p class="current-price" style="font-weight: bold;">900 <span class="currency">ETB</span></p>
+                            </div>
+                            <div class="tier-selection">
+                                <input type="radio" id="solo" name="data[pricing_tier]" value="900 ETB (1 Learner)" required>
+                                <label for="solo">Select Plan</label>
+                            </div>
+                        </div>
+
+                        <div class="pricing-tier popular" id="tier-duo" style="margin-bottom: 6vh;">
+                            <div class="popular-banner">MOST POPULAR</div>
+                            <div class="tier-header" style="margin-top: 2vh;">
+                                <h2>Duo Pack</h2>
+                                <p class="description">For two learners taking a single course together.</p>
+                                <p class="description"><span class="discount-badge">Save ~35%</span></p>
+                            </div>
+                            <hr>
+                            <div class="tier-price">
+                                <p class="anchor-price" style="font-weight: bold;">1800 ETB</p>
+                                <p class="current-price" style="font-weight: bold;">1400 <span class="currency">ETB</span></p>
+                            </div>
+                            <div class="tier-selection">
+                                <input type="radio" id="duo" name="data[pricing_tier]" value="1400 ETB (2 Learners)">
+                                <label for="duo">Select Plan</label>
+                            </div>
+                        </div>
+
+                        <div class="pricing-tier" id="tier-power">
+                            <div class="tier-header">
+                                <h2>Power Learner</h2>
+                                <p class="description">For one learner taking two courses.</p>
+                                <p class="description"><span class="discount-badge">Save ~30%</span></p>
+                            </div>
+                            <hr>
+                            <div class="tier-price">
+                                <p class="anchor-price" style="font-weight: bold;">1800 ETB</p>
+                                <p class="current-price" style="font-weight: bold;">1300 <span class="currency">ETB</span></p>
+                            </div>
+                            <div class="tier-selection">
+                                <input type="radio" id="power" name="data[pricing_tier]" value="1300 ETB (1 Learner, 2 Courses)">
+                                <label for="power">Select Plan</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="fullName">Step 2: Full Name(s) *</label>
+                    <input type="text" id="fullName" name="data[full_name]" placeholder="Enter your full name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Step 3: Email(s) *</label>
+                    <p class="label-note">The same email you'll be using for the program. If applying as 2 learners, write both your emails here.</p>
+                    <textarea id="email" name="data[email]" placeholder="student1@example.com, student2@example.org" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="telegram">Step 4: Telegram Username(s) *</label>
+                    <input type="text" id="telegram" name="data[telegram_username]" placeholder="@username1, @username2" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Step 5: Preferred Program *</label>
+                    <div class="program-options">
+                        <div class="option"><input type="radio" id="med" name="data[preferred_program]" value="Medicine Basics" required> <label for="med">Medicine Basics</label></div>
+                        <div class="option"><input type="radio" id="eng" name="data[preferred_program]" value="Engineering Basics"> <label for="eng">Engineering Basics</label></div>
+                        <div class="option"><input type="radio" id="swe" name="data[preferred_program]" value="Software Engineering Basics"> <label for="swe">Software Engineering Basics</label></div>
+                        <div class="option"><input type="radio" id="mb_eb" name="data[preferred_program]" value="Both (MB&EB)"> <label for="mb_eb">Both (Medicine & Engineering)</label></div>
+                        <div class="option"><input type="radio" id="se_mb" name="data[preferred_program]" value="Both (SE&MB)"> <label for="se_mb">Both (Software Engineering & Medicine)</label></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="transactionId">Step 6: Enter Transaction ID *</label>
+                    <p class="label-note">Look for "Transaction ID" or "Transaction Number" on your bank receipt and enter it here.</p>
+                    <input type="text" id="transactionId" name="data[transaction_id]" placeholder="e.g., FT25212FH721 or CG06PG0HTE" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="accountHolder">Step 7: Name of Account Holder (that completed the transaction) *</label>
+                    <input type="text" id="accountHolder" name="data[account_holder_name]" placeholder="Name on the bank account" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Submit Registration</button>
+            </form>
+        </section>
+    </main>
+    <footer class="ft">
+        <div class="bars">
+            <div class="left-bar">
+                <div class="left-logo">
+                    <a href="/index"><img src="/assets/img/white.png" alt="Ethioware-Logo"></a>
+                    <a href="/index"><p>ETHIOWARE</p></a>
+                </div>
+                <div class="left-socials">
+                    <div><a href="https://www.linkedin.com/company/ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=84888&format=png&color=ffffff" alt="LinkedIn"></a></div>
+                    <div><a href="https://facebook.com/ethiowareEI" target="_blank"><img src="https://img.icons8.com/?size=100&id=118490&format=png&color=ffffff" alt="Facebook"></a></div>
+                    <div><a href="https://instagram.com/ethioware_" target="_blank"><img src="https://img.icons8.com/?size=100&id=84884&format=png&color=ffffff" alt="Instagram"></a></div>
+                    <div><a href="https://twitter.com/ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=102907&format=png&color=ffffff" alt="Twitter"></a></div>
+                    <div><a href="https://youtube.com/@ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=37326&format=png&color=ffffff" alt="YouTube"></a></div>
+                    <div><a href="https://t.me/ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=85428&format=png&color=ffffff" alt="Telegram"></a></div>
+                </div>
+            </div>
+            <div class="right-bar">
+                <div class="right-bar-links">
+                    <div class="col">
+                        <a href="/index" class="head">Home</a>
+                    </div>
+                    <div class="col">
+                        <a href="/about" class="head">About Us</a>
+                        <a href="/mission" class="sub">Mission</a>
+                        <a href="/approach" class="sub">Approach</a>
+                        <a href="https://forms.office.com/r/3SepzQNHz2" class="sub">Membership</a>
+                    </div>
+                    <div class="col">
+                        <a href="https://wa.me/message/W4GUO2DOV4HWI1" class="head">Work With Us</a>
+                        <a href="https://www.skilledup.life/" class="sub">Partners</a>
+                        <a href="https://forms.office.com/r/8MtrXwTY8R" class="sub">Interns</a>
+                        <a href="https://forms.office.com/r/BwCszzkuXK" class="sub">Trainees</a>
+                    </div>
+                    <div class="col">
+                        <a href="/articles" class="head">Publications</a>
+                        <a href="/articles" class="sub">Academic Papers</a>
+                        <a href="https://www.youtube.com/@ethioware" class="sub">Interviews</a>
+                    </div>
+                    <div class="col">
+                        <a href="/index" class="head">Contact Us</a>
+                        <a href="mailto:info@ethioware.org" class="sub">Send Us A Message</a>
+                    </div>
+                </div>
+                <div class="trustpilot-widget right-review" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6666fe238ece8b6766f5dfc3" data-style-height="4rem" data-style-width="100%">
+                        <a href="https://www.trustpilot.com/review/ethioware.org" target="_blank"></a>
+                    </div>
+                    </div>
+        </div>
+        <div class="copy">
+            <p class="copy copy-txt">© 2025 Ethioware EdTech Initiative. All Rights Reserved</p>
+        </div>
+    </footer>
+    
+<script>
+    const form = document.getElementById('sheetdb-form');
+    
+    // Add event listener for form submission
+    form.addEventListener("submit", e => {
+        e.preventDefault();
+        
+        // **START OF VALIDATION CODE**
+        const emailField = document.getElementById('email');
+        const emails = emailField.value.split(',').map(email => email.trim());
+        const emailRegex = /.+@.+\..+/;
+        
+        for (const email of emails) {
+            if (email === '') {
+                alert('One or more of the email entries is empty. Please remove any extra commas or fill in the blank fields.');
+                emailField.focus();
+                return;
+            }
+            if (!emailRegex.test(email)) {
+                alert('One or more of the email entries is not a valid email address. Please check your entries.');
+                emailField.focus();
+                return;
+            }
+        }
+
+        // Display a loading message
+        const submitBtn = form.querySelector('.submit-btn');
+        const originalBtnText = submitBtn.textContent;
+        submitBtn.textContent = "Processing...";
+        submitBtn.disabled = true;
+
+        // Use the fetch API to send form data
+        fetch(form.action, {
+            method: "POST",
+            body: new FormData(form),
+        })
+        .then(response => {
+            // Check if the response is okay before parsing JSON
+            if (!response.ok) {
+                throw new Error('Network response was not ok. Please check your internet connection.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.created) {
+                // Success! Show a popup
+                alert('Payment completed successfully! Thank you for your registration.');
+                form.reset(); // Clear all form fields
+            } else {
+                // Handle a server-side error from SheetDB
+                const errorMessage = data.message || 'An error occurred on the server. Please check your form and try again.';
+                alert(`Submission Failed: ${errorMessage}`);
+            }
+        })
+        .catch(error => {
+            // Handle network or other unexpected errors
+            console.error('Error:', error);
+            alert(`An error occurred: ${error.message}. Please try again later.`);
+        })
+        .finally(() => {
+            // Reset the button state
+            submitBtn.textContent = originalBtnText;
+            submitBtn.disabled = false;
+        });
+    });
+
+    // Existing script for pricing tier selection
+    const pricingTiers = document.querySelectorAll('.pricing-tier');
+    pricingTiers.forEach(tier => {
+        tier.addEventListener('click', () => {
+            const radioButton = tier.querySelector('input[type="radio"]');
+            radioButton.checked = true;
+            pricingTiers.forEach(t => t.classList.remove('selected'));
+            tier.classList.add('selected');
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const checkedRadio = document.querySelector('input[name="data[pricing_tier]"]:checked');
+        if (checkedRadio) {
+            checkedRadio.closest('.pricing-tier').classList.add('selected');
+        }
+    });
+</script>
+</body>
+</html>
