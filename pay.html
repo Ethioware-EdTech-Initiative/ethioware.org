@@ -1,672 +1,1063 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pre-Training Payment | Ethioware EdTech Initiative</title>
-    
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    
-    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="assets/css/styles.css">
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon" />
+    <script type="text/javascript">
+      document.addEventListener("DOMContentLoaded", function () {
+        const script = document.createElement("script");
+        script.src =
+          "//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js";
+        script.async = true;
+        document.head.appendChild(script);
+      });
+    </script>
 
     <style>
-        /* General Page Setup */
-        :root {
-            --body-color: #f4f4f4;
-            --text-color: #333;
-            --header-height: 3.5rem;
+      /*=============== VARIABLES DARK THEME ===============*/
+      :root {
+        --body-color: #f4f7f9;
+        --container-color: #fff;
+        --title-color: #333;
+        --text-color: #555;
+        --text-color-light: #888;
+        --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 
-            /* Colors */
-            --first-color: #007bff;
-            --first-color-alt: #0069d9;
-            --first-color-dark: #0056b3;
-            --first-color-light: #66b3ff;
-            --first-color-lighter: #cce6ff;
+        --first-color: #007bff;
+        --first-color-alt: #0069d9;
+        --first-color-dark: #0056b3;
+        --first-color-light: #66b3ff;
+        --first-color-lighter: #cce6ff;
 
-            --title-color: #333;
-            --text-color: #555;
-            --text-color-light: #888;
-            --body-color: #f4f7f9;
-            --container-color: #fff;
-            --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        --body-font: "Arial", sans-serif;
+        --h1-font-size: 2.25rem;
+        --h2-font-size: 1.5rem;
+        --h3-font-size: 1.25rem;
+        --normal-font-size: 1rem;
+        --small-font-size: 0.875rem;
 
-            /* Font and typography */
-            --body-font: 'Arial', sans-serif;
-            --h1-font-size: 2.25rem;
-            --h2-font-size: 1.5rem;
-            --h3-font-size: 1.25rem;
-            --normal-font-size: 1rem;
-            --small-font-size: 0.875rem;
+        --font-semi-bold: 600;
+        --font-bold: 700;
 
-            /* Font weight */
-            --font-semi-bold: 600;
-            --font-bold: 700;
+        --z-tooltip: 10;
+        --z-fixed: 100;
+        --header-height: 3.5rem;
+      }
 
-            /* Z-index */
-            --z-tooltip: 10;
-            --z-fixed: 100;
-        }
+      body.dark-theme {
+        --body-color: #2c3e50;
+        --container-color: #34495e;
+        --title-color: #ecf0f1;
+        --text-color: #bdc3c7;
+        --text-color-light: #95a5a6;
+        --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      }
 
-        body {
-            background-color: var(--body-color);
-            font-family: var(--body-font);
-            color: var(--text-color);
-            line-height: 1.6;
-            margin: 0;
-            display: grid;
-            place-items: center;
-            min-height: 100vh;
-        }
-        
-        .main {
-            padding: 2rem 0;
-            width: 100%;
-        }
+      /*=============== BASE ===============*/
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background-color: var(--body-color);
+        font-family: var(--body-font);
+        color: var(--text-color);
+        line-height: 1.6;
+        transition: background-color 0.3s, color 0.3s;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      img {
+        max-width: 100%;
+        height: auto;
+      }
 
+      /*=============== REUSABLE CSS CLASSES ===============*/
+      .container {
+        max-width: 1024px;
+        margin-left: 1rem;
+        margin-right: 1rem;
+      }
+      .grid {
+        display: grid;
+        gap: 1.5rem;
+      }
+      .section {
+        padding: 2rem 0 4rem;
+      }
+      .section__title-center {
+        text-align: center;
+        font-size: var(--h1-font-size);
+        color: var(--title-color);
+        margin-bottom: 0.5rem;
+        font-weight: var(--font-bold);
+      }
+      .sub-heading {
+        text-align: justify;
+        margin: 0 auto 3rem auto;
+        color: var(--text-color-light);
+        max-width: 768px;
+        line-height: 1.8;
+      }
+
+      /*=============== HEADER & NAV (GLASSMORPHISM ADDED) ===============*/
+      .header {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: var(--z-fixed);
+        transition: background-color 0.4s;
+
+        /* Glassmorphism Styles */
+        background-color: rgba(
+          255,
+          255,
+          255,
+          0.5
+        ); /* Semi-transparent background */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px); /* For Safari */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Glassmorphism for Dark Theme */
+      body.dark-theme .header {
+        background-color: rgba(
+          44,
+          62,
+          80,
+          0.5
+        ); /* Darker semi-transparent background */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .nav {
+        height: var(--header-height);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .nav__logo {
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: var(--h3-font-size);
+        font-weight: var(--font-bold);
+        color: var(--title-color);
+      }
+      .nav__logo img {
+        width: 35%;
+      }
+      .nav__list {
+        display: flex;
+        column-gap: 2rem;
+      }
+      .nav__link {
+        color: var(--text-color);
+        font-weight: var(--font-semi-bold);
+        transition: color 0.3s;
+      }
+      .nav__link:hover {
+        color: var(--first-color);
+      }
+      .nav__btns {
+        display: flex;
+        align-items: center;
+        column-gap: 1rem;
+      }
+      .change-theme,
+      .nav__toggle,
+      .nav__close {
+        font-size: 1.5rem;
+        color: var(--title-color);
+        cursor: pointer;
+      }
+
+      /*=============== MAIN ===============*/
+      .main {
+        padding-top: var(--header-height);
+        width: 100%;
+      }
+
+      /*=============== PRICING TIER STYLING ===============*/
+      .pricing-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-bottom: 3rem;
+        align-items: stretch;
+      }
+      .pricing-tier {
+        background-color: var(--container-color);
+        border: 2px solid var(--first-color-alt);
+        border-radius: 12px;
+        padding: 1.5rem;
+        text-align: center;
+        box-shadow: var(--box-shadow);
+        transition: all 0.3s ease;
+        position: relative;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .pricing-tier:hover {
+        transform: translateY(-5px);
+      }
+      .pricing-tier.selected {
+        border-color: var(--first-color);
+        box-shadow: 0 6px 25px rgba(0, 123, 255, 0.2);
+      }
+      .pricing-tier.popular {
+        border: 3px solid var(--first-color);
+        transform: scale(1.05);
+        z-index: 10;
+      }
+      .pricing-tier.popular:hover {
+        transform: translateY(-10px) scale(1.05);
+      }
+      .popular-banner {
+        position: absolute;
+        top: -18px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: var(--first-color);
+        color: #fff;
+        padding: 7px 20px;
+        border-radius: 20px;
+        font-size: var(--small-font-size);
+        font-weight: var(--font-semi-bold);
+        white-space: nowrap;
+      }
+      .tier-header h2 {
+        font-size: var(--h2-font-size);
+        color: var(--title-color);
+        margin-top: 0;
+      }
+      .tier-header .description {
+        color: var(--text-color-light);
+        min-height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 0.5rem;
+      }
+      .discount-badge {
+        color: #27ae60;
+        background-color: #e8f8f5;
+        border-radius: 6px;
+        padding: 5px 10px;
+        font-weight: var(--font-semi-bold);
+        font-size: var(--small-font-size);
+      }
+      body.dark-theme .discount-badge {
+        background-color: #2d6645;
+        color: #e8f8f5;
+      }
+      .pricing-tier hr {
+        border: none;
+        height: 1px;
+        background-color: var(--first-color-lighter);
+        margin: 1.5rem 0;
+      }
+      body.dark-theme .pricing-tier hr {
+        background-color: #555;
+      }
+      .tier-price .anchor-price {
+        font-size: 1.25rem;
+        color: var(--text-color-light);
+        position: relative;
+        display: inline-block;
+        font-weight: var(--font-bold);
+      }
+      .tier-price .anchor-price::before {
+       content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px; /* Increase the height for a thicker line */
+  background-color: var(--text-color-light);
+  /* Apply a skew effect to make it look like a brush stroke */
+  transform: translateY(-70%) rotate(-5deg) skewX(-40deg);
+      }
+      .tier-price .current-price {
+        font-size: 2.5rem;
+        font-weight: var(--font-bold);
+        color: var(--title-color);
+        margin: 0.25rem 0;
+      }
+      .tier-price .currency {
+        font-size: 1.5rem;
+      }
+      .tier-selection {
+        margin-top: 1.5rem;
+      }
+      .tier-selection input[type="radio"] {
+        display: none;
+      }
+      .tier-selection label {
+        display: inline-block;
+        background-color: var(--body-color);
+        padding: 14px 30px;
+        border: 2px solid var(--first-color-alt);
+        border-radius: 8px;
+        font-weight: var(--font-semi-bold);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        width: 100%;
+        box-sizing: border-box;
+        color: var(--title-color);
+      }
+      body.dark-theme .tier-selection label {
+        background-color: var(--container-color);
+        border-color: var(--text-color);
+      }
+      .tier-selection input[type="radio"]:checked + label {
+        background-color: var(--first-color);
+        color: #fff;
+        border-color: var(--first-color);
+      }
+
+      /*=============== FORM STYLING ===============*/
+      .payment-form {
+        background: var(--container-color);
+        padding: 2.5rem;
+        border-radius: 1rem;
+        box-shadow: var(--box-shadow);
+      }
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: var(--title-color);
+        font-weight: var(--font-semi-bold);
+      }
+      .form-group .label-note {
+        font-size: var(--small-font-size);
+        color: var(--text-color-light);
+        font-weight: normal;
+        margin-top: -0.5rem;
+        margin-bottom: 1rem;
+        line-height: 1.5;
+      }
+      .form-group input,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.75rem 1rem;
+        border: 2px solid var(--first-color-alt);
+        background-color: var(--body-color);
+        border-radius: 0.5rem;
+        color: var(--text-color);
+        font-family: var(--body-font);
+        font-size: var(--normal-font-size);
+        transition: border-color 0.3s;
+        box-sizing: border-box;
+      }
+      body.dark-theme .form-group input,
+      body.dark-theme .form-group textarea {
+        background-color: var(--container-color);
+        border-color: var(--text-color);
+        color: var(--title-color);
+      }
+      .form-group input:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--first-color);
+      }
+      .form-group textarea {
+        resize: vertical;
+        min-height: 80px;
+      }
+      .program-options {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+      .program-options .option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        border: 2px solid var(--first-color-alt);
+        border-radius: 1rem;
+        cursor: pointer;
+        transition: border-color 0.3s ease;
+      }
+      body.dark-theme .program-options .option {
+        border-color: var(--text-color);
+      }
+      .program-options .option.selected {
+        border-color: var(--first-color);
+      }
+      .program-options input[type="radio"] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+      }
+      .program-options .selectable-option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 10px 20px;
+    border: 2px solid var(--first-color-alt);
+    border-radius: 9999px; /* This creates the pill shape */
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.program-options .selectable-option.selected {
+    background-color: var(--first-color);
+    color: #fff;
+    border-color: var(--first-color);
+}
+      body.dark-theme .program-options input[type="radio"] {
+        border-color: var(--text-color);
+      }
+      .program-options input[type="radio"]:checked {
+        background-color: var(--first-color);
+        border-color: var(--first-color);
+      }
+      .program-options input[type="radio"]:checked::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 10px;
+        height: 10px;
+        background-color: white;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .program-options label {
+        margin: 0;
+        cursor: pointer;
+        font-weight: normal;
+      }
+      .program-options .selectable-option.selected label {
+    color: #fff;
+}
+      .submit-btn {
+        background-color: var(--first-color);
+        color: #fff;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        font-weight: var(--font-semi-bold);
+        cursor: pointer;
+        width: 100%;
+        transition: background-color 0.3s ease;
+      }
+      .submit-btn:hover {
+        background-color: var(--first-color-dark);
+      }
+
+      /*=============== FOOTER STYLING ===============*/
+      .ft {
+        background-color: #333;
+        color: #fff;
+        padding: 3rem 1rem 1rem;
+      }
+      .ft .bars {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+      .left-bar {
+        flex: 1;
+        min-width: 280px;
+      }
+      .right-bar {
+        flex: 2;
+        min-width: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .left-logo {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: var(--font-bold);
+        margin-bottom: 1rem;
+      }
+      .left-logo img {
+        width: 40px;
+      }
+      .left-socials {
+        display: flex;
+        gap: 1rem;
+      }
+      .left-socials img {
+        width: 24px;
+        transition: transform 0.3s;
+      }
+      .left-socials img:hover {
+        transform: translateY(-3px);
+      }
+      .right-bar-links {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1.5rem;
+      }
+      .right-bar-links .col {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        min-width: 120px;
+      }
+      .right-bar-links .head {
+        font-weight: var(--font-bold);
+        margin-bottom: 0.5rem;
+      }
+      .right-bar-links .sub {
+        font-size: var(--small-font-size);
+        color: #ccc;
+        transition: color 0.3s;
+      }
+      .right-bar-links .sub:hover {
+        color: var(--first-color);
+      }
+      .copy {
+        text-align: center;
+        padding-top: 1rem;
+        border-top: 1px solid #444;
+      }
+      .copy-txt {
+        font-size: var(--small-font-size);
+        color: #ccc;
+      }
+
+      /*=============== THANK YOU CARD ===============*/
+      #thank-you-card {
+        display: none; /* Hidden by default */
+        text-align: center;
+        padding: 5rem 2rem;
+        background-color: var(--container-color);
+        border-radius: 1rem;
+        box-shadow: var(--box-shadow);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        max-width: 600px;
+        width: 90%;
+      }
+      #thank-you-card h2 {
+        font-size: var(--h1-font-size);
+        color: var(--first-color);
+        margin-bottom: 1rem;
+      }
+      #thank-you-card p {
+        font-size: var(--h3-font-size);
+        color: var(--title-color);
+        margin-bottom: 2rem;
+      }
+      #thank-you-card a {
+        display: inline-block;
+        background-color: var(--first-color);
+        color: #fff;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.5rem;
+        text-decoration: none;
+        font-weight: var(--font-semi-bold);
+        transition: background-color 0.3s;
+      }
+      #thank-you-card a:hover {
+        background-color: var(--first-color-dark);
+      }
+
+      /*=============== RESPONSIVE BREAKPOINTS ===============*/
+      @media screen and (max-width: 768px) {
         .container {
-            max-width: 1024px;
-            margin: 0 auto;
-            padding: 0 1rem;
+          margin-left: 1rem;
+          margin-right: 1rem;
         }
-        
-        /* Pricing Tier Styling */
-        .pricing-container {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            margin-bottom: 3rem;
-            align-items: center;
-            justify-content: center;
+      }
+
+      @media screen and (max-width: 768px) {
+        /* Header and Nav */
+        .nav__menu {
+          position: fixed;
+          top: 0;
+          right: -100%;
+          width: 70%;
+          height: 100%;
+          background-color: var(--container-color);
+          box-shadow: var(--box-shadow);
+          transition: 0.3s;
+          padding: 3rem 1.5rem 0;
+          z-index: var(--z-fixed);
+          border-left: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        body.dark-theme .nav__menu {
+          border-color: rgba(255, 255, 255, 0.1);
+        }
+        .nav__menu.show-menu {
+          right: 0;
+        }
+        .nav__list {
+          flex-direction: column;
+          row-gap: 2rem;
+        }
+        .nav__close {
+          position: absolute;
+          top: 1rem;
+          right: 1.5rem;
+        }
+        .nav__btns {
+          column-gap: 0.5rem;
         }
 
-        .pricing-tier {
-            background-color: var(--container-color);
-            border: 2px solid var(--first-color-alt);
-            border-radius: 12px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: var(--box-shadow);
-            transition: all 0.3s ease;
-            position: relative;
-            cursor: pointer;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+        /* Main Content */
+        .main {
+          padding-top: calc(var(--header-height) + 1rem);
         }
-        
-        .pricing-tier:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+        .section {
+          padding: 1.5rem 0 3rem;
         }
-
-        .pricing-tier.popular {
-            border: 3px solid var(--first-color);
-            transform: scale(1.1);
-            z-index: 10;
-        }
-
-        .pricing-tier.popular:hover {
-            transform: translateY(-10px) scale(1.1);
-        }
-
-        .popular-banner {
-            position: absolute;
-            top: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: var(--first-color);
-            color: #fff;
-            padding: 7px 20px;
-            border-radius: 20px;
-            font-size: var(--small-font-size);
-            font-weight: var(--font-semi-bold);
-        }
-        
-        .tier-header h2 {
-            font-size: var(--h2-font-size);
-            color: var(--title-color);
-            margin-top: 0;
-        }
-
-        .tier-header .description {
-            color: var(--text-color-light);
-            min-height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 0.5rem;
-        }
-
-        .discount-badge {
-            color: #27ae60;
-            background-color: #e8f8f5;
-            border-radius: 6px;
-            padding: 5px 10px;
-            font-weight: var(--font-semi-bold);
-            font-size: var(--small-font-size);
-        }
-        
-        .pricing-tier hr {
-            border: none;
-            height: 1px;
-            background-color: var(--first-color-lighter);
-            margin: 1.5rem 0;
-        }
-
-        .tier-price {
-            text-align: center;
-        }
-
-        .tier-price .anchor-price {
-            font-size: 1.25rem;
-            color: var(--text-color-light);
-            position: relative;
-            display: inline-block;
-            transition: color 0.3s;
-            font-weight: var(--font-bold);
-        }
-
-        .tier-price .anchor-price::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background-color: var(--text-color-light);
-            transform: rotate(-15deg);
-            transform-origin: center;
-        }
-
-        .tier-price .current-price {
-            font-size: 2.5rem;
-            font-weight: var(--font-bold);
-            color: var(--title-color);
-            margin: 0.25rem 0;
-        }
-
-        .tier-price .currency {
-            font-size: 1.5rem;
-        }
-        
-        /* Custom Radio Button Styling */
-        .tier-selection {
-            margin-top: 1.5rem;
-        }
-        
-        .tier-selection input[type="radio"] {
-            opacity: 0;
-            position: fixed;
-            width: 0;
-        }
-
-        .tier-selection label {
-            display: inline-block;
-            background-color: var(--body-color);
-            padding: 14px 30px;
-            border: 2px solid var(--first-color-alt);
-            border-radius: 8px;
-            font-weight: var(--font-semi-bold);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            width: 100%;
-            box-sizing: border-box;
-            color: var(--title-color);
-        }
-
-        .tier-selection input[type="radio"]:checked + label {
-            background-color: var(--first-color);
-            color: #fff;
-            border-color: var(--first-color);
-        }
-        
-        /* Form Styling */
-        .payment-form {
-            background: var(--container-color);
-            padding: 2.5rem;
-            border-radius: 1rem;
-            box-shadow: var(--box-shadow);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: .5rem;
-            color: var(--title-color);
-            font-weight: var(--font-semi-bold);
-        }
-        
-        .form-group .label-note {
-            font-size: var(--small-font-size);
-            color: var(--text-color-light);
-            font-weight: normal;
-        }
-
-        .form-group input[type="text"],
-        .form-group input[type="email"],
-        .form-group textarea,
-        .form-group input[type="file"] {
-            width: 100%;
-            padding: .75rem 1rem;
-            border: 2px solid var(--first-color-alt);
-            background-color: var(--body-color);
-            border-radius: .5rem;
-            color: var(--text-color);
-            font-family: var(--body-font);
-            font-size: var(--normal-font-size);
-            transition: border-color 0.3s;
-            box-sizing: border-box;
-        }
-        
-        .form-group input:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: var(--first-color);
-        }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-
-        .program-options {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .program-options .option {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .program-options input[type="radio"] {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--first-color-alt);
-            border-radius: 50%;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.3s;
-        }
-
-        .program-options input[type="radio"]:checked {
-            background-color: var(--first-color);
-            border-color: var(--first-color);
-        }
-
-        .program-options input[type="radio"]:checked::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 10px;
-            height: 10px;
-            background-color: white;
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .program-options label {
-            margin: 0;
-            cursor: pointer;
-        }
-        
-        .submit-btn {
-            background-color: var(--first-color);
-            color: #fff;
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: .5rem;
-            font-size: 1rem;
-            font-weight: var(--font-semi-bold);
-            cursor: pointer;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
-        
-        .submit-btn:hover {
-            background-color: var(--first-color-dark);
-        }
-
-        /* Responsive adjustments */
-        @media screen and (max-width: 768px) {
-            .nav__menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 70%;
-                height: 100vh;
-                background-color: var(--container-color);
-                transition: .3s;
-                padding: 3rem 1.5rem 0;
-            }
-            .nav__menu.show-menu {
-                right: 0;
-            }
-            .nav__list {
-                flex-direction: column;
-                row-gap: 2rem;
-            }
-            .nav__close {
-                position: absolute;
-                top: 1rem;
-                right: 1.5rem;
-                font-size: 1.5rem;
-                color: var(--title-color);
-                cursor: pointer;
-            }
-            .main {
-                padding-top: 4rem;
-            }
-            .pricing-container {
-                grid-template-columns: 1fr;
-            }
-            .pricing-tier.popular {
-                transform: none;
-            }
-        }
-
         .section__title-center {
-            text-align: center;
+          font-size: var(--h2-font-size);
+          margin-top: 4vh;
         }
-        
         .sub-heading {
-            text-align: justify;
-            margin: 0 auto 3rem auto;
-            color: var(--text-color-light);
+          font-size: var(--normal-font-size);
+          margin-bottom: 2rem;
         }
+
+        /* Pricing & Form */
+        .pricing-container {
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    /* The line above changes the layout to a two-column grid on smaller screens */
+    gap: 1rem; /* Reduce the gap between cards */
+        }
+        .pricing-tier.popular {
+          transform: none;
+        }
+        .pricing-tier.popular:hover {
+          transform: translateY(-5px);
+        }
+        .payment-form {
+          padding: 1.5rem;
+        }
+        .form-group label {
+          margin-bottom: 0.25rem;
+        }
+        .form-group .label-note {
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      @media screen and (max-width: 576px) {
+        .form-group label {
+          font-size: var(--normal-font-size);
+        }
+        .form-group .label-note {
+          font-size: var(--small-font-size);
+        }
+        .pricing-tier {
+          padding: 1.5rem;
+        }
+        .tier-price .current-price {
+          font-size: var(--h1-font-size);
+        }
+        .tier-price .currency {
+          font-size: var(--h3-font-size);
+        }
+      }
+
+      @media screen and (min-width: 768px) {
+        .container {
+          margin-left: auto;
+          margin-right: auto;
+        }
+        .nav {
+          height: calc(var(--header-height) + 1.5rem);
+        }
+        .nav__toggle,
+        .nav__close {
+          display: none;
+        }
+      }
+      @media screen and (min-width: 1024px) {
+        .container {
+          margin-left: auto;
+          margin-right: auto;
+        }
+      }
     </style>
-</head>
-<body>
-      <header class="header glass" id="header">
-        <nav class="nav container">
-            <a href="/home" class="nav__logo">
-                <img src="assets/img/logo-mini.png"> Ethioware
-            </a>
-            <div class="nav__menu" id="nav-menu">
-                <ul class="nav__list">
-                    <li class="nav__item">
-                        <a href="/about" class="nav__link">About</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="/approach" class="nav__link">How</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="/mission" class="nav__link">Mission</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="/articles" class="nav__link">Articles</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="/train" class="nav__link">Register</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="/contact" class="nav__link">Contact Us</a>
-                    </li>
-                </ul>
-                <div class="nav__close" id="nav-close">
-                    <i class="ri-close-line"></i>
-                </div>
-            </div>
-            <div class="nav__btns">
-                <i class="ri-moon-line change-theme" id="theme-button"></i>
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class="ri-menu-line"></i>
-                </div>
-            </div>
-        </nav>
+  </head>
+  <body>
+    <header class="header" id="header">
+      <nav class="nav container">
+        <a href="/home" class="nav__logo">
+          <img src="assets/img/logo-mini.png" alt="Ethioware Logo" /> Ethioware
+        </a>
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a href="/about" class="nav__link">About</a>
+            </li>
+            <li class="nav__item">
+              <a href="/approach" class="nav__link">How</a>
+            </li>
+            <li class="nav__item">
+              <a href="/mission" class="nav__link">Mission</a>
+            </li>
+            <li class="nav__item">
+              <a href="/articles" class="nav__link">Articles</a>
+            </li>
+            <li class="nav__item">
+              <a href="/train" class="nav__link">Register</a>
+            </li>
+            <li class="nav__item">
+              <a href="/contact" class="nav__link">Contact Us</a>
+            </li>
+          </ul>
+          <div class="nav__close" id="nav-close">
+            <i class="ri-close-line"></i>
+          </div>
+        </div>
+        <div class="nav__btns">
+          <i class="ri-moon-line change-theme" id="theme-button"></i>
+          <div class="nav__toggle" id="nav-toggle">
+            <i class="ri-menu-line"></i>
+          </div>
+        </div>
+      </nav>
     </header>
     <main class="main">
-        <section class="section container" id="payment">
-            <h2 class="section__title-center" style="margin-top: 8vh;">Pre-Training Deposit</h2>
-            <p class="sub-heading">
-                As outlined in your acceptance email, complete your payment by depositing ONLY ONE of the following options to CBE account <b style="color: var(--title-color);">1000584524972</b>. Then, select your package and fill out the form below. The program starts on <b style="color: var(--title-color);">July 07, 2025</b>. For further inquiries, you can use the Telegram link provided.
+      <section class="section container" id="payment">
+        <h2 class="section__title-center" style="margin-top: 2vh">
+          Pre-Training Deposit
+        </h2>
+        <p class="sub-heading">
+          As outlined in your acceptance email, complete your registration by
+          depositing ONLY ONE of the following options to CBE account
+          <b style="color: var(--title-color)">1000584524972 | AFY</b>. Then,
+          select your package and fill out the form below. The program starts on
+          <b style="color: var(--title-color)">Aug 31, 2025</b>. For further
+          inquiries, you can reachout via
+          <b style="color: var(--title-color)">@ethiowarecso</b> on Telegram or
+          <b style="color: var(--title-color)">info@ethioware.org</b>.
+        </p>
+        <form
+          action="https://docs.google.com/forms/d/e/1FAIpQLSeOn5TIgl9GU62TBffSZD459NaUI2I8Xojua2pXI2Tk7ty6ZQ/formResponse"
+          method="POST"
+          class="payment-form"
+          id="google-form"
+        >
+          <div class="form-group">
+            <label>Step 1: Choose Your Payment Package *</label>
+            <p class="label-note">
+              Please click on a card to select your preferred package.
             </p>
+            <div class="pricing-container">
+              <div class="pricing-tier" id="tier-solo">
+                <div class="tier-header">
+                  <h2>Solo Learner</h2>
+                  <p class="description">
+                    For one learner taking a single course.
+                  </p>
+                </div>
+                <hr />
+                <div class="tier-price">
+                  <p class="current-price" style="font-weight: bold">
+                    900 <span class="currency">ETB</span>
+                  </p>
+                </div>
+                <div class="tier-selection">
+                  <input
+                    type="radio"
+                    id="solo"
+                    name="entry.2085763049"
+                    value="900"
+                    required
+                  />
+                  <label for="solo">Select Plan</label>
+                </div>
+              </div>
 
-            <form action="https://sheetdb.io/api/v1/h4qzn0watw8di/cache/purge/9e57f8f8" method="POST" class="payment-form glass" id="sheetdb-form">
-                <div class="form-group">
-                    <label style="margin-bottom: 8vh;">Step 1: Choose Your Payment Package *</label>
-                    <div class="pricing-container">
-                        <div class="pricing-tier" id="tier-solo">
-                            <div class="tier-header">
-                                <h2>Solo Learner</h2>
-                                <p class="description">For one learner taking a single course.</p>
-                            </div>
-                            <hr>
-                            <div class="tier-price">
-                                <p class="current-price" style="font-weight: bold;">900 <span class="currency">ETB</span></p>
-                            </div>
-                            <div class="tier-selection">
-                                <input type="radio" id="solo" name="data[pricing_tier]" value="900 ETB (1 Learner)" required>
-                                <label for="solo">Select Plan</label>
-                            </div>
-                        </div>
+              <div class="pricing-tier popular" id="tier-duo">
+                <div class="popular-banner">MOST POPULAR</div>
+                <div class="tier-header">
+                  <h2>Duo Pack</h2>
+                  <p class="description">
+                    For two learners taking a single course together.
+                  </p>
+                  <p class="description">
+                    <span class="discount-badge">Save ~35%</span>
+                  </p>
+                </div>
+                <hr />
+                <div class="tier-price">
+                  <p class="anchor-price" style="font-weight: bold">1800 ETB</p>
+                  <p class="current-price" style="font-weight: bold">
+                    1400 <span class="currency">ETB</span>
+                  </p>
+                </div>
+                <div class="tier-selection">
+                  <input
+                    type="radio"
+                    id="duo"
+                    name="entry.2085763049"
+                    value="1400"
+                  />
+                  <label for="duo">Select Plan</label>
+                </div>
+              </div>
 
-                        <div class="pricing-tier popular" id="tier-duo" style="margin-bottom: 6vh;">
-                            <div class="popular-banner">MOST POPULAR</div>
-                            <div class="tier-header" style="margin-top: 2vh;">
-                                <h2>Duo Pack</h2>
-                                <p class="description">For two learners taking a single course together.</p>
-                                <p class="description"><span class="discount-badge">Save ~35%</span></p>
-                            </div>
-                            <hr>
-                            <div class="tier-price">
-                                <p class="anchor-price" style="font-weight: bold;">1800 ETB</p>
-                                <p class="current-price" style="font-weight: bold;">1400 <span class="currency">ETB</span></p>
-                            </div>
-                            <div class="tier-selection">
-                                <input type="radio" id="duo" name="data[pricing_tier]" value="1400 ETB (2 Learners)">
-                                <label for="duo">Select Plan</label>
-                            </div>
-                        </div>
-
-                        <div class="pricing-tier" id="tier-power">
-                            <div class="tier-header">
-                                <h2>Power Learner</h2>
-                                <p class="description">For one learner taking two courses.</p>
-                                <p class="description"><span class="discount-badge">Save ~30%</span></p>
-                            </div>
-                            <hr>
-                            <div class="tier-price">
-                                <p class="anchor-price" style="font-weight: bold;">1800 ETB</p>
-                                <p class="current-price" style="font-weight: bold;">1300 <span class="currency">ETB</span></p>
-                            </div>
-                            <div class="tier-selection">
-                                <input type="radio" id="power" name="data[pricing_tier]" value="1300 ETB (1 Learner, 2 Courses)">
-                                <label for="power">Select Plan</label>
-                            </div>
-                        </div>
-                    </div>
+              <div class="pricing-tier" id="tier-power">
+                <div class="tier-header">
+                  <h2>Power Learner</h2>
+                  <p class="description">For one learner taking two courses.</p>
+                  <p class="description">
+                    <span class="discount-badge">Save ~30%</span>
+                  </p>
                 </div>
-
-                <div class="form-group">
-                    <label for="fullName">Step 2: Full Name(s) *</label>
-                    <input type="text" id="fullName" name="data[full_name]" placeholder="Enter your full name" required>
+                <hr />
+                <div class="tier-price">
+                  <p class="anchor-price" style="font-weight: bold">1800 ETB</p>
+                  <p class="current-price" style="font-weight: bold">
+                    1300 <span class="currency">ETB</span>
+                  </p>
                 </div>
-                
-                <div class="form-group">
-                    <label for="email">Step 3: Email(s) *</label>
-                    <p class="label-note">The same email you'll be using for the program. If applying as 2 learners, write both your emails here.</p>
-                    <textarea id="email" name="data[email]" placeholder="student1@example.com, student2@example.org" required></textarea>
+                <div class="tier-selection">
+                  <input
+                    type="radio"
+                    id="power"
+                    name="entry.2085763049"
+                    value="1300"
+                  />
+                  <label for="power">Select Plan</label>
                 </div>
-                
-                <div class="form-group">
-                    <label for="telegram">Step 4: Telegram Username(s) *</label>
-                    <input type="text" id="telegram" name="data[telegram_username]" placeholder="@username1, @username2" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Step 5: Preferred Program *</label>
-                    <div class="program-options">
-                        <div class="option"><input type="radio" id="med" name="data[preferred_program]" value="Medicine Basics" required> <label for="med">Medicine Basics</label></div>
-                        <div class="option"><input type="radio" id="eng" name="data[preferred_program]" value="Engineering Basics"> <label for="eng">Engineering Basics</label></div>
-                        <div class="option"><input type="radio" id="swe" name="data[preferred_program]" value="Software Engineering Basics"> <label for="swe">Software Engineering Basics</label></div>
-                        <div class="option"><input type="radio" id="mb_eb" name="data[preferred_program]" value="Both (MB&EB)"> <label for="mb_eb">Both (Medicine & Engineering)</label></div>
-                        <div class="option"><input type="radio" id="se_mb" name="data[preferred_program]" value="Both (SE&MB)"> <label for="se_mb">Both (Software Engineering & Medicine)</label></div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="transactionId">Step 6: Enter Transaction ID *</label>
-                    <p class="label-note">Look for "Transaction ID" or "Transaction Number" on your bank receipt and enter it here.</p>
-                    <input type="text" id="transactionId" name="data[transaction_id]" placeholder="e.g., FT25212FH721 or CG06PG0HTE" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="accountHolder">Step 7: Name of Account Holder (that completed the transaction) *</label>
-                    <input type="text" id="accountHolder" name="data[account_holder_name]" placeholder="Name on the bank account" required>
-                </div>
-
-                <button type="submit" class="submit-btn">Submit Registration</button>
-            </form>
-        </section>
-    </main>
-    <footer class="ft">
-        <div class="bars">
-            <div class="left-bar">
-                <div class="left-logo">
-                    <a href="/index"><img src="/assets/img/white.png" alt="Ethioware-Logo"></a>
-                    <a href="/index"><p>ETHIOWARE</p></a>
-                </div>
-                <div class="left-socials">
-                    <div><a href="https://www.linkedin.com/company/ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=84888&format=png&color=ffffff" alt="LinkedIn"></a></div>
-                    <div><a href="https://facebook.com/ethiowareEI" target="_blank"><img src="https://img.icons8.com/?size=100&id=118490&format=png&color=ffffff" alt="Facebook"></a></div>
-                    <div><a href="https://instagram.com/ethioware_" target="_blank"><img src="https://img.icons8.com/?size=100&id=84884&format=png&color=ffffff" alt="Instagram"></a></div>
-                    <div><a href="https://twitter.com/ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=102907&format=png&color=ffffff" alt="Twitter"></a></div>
-                    <div><a href="https://youtube.com/@ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=37326&format=png&color=ffffff" alt="YouTube"></a></div>
-                    <div><a href="https://t.me/ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=85428&format=png&color=ffffff" alt="Telegram"></a></div>
-                </div>
+              </div>
             </div>
-            <div class="right-bar">
-                <div class="right-bar-links">
-                    <div class="col">
-                        <a href="/index" class="head">Home</a>
-                    </div>
-                    <div class="col">
-                        <a href="/about" class="head">About Us</a>
-                        <a href="/mission" class="sub">Mission</a>
-                        <a href="/approach" class="sub">Approach</a>
-                        <a href="https://forms.office.com/r/3SepzQNHz2" class="sub">Membership</a>
-                    </div>
-                    <div class="col">
-                        <a href="https://wa.me/message/W4GUO2DOV4HWI1" class="head">Work With Us</a>
-                        <a href="https://www.skilledup.life/" class="sub">Partners</a>
-                        <a href="https://forms.office.com/r/8MtrXwTY8R" class="sub">Interns</a>
-                        <a href="https://forms.office.com/r/BwCszzkuXK" class="sub">Trainees</a>
-                    </div>
-                    <div class="col">
-                        <a href="/articles" class="head">Publications</a>
-                        <a href="/articles" class="sub">Academic Papers</a>
-                        <a href="https://www.youtube.com/@ethioware" class="sub">Interviews</a>
-                    </div>
-                    <div class="col">
-                        <a href="/index" class="head">Contact Us</a>
-                        <a href="mailto:info@ethioware.org" class="sub">Send Us A Message</a>
-                    </div>
-                </div>
-                <div class="trustpilot-widget right-review" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6666fe238ece8b6766f5dfc3" data-style-height="4rem" data-style-width="100%">
-                        <a href="https://www.trustpilot.com/review/ethioware.org" target="_blank"></a>
-                    </div>
-                    </div>
-        </div>
-        <div class="copy">
-            <p class="copy copy-txt">© 2025 Ethioware EdTech Initiative. All Rights Reserved</p>
-        </div>
-    </footer>
-    
-<script>
-    const form = document.getElementById('sheetdb-form');
-    
-    // Add event listener for form submission
-    form.addEventListener("submit", e => {
-        e.preventDefault();
-        
-        // **START OF VALIDATION CODE**
-        const emailField = document.getElementById('email');
-        const emails = emailField.value.split(',').map(email => email.trim());
-        const emailRegex = /.+@.+\..+/;
-        
+          </div>
+
+          <div class="form-group">
+            <label for="fullName">Step 2: Full Name(s) *</label>
+            <input
+              type="text"
+              id="fullName"
+              name="entry.877086558"
+              placeholder="Enter your full name"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Step 3: Email*</label>
+            <p class="label-note">
+              The same email you'll be using for the program. If applying as 2
+              learners, write only one email here and send us the other learner
+              email on telegram.
+            </p>
+            <input
+              id="email"
+              name="entry.1498135098"
+              placeholder="student@gmail.com"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="telegram">Step 4: Telegram Username(s) *</label>
+            <input
+              type="text"
+              id="telegram"
+              name="entry.2606285"
+              placeholder="@username1, @username2"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+    <label>Step 5: Preferred Program *</label>
+    <div class="program-options">
+        <div class="option selectable-option"><input type="radio" id="med" name="data[preferred_program]" value="Medicine Basics" required> <label for="med">Medicine Basics</label></div>
+        <div class="option selectable-option"><input type="radio" id="eng" name="data[preferred_program]" value="Engineering Basics"> <label for="eng">Engineering Basics</label></div>
+        <div class="option selectable-option"><input type="radio" id="swe" name="data[preferred_program]" value="Software Engineering Basics"> <label for="swe">Software Engineering Basics</label></div>
+        <div class="option selectable-option"><input type="radio" id="mb_eb" name="data[preferred_program]" value="Both (MB&EB)"> <label for="mb_eb">Both (Medicine & Engineering)</label></div>
+        <div class="option selectable-option"><input type="radio" id="se_mb" name="data[preferred_program]" value="Both (SE&MB)"> <label for="se_mb">Both (Software Engineering & Medicine)</label></div>
+    </div>
+</div>
+
+          <div class="form-group">
+            <label for="transactionId">Step 6: Enter Transaction ID *</label>
+            <p class="label-note">
+              Look for "Transaction ID" or "Transaction Number/Ref" on your bank
+              receipt and enter it here.
+            </p>
+            <input
+              type="text"
+              id="transactionId"
+              name="entry.1153407645"
+              placeholder="e.g., FT25212FH721 or CG06PG0HTE"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="accountHolder"
+              >Step 7: Name of Account Holder (that completed the transaction)
+              *</label
+            >
+            <input
+              type="text"
+              id="accountHolder"
+              name="entry.2097335733"
+              placeholder="Name on the bank account"
+              required
+            />
+          </div>
+
+          <button type="submit" class="submit-btn">Submit Deposit</button>
+        </form>
+      </section>
+    </main>
+
+    <script>
+      // Navigation Menu Toggle
+      const navMenu = document.getElementById("nav-menu"),
+        navToggle = document.getElementById("nav-toggle"),
+        navClose = document.getElementById("nav-close");
+      if (navToggle) {
+        navToggle.addEventListener("click", () => {
+          navMenu.classList.add("show-menu");
+        });
+      }
+      if (navClose) {
+        navClose.addEventListener("click", () => {
+          navMenu.classList.remove("show-menu");
+        });
+      }
+
+      // Dark Mode Toggle
+      const themeButton = document.getElementById("theme-button");
+      const darkTheme = "dark-theme";
+      const iconTheme = "ri-sun-line";
+      const selectedTheme = localStorage.getItem("selected-theme");
+      const selectedIcon = localStorage.getItem("selected-icon");
+
+      const getCurrentTheme = () =>
+        document.body.classList.contains(darkTheme) ? "dark" : "light";
+      const getCurrentIcon = () =>
+        themeButton.classList.contains(iconTheme)
+          ? "ri-sun-line"
+          : "ri-moon-line";
+
+      if (selectedTheme) {
+        document.body.classList[selectedTheme === "dark" ? "add" : "remove"](
+          darkTheme
+        );
+        themeButton.classList[
+          selectedIcon === "ri-sun-line" ? "add" : "remove"
+        ](iconTheme);
+      }
+
+      themeButton.addEventListener("click", () => {
+        document.body.classList.toggle(darkTheme);
+        themeButton.classList.toggle(iconTheme);
+        localStorage.setItem("selected-theme", getCurrentTheme());
+        localStorage.setItem("selected-icon", getCurrentIcon());
+      });
+
+      // Existing script for pricing tier selection
+const pricingTiers = document.querySelectorAll('.pricing-tier');
+pricingTiers.forEach(tier => {
+    tier.addEventListener('click', () => {
+        const radioButton = tier.querySelector('input[type="radio"]');
+        radioButton.checked = true;
+        pricingTiers.forEach(t => t.classList.remove('selected'));
+        tier.classList.add('selected');
+    });
+});
+
+// New script for program option selection
+const programOptions = document.querySelectorAll('.program-options .option');
+programOptions.forEach(option => {
+    option.addEventListener('click', () => {
+        const radioButton = option.querySelector('input[type="radio"]');
+        radioButton.checked = true;
+        programOptions.forEach(o => o.classList.remove('selected'));
+        option.classList.add('selected');
+    });
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Retain selected state for pricing tiers
+    const checkedTier = document.querySelector('.pricing-tier input[type="radio"]:checked');
+    if (checkedTier) {
+        checkedTier.closest('.pricing-tier').classList.add('selected');
+    }
+
+    // Retain selected state for program options
+    const checkedOption = document.querySelector('.program-options input[type="radio"]:checked');
+    if (checkedOption) {
+        checkedOption.closest('.option').classList.add('selected');
+    }
+});
+
+      setupSelection(pricingTiers, "entry.2085763049");
+      setupSelection(programOptions, "entry.1502304010");
+
+      form.addEventListener("submit", (e) => {
+        const emailField = document.getElementById("email");
+        const emails = emailField.value.split(",").map((email) => email.trim());
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         for (const email of emails) {
-            if (email === '') {
-                alert('One or more of the email entries is empty. Please remove any extra commas or fill in the blank fields.');
-                emailField.focus();
-                return;
-            }
-            if (!emailRegex.test(email)) {
-                alert('One or more of the email entries is not a valid email address. Please check your entries.');
-                emailField.focus();
-                return;
-            }
+          if (email === "") {
+            alert(
+              "One or more of the email entries is empty. Please remove any extra commas or fill in the blank fields."
+            );
+            e.preventDefault();
+            emailField.focus();
+            return;
+          }
+          if (!emailRegex.test(email)) {
+            alert(
+              "One or more of the email entries is not a valid email address. Please check your entries."
+            );
+            e.preventDefault();
+            emailField.focus();
+            return;
+          }
         }
-
-        // Display a loading message
-        const submitBtn = form.querySelector('.submit-btn');
-        const originalBtnText = submitBtn.textContent;
-        submitBtn.textContent = "Processing...";
-        submitBtn.disabled = true;
-
-        // Use the fetch API to send form data
-        fetch(form.action, {
-            method: "POST",
-            body: new FormData(form),
-        })
-        .then(response => {
-            // Check if the response is okay before parsing JSON
-            if (!response.ok) {
-                throw new Error('Network response was not ok. Please check your internet connection.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            if (data.created) {
-                // Success! Show a popup
-                alert('Payment completed successfully! Thank you for your registration.');
-                form.reset(); // Clear all form fields
-            } else {
-                // Handle a server-side error from SheetDB
-                const errorMessage = data.message || 'An error occurred on the server. Please check your form and try again.';
-                alert(`Submission Failed: ${errorMessage}`);
-            }
-        })
-        .catch(error => {
-            // Handle network or other unexpected errors
-            console.error('Error:', error);
-            alert(`An error occurred: ${error.message}. Please try again later.`);
-        })
-        .finally(() => {
-            // Reset the button state
-            submitBtn.textContent = originalBtnText;
-            submitBtn.disabled = false;
-        });
-    });
-
-    // Existing script for pricing tier selection
-    const pricingTiers = document.querySelectorAll('.pricing-tier');
-    pricingTiers.forEach(tier => {
-        tier.addEventListener('click', () => {
-            const radioButton = tier.querySelector('input[type="radio"]');
-            radioButton.checked = true;
-            pricingTiers.forEach(t => t.classList.remove('selected'));
-            tier.classList.add('selected');
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const checkedRadio = document.querySelector('input[name="data[pricing_tier]"]:checked');
-        if (checkedRadio) {
-            checkedRadio.closest('.pricing-tier').classList.add('selected');
-        }
-    });
-</script>
-</body>
+      });
+    </script>
+  </body>
 </html>
