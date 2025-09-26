@@ -1,705 +1,1308 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Ethioware EdTech Initiative</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-            const script = document.createElement("script");
-            script.src = "//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js";
-            script.async = true;
-            document.head.appendChild(script);
-        });
+      document.addEventListener("DOMContentLoaded", function () {
+        const script = document.createElement("script");
+        script.src =
+          "//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js";
+        script.async = true;
+        document.head.appendChild(script);
+      });
     </script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RYB205PY5C"></script>
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-RYB205PY5C"
+    ></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-RYB205PY5C');
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+      gtag("config", "G-RYB205PY5C");
     </script>
 
     <script src="assets/js/sendmail.js"></script>
-    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Check if the URL starts with a #
-            if (window.location.hash) {
-                const newUrl = window.location.href.replace('#', '');
-                window.history.replaceState(null, null, newUrl); // Remove # from the URL without reloading
-            }
+      document.addEventListener("DOMContentLoaded", function () {
+          // Check if the URL starts with a #
+          if (window.location.hash) {
+              const newUrl = window.location.href.replace('#', '');
+              window.history.replaceState(null, null, newUrl); // Remove # from the URL without reloading
+          }
 
-            // Handle navigation without reloading
-            document.querySelectorAll('a').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    if (this.getAttribute('href').startsWith('/')) {
-                        e.preventDefault();
-                        const targetId = this.getAttribute('href').substring(1);
-                        const targetElement = document.getElementById(targetId);
-                        if (targetElement) {
-                            window.history.pushState(null, null, `/${targetId}`);
-                            targetElement.scrollIntoView({ behavior: 'smooth' });
-                        } else if (targetId === '') {
-                            window.history.pushState(null, null, `/`);
-                            document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
-                        }
-                    }
-                });
-            });
+          // Handle navigation without reloading
+          document.querySelectorAll('a').forEach(anchor => {
+              anchor.addEventListener('click', function (e) {
+                  if (this.getAttribute('href').startsWith('/')) {
+                      e.preventDefault();
+                      const targetId = this.getAttribute('href').substring(1);
+                      const targetElement = document.getElementById(targetId);
+                      if (targetElement) {
+                          window.history.pushState(null, null, `/${targetId}`);
+                          targetElement.scrollIntoView({ behavior: 'smooth' });
+                      } else if (targetId === '') {
+                          window.history.pushState(null, null, `/`);
+                          document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
+                      }
+                  }
+              });
+          });
 
-            // Scroll to the section if URL contains a path
-            const path = window.location.pathname.substring(1);
-            if (path) {
-                const targetElement = document.getElementById(path);
-                if (targetElement) {
-                    targetElement.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
-
+          // Scroll to the section if URL contains a path
+          const path = window.location.pathname.substring(1);
+          if (path) {
+              const targetElement = document.getElementById(path);
+              if (targetElement) {
+                  targetElement.scrollIntoView({ behavior: 'smooth' });
+              }
+          }
     </script>
 
     <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function() {
-            const emailScript = document.createElement("script");
-            emailScript.src = "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
-            emailScript.onload = function() {
-                emailjs.init("tdtlEABcsUxAMpI8W");
-            };
-            document.head.appendChild(emailScript);
-        });
+      document.addEventListener("DOMContentLoaded", function () {
+        const emailScript = document.createElement("script");
+        emailScript.src =
+          "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+        emailScript.onload = function () {
+          emailjs.init("tdtlEABcsUxAMpI8W");
+        };
+        document.head.appendChild(emailScript);
+      });
     </script>
     <style>
-        #google-signin-container {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-            display: none;
-        }
+      #google-signin-container {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        z-index: 1000;
+        display: none;
+      }
 
-        .stats__container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1.5rem;
-            padding: 2rem 0;
-            text-align: center;
-        }
+      .stats__container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1.5rem;
+        padding: 2rem 0;
+        text-align: center;
+      }
 
-        .stats__card {
-            background-color: var(--container-color);
-            padding: 1.5rem;
-            border-radius: 0.5rem;
-            box-shadow: var(--box-shadow);
-        }
+      .stats__card {
+        background-color: var(--container-color);
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        box-shadow: var(--box-shadow);
+      }
 
-        .stats__icon {
-            font-size: 2rem;
-            color: var(--first-color);
-            margin-bottom: 0.5rem;
-        }
+      .stats__icon {
+        font-size: 2rem;
+        color: var(--first-color);
+        margin-bottom: 0.5rem;
+      }
 
-        .stats__number {
-            font-size: 1.5rem;
-            font-weight: var(--font-semi-bold);
-            color: var(--title-color);
-        }
+      .stats__number {
+        font-size: 1.5rem;
+        font-weight: var(--font-semi-bold);
+        color: var(--title-color);
+      }
 
-        .stats__title {
-            font-size: var(--small-font-size);
-            color: var(--text-color-light);
-        }
+      .stats__title {
+        font-size: var(--small-font-size);
+        color: var(--text-color-light);
+      }
 
-        .animated-number {
-            display: inline-block;
-            overflow: hidden;
-            vertical-align: bottom;
-            height: 1.5rem; /* Adjust based on your font-size */
-        }
+      .animated-number {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: bottom;
+        height: 1.5rem; /* Adjust based on your font-size */
+      }
 
-        .animated-number span {
-            display: block;
-            line-height: 1.5rem; /* Should match the height */
-            transition: transform 0.5s ease-in-out;
-        }
+      .animated-number span {
+        display: block;
+        line-height: 1.5rem; /* Should match the height */
+        transition: transform 0.5s ease-in-out;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div id="google-signin-container">
-        <div id="g_id_onload"
-            data-client_id="615874094558-7vat1vkdihe0htgq9siljg7sgk4sjlnv.apps.googleusercontent.com"
-            data-context="signin"
-            data-ux_mode="popup"
-            data-callback="handleCredentialResponse"
-            data-auto_prompt="true">
-        </div>
-        <div class="g_id_signin" data-type="standard"></div>
+      <div
+        id="g_id_onload"
+        data-client_id="615874094558-7vat1vkdihe0htgq9siljg7sgk4sjlnv.apps.googleusercontent.com"
+        data-context="signin"
+        data-ux_mode="popup"
+        data-callback="handleCredentialResponse"
+        data-auto_prompt="true"
+      ></div>
+      <div class="g_id_signin" data-type="standard"></div>
     </div>
     <header class="header glass" id="header">
-        <nav class="nav container">
-            <a href="/home" class="nav__logo">
-                <img src="assets/img/logo-mini.png"> Ethioware
-            </a>
-            <div class="nav__menu" id="nav-menu">
-                <ul class="nav__list">
-                    <li class="nav__item">
-                        <a href="/about" class="nav__link">About</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="/approach" class="nav__link">How</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="/mission" class="nav__link">Mission</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="/articles" class="nav__link">Articles</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="/train" class="nav__link">Register</a>
-                    </li>
-                    <li class="nav__item">
-                        <a href="/contact" class="nav__link">Contact Us</a>
-                    </li>
-                </ul>
-                <div class="nav__close" id="nav-close">
-                    <i class="ri-close-line"></i>
-                </div>
-            </div>
-            <div class="nav__btns">
-                <i class="ri-moon-line change-theme" id="theme-button"></i>
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class="ri-menu-line"></i>
-                </div>
-            </div>
-        </nav>
+      <nav class="nav container">
+        <a href="/home" class="nav__logo">
+          <img src="assets/img/logo-mini.png" /> Ethioware
+        </a>
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a href="/about" class="nav__link">About</a>
+            </li>
+            <li class="nav__item">
+              <a href="/approach" class="nav__link">How</a>
+            </li>
+            <li class="nav__item">
+              <a href="/mission" class="nav__link">Mission</a>
+            </li>
+            <li class="nav__item">
+              <a href="/articles" class="nav__link">Articles</a>
+            </li>
+            <li class="nav__item">
+              <a href="/train" class="nav__link">Register</a>
+            </li>
+            <li class="nav__item">
+              <a href="/contact" class="nav__link">Contact Us</a>
+            </li>
+          </ul>
+          <div class="nav__close" id="nav-close">
+            <i class="ri-close-line"></i>
+          </div>
+        </div>
+        <div class="nav__btns">
+          <i class="ri-moon-line change-theme" id="theme-button"></i>
+          <div class="nav__toggle" id="nav-toggle">
+            <i class="ri-menu-line"></i>
+          </div>
+        </div>
+      </nav>
     </header>
     <main class="main">
-        <section id="home" class="home">
-            <div class="home__container container grid">
-                <a target="_blank" class="home__img glass" style="border-radius: 90px">
-                    <img src="assets/img/plan.webp">
-                </a>
-                <div class="home__data">
-                    <h1 class="home__title">
-                        Ethioware <br> EdTech Initiative
-                    </h1>
-                    <p class="home__description">
-                        Lessons from the doers
-                    </p>
-                    <a href="https://www.trustpilot.com/review/ethioware.org" class="button button--flex">
-                        Read user reviews! <i class="ri-arrow-right-up-line button__icon"></i>
-                    </a>
-                </div>
-                <div class="home__social">
-                    <span class="home__social-follow">Follow Us</span>
-                    <div class="home__social-links">
-                        <a href="https://www.linkedin.com/company/ethioware" target="_blank" class="home__social-link">
-                            <i class="ri-linkedin-fill"></i>
-                        </a>
-                        <a href="https://www.telegram.me/ethioware" target="_blank" class="home__social-link">
-                            <i class="ri-telegram-line"></i>
-                        </a>
-                        <a href="https://youtube.com/@ethioware" target="_blank" class="home__social-link">
-                            <i class="ri-youtube-fill"></i>
-                        </a>
-                    </div>
-                </div>
+      <section id="home" class="home">
+        <div class="home__container container grid">
+          <a
+            target="_blank"
+            class="home__img glass"
+            style="border-radius: 90px"
+          >
+            <img src="assets/img/plan.webp" />
+          </a>
+          <div class="home__data">
+            <h1 class="home__title">
+              Ethioware <br />
+              EdTech Initiative
+            </h1>
+            <p class="home__description">Lessons from the doers</p>
+            <a
+              href="https://www.trustpilot.com/review/ethioware.org"
+              class="button button--flex"
+            >
+              Read user reviews!
+              <i class="ri-arrow-right-up-line button__icon"></i>
+            </a>
+          </div>
+          <div class="home__social">
+            <span class="home__social-follow">Follow Us</span>
+            <div class="home__social-links">
+              <a
+                href="https://www.linkedin.com/company/ethioware"
+                target="_blank"
+                class="home__social-link"
+              >
+                <i class="ri-linkedin-fill"></i>
+              </a>
+              <a
+                href="https://www.telegram.me/ethioware"
+                target="_blank"
+                class="home__social-link"
+              >
+                <i class="ri-telegram-line"></i>
+              </a>
+              <a
+                href="https://youtube.com/@ethioware"
+                target="_blank"
+                class="home__social-link"
+              >
+                <i class="ri-youtube-fill"></i>
+              </a>
             </div>
-        </section>
-         <section class="stats section container">
-            <div class="stats__container grid">
-                <div class="stats__card glass">
-                    <i class="fa fa-graduation-cap stats__icon"></i>
-                    <div class="stats__number"><span data-target="125">0</span>+</div>
-                    <h3 class="stats__title">Graduates</h3>
-                </div>
-                <div class="stats__card glass">
-                    <i class="fa fa-users stats__icon"></i>
-                    <div class="stats__number"><span data-target="30">0</span>+</div>
-                    <h3 class="stats__title">Mentors</h3>
-                </div>
-                <div class="stats__card glass">
-                    <i class="fa fa-handshake stats__icon"></i>
-                    <div class="stats__number"><span data-target="3">0</span></div>
-                    <h3 class="stats__title">Partnerships</h3>
-                </div>
-                <div class="stats__card glass">
-                    <i class="fa fa-globe stats__icon"></i>
-                    <div class="stats__number"><span data-target="9">0</span>+</div>
-                    <h3 class="stats__title">Nationals</h3>
-                </div>
-            </div>
-        </section>
-        <section class="about section container" id="about">
-            <h2 class="section__title about__title">
-                What do we do?<br>
-            </h2>
-            <p class="about__description">
-                We provide highschool graduates with direct anecdotal online sessions with experts in their field of interest. We call these sessions, pre-training readiness - where upon completion - they will know where to start, with whom to continue, and who to contact for further guidance. <br/>
-                Want to enroll your kids, contact us at
-                <button class="glass" type="submit" action="mailto:parents@ethioware.org" value="Send" style="margin:2px; color: #00abe7;border-radius: 2px">
-                    parents@ethioware.org
-                </button>
-            </p>
-            
-        </section>
-       
-        
+          </div>
+        </div>
+      </section>
+      <section class="stats section container">
+        <div class="stats__container grid">
+          <div class="stats__card glass">
+            <i class="fa fa-graduation-cap stats__icon"></i>
+            <div class="stats__number"><span data-target="125">0</span>+</div>
+            <h3 class="stats__title">Graduates</h3>
+          </div>
+          <div class="stats__card glass">
+            <i class="fa fa-users stats__icon"></i>
+            <div class="stats__number"><span data-target="30">0</span>+</div>
+            <h3 class="stats__title">Mentors</h3>
+          </div>
+          <div class="stats__card glass">
+            <i class="fa fa-handshake stats__icon"></i>
+            <div class="stats__number"><span data-target="3">0</span></div>
+            <h3 class="stats__title">Partnerships</h3>
+          </div>
+          <div class="stats__card glass">
+            <i class="fa fa-globe stats__icon"></i>
+            <div class="stats__number"><span data-target="9">0</span>+</div>
+            <h3 class="stats__title">Nationals</h3>
+          </div>
+        </div>
+      </section>
+      <section class="about section container" id="about">
+        <h2 class="section__title about__title">What do we do?<br /></h2>
+        <p class="about__description">
+          We provide highschool graduates with direct anecdotal online sessions
+          with experts in their field of interest. We call these sessions,
+          pre-training readiness - where upon completion - they will know where
+          to start, with whom to continue, and who to contact for further
+          guidance. <br />
+          Want to enroll your kids, contact us at
+          <button
+            class="glass"
+            type="submit"
+            action="mailto:parents@ethioware.org"
+            value="Send"
+            style="margin: 2px; color: #00abe7; border-radius: 2px"
+          >
+            parents@ethioware.org
+          </button>
+        </p>
+      </section>
 
-        <section class="about section container" id="approach">
-            <div class="steps__bg glass">
-                <h2 class="section__title-center steps__title">
-                    Our Approach <br> to Education
-                </h2>
-                <div class="steps__container grid about__container">
-                    <div>
-                        <img src="assets/img/interest.png" width="128px" height="128px" alt="">
-                        <h4 class="ssection__text-center steps__title">Interest <span>→</span></h4>
-                    </div>
-                    <div>
-                        <img src="assets/img/mentor.png" width="128px" height="128px" alt="">
-                        <h4 class="ssection__text-center steps__title">Expert Sessions <span>→</span></h4>
-                    </div>
-                    <div>
-                        <img src="assets/img/practical.png" width="128px" height="128px" alt="">
-                        <h4 class="ssection__text-center steps__title"> Practical Assessments <span>↓</span></h4>
-                    </div>
-                    <div>
-                        <img src="assets/img/skill.png" width="128px" height="128px" alt="">
-                        <h4 class="ssection__text-center steps__title"> Skill Acquisition <span>↑</span></h4>
-                    </div>
-                    <div>
-                        <img src="assets/img/resources.png" width="128px" height="128px" alt="">
-                        <h4 class="ssection__text-center steps__title"> <span>←</span> Directed Resources </h4>
-                    </div>
-                    <div>
-                        <img src="assets/img/target.png" width="128px" height="128px" alt="">
-                        <h4 class="ssection__text-center steps__title"> <span>←</span> Attainable Target </h4>
-                    </div>
-                </div>
+      <section class="about section container" id="approach">
+        <div class="steps__bg glass">
+          <h2 class="section__title-center steps__title">
+            Our Approach <br />
+            to Education
+          </h2>
+          <div class="steps__container grid about__container">
+            <div>
+              <img
+                src="assets/img/interest.png"
+                width="128px"
+                height="128px"
+                alt=""
+              />
+              <h4 class="ssection__text-center steps__title">
+                Interest <span>→</span>
+              </h4>
             </div>
-        </section>
-        <section class="steps section container" id="mission">
-            <div class="steps__bg">
-                <h2 class="section__title-center steps__title">
-                    Direct 200,000 African Youth <br/> to Intentionally Chosen Careers by 2040
-                </h2>
-                <div class="steps__container grid">
-                    <div class="steps__card glass">
-                        <div class="steps__card-number">01</div>
-                        <h3 class="steps__card-title">Motivation</h3>
-                        <p class="steps__card-description">
-                            Sharing expert mentors' path to make the road ahead motivating to pursue
-                        </p>
-                    </div>
-                    <div class="steps__card glass">
-                        <div class="steps__card-number">02</div>
-                        <h3 class="steps__card-title">Adaptation</h3>
-                        <p class="steps__card-description">
-                            Learning from setbacks of seniors to better adapt for future circumstances
-                        </p>
-                    </div>
-                    <div class="steps__card glass">
-                        <div class="steps__card-number">03</div>
-                        <h3 class="steps__card-title">Execution</h3>
-                        <p class="steps__card-description">
-                            By completing this pre training, you will make actionable decision on what to learn, where to learn it, and how to make the most out of the obtained knowledge
-                        </p>
-                    </div>
-                </div>
+            <div>
+              <img
+                src="assets/img/mentor.png"
+                width="128px"
+                height="128px"
+                alt=""
+              />
+              <h4 class="ssection__text-center steps__title">
+                Expert Sessions <span>→</span>
+              </h4>
             </div>
-        </section>
-       <div class="main_container">
-            <div class="content">
-                <h2 class="section__title about__title">
-                    Our Volunteers<br> Are From<br>
-                </h2>
-                <div class="partner-container">
-                    <div class="partner-wrapper" id="partner-wrapper">
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/sosna-achamyeleh/" target="_blank"><img src="assets/img/Addis_Ababa_University_logo.png" alt="AAU" />
-                            </a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/elshadai-tegegn/" target="_blank"> <img src="assets/img/amazon.png" alt="Amazon" /> </a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/sosna-achamyeleh/" target="_blank"><img src="assets/img/Esklate.png" alt="Esklate" /></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/mihret-bekele/" target="_blank"><img src="assets/img/a2sv.png" alt="A2sv" /></a>
-                        </div>
-                         <div class="partner">
-                            <a href="https://www.skilledup.life/" target="_blank"><img src="assets/img/skilledup.png" alt="SkilledUp Life" width="30%" height="10%"></a>
-                        </div>
-                         <div class="partner">
-                            <a href="https://www.linkedin.com/in/aschalew-chamiso/" target="_blank"><img src="assets/img/apple.png" alt="Apple"/></a>
-               </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/tamsul/" target="_blank"><img src="assets/img/disruptors.png" alt="The disruptors den"/></a>
-                        </div>
-                        <div class="partner">
-                    <a href="https://www.linkedin.com/in/liya-m-shibru-042a0b2b6/" target="_blank"> <img src="assets/img/dku.png" alt="Duke Kunshan" /></a>
-                  </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/mukerem/" target="_blank"> <img src="assets/img/Turing.png" alt="Turing" /></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/abel-mulugeta/" target="_blank"><img src="assets/img/yali.png" alt="Yali" /></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/abenezer-amanuel/" target="_blank"><img src="assets/img/duolingo.png" alt="Duolingo" /></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/hana-mekonen-951104209/" target="_blank"> <img src="assets/img/haramaya.png" alt="Haramaya" /></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/efridereje/" target="_blank"><img src="assets/img/Gebeya.png" alt="Gebeya" /></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/amanuel-dejene-38b671256/" target="_blank"><img src="assets/img/echo digitals.png" alt="Echo Digitals" /></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/abenezer-amanuel/" target="_blank"><img src="assets/img/columbia.png" alt="Columbia University"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/netsanet-meles-568424210/" target="_blank"><img src="assets/img/education.webp" alt="Let's Talk About Education"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/mulu-tsega943/" target="_blank"><img src="assets/img/aevue.png" alt="Columbia University"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/henok-belachew/" target="_blank"><img src="assets/img/addissystems.png" alt="Addis Systems"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/dawit-ketema-26640b23b" target="_blank"><img src="assets/img/eaa.png" alt="Ethiopian Aviation Academy"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/hanna-girma-187974185/" target="_blank"><img src="assets/img/Chapa.png" alt="Chapa"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/dawitmammo/" target="_blank"><img src="assets/img/flawless.png" alt="Flawless Events"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/yvan-gatete/" target="_blank"><img src="assets/img/Google.png" alt="Google"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/amanuel-sisay-87b044201/" target="_blank"><img src="assets/img/Headstarter.png" alt="HeadStarter"/></a>
-                        </div>
-                         <div class="partner">
-                            <a href="https://www.linkedin.com/in/sophonias-dawit-feleke-et/" target="_blank"><img src="assets/img/enzirt.png" alt="Enzirt Engineering"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/tsion-abreha-254494252/" target="_blank"><img src="assets/img/UVA.webp" alt="University of Virginia"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/daniel-mekuriaw/" target="_blank"><img src="assets/img/microsoft.png" alt="Microsoft"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/rediet-gizachew-b23629224/" target="_blank"><img src="assets/img/rac.png" alt="Rotract Club of Atrons"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/bethelehem-mulugeta-0506a21a3/" target="_blank"><img src="assets/img/scitechvalley.webp" alt="SciTech Valley"/></a>
-                        </div>
-                         <div class="partner">
-                            <a href="https://www.linkedin.com/in/mihiret-girma-696a3813a/" target="_blank"><img src="assets/img/mmc.png" alt="Myungsung Medical College"/></a>
-                        </div>
-                         <div class="partner">
-                            <a href="https://www.linkedin.com/in/merat-semma-final/" target="_blank"><img src="assets/img/yale.png" alt="Yale University"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="mailto:meklityohannes96@gmail.com" target="_blank"><img src="assets/img/unity.webp" alt="Selam Medical College"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/lozamfant/" target="_blank"><img src="assets/img/black-lion.png" alt="Black Lion Hospital"/></a>
-                        </div>
-                        <div class="partner">
-                            <a href="https://www.linkedin.com/in/mister-twumasi/" target="_blank"><img src="assets/img/leti.jpeg" alt="Leti Art"/></a>
-                        </div>
-                         <div class="partner">
-                            <a href="https://www.linkedin.com/in/yosef-engdawork-a66a041a0/" target="_blank"><img src="assets/img/safaricom.png" alt="Safaricom"/></a>
-                        </div>
-                         <div class="partner">
-                            <a href="https://www.linkedin.com/in/nati-bekele/" target="_blank"><img src="assets/img/uc.png" alt="University of Chicago"/></a>
-                        </div>
-                        
-                    </div>
-                </div>
+            <div>
+              <img
+                src="assets/img/practical.png"
+                width="128px"
+                height="128px"
+                alt=""
+              />
+              <h4 class="ssection__text-center steps__title">
+                Practical Assessments <span>↓</span>
+              </h4>
             </div>
+            <div>
+              <img
+                src="assets/img/skill.png"
+                width="128px"
+                height="128px"
+                alt=""
+              />
+              <h4 class="ssection__text-center steps__title">
+                Skill Acquisition <span>↑</span>
+              </h4>
+            </div>
+            <div>
+              <img
+                src="assets/img/resources.png"
+                width="128px"
+                height="128px"
+                alt=""
+              />
+              <h4 class="ssection__text-center steps__title">
+                <span>←</span> Directed Resources
+              </h4>
+            </div>
+            <div>
+              <img
+                src="assets/img/target.png"
+                width="128px"
+                height="128px"
+                alt=""
+              />
+              <h4 class="ssection__text-center steps__title">
+                <span>←</span> Attainable Target
+              </h4>
+            </div>
+          </div>
         </div>
-        <section class="questions section" id="articles">
-            <h2 class="section__title-center">
-                Some of our <br> Publications
-            </h2>
-            <div class="questions__container container grid">
-                <div class="pub">
-                    <div class="questions__item" style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
-                        <header class="questions__header glass" style="border-top-right-radius: 10px;border-top-left-radius: 10px;">
-                            <i class="ri-add-line questions__icon"></i>
-                            <h3 class="questions__item-title">
-                                Academic Motivation of High School Students at Dr. Haddis Alemayehu Secondary School.
-                            </h3>
-                        </header>
-                        <div class="questions__content" style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
-                            <div style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px; left: 0; width: 100%; height: 0; position: relative; padding-bottom: 129.4118%;" class="questions__content">
-                                <iframe src="https://1drv.ms/b/c/f1d603e870f01970/IQR3fJUlQ47oTZICfghyivnmAWC4VqcBle5OgHq20L4tylM" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pub">
-                    <div class="questions__item" style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
-                        <header class="questions__header glass" style="border-top-right-radius: 10px;border-top-left-radius: 10px;">
-                            <i class="ri-add-line questions__icon"></i>
-                            <h3 class="questions__item-title">
-                                Beyond Access: Utilization of Educational Technologies at Selected High Schools in Addis Ababa.
-                            </h3>
-                        </header>
-                        <div class="questions__content" style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
-                            <div style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px; left: 0; width: 100%; height: 0; position: relative; padding-bottom: 129.4118%;" class="questions__content">
-                                <iframe src="https://1drv.ms/b/c/f1d603e870f01970/IQT5Mf6kUIEDSqeYshXIHInRAT7YCBUX8kAZkNQqSUgD6ns" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-           
-            <div class="pub">
-                    <div class="questions__item" style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
-                        <header class="questions__header glass" style="border-top-right-radius: 10px;border-top-left-radius: 10px;">
-                            <i class="ri-add-line questions__icon"></i>
-                            <h3 class="questions__item-title">
-                                Computing Education in African Countries: <br>A Literature Review and Contextualised Learning Materials.
-                            </h3>
-                        </header>
-                        <div class="questions__content" style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
-                            <div style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px; left: 0; width: 100%; height: 0; position: relative; padding-bottom: 129.4118%;" class="questions__content">
-                                <iframe src="https://1drv.ms/b/c/f1d603e870f01970/IQQFVIZ0IOLbSbFsVCLT2wTXAbzn5esLGdTUI-ohVBzvqeU" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="pub">
-                    <div class="questions__item" style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
-                        <header class="questions__header glass" style="border-top-right-radius: 10px;border-top-left-radius: 10px;">
-                            <i class="ri-add-line questions__icon"></i>
-                            <h3 class="questions__item-title">
-                                Navigating the Labyrinth: The Challenge of<br> Contacting Stakeholders in Ethiopia's Education Sector
-                            </h3>
-                        </header>
-                        <div class="questions__content" style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px;">
-                            <div style="border-bottom-right-radius: 10px;border-bottom-left-radius: 10px; left: 0; width: 100%; height: 0; position: relative; padding-bottom: 129.4118%;" class="questions__content">
-                                <iframe src="https://1drv.ms/b/c/f1d603e870f01970/IQSwCtyoq1gZRI8A-KjvwsE0ASKiqZ0KQPHlLWM3rl9fDkE" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> 
-            <h2 class="section__title-center">
-                Exclusive <br> Interviews
-            </h2>
-            <div class="steps__container grid">
-                <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%; border-radius: 10px;overflow: hidden; margin: 5%;">
-                    <iframe src="https://www.youtube.com/embed/TKsawA6lg7o?si=VWY4chthse2PdyZt" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"></iframe>
-                </div>
-                <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;border-radius: 10px;overflow: hidden; margin: 5%;">
-                    <iframe src="https://www.youtube.com/embed/iL99hPBBSBI?si=6mqSiE5R0kyCBNh8" style="top: 0; left: 0; width: 100%; height: 100%; position: absolute; border: 0;" allowfullscreen scrolling="no" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"></iframe>
-                </div>
-                <div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.25%;border-radius: 10px;overflow: hidden; margin: 5%;">
-                    <iframe src="https://www.youtube.com/embed/tiJKLReOyZM?si=XEo2YC6thfeU9Ic" style="top: 0; width: 90%; height: 100%; position:absolute; border: 0;" allowfullscreen scrolling="yes" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"></iframe>
-                </div>
+      </section>
+      <section class="steps section container" id="mission">
+        <div class="steps__bg">
+          <h2 class="section__title-center steps__title">
+            Direct 200,000 African Youth <br />
+            to Intentionally Chosen Careers by 2040
+          </h2>
+          <div class="steps__container grid">
+            <div class="steps__card glass">
+              <div class="steps__card-number">01</div>
+              <h3 class="steps__card-title">Motivation</h3>
+              <p class="steps__card-description">
+                Sharing expert mentors' path to make the road ahead motivating
+                to pursue
+              </p>
             </div>
-        </section>
-        <section class="product section container" id="train">
-    <h2 class="section__title-center" id="Trainings">
-        Current Training Programs
-    </h2>
-  
-         <div class="forms-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem; align-items: start; margin-top: 1rem;">
-        <div class="form-wrapper glass" style="aspect-ratio: 1 / 1.6; border-radius: .5rem; overflow: hidden; box-shadow: 0 4px 12px hsla(200, 4%, 15%, 0.2);">
-            <iframe src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAGuzBkhUOU44R1ZRMFFKMlNOMTE5S1JXRDFLQ09JVi4u&embed=true" title="Engineering Basics" style="width: 100%; height: 100%; border: none;"></iframe>
-        </div>
-        <div class="form-wrapper glass" style="aspect-ratio: 1 / 1.6; border-radius: .5rem; overflow: hidden; box-shadow: 0 4px 12px hsla(200, 4%, 15%, 0.2);">
-            <iframe src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAGuzBkhUQzhFWFRUTUZPWEtQSjNCSUdTT1E2TFFOTC4u&embed=true" title="Medicine Basics" style="width: 100%; height: 100%; border: none;"></iframe>
-        </div>
-        </div>
-</section>
-        <section class="contact section container" id="contact">
-            <div class="contact__container grid">
-                <div class="contact__box">
-                    <h2 class="section__title">
-                        Reach out to us
-                    </h2>
-                    <div class="contact__data">
-                        <div class="contact__information">
-                            <h3 class="contact__subtitle">Text us for instant support</h3>
-                            <span class="contact__description">
-                                <a href="https://wa.me/message/W4GUO2DOV4HWI1" class="nav__link"> WhatsApp </a>
-                            </span>
-                        </div>
-                        <div class="contact__information">
-                            <h3 class="contact__subtitle">6am - 5pm EAT</h3>
-                        </div>
-                        <div class="contact__information">
-                            <h3 class="contact__subtitle">Write us by mail</h3>
-                            <span class="contact__description">
-                                <i class="ri-mail-line contact__icon"></i>
-                                info@ethioware.org<br/>ethioware@gmail.com
-                            </span>
-                        </div>
-                        <div class="footer__content">
-                            <h3 class="footer__title">Our Address</h3>
-                            <ul class="footer__data">
-                                <li class="footer__information">22 St. Addis Ababa, Ethiopia </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <form>
-                    <div class="contact__inputs">
-                        <div class="contact__content">
-                            <input type="email" id="email" class="contact__input" required>
-                            <label class="contact__label">Email Address</label>
-                        </div>
-                        <div class="contact__content">
-                            <input type="text" placeholder=" " id="subject" class="contact__input" required>
-                            <label class="contact__label">Subject</label>
-                        </div>
-                        <div class="contact__content contact__area">
-                            <textarea name="message" placeholder=" " id="message" class="contact__input" required></textarea>
-                            <label class="contact__label">Message</label>
-                        </div>
-                    </div>
-                    <button class="button button--flex" onclick="sendmessage()" type="submit">
-                        Send Message
-                        <i class="ri-arrow-right-up-line button__icon"></i>
-                    </button>
-                </form>
+            <div class="steps__card glass">
+              <div class="steps__card-number">02</div>
+              <h3 class="steps__card-title">Adaptation</h3>
+              <p class="steps__card-description">
+                Learning from setbacks of seniors to better adapt for future
+                circumstances
+              </p>
             </div>
-        </section>
+            <div class="steps__card glass">
+              <div class="steps__card-number">03</div>
+              <h3 class="steps__card-title">Execution</h3>
+              <p class="steps__card-description">
+                By completing this pre training, you will make actionable
+                decision on what to learn, where to learn it, and how to make
+                the most out of the obtained knowledge
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <div class="main_container">
+        <div class="content">
+          <h2 class="section__title about__title">
+            Our Volunteers<br />
+            Are From<br />
+          </h2>
+          <div class="partner-container">
+            <div class="partner-wrapper" id="partner-wrapper">
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/sosna-achamyeleh/"
+                  target="_blank"
+                  ><img
+                    src="assets/img/Addis_Ababa_University_logo.png"
+                    alt="AAU"
+                  />
+                </a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/elshadai-tegegn/"
+                  target="_blank"
+                >
+                  <img src="assets/img/amazon.png" alt="Amazon" />
+                </a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/sosna-achamyeleh/"
+                  target="_blank"
+                  ><img src="assets/img/Esklate.png" alt="Esklate"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/mihret-bekele/"
+                  target="_blank"
+                  ><img src="assets/img/a2sv.png" alt="A2sv"
+                /></a>
+              </div>
+              <div class="partner">
+                <a href="https://www.skilledup.life/" target="_blank"
+                  ><img
+                    src="assets/img/skilledup.png"
+                    alt="SkilledUp Life"
+                    width="30%"
+                    height="10%"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/aschalew-chamiso/"
+                  target="_blank"
+                  ><img src="assets/img/apple.png" alt="Apple"
+                /></a>
+              </div>
+              <div class="partner">
+                <a href="https://www.linkedin.com/in/tamsul/" target="_blank"
+                  ><img
+                    src="assets/img/disruptors.png"
+                    alt="The disruptors den"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/liya-m-shibru-042a0b2b6/"
+                  target="_blank"
+                >
+                  <img src="assets/img/dku.png" alt="Duke Kunshan"
+                /></a>
+              </div>
+              <div class="partner">
+                <a href="https://www.linkedin.com/in/mukerem/" target="_blank">
+                  <img src="assets/img/Turing.png" alt="Turing"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/abel-mulugeta/"
+                  target="_blank"
+                  ><img src="assets/img/yali.png" alt="Yali"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/abenezer-amanuel/"
+                  target="_blank"
+                  ><img src="assets/img/duolingo.png" alt="Duolingo"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/hana-mekonen-951104209/"
+                  target="_blank"
+                >
+                  <img src="assets/img/haramaya.png" alt="Haramaya"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/efridereje/"
+                  target="_blank"
+                  ><img src="assets/img/Gebeya.png" alt="Gebeya"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/amanuel-dejene-38b671256/"
+                  target="_blank"
+                  ><img src="assets/img/echo digitals.png" alt="Echo Digitals"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/abenezer-amanuel/"
+                  target="_blank"
+                  ><img src="assets/img/columbia.png" alt="Columbia University"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/netsanet-meles-568424210/"
+                  target="_blank"
+                  ><img
+                    src="assets/img/education.webp"
+                    alt="Let's Talk About Education"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/mulu-tsega943/"
+                  target="_blank"
+                  ><img src="assets/img/aevue.png" alt="Columbia University"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/henok-belachew/"
+                  target="_blank"
+                  ><img src="assets/img/addissystems.png" alt="Addis Systems"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/dawit-ketema-26640b23b"
+                  target="_blank"
+                  ><img
+                    src="assets/img/eaa.png"
+                    alt="Ethiopian Aviation Academy"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/hanna-girma-187974185/"
+                  target="_blank"
+                  ><img src="assets/img/Chapa.png" alt="Chapa"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/dawitmammo/"
+                  target="_blank"
+                  ><img src="assets/img/flawless.png" alt="Flawless Events"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/yvan-gatete/"
+                  target="_blank"
+                  ><img src="assets/img/Google.png" alt="Google"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/amanuel-sisay-87b044201/"
+                  target="_blank"
+                  ><img src="assets/img/Headstarter.png" alt="HeadStarter"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/sophonias-dawit-feleke-et/"
+                  target="_blank"
+                  ><img src="assets/img/enzirt.png" alt="Enzirt Engineering"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/tsion-abreha-254494252/"
+                  target="_blank"
+                  ><img src="assets/img/UVA.webp" alt="University of Virginia"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/daniel-mekuriaw/"
+                  target="_blank"
+                  ><img src="assets/img/microsoft.png" alt="Microsoft"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/rediet-gizachew-b23629224/"
+                  target="_blank"
+                  ><img src="assets/img/rac.png" alt="Rotract Club of Atrons"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/bethelehem-mulugeta-0506a21a3/"
+                  target="_blank"
+                  ><img
+                    src="assets/img/scitechvalley.webp"
+                    alt="SciTech Valley"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/mihiret-girma-696a3813a/"
+                  target="_blank"
+                  ><img
+                    src="assets/img/mmc.png"
+                    alt="Myungsung Medical College"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/merat-semma-final/"
+                  target="_blank"
+                  ><img src="assets/img/yale.png" alt="Yale University"
+                /></a>
+              </div>
+              <div class="partner">
+                <a href="mailto:meklityohannes96@gmail.com" target="_blank"
+                  ><img src="assets/img/unity.webp" alt="Selam Medical College"
+                /></a>
+              </div>
+              <div class="partner">
+                <a href="https://www.linkedin.com/in/lozamfant/" target="_blank"
+                  ><img
+                    src="assets/img/black-lion.png"
+                    alt="Black Lion Hospital"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/mister-twumasi/"
+                  target="_blank"
+                  ><img src="assets/img/leti.jpeg" alt="Leti Art"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/yosef-engdawork-a66a041a0/"
+                  target="_blank"
+                  ><img src="assets/img/safaricom.png" alt="Safaricom"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/nati-bekele/"
+                  target="_blank"
+                  ><img src="assets/img/uc.png" alt="University of Chicago"
+                /></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <section class="questions section" id="articles">
+        <h2 class="section__title-center">
+          Some of our <br />
+          Publications
+        </h2>
+        <div class="questions__container container grid">
+          <div class="pub">
+            <div
+              class="questions__item"
+              style="
+                border-bottom-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+              "
+            >
+              <header
+                class="questions__header glass"
+                style="
+                  border-top-right-radius: 10px;
+                  border-top-left-radius: 10px;
+                "
+              >
+                <i class="ri-add-line questions__icon"></i>
+                <h3 class="questions__item-title">
+                  Academic Motivation of High School Students at Dr. Haddis
+                  Alemayehu Secondary School.
+                </h3>
+              </header>
+              <div
+                class="questions__content"
+                style="
+                  border-bottom-right-radius: 10px;
+                  border-bottom-left-radius: 10px;
+                "
+              >
+                <div
+                  style="
+                    border-bottom-right-radius: 10px;
+                    border-bottom-left-radius: 10px;
+                    left: 0;
+                    width: 100%;
+                    height: 0;
+                    position: relative;
+                    padding-bottom: 129.4118%;
+                  "
+                  class="questions__content"
+                >
+                  <iframe
+                    src="https://1drv.ms/b/c/f1d603e870f01970/IQR3fJUlQ47oTZICfghyivnmAWC4VqcBle5OgHq20L4tylM"
+                    style="
+                      top: 0;
+                      left: 0;
+                      width: 100%;
+                      height: 100%;
+                      position: absolute;
+                      border: 0;
+                    "
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pub">
+            <div
+              class="questions__item"
+              style="
+                border-bottom-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+              "
+            >
+              <header
+                class="questions__header glass"
+                style="
+                  border-top-right-radius: 10px;
+                  border-top-left-radius: 10px;
+                "
+              >
+                <i class="ri-add-line questions__icon"></i>
+                <h3 class="questions__item-title">
+                  Beyond Access: Utilization of Educational Technologies at
+                  Selected High Schools in Addis Ababa.
+                </h3>
+              </header>
+              <div
+                class="questions__content"
+                style="
+                  border-bottom-right-radius: 10px;
+                  border-bottom-left-radius: 10px;
+                "
+              >
+                <div
+                  style="
+                    border-bottom-right-radius: 10px;
+                    border-bottom-left-radius: 10px;
+                    left: 0;
+                    width: 100%;
+                    height: 0;
+                    position: relative;
+                    padding-bottom: 129.4118%;
+                  "
+                  class="questions__content"
+                >
+                  <iframe
+                    src="https://1drv.ms/b/c/f1d603e870f01970/IQT5Mf6kUIEDSqeYshXIHInRAT7YCBUX8kAZkNQqSUgD6ns"
+                    style="
+                      top: 0;
+                      left: 0;
+                      width: 100%;
+                      height: 100%;
+                      position: absolute;
+                      border: 0;
+                    "
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pub">
+            <div
+              class="questions__item"
+              style="
+                border-bottom-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+              "
+            >
+              <header
+                class="questions__header glass"
+                style="
+                  border-top-right-radius: 10px;
+                  border-top-left-radius: 10px;
+                "
+              >
+                <i class="ri-add-line questions__icon"></i>
+                <h3 class="questions__item-title">
+                  Computing Education in African Countries: <br />A Literature
+                  Review and Contextualised Learning Materials.
+                </h3>
+              </header>
+              <div
+                class="questions__content"
+                style="
+                  border-bottom-right-radius: 10px;
+                  border-bottom-left-radius: 10px;
+                "
+              >
+                <div
+                  style="
+                    border-bottom-right-radius: 10px;
+                    border-bottom-left-radius: 10px;
+                    left: 0;
+                    width: 100%;
+                    height: 0;
+                    position: relative;
+                    padding-bottom: 129.4118%;
+                  "
+                  class="questions__content"
+                >
+                  <iframe
+                    src="https://1drv.ms/b/c/f1d603e870f01970/IQQFVIZ0IOLbSbFsVCLT2wTXAbzn5esLGdTUI-ohVBzvqeU"
+                    style="
+                      top: 0;
+                      left: 0;
+                      width: 100%;
+                      height: 100%;
+                      position: absolute;
+                      border: 0;
+                    "
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="pub">
+            <div
+              class="questions__item"
+              style="
+                border-bottom-right-radius: 10px;
+                border-bottom-left-radius: 10px;
+              "
+            >
+              <header
+                class="questions__header glass"
+                style="
+                  border-top-right-radius: 10px;
+                  border-top-left-radius: 10px;
+                "
+              >
+                <i class="ri-add-line questions__icon"></i>
+                <h3 class="questions__item-title">
+                  Navigating the Labyrinth: The Challenge of<br />
+                  Contacting Stakeholders in Ethiopia's Education Sector
+                </h3>
+              </header>
+              <div
+                class="questions__content"
+                style="
+                  border-bottom-right-radius: 10px;
+                  border-bottom-left-radius: 10px;
+                "
+              >
+                <div
+                  style="
+                    border-bottom-right-radius: 10px;
+                    border-bottom-left-radius: 10px;
+                    left: 0;
+                    width: 100%;
+                    height: 0;
+                    position: relative;
+                    padding-bottom: 129.4118%;
+                  "
+                  class="questions__content"
+                >
+                  <iframe
+                    src="https://1drv.ms/b/c/f1d603e870f01970/IQSwCtyoq1gZRI8A-KjvwsE0ASKiqZ0KQPHlLWM3rl9fDkE"
+                    style="
+                      top: 0;
+                      left: 0;
+                      width: 100%;
+                      height: 100%;
+                      position: absolute;
+                      border: 0;
+                    "
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h2 class="section__title-center">
+          Exclusive <br />
+          Interviews
+        </h2>
+        <div class="steps__container grid">
+          <div
+            style="
+              left: 0;
+              width: 100%;
+              height: 0;
+              position: relative;
+              padding-bottom: 56.25%;
+              border-radius: 10px;
+              overflow: hidden;
+              margin: 5%;
+            "
+          >
+            <iframe
+              src="https://www.youtube.com/embed/TKsawA6lg7o?si=VWY4chthse2PdyZt"
+              style="
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                border: 0;
+              "
+              allowfullscreen
+              scrolling="no"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
+            ></iframe>
+          </div>
+          <div
+            style="
+              left: 0;
+              width: 100%;
+              height: 0;
+              position: relative;
+              padding-bottom: 56.25%;
+              border-radius: 10px;
+              overflow: hidden;
+              margin: 5%;
+            "
+          >
+            <iframe
+              src="https://www.youtube.com/embed/iL99hPBBSBI?si=6mqSiE5R0kyCBNh8"
+              style="
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                border: 0;
+              "
+              allowfullscreen
+              scrolling="no"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
+            ></iframe>
+          </div>
+          <div
+            style="
+              left: 0;
+              width: 100%;
+              height: 0;
+              position: relative;
+              padding-bottom: 56.25%;
+              border-radius: 10px;
+              overflow: hidden;
+              margin: 5%;
+            "
+          >
+            <iframe
+              src="https://www.youtube.com/embed/tiJKLReOyZM?si=XEo2YC6thfeU9Ic"
+              style="
+                top: 0;
+                width: 90%;
+                height: 100%;
+                position: absolute;
+                border: 0;
+              "
+              allowfullscreen
+              scrolling="yes"
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+      <section class="product section container" id="train">
+        <h2 class="section__title-center" id="Trainings">
+          Current Training Programs
+        </h2>
+
+        <div
+          class="forms-container"
+          style="
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            align-items: start;
+            margin-top: 1rem;
+          "
+        >
+          <div
+            class="form-wrapper glass"
+            style="
+              aspect-ratio: 1 / 1.6;
+              border-radius: 0.5rem;
+              overflow: hidden;
+              box-shadow: 0 4px 12px hsla(200, 4%, 15%, 0.2);
+            "
+          >
+            <iframe
+              src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAGuzBkhUOU44R1ZRMFFKMlNOMTE5S1JXRDFLQ09JVi4u&embed=true"
+              title="Engineering Basics"
+              style="width: 100%; height: 100%; border: none"
+            ></iframe>
+          </div>
+          <div
+            class="form-wrapper glass"
+            style="
+              aspect-ratio: 1 / 1.6;
+              border-radius: 0.5rem;
+              overflow: hidden;
+              box-shadow: 0 4px 12px hsla(200, 4%, 15%, 0.2);
+            "
+          >
+            <iframe
+              src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAGuzBkhUQzhFWFRUTUZPWEtQSjNCSUdTT1E2TFFOTC4u&embed=true"
+              title="Medicine Basics"
+              style="width: 100%; height: 100%; border: none"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+      <section class="contact section container" id="contact">
+        <div class="contact__container grid">
+          <div class="contact__box">
+            <h2 class="section__title">Reach out to us</h2>
+            <div class="contact__data">
+              <div class="contact__information">
+                <h3 class="contact__subtitle">Text us for instant support</h3>
+                <span class="contact__description">
+                  <a
+                    href="https://wa.me/message/W4GUO2DOV4HWI1"
+                    class="nav__link"
+                  >
+                    WhatsApp
+                  </a>
+                </span>
+              </div>
+              <div class="contact__information">
+                <h3 class="contact__subtitle">6am - 5pm EAT</h3>
+              </div>
+              <div class="contact__information">
+                <h3 class="contact__subtitle">Write us by mail</h3>
+                <span class="contact__description">
+                  <i class="ri-mail-line contact__icon"></i>
+                  info@ethioware.org<br />ethioware@gmail.com
+                </span>
+              </div>
+              <div class="footer__content">
+                <h3 class="footer__title">Our Address</h3>
+                <ul class="footer__data">
+                  <li class="footer__information">
+                    22 St. Addis Ababa, Ethiopia
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <form>
+            <div class="contact__inputs">
+              <div class="contact__content">
+                <input
+                  type="email"
+                  id="email"
+                  class="contact__input"
+                  required
+                />
+                <label class="contact__label">Email Address</label>
+              </div>
+              <div class="contact__content">
+                <input
+                  type="text"
+                  placeholder=" "
+                  id="subject"
+                  class="contact__input"
+                  required
+                />
+                <label class="contact__label">Subject</label>
+              </div>
+              <div class="contact__content contact__area">
+                <textarea
+                  name="message"
+                  placeholder=" "
+                  id="message"
+                  class="contact__input"
+                  required
+                ></textarea>
+                <label class="contact__label">Message</label>
+              </div>
+            </div>
+            <button
+              class="button button--flex"
+              onclick="sendmessage()"
+              type="submit"
+            >
+              Send Message
+              <i class="ri-arrow-right-up-line button__icon"></i>
+            </button>
+          </form>
+        </div>
+      </section>
     </main>
     <footer class="ft">
-        <div class="bars">
-            <div class="left-bar">
-                <div class="left-logo">
-                    <a href="/index"><img src="/assets/img/white.png" alt="Ethioware-Logo"></a>
-                    <a href="/index"><p>ETHIOWARE</p></a>
-                </div>
-                <div class="left-socials">
-                    <div><a href="https://www.linkedin.com/company/ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=84888&format=png&color=ffffff" alt="LinkedIn"></a></div>
-                    <div><a href="https://facebook.com/ethiowareEI" target="_blank"><img src="https://img.icons8.com/?size=100&id=118490&format=png&color=ffffff" alt="Facebook"></a></div>
-                    <div><a href="https://instagram.com/ethioware_" target="_blank"><img src="https://img.icons8.com/?size=100&id=84884&format=png&color=ffffff" alt="Instagram"></a></div>
-                    <div><a href="https://twitter.com/ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=102907&format=png&color=ffffff" alt="Twitter"></a></div>
-                    <div><a href="https://youtube.com/@ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=37326&format=png&color=ffffff" alt="YouTube"></a></div>
-                    <div><a href="https://t.me/ethioware" target="_blank"><img src="https://img.icons8.com/?size=100&id=85428&format=png&color=ffffff" alt="Telegram"></a></div>
-                </div>
+      <div class="bars">
+        <div class="left-bar">
+          <div class="left-logo">
+            <a href="/index"
+              ><img src="/assets/img/white.png" alt="Ethioware-Logo"
+            /></a>
+            <a href="/index"><p>ETHIOWARE</p></a>
+          </div>
+          <div class="left-socials">
+            <div>
+              <a
+                href="https://www.linkedin.com/company/ethioware"
+                target="_blank"
+                ><img
+                  src="https://img.icons8.com/?size=100&id=84888&format=png&color=ffffff"
+                  alt="LinkedIn"
+              /></a>
             </div>
-            <div class="right-bar">
-                <div class="right-bar-links">
-                    <div class="col">
-                        <a href="/index" class="head">Home</a>
-                    </div>
-                    <div class="col">
-                        <a href="/about" class="head">About Us</a>
-                        <a href="/mission" class="sub">Mission</a>
-                        <a href="/approach" class="sub">Approach</a>
-                        <a href="https://forms.office.com/r/3SepzQNHz2" class="sub">Membership</a>
-                    </div>
-                    <div class="col">
-                        <a href="https://wa.me/message/W4GUO2DOV4HWI1" class="head">Work With Us</a>
-                        <a href="https://www.skilledup.life/" class="sub">Partners</a>
-                        <a href="https://forms.office.com/r/8MtrXwTY8R" class="sub">Interns</a>
-                        <a href="https://forms.office.com/r/BwCszzkuXK" class="sub">Trainees</a>
-                    </div>
-                    <div class="col">
-                        <a href="/articles" class="head">Publications</a>
-                        <a href="/articles" class="sub">Academic Papers</a>
-                        <a href="https://www.youtube.com/@ethioware" class="sub">Interviews</a>
-                    </div>
-                    <div class="col">
-                        <a href="/index" class="head">Contact Us</a>
-                        <a href="mailto:info@ethioware.org" class="sub">Send Us A Message</a>
-                    </div>
-                </div>
-                <div class="trustpilot-widget right-review" data-locale="en-US" data-template-id="56278e9abfbbba0bdcd568bc" data-businessunit-id="6666fe238ece8b6766f5dfc3" data-style-height="4rem" data-style-width="100%">
-                        <a href="https://www.trustpilot.com/review/ethioware.org" target="_blank"></a>
-                    </div>
-                    </div>
+            <div>
+              <a href="https://facebook.com/ethiowareEI" target="_blank"
+                ><img
+                  src="https://img.icons8.com/?size=100&id=118490&format=png&color=ffffff"
+                  alt="Facebook"
+              /></a>
+            </div>
+            <div>
+              <a href="https://instagram.com/ethioware_" target="_blank"
+                ><img
+                  src="https://img.icons8.com/?size=100&id=84884&format=png&color=ffffff"
+                  alt="Instagram"
+              /></a>
+            </div>
+            <div>
+              <a href="https://twitter.com/ethioware" target="_blank"
+                ><img
+                  src="https://img.icons8.com/?size=100&id=102907&format=png&color=ffffff"
+                  alt="Twitter"
+              /></a>
+            </div>
+            <div>
+              <a href="https://youtube.com/@ethioware" target="_blank"
+                ><img
+                  src="https://img.icons8.com/?size=100&id=37326&format=png&color=ffffff"
+                  alt="YouTube"
+              /></a>
+            </div>
+            <div>
+              <a href="https://t.me/ethioware" target="_blank"
+                ><img
+                  src="https://img.icons8.com/?size=100&id=85428&format=png&color=ffffff"
+                  alt="Telegram"
+              /></a>
+            </div>
+          </div>
         </div>
-        <div class="copy">
-            <p class="copy copy-txt">© 2025 Ethioware EdTech Initiative. All Rights Reserved</p>
+        <div class="right-bar">
+          <div class="right-bar-links">
+            <div class="col">
+              <a href="/index" class="head">Home</a>
+            </div>
+            <div class="col">
+              <a href="/about" class="head">About Us</a>
+              <a href="/mission" class="sub">Mission</a>
+              <a href="/approach" class="sub">Approach</a>
+              <a href="https://forms.office.com/r/3SepzQNHz2" class="sub"
+                >Membership</a
+              >
+            </div>
+            <div class="col">
+              <a href="https://wa.me/message/W4GUO2DOV4HWI1" class="head"
+                >Work With Us</a
+              >
+              <a href="https://www.skilledup.life/" class="sub">Partners</a>
+              <a href="https://forms.office.com/r/8MtrXwTY8R" class="sub"
+                >Interns</a
+              >
+              <a href="https://forms.office.com/r/BwCszzkuXK" class="sub"
+                >Trainees</a
+              >
+            </div>
+            <div class="col">
+              <a href="/articles" class="head">Publications</a>
+              <a href="/articles" class="sub">Academic Papers</a>
+              <a href="https://www.youtube.com/@ethioware" class="sub"
+                >Interviews</a
+              >
+            </div>
+            <div class="col">
+              <a href="/index" class="head">Contact Us</a>
+              <a href="mailto:info@ethioware.org" class="sub"
+                >Send Us A Message</a
+              >
+            </div>
+          </div>
+          <div
+            class="trustpilot-widget right-review"
+            data-locale="en-US"
+            data-template-id="56278e9abfbbba0bdcd568bc"
+            data-businessunit-id="6666fe238ece8b6766f5dfc3"
+            data-style-height="4rem"
+            data-style-width="100%"
+          >
+            <a
+              href="https://www.trustpilot.com/review/ethioware.org"
+              target="_blank"
+            ></a>
+          </div>
         </div>
+      </div>
+      <div class="copy">
+        <p class="copy copy-txt">
+          © 2025 Ethioware EdTech Initiative. All Rights Reserved
+        </p>
+      </div>
     </footer>
 
-
     <script>
-        function handleCredentialResponse(response) {
-            console.log("Encoded JWT ID token: " + response.credential);
-            // Send the ID token to your server for verification and further processing
+      function handleCredentialResponse(response) {
+        console.log("Encoded JWT ID token: " + response.credential);
+        // Send the ID token to your server for verification and further processing
+      }
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const wrapper = document.getElementById("partner-wrapper");
+        // Ensure the wrapper exists and has scrollable content
+        if (wrapper && wrapper.scrollWidth > 0) {
+          const content = wrapper.innerHTML;
+          const repeatCount =
+            Math.ceil(window.innerWidth / wrapper.scrollWidth) * 10; // Dynamically adjust repetitions
+          wrapper.innerHTML = content.repeat(repeatCount);
+          const contentWidth = wrapper.scrollWidth; // Access scrollWidth after updating content
+          const animationDuration = contentWidth / 100; // Adjust divisor for desired speed
+          // Use a CSS variable for animation duration
+          wrapper.style.setProperty(
+            "--animation-duration",
+            `${animationDuration}s`
+          );
+          wrapper.classList.add("scroll-animation"); // Apply animation via CSS class
+        } else {
+          console.warn(
+            "Partner wrapper is missing or has no content. Animation not applied."
+          );
         }
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", () => {
-            const wrapper = document.getElementById("partner-wrapper");
-            // Ensure the wrapper exists and has scrollable content
-            if (wrapper && wrapper.scrollWidth > 0) {
-                const content = wrapper.innerHTML;
-                const repeatCount = Math.ceil(window.innerWidth / wrapper.scrollWidth) * 10; // Dynamically adjust repetitions
-                wrapper.innerHTML = content.repeat(repeatCount);
-                const contentWidth = wrapper.scrollWidth; // Access scrollWidth after updating content
-                const animationDuration = contentWidth / 100; // Adjust divisor for desired speed
-                // Use a CSS variable for animation duration
-                wrapper.style.setProperty("--animation-duration", `${animationDuration}s`);
-                wrapper.classList.add("scroll-animation"); // Apply animation via CSS class
-            } else {
-                console.warn("Partner wrapper is missing or has no content. Animation not applied.");
+
+        const statsNumbers = document.querySelectorAll(".stats__number span");
+
+        const animateNumber = (el) => {
+          const target = parseInt(el.dataset.target);
+          const duration = 1000; // Animation duration in milliseconds
+          const frames = target;
+          const increment = target / duration;
+          let current = 0;
+
+          const timer = setInterval(() => {
+            current += increment;
+            el.textContent = Math.ceil(current);
+            if (current >= target) {
+              el.textContent = target;
+              clearInterval(timer);
             }
+          }, 1);
+        };
 
-            const statsNumbers = document.querySelectorAll('.stats__number span');
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                statsNumbers.forEach(animateNumber);
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.5 }
+        );
 
-            const animateNumber = (el) => {
-                const target = parseInt(el.dataset.target);
-                const duration = 1000; // Animation duration in milliseconds
-                const frames = target;
-                const increment = target / duration;
-                let current = 0;
-
-                const timer = setInterval(() => {
-                    current += increment;
-                    el.textContent = Math.ceil(current);
-                    if (current >= target) {
-                        el.textContent = target;
-                        clearInterval(timer);
-                    }
-                }, 1);
-            };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        statsNumbers.forEach(animateNumber);
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.5 });
-
-            const statsSection = document.querySelector('.stats');
-            if (statsSection) {
-                observer.observe(statsSection);
-            }
-        });
+        const statsSection = document.querySelector(".stats");
+        if (statsSection) {
+          observer.observe(statsSection);
+        }
+      });
     </script>
+
     <script src="assets/js/scrollreveal.min.js"></script>
     <script src="assets/js/script.js"></script>
-     <script src="assets/js/bio.js"></script>
+    <script src="assets/js/bio.js"></script>
     <script src="assets/js/sendmail.js"></script>
     <script src="assets/js/main.js"></script>
-    
-</body>
-
+  </body>
 </html>
