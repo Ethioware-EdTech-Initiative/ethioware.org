@@ -178,34 +178,6 @@
 
     <!--=============== MAIN JS ===============-->
     <script src="assets/js/main.js"></script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const header = document.getElementById('worklog-header');
-            const content = document.getElementById('worklog-content');
-
-            header.addEventListener('click', () => {
-                const isActive = content.classList.contains('active');
-                
-                // Toggle active classes
-                header.classList.toggle('active', !isActive);
-                content.classList.toggle('active', !isActive);
-
-                // If toggling off, manually reset max-height after the transition
-                if (isActive) {
-                    content.style.maxHeight = '0';
-                    content.style.paddingTop = '0';
-                    content.style.paddingBottom = '0';
-                } else {
-                    // Set max-height for opening transition. Use a large number.
-                    content.style.maxHeight = '1000px'; 
-                    content.style.paddingTop = '1rem';
-                    content.style.paddingBottom = '1rem';
-                }
-            });
-        });
-    </script>
-    
     
   </body>
 </html>
