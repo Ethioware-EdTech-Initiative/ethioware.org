@@ -1,4 +1,5 @@
 /*=============== GOOGLE FONTS ===============*/
+/* Optimized font loading with font-display=swap for better performance */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap");
@@ -48,6 +49,14 @@
   /*========== z index ==========*/
   --z-tooltip: 10;
   --z-fixed: 100;
+
+  /*========== Border radius ==========*/
+  --radius-sm: 0.5rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --radius-round: 90px;
+  --radius-full: 50%;
 }
 
 /* Define the keyframes for the scrolling animation */
@@ -348,6 +357,18 @@ the website, in dark theme
   -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+/* Dark mode glass styling */
+.dark-theme .glass {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.05),
+    rgba(255, 255, 255, 0.02)
+  );
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .nav__logo,
@@ -396,7 +417,7 @@ the website, in dark theme
     right: -100%;
     box-shadow: -2px 0 4px hsla(var(--hue), 24%, 15%, 0.1);
     padding: 4rem 0 0 3rem;
-    border-radius: 1rem 0 0 1rem;
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
     transition: 0.3s;
     z-index: var(--z-fixed);
   }
@@ -465,6 +486,39 @@ the website, in dark theme
 .home__img {
   width: 200px;
   justify-self: center;
+  border-radius: var(--radius-round);
+  overflow: hidden;
+  display: block;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.home__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Dark mode home image styling */
+.dark-theme .home__img {
+  background-color: var(--body-color);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dark-theme .home__img:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.dark-theme .home__img img {
+  opacity: 0.95;
+}
+
+.home__img:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .home__title {
@@ -526,7 +580,7 @@ the website, in dark theme
   background-color: var(--first-color);
   color: #fff;
   padding: 1rem 1.75rem;
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   font-weight: var(--font-medium);
   transition: 0.3s;
 }
@@ -598,7 +652,7 @@ the website, in dark theme
 .steps__bg {
   background-color: var(--first-color);
   padding: 3rem 2rem 2rem;
-  border-radius: 1rem;
+  border-radius: var(--radius-md);
 }
 
 .steps__container {
@@ -613,7 +667,7 @@ the website, in dark theme
 .steps__card {
   background-color: var(--container-color);
   padding: 2.5rem 3rem 2rem 1.5rem;
-  border-radius: 1rem;
+  border-radius: var(--radius-md);
 }
 
 .steps__card-number {
@@ -621,7 +675,7 @@ the website, in dark theme
   background-color: var(--first-color-alt);
   color: #fff;
   padding: 0.5rem 0.75rem;
-  border-radius: 0.25rem;
+  border-radius: var(--radius-sm);
   font-size: var(--h2-font-size);
   margin-bottom: var(--mb-1-5);
   transition: 0.3s;
@@ -975,7 +1029,6 @@ the website, in dark theme
   margin: 5rem 0 1rem;
 }
 
-
 /* New footer design */
 
 .ft {
@@ -1025,7 +1078,7 @@ the website, in dark theme
 }
 
 .left-logo p {
-  color: #EEE;
+  color: #eee;
   font-family: var(--body-font);
   font-size: 1.8rem;
   font-style: normal;
@@ -1085,7 +1138,7 @@ the website, in dark theme
 }
 
 .right-bar-links .col .head {
-  color: #EEE;
+  color: #eee;
   font-family: var(--body-font);
   font-size: 1.2rem;
   font-style: normal;
@@ -1094,7 +1147,7 @@ the website, in dark theme
 }
 
 .right-bar-links .col .sub {
-  color: #EEE;
+  color: #eee;
   font-family: var(--body-font);
   font-size: 1rem;
   font-style: normal;
@@ -1120,7 +1173,7 @@ the website, in dark theme
 }
 
 .copy-txt {
-  color: #EEE;
+  color: #eee;
   font-family: var(--body-font);
   font-size: 0.8rem;
   font-style: normal;
@@ -1133,7 +1186,7 @@ the website, in dark theme
 /* Animations */
 
 .ft {
-width: 100%;
+  width: 100%;
   display: flex;
   padding: 2rem;
   flex-direction: column;
@@ -1632,4 +1685,298 @@ width: 100%;
 
 #google-signin-container .g_id_signin button:hover {
   background-color: var(--first-color-light);
+}
+
+/* ============= MOBILE PERFORMANCE & RESPONSIVENESS OPTIMIZATIONS ============= */
+
+/* Improved touch targets for mobile (minimum 44x44px) */
+@media screen and (max-width: 767px) {
+  button,
+  .button,
+  a.nav__link,
+  .nav__toggle,
+  .nav__close,
+  .contact__input,
+  .change-theme {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 0.75rem 1rem;
+  }
+
+  /* Better mobile navigation */
+  .nav__menu {
+    width: 85%;
+    max-width: 300px;
+    padding: 3rem 0 0 2rem;
+  }
+
+  .nav__list {
+    row-gap: 2rem;
+  }
+
+  /* Optimized home section for mobile */
+  .home__container {
+    grid-template-columns: 1fr;
+    row-gap: 3rem;
+    text-align: center;
+  }
+
+  .home__img {
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .home__title {
+    font-size: 1.75rem;
+    line-height: 1.3;
+  }
+
+  .home__social {
+    position: static;
+    display: flex;
+    justify-content: center;
+    column-gap: 1.5rem;
+    margin-top: 2rem;
+    transform: none;
+  }
+
+  .home__social-follow {
+    display: none;
+  }
+
+  .home__social-link {
+    font-size: 1.5rem;
+    padding: 0.5rem;
+  }
+
+  /* Stats section mobile optimization */
+  .stats__container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    padding: 1.5rem 0;
+  }
+
+  .stats__card {
+    padding: 1rem;
+  }
+
+  .stats__icon {
+    font-size: 1.5rem;
+  }
+
+  .stats__number {
+    font-size: 1.25rem;
+  }
+
+  /* About section mobile */
+  .about__description {
+    font-size: 0.938rem;
+    line-height: 1.6;
+    padding: 0 0.5rem;
+  }
+
+  /* Steps/Approach section mobile */
+  .steps__container {
+    gap: 1.5rem;
+  }
+
+  .steps__container.about__container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  .steps__container.about__container img {
+    width: 80px;
+    height: 80px;
+  }
+
+  .steps__card {
+    padding: 1.25rem;
+  }
+
+  /* Forms section mobile */
+  .forms-container {
+    grid-template-columns: 1fr !important;
+    gap: 1.5rem;
+  }
+
+  .form-wrapper {
+    aspect-ratio: 1 / 1.4;
+    min-height: 500px;
+  }
+
+  /* Contact form mobile */
+  .contact__container {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .contact__inputs {
+    gap: 1rem;
+  }
+
+  .contact__input {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 1rem;
+  }
+
+  /* Publications section mobile */
+  .questions__container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .pub {
+    width: 100%;
+  }
+
+  /* Video embeds mobile */
+  .steps__container.grid > div {
+    margin: 2% !important;
+    padding-bottom: 56.25%;
+  }
+
+  /* Footer mobile */
+  .ft .bars {
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .left-bar,
+  .right-bar {
+    width: 100%;
+  }
+
+  .right-bar-links {
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  /* Better text readability */
+  body {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Optimize scrolling */
+  html {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Small mobile devices (320px - 480px) */
+@media screen and (max-width: 480px) {
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  .home__title {
+    font-size: 1.5rem;
+  }
+
+  .section__title,
+  .section__title-center {
+    font-size: 1.5rem;
+    line-height: 1.4;
+  }
+
+  .stats__container {
+    grid-template-columns: 1fr;
+  }
+
+  .steps__container.about__container {
+    grid-template-columns: 1fr;
+  }
+
+  .partner img {
+    max-height: 40px;
+    max-width: 80px;
+  }
+}
+
+/* Performance optimizations */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+/* Will-change for animated elements */
+.scroll-animation,
+.stats__number span {
+  will-change: transform;
+}
+
+/* Optimize animations on mobile for better performance */
+@media screen and (max-width: 767px) and (prefers-reduced-motion: no-preference) {
+  /* Reduce animation duration for better performance */
+  .nav__menu {
+    transition-duration: 0.2s;
+  }
+
+  /* Keep essential animations smooth */
+  .scroll-animation {
+    animation-duration: var(--animation-duration);
+  }
+
+  .stats__number span {
+    transition-duration: 0.5s;
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Note: Font-display swap is handled via Google Fonts URL parameter */
+
+/* Optimize container widths */
+@media screen and (max-width: 767px) {
+  .container {
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+/* Consistent border-radius for questions/accordion items */
+.questions__item {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.questions__header {
+  border-radius: var(--radius-md) var(--radius-md) 0 0;
+}
+
+.questions__content {
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+/* Form wrapper styling */
+.form-wrapper {
+  border-radius: var(--radius-sm);
+}
+
+/* Button with email style */
+button.glass[type="submit"] {
+  border-radius: var(--radius-sm);
+  padding: 0.5rem 1rem;
+}
+
+/* Video embed container styling */
+.steps__container.grid > div[style*="padding-bottom: 56.25%"] {
+  border-radius: var(--radius-md) !important;
+  overflow: hidden;
 }

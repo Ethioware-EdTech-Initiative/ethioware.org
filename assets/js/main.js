@@ -29,6 +29,127 @@ function linkAction(){
 }
 navLink.forEach(n => n.addEventListener('click', linkAction))
 
+/*=============== SMOOTH SCROLLING NAVIGATION WITH HISTORY ===============*/
+// Map route paths to section IDs
+const routeToSectionMap = {
+    '/home': 'home',
+    '/': 'home',
+    '/index': 'home',
+    '/about': 'about',
+    '/approach': 'approach',
+    '/mission': 'mission',
+    '/articles': 'articles',
+    '/train': 'train',
+    '/privacy': 'privacy',
+    '/contact': 'contact'
+}
+
+// Function to scroll to section smoothly
+function scrollToSection(sectionId, updateHistory = true) {
+    const section = document.getElementById(sectionId)
+    if (!section) return false
+    
+    const headerHeight = 56 // Header height in pixels
+    const sectionTop = section.offsetTop - headerHeight
+    
+    window.scrollTo({
+        top: sectionTop,
+        behavior: 'smooth'
+    })
+    
+    if (updateHistory) {
+        // Update URL without triggering navigation
+        const path = Object.keys(routeToSectionMap).find(
+            key => routeToSectionMap[key] === sectionId
+        ) || `#${sectionId}`
+        
+        if (path.startsWith('#')) {
+            window.history.pushState({ section: sectionId }, '', path)
+        } else {
+            window.history.pushState({ section: sectionId }, '', path)
+        }
+    }
+    
+    return true
+}
+
+// Handle navigation link clicks
+document.querySelectorAll('a[href^="/"], a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href')
+        
+        // Skip external links
+        if (href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:')) {
+            return
+        }
+        
+        e.preventDefault()
+        
+        let sectionId = null
+        
+        // Handle path-based navigation (/about, /mission, etc.)
+        if (href.startsWith('/')) {
+            sectionId = routeToSectionMap[href]
+        }
+        // Handle hash-based navigation (#about)
+        else if (href.startsWith('#')) {
+            sectionId = href.substring(1)
+        }
+        
+        if (sectionId && scrollToSection(sectionId, true)) {
+            // Close mobile menu if open
+            const navMenu = document.getElementById('nav-menu')
+            if (navMenu) {
+                navMenu.classList.remove('show-menu')
+            }
+        }
+    })
+})
+
+// Handle browser back/forward buttons
+window.addEventListener('popstate', function(e) {
+    if (e.state && e.state.section) {
+        scrollToSection(e.state.section, false)
+    } else {
+        // Handle URL-based navigation on page load/back
+        const path = window.location.pathname
+        const hash = window.location.hash.substring(1)
+        
+        let sectionId = null
+        
+        if (hash) {
+            sectionId = hash
+        } else if (routeToSectionMap[path]) {
+            sectionId = routeToSectionMap[path]
+        }
+        
+        if (sectionId) {
+            scrollToSection(sectionId, false)
+        }
+    }
+})
+
+// Handle initial page load with hash or path
+document.addEventListener('DOMContentLoaded', function() {
+    const path = window.location.pathname
+    const hash = window.location.hash.substring(1)
+    
+    let sectionId = null
+    
+    if (hash) {
+        sectionId = hash
+    } else if (routeToSectionMap[path]) {
+        sectionId = routeToSectionMap[path]
+    }
+    
+    if (sectionId) {
+        // Small delay to ensure page is rendered
+        setTimeout(() => {
+            scrollToSection(sectionId, false)
+        }, 100)
+    }
+})
+
 /*=============== CHANGE BACKGROUND HEADER ===============*/
 function scrollHeader(){
     const header = document.getElementById('header')

@@ -2,22 +2,66 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+    />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <meta
+      name="description"
+      content="Ethioware EdTech Initiative - Lessons from the doers. Direct online sessions with experts for high school graduates."
+    />
+    <meta name="theme-color" content="#2c5282" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
     <title>Ethioware EdTech Initiative</title>
+
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link
+      rel="preconnect"
+      href="https://www.googletagmanager.com"
+      crossorigin
+    />
+    <link rel="preconnect" href="https://accounts.google.com" crossorigin />
+    <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon" />
+
+    <!-- Stylesheets with media optimization -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      media="print"
+      onload="this.media='all'"
     />
-    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon" />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    /></noscript>
     <link
       href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
       rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript
+      ><link
+        href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+        rel="stylesheet"
+    /></noscript>
     <link rel="stylesheet" href="assets/css/styles.css" />
 
+    <!-- Trustpilot widget - deferred loading -->
     <script type="text/javascript">
-      document.addEventListener("DOMContentLoaded", function () {
+      window.addEventListener("load", function () {
         const script = document.createElement("script");
         script.src =
           "//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js";
@@ -26,9 +70,9 @@
       });
     </script>
 
-    <!-- Google Analytics -->
+    <!-- Google Analytics - deferred -->
     <script
-      async
+      defer
       src="https://www.googletagmanager.com/gtag/js?id=G-RYB205PY5C"
     ></script>
     <script>
@@ -40,7 +84,7 @@
       gtag("config", "G-RYB205PY5C");
     </script>
 
-    <!-- Google One Tap Sign-In + Pendo Integration -->
+    <!-- Google One Tap Sign-In + Pendo Integration - deferred -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script>
       // Parse the Google JWT token
@@ -131,8 +175,9 @@
       };
     </script>
 
+    <!-- EmailJS - deferred loading -->
     <script type="text/javascript">
-      document.addEventListener("DOMContentLoaded", function () {
+      window.addEventListener("load", function () {
         const emailScript = document.createElement("script");
         emailScript.src =
           "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
@@ -246,12 +291,14 @@
     <main class="main">
       <section id="home" class="home">
         <div class="home__container container grid">
-          <a
-            target="_blank"
-            class="home__img glass"
-            style="border-radius: 90px"
-          >
-            <img src="assets/img/plan.webp" />
+          <a target="_blank" class="home__img glass">
+            <img
+              src="assets/img/plan.webp"
+              loading="lazy"
+              alt="Ethioware EdTech Initiative Plan"
+              width="400"
+              height="400"
+            />
           </a>
           <div class="home__data">
             <h1 class="home__title">
@@ -333,7 +380,7 @@
             type="submit"
             action="mailto:parents@ethioware.org"
             value="Send"
-            style="margin: 2px; color: #00abe7; border-radius: 2px"
+            style="margin: 2px; color: #00abe7"
           >
             parents@ethioware.org
           </button>
@@ -350,9 +397,10 @@
             <div>
               <img
                 src="assets/img/interest.png"
-                width="128px"
-                height="128px"
-                alt=""
+                width="128"
+                height="128"
+                alt="Interest"
+                loading="lazy"
               />
               <h4 class="ssection__text-center steps__title">
                 Interest <span>→</span>
@@ -361,9 +409,10 @@
             <div>
               <img
                 src="assets/img/mentor.png"
-                width="128px"
-                height="128px"
-                alt=""
+                width="128"
+                height="128"
+                alt="Expert Sessions"
+                loading="lazy"
               />
               <h4 class="ssection__text-center steps__title">
                 Expert Sessions <span>→</span>
@@ -372,9 +421,10 @@
             <div>
               <img
                 src="assets/img/practical.png"
-                width="128px"
-                height="128px"
-                alt=""
+                width="128"
+                height="128"
+                alt="Practical Assessments"
+                loading="lazy"
               />
               <h4 class="ssection__text-center steps__title">
                 Practical Assessments <span>↓</span>
@@ -383,9 +433,10 @@
             <div>
               <img
                 src="assets/img/skill.png"
-                width="128px"
-                height="128px"
-                alt=""
+                width="128"
+                height="128"
+                alt="Skill Acquisition"
+                loading="lazy"
               />
               <h4 class="ssection__text-center steps__title">
                 Skill Acquisition <span>↑</span>
@@ -394,9 +445,10 @@
             <div>
               <img
                 src="assets/img/resources.png"
-                width="128px"
-                height="128px"
-                alt=""
+                width="128"
+                height="128"
+                alt="Directed Resources"
+                loading="lazy"
               />
               <h4 class="ssection__text-center steps__title">
                 <span>←</span> Directed Resources
@@ -405,9 +457,10 @@
             <div>
               <img
                 src="assets/img/target.png"
-                width="128px"
-                height="128px"
-                alt=""
+                width="128"
+                height="128"
+                alt="Attainable Target"
+                loading="lazy"
               />
               <h4 class="ssection__text-center steps__title">
                 <span>←</span> Attainable Target
@@ -466,6 +519,9 @@
                   ><img
                     src="assets/img/Addis_Ababa_University_logo.png"
                     alt="AAU"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                   />
                 </a>
               </div>
@@ -743,37 +799,17 @@
         </h2>
         <div class="questions__container container grid">
           <div class="pub">
-            <div
-              class="questions__item"
-              style="
-                border-bottom-right-radius: 10px;
-                border-bottom-left-radius: 10px;
-              "
-            >
-              <header
-                class="questions__header glass"
-                style="
-                  border-top-right-radius: 10px;
-                  border-top-left-radius: 10px;
-                "
-              >
+            <div class="questions__item" style="">
+              <header class="questions__header glass" style="">
                 <i class="ri-add-line questions__icon"></i>
                 <h3 class="questions__item-title">
                   Academic Motivation of High School Students at Dr. Haddis
                   Alemayehu Secondary School.
                 </h3>
               </header>
-              <div
-                class="questions__content"
-                style="
-                  border-bottom-right-radius: 10px;
-                  border-bottom-left-radius: 10px;
-                "
-              >
+              <div class="questions__content" style="">
                 <div
                   style="
-                    border-bottom-right-radius: 10px;
-                    border-bottom-left-radius: 10px;
                     left: 0;
                     width: 100%;
                     height: 0;
@@ -792,6 +828,7 @@
                       position: absolute;
                       border: 0;
                     "
+                    loading="lazy"
                     allowfullscreen
                   ></iframe>
                 </div>
@@ -799,37 +836,17 @@
             </div>
           </div>
           <div class="pub">
-            <div
-              class="questions__item"
-              style="
-                border-bottom-right-radius: 10px;
-                border-bottom-left-radius: 10px;
-              "
-            >
-              <header
-                class="questions__header glass"
-                style="
-                  border-top-right-radius: 10px;
-                  border-top-left-radius: 10px;
-                "
-              >
+            <div class="questions__item" style="">
+              <header class="questions__header glass" style="">
                 <i class="ri-add-line questions__icon"></i>
                 <h3 class="questions__item-title">
                   Beyond Access: Utilization of Educational Technologies at
                   Selected High Schools in Addis Ababa.
                 </h3>
               </header>
-              <div
-                class="questions__content"
-                style="
-                  border-bottom-right-radius: 10px;
-                  border-bottom-left-radius: 10px;
-                "
-              >
+              <div class="questions__content" style="">
                 <div
                   style="
-                    border-bottom-right-radius: 10px;
-                    border-bottom-left-radius: 10px;
                     left: 0;
                     width: 100%;
                     height: 0;
@@ -855,37 +872,17 @@
             </div>
           </div>
           <div class="pub">
-            <div
-              class="questions__item"
-              style="
-                border-bottom-right-radius: 10px;
-                border-bottom-left-radius: 10px;
-              "
-            >
-              <header
-                class="questions__header glass"
-                style="
-                  border-top-right-radius: 10px;
-                  border-top-left-radius: 10px;
-                "
-              >
+            <div class="questions__item" style="">
+              <header class="questions__header glass" style="">
                 <i class="ri-add-line questions__icon"></i>
                 <h3 class="questions__item-title">
                   Computing Education in African Countries: <br />A Literature
                   Review and Contextualised Learning Materials.
                 </h3>
               </header>
-              <div
-                class="questions__content"
-                style="
-                  border-bottom-right-radius: 10px;
-                  border-bottom-left-radius: 10px;
-                "
-              >
+              <div class="questions__content" style="">
                 <div
                   style="
-                    border-bottom-right-radius: 10px;
-                    border-bottom-left-radius: 10px;
                     left: 0;
                     width: 100%;
                     height: 0;
@@ -911,37 +908,17 @@
             </div>
           </div>
           <div class="pub">
-            <div
-              class="questions__item"
-              style="
-                border-bottom-right-radius: 10px;
-                border-bottom-left-radius: 10px;
-              "
-            >
-              <header
-                class="questions__header glass"
-                style="
-                  border-top-right-radius: 10px;
-                  border-top-left-radius: 10px;
-                "
-              >
+            <div class="questions__item" style="">
+              <header class="questions__header glass" style="">
                 <i class="ri-add-line questions__icon"></i>
                 <h3 class="questions__item-title">
                   Navigating the Labyrinth: The Challenge of<br />
                   Contacting Stakeholders in Ethiopia's Education Sector
                 </h3>
               </header>
-              <div
-                class="questions__content"
-                style="
-                  border-bottom-right-radius: 10px;
-                  border-bottom-left-radius: 10px;
-                "
-              >
+              <div class="questions__content" style="">
                 <div
                   style="
-                    border-bottom-right-radius: 10px;
-                    border-bottom-left-radius: 10px;
                     left: 0;
                     width: 100%;
                     height: 0;
@@ -979,7 +956,7 @@
               height: 0;
               position: relative;
               padding-bottom: 56.25%;
-              border-radius: 10px;
+
               overflow: hidden;
               margin: 5%;
             "
@@ -994,6 +971,7 @@
                 position: absolute;
                 border: 0;
               "
+              loading="lazy"
               allowfullscreen
               scrolling="no"
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
@@ -1006,7 +984,7 @@
               height: 0;
               position: relative;
               padding-bottom: 56.25%;
-              border-radius: 10px;
+
               overflow: hidden;
               margin: 5%;
             "
@@ -1021,6 +999,7 @@
                 position: absolute;
                 border: 0;
               "
+              loading="lazy"
               allowfullscreen
               scrolling="no"
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
@@ -1033,7 +1012,7 @@
               height: 0;
               position: relative;
               padding-bottom: 56.25%;
-              border-radius: 10px;
+
               overflow: hidden;
               margin: 5%;
             "
@@ -1047,6 +1026,7 @@
                 position: absolute;
                 border: 0;
               "
+              loading="lazy"
               allowfullscreen
               scrolling="yes"
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
@@ -1073,7 +1053,7 @@
             class="form-wrapper glass"
             style="
               aspect-ratio: 1 / 1.6;
-              border-radius: 0.5rem;
+
               overflow: hidden;
               box-shadow: 0 4px 12px hsla(200, 4%, 15%, 0.2);
             "
@@ -1082,13 +1062,14 @@
               src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAGuzBkhUOU44R1ZRMFFKMlNOMTE5S1JXRDFLQ09JVi4u&embed=true"
               title="Engineering Basics"
               style="width: 100%; height: 100%; border: none"
+              loading="lazy"
             ></iframe>
           </div>
           <div
             class="form-wrapper glass"
             style="
               aspect-ratio: 1 / 1.6;
-              border-radius: 0.5rem;
+
               overflow: hidden;
               box-shadow: 0 4px 12px hsla(200, 4%, 15%, 0.2);
             "
@@ -1097,13 +1078,14 @@
               src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAGuzBkhUQzhFWFRUTUZPWEtQSjNCSUdTT1E2TFFOTC4u&embed=true"
               title="Medicine Basics"
               style="width: 100%; height: 100%; border: none"
+              loading="lazy"
             ></iframe>
           </div>
           <div
             class="form-wrapper glass"
             style="
               aspect-ratio: 1 / 1.6;
-              border-radius: 0.5rem;
+
               overflow: hidden;
               box-shadow: 0 4px 12px hsla(200, 4%, 15%, 0.2);
             "
@@ -1112,6 +1094,7 @@
               src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAGuzBkhUNk9TUlJXMEc4UTlKTEZPWUlNTkozVU5VRC4u&embed=true"
               title="Medicine Basics"
               style="width: 100%; height: 100%; border: none"
+              loading="lazy"
             ></iframe>
           </div>
         </div>
@@ -1320,69 +1303,92 @@
       }
     </script>
     <script>
+      // Optimized partner wrapper animation with requestAnimationFrame
       document.addEventListener("DOMContentLoaded", () => {
         const wrapper = document.getElementById("partner-wrapper");
-        // Ensure the wrapper exists and has scrollable content
-        if (wrapper && wrapper.scrollWidth > 0) {
-          const content = wrapper.innerHTML;
-          const repeatCount =
-            Math.ceil(window.innerWidth / wrapper.scrollWidth) * 10; // Dynamically adjust repetitions
-          wrapper.innerHTML = content.repeat(repeatCount);
-          const contentWidth = wrapper.scrollWidth; // Access scrollWidth after updating content
-          const animationDuration = contentWidth / 100; // Adjust divisor for desired speed
-          // Use a CSS variable for animation duration
-          wrapper.style.setProperty(
-            "--animation-duration",
-            `${animationDuration}s`
-          );
-          wrapper.classList.add("scroll-animation"); // Apply animation via CSS class
-        } else {
-          console.warn(
-            "Partner wrapper is missing or has no content. Animation not applied."
-          );
-        }
+        if (!wrapper) return;
 
-        const statsNumbers = document.querySelectorAll(".stats__number span");
+        // Use requestAnimationFrame for better performance
+        requestAnimationFrame(() => {
+          if (wrapper.scrollWidth > 0) {
+            const content = wrapper.innerHTML;
+            // Limit repetitions for better performance
+            const repeatCount = Math.min(
+              Math.ceil(window.innerWidth / wrapper.scrollWidth) * 10,
+              20
+            );
+            wrapper.innerHTML = content.repeat(repeatCount);
 
-        const animateNumber = (el) => {
-          const target = parseInt(el.dataset.target);
-          const duration = 1000; // Animation duration in milliseconds
-          const frames = target;
-          const increment = target / duration;
-          let current = 0;
-
-          const timer = setInterval(() => {
-            current += increment;
-            el.textContent = Math.ceil(current);
-            if (current >= target) {
-              el.textContent = target;
-              clearInterval(timer);
-            }
-          }, 1);
-        };
-
-        const observer = new IntersectionObserver(
-          (entries) => {
-            entries.forEach((entry) => {
-              if (entry.isIntersecting) {
-                statsNumbers.forEach(animateNumber);
-                observer.unobserve(entry.target);
-              }
+            // Calculate animation duration after content is set
+            requestAnimationFrame(() => {
+              const contentWidth = wrapper.scrollWidth;
+              const animationDuration = Math.max(contentWidth / 100, 20); // Minimum 20s
+              wrapper.style.setProperty(
+                "--animation-duration",
+                `${animationDuration}s`
+              );
+              wrapper.classList.add("scroll-animation");
             });
-          },
-          { threshold: 0.5 }
-        );
+          }
+        });
+      });
 
-        const statsSection = document.querySelector(".stats");
-        if (statsSection) {
-          observer.observe(statsSection);
-        }
+      // Stats number animation
+      const statsNumbers = document.querySelectorAll(".stats__number span");
+
+      const animateNumber = (el) => {
+        const target = parseInt(el.dataset.target);
+        const duration = 1000; // Animation duration in milliseconds
+        const frames = target;
+        const increment = target / duration;
+        let current = 0;
+
+        const timer = setInterval(() => {
+          current += increment;
+          el.textContent = Math.ceil(current);
+          if (current >= target) {
+            el.textContent = target;
+            clearInterval(timer);
+          }
+        }, 1);
+      };
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              statsNumbers.forEach(animateNumber);
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+
+      const statsSection = document.querySelector(".stats");
+      if (statsSection) {
+        observer.observe(statsSection);
+      }
+    </script>
+    <!-- Lazy load remaining images -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Add lazy loading to all images that don't have it
+        const images = document.querySelectorAll("img:not([loading])");
+        images.forEach((img) => {
+          // Skip images in viewport
+          if (!img.hasAttribute("loading")) {
+            img.loading = "lazy";
+          }
+        });
       });
     </script>
-    <script src="assets/js/scrollreveal.min.js"></script>
-    <script src="assets/js/script.js"></script>
-    <script src="assets/js/bio.js"></script>
-    <script src="assets/js/sendmail.js"></script>
-    <script src="assets/js/main.js"></script>
+
+    <!-- Deferred scripts -->
+    <script defer src="assets/js/scrollreveal.min.js"></script>
+    <script defer src="assets/js/script.js"></script>
+    <script defer src="assets/js/bio.js"></script>
+    <script defer src="assets/js/sendmail.js"></script>
+    <script defer src="assets/js/main.js"></script>
   </body>
 </html>
