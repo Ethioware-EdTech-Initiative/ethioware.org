@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
+    <title>Ethioware EdTech Initiative - Privacy Policy</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <style>
+      /*=============== GOOGLE FONTS ===============*/
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap");
+      @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap");
+
+      /*=============== VARIABLES CSS ===============*/
+      :root {
+        --header-height: 3.5rem; /*56px*/
+
+        /*========== Colors ==========*/
+        --hue: 215;
+        --first-color: hsl(var(--hue), 80%, 32%);
+        --first-color-alt: hsl(var(--hue), 24%, 28%);
+        --title-color: hsl(var(--hue), 4%, 15%);
+        --text-color: hsl(var(--hue), 4%, 35%);
+        --text-color-light: hsl(var(--hue), 4%, 55%);
+        --body-color: hsl(var(--hue), 0%, 100%);
+        --container-color: #fff;
+
+        /*========== Font and typography ==========*/
+        --body-font: "Poppins", sans-serif;
+        --h1-font-size: 1.5rem;
+        --h2-font-size: 1.25rem;
+        --h3-font-size: 1rem;
+        --normal-font-size: 0.938rem;
+
+        /*========== Font weight ==========*/
+        --font-medium: 500;
+        --font-semi-bold: 600;
+
+        /*========== Margenes Bottom ==========*/
+        --mb-1: 1rem;
+        --mb-1-5: 1.5rem;
+        --mb-2: 2rem;
+        --mb-3: 3rem;
+
+        /*========== z index ==========*/
+        --z-fixed: 100;
+      }
+
+      /* Responsive typography */
+      @media screen and (min-width: 968px) {
+        :root {
+          --h1-font-size: 2.25rem;
+          --h2-font-size: 1.5rem;
+          --h3-font-size: 1.25rem;
+          --normal-font-size: 1rem;
+        }
+      }
+
+      /*=============== BASE ===============*/
+      * {
+        box-sizing: border-box;
+        padding: 0;
+        margin: 0;
+      }
+
+      body,
+      button,
+      input,
+      textarea {
+        font-family: var(--body-font);
+        font-size: var(--normal-font-size);
+      }
+
+      body {
+        margin: 0;
+        background-color: var(--body-color);
+        color: var(--text-color);
+        transition: 0.3s; /* For animation dark mode */
+        line-height: 1.6;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        color: var(--title-color);
+        font-weight: var(--font-semi-bold);
+        margin-bottom: var(--mb-1);
+      }
+
+      h1 {
+        font-size: var(--h1-font-size);
+      }
+      h2 {
+        font-size: var(--h2-font-size);
+      }
+      h3 {
+        font-size: var(--h3-font-size);
+      }
+
+      ul {
+        list-style: disc;
+        margin-left: var(--mb-2);
+        margin-bottom: var(--mb-1);
+      }
+
+      p {
+        margin-bottom: var(--mb-1);
+      }
+
+      a {
+        text-decoration: none;
+        color: var(--first-color);
+      }
+      a:hover {
+        text-decoration: underline;
+      }
+
+      /*=============== THEME ===============*/
+      body.dark-theme {
+        --first-color-dark: hsl(var(--hue), 80%, 20%);
+        --title-color: hsl(var(--hue), 30%, 95%);
+        --text-color: hsl(var(--hue), 0%, 75%);
+        --body-color: hsl(var(--hue), 8%, 12%);
+        --container-color: hsl(var(--hue), 40%, 16%);
+      }
+
+      /* Dark Theme Specific Overrides */
+      .dark-theme .header {
+        background-color: var(--body-color);
+      }
+      .dark-theme .footer {
+        background-color: var(--container-color);
+      }
+      .dark-theme .policy-content {
+        background-color: var(--container-color);
+        box-shadow: 0 4px 12px hsla(var(--hue), 4%, 4%, 0.5);
+      }
+
+      .change-theme {
+        color: var(--title-color);
+        font-size: 1.5rem;
+        cursor: pointer;
+      }
+
+      /*=============== LAYOUT ===============*/
+      .container {
+        max-width: 1024px;
+        margin-left: auto; /* Centering */
+        margin-right: auto; /* Centering */
+        padding-left: var(--mb-1-5); /* Replaced margin with padding */
+        padding-right: var(--mb-1-5); /* Replaced margin with padding */
+      }
+
+      /* Header (Minimal for Policy Page) */
+      .header {
+        width: 100%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: var(--z-fixed);
+        background-color: var(--body-color);
+        box-shadow: 0 1px 4px hsla(var(--hue), 4%, 15%, 0.1);
+        transition: 0.3s;
+      }
+
+      .nav {
+        height: var(--header-height);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .nav__logo {
+        font-weight: var(--font-semi-bold);
+        color: var(--title-color);
+        font-size: var(--h3-font-size);
+      }
+
+      .nav__btns {
+        display: flex;
+        align-items: center;
+        column-gap: 1rem;
+      }
+
+      /* Policy Specific Styles */
+      .policy-section {
+        padding-top: calc(var(--header-height) + 2rem);
+        padding-bottom: 4rem;
+      }
+
+      .policy-content {
+        background-color: var(--container-color);
+        padding: var(--mb-3);
+        border-radius: 0.75rem;
+        box-shadow: 0 4px 12px hsla(var(--hue), 4%, 15%, 0.1);
+      }
+
+      /* Footer (Minimal for Policy Page) */
+      .footer {
+        background-color: var(--first-color-alt);
+        padding: 2rem 0 1.5rem;
+        color: white;
+        text-align: center;
+      }
+
+      .footer p {
+        font-size: var(--normal-font-size);
+        color: var(--first-color-lighten);
+      }
+
+      .footer-logo {
+        font-weight: var(--font-semi-bold);
+        color: white;
+        margin-bottom: var(--mb-1);
+      }
+
+      /* Scrollbar (Thematic) */
+      ::-webkit-scrollbar {
+        width: 0.6rem;
+        background-color: hsl(var(--hue), 4%, 20%);
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background-color: hsl(var(--hue), 4%, 40%);
+        border-radius: 0.5rem;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: hsl(var(--hue), 4%, 50%);
+      }
+
+      @media screen and (max-width: 768px) {
+        .container {
+          padding-left: var(--mb-1); /* Changed from margin */
+          padding-right: var(--mb-1); /* Changed from margin */
+        }
+        .policy-content {
+          padding: var(--mb-2);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header" id="header">
+      <nav class="nav container">
+        <a href="index.html" class="nav__logo"> Ethioware EdTech Initiative </a>
+
+        <div class="nav__btns">
+          <i class="bx bx-moon change-theme" id="theme-button"></i>
+        </div>
+      </nav>
+    </header>
+
+    <main class="main">
+      <section class="policy-section container">
+        <div class="policy-content">
+          <h1>Ethioware Privacy Policy</h1>
+          <p><strong>Last updated: October 30, 2025</strong></p>
+
+          <p>
+            Ethioware ("we," "our," or "us") operates the [Your
+            Application/Website Name] website and is committed to protecting the
+            privacy of our users. This Privacy Policy informs you of our
+            policies regarding the collection, use, and disclosure of personal
+            data when you use our Service and the choices you have associated
+            with that data.
+          </p>
+
+          <h2>1. Information We Collect</h2>
+
+          <h3>Personal Data</h3>
+          <p>
+            While using our Service, we may ask you to provide us with certain
+            personally identifiable information that can be used to contact or
+            identify you ("Personal Data"). Personally identifiable information
+            may include, but is not limited to:
+          </p>
+          <ul>
+            <li>Email address</li>
+            <li>First name and last name</li>
+            <li>Cookies and Usage Data</li>
+          </ul>
+
+          <h3>Usage Data</h3>
+          <p>
+            We may also collect information that your browser sends whenever you
+            visit our Service or when you access the Service by or through a
+            mobile device ("Usage Data"). This Usage Data may include
+            information such as your computer's Internet Protocol address (e.g.,
+            IP address), browser type, browser version, the pages of our Service
+            that you visit, the time and date of your visit, the time spent on
+            those pages, unique device identifiers, and other diagnostic data.
+          </p>
+
+          <h2>2. Use of Data</h2>
+          <p>Ethioware uses the collected data for various purposes:</p>
+          <ul>
+            <li>To provide and maintain the Service.</li>
+            <li>To notify you about changes to our Service.</li>
+            <li>
+              To allow you to participate in interactive features of our Service
+              when you choose to do so.
+            </li>
+            <li>To provide customer care and support.</li>
+            <li>To monitor the usage of the Service.</li>
+            <li>To detect, prevent, and address technical issues.</li>
+          </ul>
+
+          <h2>3. Data Security</h2>
+          <p>
+            The security of your data is important to us, but remember that no
+            method of transmission over the Internet or method of electronic
+            storage is 100% secure. While we strive to use commercially
+            acceptable means to protect your Personal Data, we cannot guarantee
+            its absolute security.
+          </p>
+
+          <h2>4. Analytics</h2>
+          <p>
+            We may use third-party Service Providers to monitor and analyze the
+            use of our Service.
+          </p>
+          <ul>
+            <li>
+              <strong>Google Analytics:</strong> Google Analytics is a web
+              analytics service offered by Google that tracks and reports
+              website traffic. Google uses the data collected to track and
+              monitor the use of our Service. This data is shared with other
+              Google services. Google may use the collected data to
+              contextualize and personalize the ads of its own advertising
+              network.
+            </li>
+          </ul>
+
+          <h2>5. Links to Other Sites</h2>
+          <p>
+            Our Service may contain links to other sites that are not operated
+            by us. If you click on a third-party link, you will be directed to
+            that third party's site. We strongly advise you to review the
+            Privacy Policy of every site you visit.
+          </p>
+
+          <h2>6. Changes to This Privacy Policy</h2>
+          <p>
+            We may update our Privacy Policy from time to time. We will notify
+            you of any changes by posting the new Privacy Policy on this page
+            and updating the "Last updated" date at the top of this Privacy
+            Policy.
+          </p>
+
+          <h2>7. Contact Us</h2>
+          <p>
+            If you have any questions about this Privacy Policy, please contact
+            us:
+          </p>
+          <ul>
+            <li>
+              By email:
+              <a href="mailto:info@ethioware.org">info@ethioware.org</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <footer class="ft">
+      <div class="bars">
+        <div class="left-bar">
+          <div class="left-logo">
+            <a href="/index"
+              ><img src="/assets/img/white.png" alt="Ethioware-Logo"
+            /></a>
+            <a href="/index"><p>ETHIOWARE</p></a>
+          </div>
+          <div class="left-socials">
+            <div>
+              <a
+                href="https://www.linkedin.com/company/ethioware"
+                target="_blank"
+                ><img
+                  src="https://img.icons8.com/?size=100&id=84888&format=png&color=ffffff"
+                  alt="LinkedIn"
+              /></a>
+            </div>
+            <div>
+              <a href="https://facebook.com/ethiowareEI" target="_blank"
+                ><img
+                  src="https://img.icons8.com/?size=100&id=118490&format=png&color=ffffff"
+                  alt="Facebook"
+              /></a>
+            </div>
+            <div>
+              <a href="https://instagram.com/ethioware_" target="_blank"
+                ><img
+                  src="https://img.icons8.com/?size=100&id=84884&format=png&color=ffffff"
+                  alt="Instagram"
+              /></a>
+            </div>
+            <div>
+              <a href="https://twitter.com/ethioware" target="_blank"
+                ><img
+                  src="https://img.icons8.com/?size=100&id=102907&format=png&color=ffffff"
+                  alt="Twitter"
+              /></a>
+            </div>
+            <div>
+              <a href="https://youtube.com/@ethioware" target="_blank"
+                ><img
+                  src="https://img.icons8.com/?size=100&id=37326&format=png&color=ffffff"
+                  alt="YouTube"
+              /></a>
+            </div>
+            <div>
+              <a href="https://t.me/ethioware" target="_blank"
+                ><img
+                  src="https://img.icons8.com/?size=100&id=85428&format=png&color=ffffff"
+                  alt="Telegram"
+              /></a>
+            </div>
+          </div>
+        </div>
+        <div class="right-bar">
+          <div class="right-bar-links">
+            <div class="col">
+              <a href="/index" class="head">Home</a>
+            </div>
+            <div class="col">
+              <a href="/about" class="head">About Us</a>
+              <a href="/mission" class="sub">Mission</a>
+              <a href="/approach" class="sub">Approach</a>
+              <a href="https://forms.office.com/r/3SepzQNHz2" class="sub"
+                >Membership</a
+              >
+            </div>
+            <div class="col">
+              <a href="https://wa.me/message/W4GUO2DOV4HWI1" class="head"
+                >Work With Us</a
+              >
+              <a href="https://www.skilledup.life/" class="sub">Partners</a>
+              <a href="https://forms.office.com/r/8MtrXwTY8R" class="sub"
+                >Interns</a
+              >
+              <a href="https://forms.office.com/r/BwCszzkuXK" class="sub"
+                >Trainees</a
+              >
+            </div>
+            <div class="col">
+              <a href="/articles" class="head">Publications</a>
+              <a href="/articles" class="sub">Academic Papers</a>
+              <a href="https://www.youtube.com/@ethioware" class="sub"
+                >Interviews</a
+              >
+            </div>
+            <div class="col">
+              <a href="/index" class="head">Contact Us</a>
+              <a href="mailto:info@ethioware.org" class="sub"
+                >Send Us A Message</a
+              >
+            </div>
+          </div>
+          <div
+            class="trustpilot-widget right-review"
+            data-locale="en-US"
+            data-template-id="56278e9abfbbba0bdcd568bc"
+            data-businessunit-id="6666fe238ece8b6766f5dfc3"
+            data-style-height="4rem"
+            data-style-width="100%"
+          >
+            <a
+              href="https://www.trustpilot.com/review/ethioware.org"
+              target="_blank"
+            ></a>
+          </div>
+        </div>
+      </div>
+      <div class="copy">
+        <p class="copy copy-txt">
+          © 2025 Ethioware EdTech Initiative. All Rights Reserved
+        </p>
+      </div>
+    </footer>
+
+    <script>
+      const themeButton = document.getElementById("theme-button");
+      const darkTheme = "dark-theme";
+      const iconTheme = "bx-sun"; // Icon for light mode
+
+      // Function to check if local storage is available
+      const isLocalStorageAvailable = () => {
+        try {
+          const test = "test";
+          localStorage.setItem(test, test);
+          localStorage.removeItem(test);
+          return true;
+        } catch (e) {
+          return false;
+        }
+      };
+
+      const storageAvailable = isLocalStorageAvailable();
+
+      // Check if dark mode is preferred in system settings or stored locally
+      const getPreferredTheme = () => {
+        if (storageAvailable) {
+          return localStorage.getItem("selected-theme");
+        }
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? darkTheme
+          : null;
+      };
+
+      const getPreferredIcon = () => {
+        if (storageAvailable) {
+          return localStorage.getItem("selected-icon");
+        }
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? iconTheme
+          : "bx-moon";
+      };
+
+      // We obtain the current theme and icon that the interface has by checking localStorage or system preference
+      let currentTheme = getPreferredTheme();
+      let currentIcon = getPreferredIcon();
+
+      // Apply initial theme
+      if (currentTheme) {
+        document.body.classList[currentTheme === darkTheme ? "add" : "remove"](
+          darkTheme
+        );
+        themeButton.classList[currentIcon === iconTheme ? "add" : "remove"](
+          iconTheme
+        );
+      } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        document.body.classList.add(darkTheme);
+        themeButton.classList.add(iconTheme);
+      } else {
+        document.body.classList.remove(darkTheme);
+        themeButton.classList.remove(iconTheme);
+      }
+
+      // Activate / deactivate the theme manually with the button
+      themeButton.addEventListener("click", () => {
+        // Toggle the dark theme class
+        document.body.classList.toggle(darkTheme);
+        // We change the icon
+        themeButton.classList.toggle(iconTheme);
+
+        // We save the theme and the current icon
+        if (storageAvailable) {
+          localStorage.setItem(
+            "selected-theme",
+            document.body.classList.contains(darkTheme) ? darkTheme : null
+          );
+          localStorage.setItem(
+            "selected-icon",
+            themeButton.classList.contains(iconTheme) ? iconTheme : "bx-moon"
+          );
+        }
+      });
+    </script>
+  </body>
+</html>

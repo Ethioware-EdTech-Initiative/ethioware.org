@@ -9,6 +9,13 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
+    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="assets/css/styles.css" />
+
     <script type="text/javascript">
       document.addEventListener("DOMContentLoaded", function () {
         const script = document.createElement("script");
@@ -18,6 +25,8 @@
         document.head.appendChild(script);
       });
     </script>
+
+    <!-- Google Analytics -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-RYB205PY5C"
@@ -31,49 +40,95 @@
       gtag("config", "G-RYB205PY5C");
     </script>
 
-    <script src="assets/js/sendmail.js"></script>
-    <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon" />
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <!-- Google One Tap Sign-In + Pendo Integration -->
     <script src="https://accounts.google.com/gsi/client" async defer></script>
-
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-          // Check if the URL starts with a #
-          if (window.location.hash) {
-              const newUrl = window.location.href.replace('#', '');
-              window.history.replaceState(null, null, newUrl); // Remove # from the URL without reloading
-          }
+      // Parse the Google JWT token
+      function parseJwt(token) {
+        const base64Url = token.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        const jsonPayload = decodeURIComponent(
+          window
+            .atob(base64)
+            .split("")
+            .map(function (c) {
+              return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+            })
+            .join("")
+        );
+        return JSON.parse(jsonPayload);
+      }
 
-          // Handle navigation without reloading
-          document.querySelectorAll('a').forEach(anchor => {
-              anchor.addEventListener('click', function (e) {
-                  if (this.getAttribute('href').startsWith('/')) {
-                      e.preventDefault();
-                      const targetId = this.getAttribute('href').substring(1);
-                      const targetElement = document.getElementById(targetId);
-                      if (targetElement) {
-                          window.history.pushState(null, null, `/${targetId}`);
-                          targetElement.scrollIntoView({ behavior: 'smooth' });
-                      } else if (targetId === '') {
-                          window.history.pushState(null, null, `/`);
-                          document.getElementById('home').scrollIntoView({ behavior: 'smooth' });
-                      }
-                  }
-              });
+      // Handle Google sign-in and initialize Pendo
+      function handleCredentialResponse(response) {
+        const data = parseJwt(response.credential);
+        const user = {
+          id: data.sub,
+          email: data.email,
+          full_name: data.name,
+          picture: data.picture,
+        };
+
+        initializePendo(user);
+        console.log("Signed in as:", user.full_name);
+      }
+
+      // Initialize Pendo dynamically after Google sign-in
+      function initializePendo(user) {
+        (function (apiKey) {
+          (function (p, e, n, d, o) {
+            var v, w, x, y, z;
+            o = p[d] = p[d] || {};
+            o._q = [];
+            v = [
+              "initialize",
+              "identify",
+              "updateOptions",
+              "pageLoad",
+              "track",
+            ];
+            for (
+              w = 0,
+                x = function (m) {
+                  return function () {
+                    o._q.push([m].concat([].slice.call(arguments, 0)));
+                  };
+                };
+              w < v.length;
+              w++
+            )
+              o[v[w]] = x(v[w]);
+            y = e.createElement(n);
+            y.async = !0;
+            y.src = "https://cdn.pendo.io/agent/static/" + apiKey + "/pendo.js";
+            z = e.getElementsByTagName(n)[0];
+            z.parentNode.insertBefore(y, z);
+          })(window, document, "script", "pendo");
+
+          pendo.initialize({
+            visitor: {
+              id: user.id,
+              email: user.email,
+              full_name: user.full_name,
+            },
+            account: {
+              id: "ethioware",
+              name: "Ethioware EdTech Initiative",
+            },
           });
+        })("YOUR_PENDO_API_KEY_HERE");
+      }
 
-          // Scroll to the section if URL contains a path
-          const path = window.location.pathname.substring(1);
-          if (path) {
-              const targetElement = document.getElementById(path);
-              if (targetElement) {
-                  targetElement.scrollIntoView({ behavior: 'smooth' });
-              }
-          }
+      // Automatically show One Tap popup
+      window.onload = function () {
+        google.accounts.id.initialize({
+          client_id:
+            "615874094558-7vat1vkdihe0htgq9siljg7sgk4sjlnv.apps.googleusercontent.com",
+          callback: handleCredentialResponse,
+          auto_select: true,
+        });
+        google.accounts.id.prompt(); // auto show One Tap popup
+      };
     </script>
 
     <script type="text/javascript">
@@ -87,13 +142,14 @@
         document.head.appendChild(emailScript);
       });
     </script>
+
     <style>
       #google-signin-container {
         position: fixed;
         top: 10px;
         right: 10px;
         z-index: 1000;
-        display: none;
+        display: none; /* hidden, popup will appear automatically */
       }
 
       .stats__container {
@@ -103,57 +159,49 @@
         padding: 2rem 0;
         text-align: center;
       }
-
       .stats__card {
         background-color: var(--container-color);
         padding: 1.5rem;
         border-radius: 0.5rem;
         box-shadow: var(--box-shadow);
       }
-
       .stats__icon {
         font-size: 2rem;
         color: var(--first-color);
         margin-bottom: 0.5rem;
       }
-
       .stats__number {
         font-size: 1.5rem;
         font-weight: var(--font-semi-bold);
         color: var(--title-color);
       }
-
       .stats__title {
         font-size: var(--small-font-size);
         color: var(--text-color-light);
       }
-
       .animated-number {
         display: inline-block;
         overflow: hidden;
         vertical-align: bottom;
-        height: 1.5rem; /* Adjust based on your font-size */
+        height: 1.5rem;
       }
-
       .animated-number span {
         display: block;
-        line-height: 1.5rem; /* Should match the height */
+        line-height: 1.5rem;
         transition: transform 0.5s ease-in-out;
       }
     </style>
   </head>
   <body>
-    <div id="google-signin-container">
-      <div
-        id="g_id_onload"
-        data-client_id="615874094558-7vat1vkdihe0htgq9siljg7sgk4sjlnv.apps.googleusercontent.com"
-        data-context="signin"
-        data-ux_mode="popup"
-        data-callback="handleCredentialResponse"
-        data-auto_prompt="true"
-      ></div>
-      <div class="g_id_signin" data-type="standard"></div>
-    </div>
+    <!-- Google One Tap auto prompt (no visible button) -->
+    <div
+      id="g_id_onload"
+      data-client_id="615874094558-7vat1vkdihe0htgq9siljg7sgk4sjlnv.apps.googleusercontent.com"
+      data-callback="handleCredentialResponse"
+      data-auto_prompt="true"
+      data-ux_mode="popup"
+      data-context="signin"
+    ></div>
     <header class="header glass" id="header">
       <nav class="nav container">
         <a href="/home" class="nav__logo">
@@ -175,6 +223,9 @@
             </li>
             <li class="nav__item">
               <a href="/train" class="nav__link">Register</a>
+            </li>
+            <li class="nav__item">
+              <a href="/privacy" class="nav__link">Privacy</a>
             </li>
             <li class="nav__item">
               <a href="/contact" class="nav__link">Contact Us</a>
@@ -248,7 +299,7 @@
         <div class="stats__container grid">
           <div class="stats__card glass">
             <i class="fa fa-graduation-cap stats__icon"></i>
-            <div class="stats__number"><span data-target="125">0</span>+</div>
+            <div class="stats__number"><span data-target="170">0</span>+</div>
             <h3 class="stats__title">Graduates</h3>
           </div>
           <div class="stats__card glass">
@@ -263,7 +314,7 @@
           </div>
           <div class="stats__card glass">
             <i class="fa fa-globe stats__icon"></i>
-            <div class="stats__number"><span data-target="9">0</span>+</div>
+            <div class="stats__number"><span data-target="8">0</span>+</div>
             <h3 class="stats__title">Nationals</h3>
           </div>
         </div>
@@ -532,7 +583,7 @@
                 <a
                   href="https://www.linkedin.com/in/mulu-tsega943/"
                   target="_blank"
-                  ><img src="assets/img/aevue.png" alt="Columbia University"
+                  ><img src="assets/img/aevue.png" alt="Aevue"
                 /></a>
               </div>
               <div class="partner">
@@ -602,6 +653,13 @@
               </div>
               <div class="partner">
                 <a
+                  href="https://www.linkedin.com/in/biniyam-beka-1b5472232/"
+                  target="_blank"
+                  ><img src="assets/img/Dn.png" alt="University of Chicago"
+                /></a>
+              </div>
+              <div class="partner">
+                <a
                   href="https://www.linkedin.com/in/rediet-gizachew-b23629224/"
                   target="_blank"
                   ><img src="assets/img/rac.png" alt="Rotract Club of Atrons"
@@ -616,6 +674,15 @@
                     alt="SciTech Valley"
                 /></a>
               </div>
+
+              <div class="partner">
+                <a
+                  href="https://www.linkedin.com/in/eleni-amha-1aa0b2175/"
+                  target="_blank"
+                  ><img src="assets/img/cgi.webp" alt="CGI Global"
+                /></a>
+              </div>
+
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/mihiret-girma-696a3813a/"
@@ -787,7 +854,6 @@
               </div>
             </div>
           </div>
-
           <div class="pub">
             <div
               class="questions__item"
@@ -919,7 +985,7 @@
             "
           >
             <iframe
-              src="https://www.youtube.com/embed/TKsawA6lg7o?si=VWY4chthse2PdyZt"
+              src="https://www.youtube.com/embed/Z9lzl0DzWHQ?si=VDDc9XBasRA11fB_"
               style="
                 top: 0;
                 left: 0;
@@ -990,7 +1056,7 @@
       </section>
       <section class="product section container" id="train">
         <h2 class="section__title-center" id="Trainings">
-          Current Training Programs
+          Current Program Closed, available in October
         </h2>
 
         <div
@@ -1029,6 +1095,21 @@
           >
             <iframe
               src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAGuzBkhUQzhFWFRUTUZPWEtQSjNCSUdTT1E2TFFOTC4u&embed=true"
+              title="Medicine Basics"
+              style="width: 100%; height: 100%; border: none"
+            ></iframe>
+          </div>
+          <div
+            class="form-wrapper glass"
+            style="
+              aspect-ratio: 1 / 1.6;
+              border-radius: 0.5rem;
+              overflow: hidden;
+              box-shadow: 0 4px 12px hsla(200, 4%, 15%, 0.2);
+            "
+          >
+            <iframe
+              src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAGuzBkhUNk9TUlJXMEc4UTlKTEZPWUlNTkozVU5VRC4u&embed=true"
               title="Medicine Basics"
               style="width: 100%; height: 100%; border: none"
             ></iframe>
@@ -1298,7 +1379,6 @@
         }
       });
     </script>
-
     <script src="assets/js/scrollreveal.min.js"></script>
     <script src="assets/js/script.js"></script>
     <script src="assets/js/bio.js"></script>

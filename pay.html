@@ -291,15 +291,15 @@
         font-weight: var(--font-bold);
       }
       .tier-price .anchor-price::before {
-       content: "";
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100%;
-  height: 2px; /* Increase the height for a thicker line */
-  background-color: var(--text-color-light);
-  /* Apply a skew effect to make it look like a brush stroke */
-  transform: translateY(-70%) rotate(-5deg) skewX(-40deg);
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 0;
+        width: 100%;
+        height: 2px; /* Increase the height for a thicker line */
+        background-color: var(--text-color-light);
+        /* Apply a skew effect to make it look like a brush stroke */
+        transform: translateY(-70%) rotate(-5deg) skewX(-40deg);
       }
       .tier-price .current-price {
         font-size: 2.5rem;
@@ -413,31 +413,31 @@
         border-color: var(--first-color);
       }
       .program-options input[type="radio"] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
       }
       .program-options .selectable-option {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 10px 20px;
-    border: 2px solid var(--first-color-alt);
-    border-radius: 9999px; /* This creates the pill shape */
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-.program-options .selectable-option.selected {
-    background-color: var(--first-color);
-    color: #fff;
-    border-color: var(--first-color);
-}
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 10px 20px;
+        border: 2px solid var(--first-color-alt);
+        border-radius: 9999px; /* This creates the pill shape */
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .program-options .selectable-option.selected {
+        background-color: var(--first-color);
+        color: #fff;
+        border-color: var(--first-color);
+      }
       body.dark-theme .program-options input[type="radio"] {
         border-color: var(--text-color);
       }
@@ -462,8 +462,8 @@
         font-weight: normal;
       }
       .program-options .selectable-option.selected label {
-    color: #fff;
-}
+        color: #fff;
+      }
       .submit-btn {
         background-color: var(--first-color);
         color: #fff;
@@ -660,8 +660,8 @@
         /* Pricing & Form */
         .pricing-container {
           grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    /* The line above changes the layout to a two-column grid on smaller screens */
-    gap: 1rem; /* Reduce the gap between cards */
+          /* The line above changes the layout to a two-column grid on smaller screens */
+          gap: 1rem; /* Reduce the gap between cards */
         }
         .pricing-tier.popular {
           transform: none;
@@ -905,15 +905,58 @@
           </div>
 
           <div class="form-group">
-    <label>Step 5: Preferred Program *</label>
-    <div class="program-options">
-        <div class="option selectable-option"><input type="radio" id="med" name="data[preferred_program]" value="Medicine Basics" required> <label for="med">Medicine Basics</label></div>
-        <div class="option selectable-option"><input type="radio" id="eng" name="data[preferred_program]" value="Engineering Basics"> <label for="eng">Engineering Basics</label></div>
-        <div class="option selectable-option"><input type="radio" id="swe" name="data[preferred_program]" value="Software Engineering Basics"> <label for="swe">Software Engineering Basics</label></div>
-        <div class="option selectable-option"><input type="radio" id="mb_eb" name="data[preferred_program]" value="Both (MB&EB)"> <label for="mb_eb">Both (Medicine & Engineering)</label></div>
-        <div class="option selectable-option"><input type="radio" id="se_mb" name="data[preferred_program]" value="Both (SE&MB)"> <label for="se_mb">Both (Software Engineering & Medicine)</label></div>
-    </div>
-</div>
+            <label>Step 5: Preferred Program *</label>
+            <div class="program-options">
+              <div class="option selectable-option">
+                <input
+                  type="radio"
+                  id="med"
+                  name="data[preferred_program]"
+                  value="Medicine Basics"
+                  required
+                />
+                <label for="med">Medicine Basics</label>
+              </div>
+              <div class="option selectable-option">
+                <input
+                  type="radio"
+                  id="eng"
+                  name="data[preferred_program]"
+                  value="Engineering Basics"
+                />
+                <label for="eng">Engineering Basics</label>
+              </div>
+              <div class="option selectable-option">
+                <input
+                  type="radio"
+                  id="swe"
+                  name="data[preferred_program]"
+                  value="Software Engineering Basics"
+                />
+                <label for="swe">Software Engineering Basics</label>
+              </div>
+              <div class="option selectable-option">
+                <input
+                  type="radio"
+                  id="mb_eb"
+                  name="data[preferred_program]"
+                  value="Both (MB&EB)"
+                />
+                <label for="mb_eb">Both (Medicine & Engineering)</label>
+              </div>
+              <div class="option selectable-option">
+                <input
+                  type="radio"
+                  id="se_mb"
+                  name="data[preferred_program]"
+                  value="Both (SE&MB)"
+                />
+                <label for="se_mb"
+                  >Both (Software Engineering & Medicine)</label
+                >
+              </div>
+            </div>
+          </div>
 
           <div class="form-group">
             <label for="transactionId">Step 6: Enter Transaction ID *</label>
@@ -996,40 +1039,46 @@
       });
 
       // Existing script for pricing tier selection
-const pricingTiers = document.querySelectorAll('.pricing-tier');
-pricingTiers.forEach(tier => {
-    tier.addEventListener('click', () => {
-        const radioButton = tier.querySelector('input[type="radio"]');
-        radioButton.checked = true;
-        pricingTiers.forEach(t => t.classList.remove('selected'));
-        tier.classList.add('selected');
-    });
-});
+      const pricingTiers = document.querySelectorAll(".pricing-tier");
+      pricingTiers.forEach((tier) => {
+        tier.addEventListener("click", () => {
+          const radioButton = tier.querySelector('input[type="radio"]');
+          radioButton.checked = true;
+          pricingTiers.forEach((t) => t.classList.remove("selected"));
+          tier.classList.add("selected");
+        });
+      });
 
-// New script for program option selection
-const programOptions = document.querySelectorAll('.program-options .option');
-programOptions.forEach(option => {
-    option.addEventListener('click', () => {
-        const radioButton = option.querySelector('input[type="radio"]');
-        radioButton.checked = true;
-        programOptions.forEach(o => o.classList.remove('selected'));
-        option.classList.add('selected');
-    });
-});
+      // New script for program option selection
+      const programOptions = document.querySelectorAll(
+        ".program-options .option"
+      );
+      programOptions.forEach((option) => {
+        option.addEventListener("click", () => {
+          const radioButton = option.querySelector('input[type="radio"]');
+          radioButton.checked = true;
+          programOptions.forEach((o) => o.classList.remove("selected"));
+          option.classList.add("selected");
+        });
+      });
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Retain selected state for pricing tiers
-    const checkedTier = document.querySelector('.pricing-tier input[type="radio"]:checked');
-    if (checkedTier) {
-        checkedTier.closest('.pricing-tier').classList.add('selected');
-    }
+      document.addEventListener("DOMContentLoaded", () => {
+        // Retain selected state for pricing tiers
+        const checkedTier = document.querySelector(
+          '.pricing-tier input[type="radio"]:checked'
+        );
+        if (checkedTier) {
+          checkedTier.closest(".pricing-tier").classList.add("selected");
+        }
 
-    // Retain selected state for program options
-    const checkedOption = document.querySelector('.program-options input[type="radio"]:checked');
-    if (checkedOption) {
-        checkedOption.closest('.option').classList.add('selected');
-    }
-});
+        // Retain selected state for program options
+        const checkedOption = document.querySelector(
+          '.program-options input[type="radio"]:checked'
+        );
+        if (checkedOption) {
+          checkedOption.closest(".option").classList.add("selected");
+        }
+      });
 
       setupSelection(pricingTiers, "entry.2085763049");
       setupSelection(programOptions, "entry.1502304010");
