@@ -235,6 +235,54 @@
         line-height: 1.5rem;
         transition: transform 0.5s ease-in-out;
       }
+      /* --- FAQ ACCORDION STYLES --- */
+      .questions__group {
+        display: grid;
+        row-gap: 1.5rem;
+      }
+
+      .questions__item-title {
+        font-size: var(--small-font-size, 0.938rem);
+        font-weight: 600;
+        color: var(--title-color, #fff);
+      }
+
+      .questions__icon {
+        font-size: 1.5rem;
+        color: var(--first-color, #00abe7);
+        margin-right: 0.5rem;
+        transition: 0.3s;
+      }
+
+      .questions__description {
+        font-size: var(--smaller-font-size, 0.813rem);
+        padding: 0 1.25rem 1.25rem 2.5rem;
+        color: var(--text-color-light, #e0e0e0);
+        line-height: 1.5;
+      }
+
+      .questions__header {
+        display: flex;
+        align-items: center;
+        padding: 1rem;
+        cursor: pointer;
+      }
+
+      .questions__content {
+        overflow: hidden;
+        height: 0;
+        transition: height 0.3s ease;
+      }
+
+      /* Rotate icon when open */
+      .accordion-open .questions__icon {
+        transform: rotate(45deg);
+      }
+
+      /* Ensure glass effect is applied to items */
+      .questions__item {
+        border-radius: 0.5rem;
+      }
     </style>
   </head>
   <body>
@@ -295,6 +343,7 @@
               alt="Ethioware EdTech Initiative Plan"
               width="400"
               height="400"
+              style="border-radius: 2px"
             />
           </a>
           <div class="home__data">
@@ -796,15 +845,15 @@
         </h2>
         <div class="questions__container container grid">
           <div class="pub">
-            <div class="questions__item" style="">
-              <header class="questions__header glass" style="">
+            <div class="questions__item">
+              <header class="questions__header glass">
                 <i class="ri-add-line questions__icon"></i>
                 <h3 class="questions__item-title">
                   Academic Motivation of High School Students at Dr. Haddis
                   Alemayehu Secondary School.
                 </h3>
               </header>
-              <div class="questions__content" style="">
+              <div class="questions__content">
                 <div
                   style="
                     left: 0;
@@ -833,15 +882,15 @@
             </div>
           </div>
           <div class="pub">
-            <div class="questions__item" style="">
-              <header class="questions__header glass" style="">
+            <div class="questions__item">
+              <header class="questions__header glass">
                 <i class="ri-add-line questions__icon"></i>
                 <h3 class="questions__item-title">
                   Beyond Access: Utilization of Educational Technologies at
                   Selected High Schools in Addis Ababa.
                 </h3>
               </header>
-              <div class="questions__content" style="">
+              <div class="questions__content">
                 <div
                   style="
                     left: 0;
@@ -869,15 +918,15 @@
             </div>
           </div>
           <div class="pub">
-            <div class="questions__item" style="">
-              <header class="questions__header glass" style="">
+            <div class="questions__item">
+              <header class="questions__header glass">
                 <i class="ri-add-line questions__icon"></i>
                 <h3 class="questions__item-title">
                   Computing Education in African Countries: <br />A Literature
                   Review and Contextualised Learning Materials.
                 </h3>
               </header>
-              <div class="questions__content" style="">
+              <div class="questions__content">
                 <div
                   style="
                     left: 0;
@@ -905,15 +954,15 @@
             </div>
           </div>
           <div class="pub">
-            <div class="questions__item" style="">
-              <header class="questions__header glass" style="">
+            <div class="questions__item">
+              <header class="questions__header glass">
                 <i class="ri-add-line questions__icon"></i>
                 <h3 class="questions__item-title">
                   Navigating the Labyrinth: The Challenge of<br />
                   Contacting Stakeholders in Ethiopia's Education Sector
                 </h3>
               </header>
-              <div class="questions__content" style="">
+              <div class="questions__content">
                 <div
                   style="
                     left: 0;
@@ -1171,6 +1220,147 @@
               <i class="ri-arrow-right-up-line button__icon"></i>
             </button>
           </form> -->
+        </div>
+      </section>
+      <section class="questions section" id="faq">
+        <h2 class="section__title-center">
+          Frequently Asked <br />
+          Questions
+        </h2>
+
+        <div class="questions__container container grid">
+          <div class="questions__group">
+            <div class="questions__item glass">
+              <header class="questions__header">
+                <i class="ri-add-line questions__icon"></i>
+                <h3 class="questions__item-title">
+                  What is the mission of Ethioware?
+                </h3>
+              </header>
+              <div class="questions__content">
+                <p class="questions__description">
+                  Our goal is to direct 200,000 African youth to intentionally
+                  chosen careers by 2040 through intentional partnerships with global EdTech providers. We bridge the gap between high school
+                  and professional careers by providing direct sessions with
+                  experts ("doers") from top institutions.
+                </p>
+              </div>
+            </div>
+
+            <div class="questions__item glass">
+              <header class="questions__header">
+                <i class="ri-add-line questions__icon"></i>
+                <h3 class="questions__item-title">What are pre-trainings?</h3>
+              </header>
+              <div class="questions__content">
+                <p class="questions__description">
+                  7-week onine program tailored for ambitious highschool and
+                  university freshman students to guide their carrer selection
+                  at the undergraduate level. It has 2 components:<br />
+
+                  <strong>Advanced Curricula</strong>: AP Courses & Intorductory
+                  College Level Courses from Khan Academy<br />
+                  <strong>Expert Sessions</strong>: Anecdotal Carrer Experience
+                  of Professionsals from your Industry<br />
+                  By the end of the program, you'll be informed on the carrers
+                  available in your industry and plan your studies accordingly
+                </p>
+              </div>
+            </div>
+
+            <div class="questions__item glass">
+              <header class="questions__header">
+                <i class="ri-add-line questions__icon"></i>
+                <h3 class="questions__item-title">
+                  Can I take two pre-trainings at once?
+                </h3>
+              </header>
+              <div class="questions__content">
+                <p class="questions__description">
+                  Yes. We offer a "Duo Pack" for learners who want to join two
+                  cohorts simultaneously. A popular combination for effective
+                  time management is
+                  <strong>Medicine & Software Engineering Basics</strong>.
+                </p>
+              </div>
+            </div>
+
+            <div class="questions__item glass">
+              <header class="questions__header">
+                <i class="ri-add-line questions__icon"></i>
+                <h3 class="questions__item-title">
+                  Does pre-training give AP subjects?
+                </h3>
+              </header>
+              <div class="questions__content">
+                <p class="questions__description">
+                  Yes. All <strong>Pre-Trainings</strong> have AP Courses
+                  re. They also include additional courses such as
+                  introduction to electrical engineering, python programming, internet safety <b>(varies based on the selected pre-training)</b>  
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="questions__group">
+            <div class="questions__item glass">
+              <header class="questions__header">
+                <i class="ri-add-line questions__icon"></i>
+                <h3 class="questions__item-title">How much does pre-trainings cost?</h3>
+              </header>
+              <div class="questions__content">
+                <p class="questions__description">
+                  Depends on our partner sponsors, but it'll be communicated to finalists upon acceptance
+                </p>
+              </div>
+            </div>
+
+            <div class="questions__item glass">
+              <header class="questions__header">
+                <i class="ri-add-line questions__icon"></i>
+                <h3 class="questions__item-title">
+                  How can I Intern at Ethioware?
+                </h3>
+              </header>
+              <div class="questions__content">
+                <p class="questions__description">
+                  We have 2 Internship Categories:
+                  <br><b>Technical</b>: Last for 3 months and tailored for Developers, PMs, and Data Analysts. Registrations open <b>2 months</b> prior to the summer.
+                  <br><b>Creative</b>: Duration Varies based on role and tailored for Graphics Designers, Video Editors, Youth Ambassadors <b>(highschool only)</b>, UI/UX Designers. Registrations are all year round.
+                </p>
+              </div>
+            </div>
+
+            <div class="questions__item glass">
+              <header class="questions__header">
+                <i class="ri-add-line questions__icon"></i>
+                <h3 class="questions__item-title">
+                  How can my company partner with Ethioware?
+                </h3>
+              </header>
+              <div class="questions__content">
+                <p class="questions__description">
+                  Send an intorduction email on what your company does and how would Ethioware be involved to <b>admin@ethioware.org</b>. In 3-5 business days, our team will contact you and schedule a discovery virtual meeting.  
+                  <br><b>Current Partners</b><br><a class="questions__description" href="https://k12onlineschools.com" target="_blank">K-12 (Gurugram– 122018, India)</a> <br> <a class="questions__description" target="_blank" href="https://skilledup.life">Skilledup Life (Manchester, SK8 5AU, United Kingdom)</a>
+                </p>
+              </div>
+              
+            </div>
+
+            <div class="questions__item glass">
+              <header class="questions__header">
+                <i class="ri-add-line questions__icon"></i>
+                <h3 class="questions__item-title">
+                  Didn't get my question answered here?
+                </h3>
+              </header>
+              <div class="questions__content">
+                <p class="questions__description">
+                  Send an email to <b>info@ethioware.org</b><br>Direct message via<b><a class="questions__description" target="_blank" href="https://wa.me/message/W4GUO2DOV4HWI1">WhatsApp</a></b></p>
+              </div>
+              
+            </div>
+          </div>
         </div>
       </section>
     </main>
