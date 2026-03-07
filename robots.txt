@@ -1,0 +1,23 @@
+# robots.txt for Ethioware EdTech Initiative
+# https://ethioware.org/robots.txt
+
+User-agent: *
+Allow: /
+
+# Disallow admin and private areas
+Disallow: /cognify/
+Disallow: /.git/
+Disallow: /.vscode/
+
+# Allow important resources
+Allow: /assets/
+Allow: /index.html
+Allow: /privacy.html
+Allow: /apply.html
+
+# Sitemap location
+Sitemap: https://ethioware.org/sitemap.xml
+
+# Crawl-delay (optional, adjust as needed)
+# Crawl-delay: 1
+

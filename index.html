@@ -9,18 +9,90 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta
       name="description"
-      content="Ethioware EdTech Initiative - Lessons from the doers. Direct online sessions with experts for high school graduates."
+      content="Ethioware EdTech Initiative - Lessons from the doers. Direct online sessions with experts for high school graduates. Directing 200,000 African Youth to Intentionally Chosen Careers by 2040."
+    />
+    <meta
+      name="keywords"
+      content="Ethioware, EdTech, Education, Career Guidance, High School Graduates, Mentorship, Online Learning, Pre-Training, AP Courses, Expert Sessions, Ethiopia, Africa, Educational Technology"
     />
     <meta name="theme-color" content="#2c5282" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <title>Ethioware EdTech Initiative</title>
+    <meta name="author" content="Ethioware EdTech Initiative" />
+    <meta
+      name="robots"
+      content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+    />
+    <meta name="googlebot" content="index, follow" />
+    <meta name="bingbot" content="index, follow" />
+    <link rel="canonical" href="https://ethioware.org/" />
+    <link rel="alternate" hreflang="en" href="https://ethioware.org/" />
+    <link rel="alternate" hreflang="x-default" href="https://ethioware.org/" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://ethioware.org/" />
+    <meta
+      property="og:title"
+      content="Ethioware EdTech Initiative - Lessons from the doers"
+    />
+    <meta
+      property="og:description"
+      content="Direct online sessions with experts for high school graduates. Directing 200,000 African Youth to Intentionally Chosen Careers by 2040."
+    />
+    <meta
+      property="og:image"
+      content="https://ethioware.org/assets/img/plan.webp"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="Ethioware EdTech Initiative - Educational Platform"
+    />
+    <meta property="og:site_name" content="Ethioware EdTech Initiative" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://ethioware.org/" />
+    <meta
+      name="twitter:title"
+      content="Ethioware EdTech Initiative - Lessons from the doers"
+    />
+    <meta
+      name="twitter:description"
+      content="Direct online sessions with experts for high school graduates. Directing 200,000 African Youth to Intentionally Chosen Careers by 2040."
+    />
+    <meta
+      name="twitter:image"
+      content="https://ethioware.org/assets/img/plan.webp"
+    />
+    <meta
+      name="twitter:image:alt"
+      content="Ethioware EdTech Initiative - Educational Platform"
+    />
+    <meta name="twitter:site" content="@ethioware" />
+    <meta name="twitter:creator" content="@ethioware" />
+
+    <!-- Additional SEO Meta Tags -->
+    <meta name="geo.region" content="ET-AA" />
+    <meta name="geo.placename" content="Addis Ababa" />
+    <meta name="geo.position" content="9.1450;38.7667" />
+    <meta name="ICBM" content="9.1450, 38.7667" />
+    <meta name="rating" content="general" />
+    <meta name="revisit-after" content="7 days" />
+    <meta name="distribution" content="global" />
+    <meta name="language" content="English" />
+
+    <title>Ethioware EdTech Initiative - Lessons from the doers</title>
 
     <!-- Preconnect to external domains for faster loading -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <!-- <link
       rel="preconnect"
       href="https://www.googletagmanager.com"
@@ -30,9 +102,30 @@
     <link rel="dns-prefetch" href="https://cdnjs.cloudflare.com" />
     <link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
     <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="assets/css/styles.css" as="style" />
+    <link rel="preload" href="assets/img/logo-mini.png" as="image" />
+    <link rel="preload" href="assets/img/plan.webp" as="image" />
 
     <!-- Favicon -->
     <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon" />
+
+    <!-- Optimized Google Fonts - using link instead of @import for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript
+      ><link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    /></noscript>
 
     <!-- Stylesheets with media optimization -->
     <link
@@ -57,17 +150,44 @@
         href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
         rel="stylesheet"
     /></noscript>
+    <!-- Critical CSS loaded immediately, non-critical deferred -->
     <link rel="stylesheet" href="assets/css/styles.css" />
 
-    <!-- Trustpilot widget - deferred loading -->
+    <!-- Trustpilot widget - deferred loading with intersection observer for better performance -->
     <script type="text/javascript">
-      window.addEventListener("load", function () {
-        const script = document.createElement("script");
-        script.src =
-          "//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js";
-        script.async = true;
-        document.head.appendChild(script);
-      });
+      // Load Trustpilot only when footer is visible
+      if ("IntersectionObserver" in window) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const script = document.createElement("script");
+                script.src =
+                  "//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js";
+                script.async = true;
+                document.head.appendChild(script);
+                observer.disconnect();
+              }
+            });
+          },
+          { rootMargin: "50px" }
+        );
+
+        // Observe footer element
+        window.addEventListener("DOMContentLoaded", function () {
+          const footer = document.querySelector(".ft");
+          if (footer) observer.observe(footer);
+        });
+      } else {
+        // Fallback for older browsers
+        window.addEventListener("load", function () {
+          const script = document.createElement("script");
+          script.src =
+            "//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js";
+          script.async = true;
+          document.head.appendChild(script);
+        });
+      }
     </script>
 
     <!-- Google Analytics - deferred -->
@@ -175,115 +295,51 @@
       };
     </script> -->
 
-    <!-- EmailJS - deferred loading -->
+    <!-- EmailJS - deferred loading, only when contact form is needed -->
     <script type="text/javascript">
-      window.addEventListener("load", function () {
-        const emailScript = document.createElement("script");
-        emailScript.src =
-          "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
-        emailScript.onload = function () {
-          emailjs.init("tdtlEABcsUxAMpI8W");
-        };
-        document.head.appendChild(emailScript);
-      });
+      // Load EmailJS only when contact section is visible or form is interacted with
+      if ("IntersectionObserver" in window) {
+        const emailObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                const emailScript = document.createElement("script");
+                emailScript.src =
+                  "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+                emailScript.onload = function () {
+                  if (typeof emailjs !== "undefined") {
+                    emailjs.init("tdtlEABcsUxAMpI8W");
+                  }
+                };
+                document.head.appendChild(emailScript);
+                emailObserver.disconnect();
+              }
+            });
+          },
+          { rootMargin: "100px" }
+        );
+
+        window.addEventListener("DOMContentLoaded", function () {
+          const contactSection = document.querySelector("#contact");
+          if (contactSection) emailObserver.observe(contactSection);
+        });
+      } else {
+        // Fallback: load on window load
+        window.addEventListener("load", function () {
+          const emailScript = document.createElement("script");
+          emailScript.src =
+            "https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js";
+          emailScript.onload = function () {
+            if (typeof emailjs !== "undefined") {
+              emailjs.init("tdtlEABcsUxAMpI8W");
+            }
+          };
+          document.head.appendChild(emailScript);
+        });
+      }
     </script>
 
-    <style>
-      #google-signin-container {
-        position: fixed;
-        top: 10px;
-        right: 10px;
-        z-index: 1000;
-        display: none; /* hidden, popup will appear automatically */
-      }
-
-      .stats__container {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1.5rem;
-        padding: 2rem 0;
-        text-align: center;
-      }
-      .stats__card {
-        background-color: var(--container-color);
-        padding: 1.5rem;
-        border-radius: 0.5rem;
-        box-shadow: var(--box-shadow);
-      }
-      .stats__icon {
-        font-size: 2rem;
-        color: var(--first-color);
-        margin-bottom: 0.5rem;
-      }
-      .stats__number {
-        font-size: 1.5rem;
-        font-weight: var(--font-semi-bold);
-        color: var(--title-color);
-      }
-      .stats__title {
-        font-size: var(--small-font-size);
-        color: var(--text-color-light);
-      }
-      .animated-number {
-        display: inline-block;
-        overflow: hidden;
-        vertical-align: bottom;
-        height: 1.5rem;
-      }
-      .animated-number span {
-        display: block;
-        line-height: 1.5rem;
-        transition: transform 0.5s ease-in-out;
-      }
-      /* --- FAQ ACCORDION STYLES --- */
-      .questions__group {
-        display: grid;
-        row-gap: 1.5rem;
-      }
-
-      .questions__item-title {
-        font-size: var(--small-font-size, 0.938rem);
-        font-weight: 600;
-        color: var(--title-color, #fff);
-      }
-
-      .questions__icon {
-        font-size: 1.5rem;
-        color: var(--first-color, #00abe7);
-        margin-right: 0.5rem;
-        transition: 0.3s;
-      }
-
-      .questions__description {
-        font-size: var(--smaller-font-size, 0.813rem);
-        padding: 0 1.25rem 1.25rem 2.5rem;
-        color: var(--text-color-light, #e0e0e0);
-        line-height: 1.5;
-      }
-
-      .questions__header {
-        display: flex;
-        align-items: center;
-        padding: 1rem;
-        cursor: pointer;
-      }
-
-      .questions__content {
-        overflow: hidden;
-        height: 0;
-        transition: height 0.3s ease;
-      }
-
-      /* Rotate icon when open */
-      .accordion-open .questions__icon {
-        transform: rotate(45deg);
-      }
-
-      /* Ensure glass effect is applied to items */
-      .questions__item {
-        border-radius: 0.5rem;
-      }
-    </style>
+    <!-- Inline styles moved to external CSS file for better performance -->
   </head>
   <body>
     <!-- Google One Tap auto prompt (no visible button) -->
@@ -298,7 +354,15 @@
     <header class="header glass" id="header">
       <nav class="nav container">
         <a href="/home" class="nav__logo">
-          <img src="assets/img/logo-mini.png" /> Ethioware
+          <img
+            src="assets/img/logo-mini.png"
+            alt="Ethioware Logo"
+            width="40"
+            height="40"
+            loading="eager"
+            fetchpriority="high"
+          />
+          Ethioware
         </a>
         <div class="nav__menu" id="nav-menu">
           <ul class="nav__list">
@@ -333,13 +397,14 @@
         </div>
       </nav>
     </header>
-    <main class="main">
+    <main class="main" role="main">
       <section id="home" class="home">
         <div class="home__container container grid">
           <a target="_blank" class="home__img glass">
             <img
               src="assets/img/plan.webp"
-              loading="lazy"
+              loading="eager"
+              fetchpriority="high"
               alt="Ethioware EdTech Initiative Plan"
               width="400"
               height="400"
@@ -388,11 +453,11 @@
           </div>
         </div>
       </section>
-      <section class="stats section container">
+        <section class="stats section container">
         <div class="stats__container grid">
           <div class="stats__card glass">
             <i class="fa fa-graduation-cap stats__icon"></i>
-            <div class="stats__number"><span data-target="170">0</span>+</div>
+            <div class="stats__number"><span data-target="180">0</span>+</div>
             <h3 class="stats__title">Graduates</h3>
           </div>
           <div class="stats__card glass">
@@ -576,21 +641,37 @@
                   href="https://www.linkedin.com/in/elshadai-tegegn/"
                   target="_blank"
                 >
-                  <img src="assets/img/amazon.png" alt="Amazon" />
+                  <img
+                    src="assets/img/amazon.png"
+                    alt="Amazon"
+                    loading="lazy"
+                    width="100"
+                    height="50"
+                  />
                 </a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/sosna-achamyeleh/"
                   target="_blank"
-                  ><img src="assets/img/Esklate.png" alt="Esklate"
+                  ><img
+                    src="assets/img/Esklate.png"
+                    alt="Esklate"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/mihret-bekele/"
                   target="_blank"
-                  ><img src="assets/img/a2sv.png" alt="A2sv"
+                  ><img
+                    src="assets/img/a2sv.png"
+                    alt="A2sv"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
@@ -606,7 +687,12 @@
                 <a
                   href="https://www.linkedin.com/in/aschalew-chamiso/"
                   target="_blank"
-                  ><img src="assets/img/apple.png" alt="Apple"
+                  ><img
+                    src="assets/img/apple.png"
+                    alt="Apple"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
@@ -621,26 +707,46 @@
                   href="https://www.linkedin.com/in/liya-m-shibru-042a0b2b6/"
                   target="_blank"
                 >
-                  <img src="assets/img/dku.png" alt="Duke Kunshan"
+                  <img
+                    src="assets/img/dku.png"
+                    alt="Duke Kunshan"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a href="https://www.linkedin.com/in/mukerem/" target="_blank">
-                  <img src="assets/img/Turing.png" alt="Turing"
+                  <img
+                    src="assets/img/Turing.png"
+                    alt="Turing"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/abel-mulugeta/"
                   target="_blank"
-                  ><img src="assets/img/yali.png" alt="Yali"
+                  ><img
+                    src="assets/img/yali.png"
+                    alt="Yali"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/abenezer-amanuel/"
                   target="_blank"
-                  ><img src="assets/img/duolingo.png" alt="Duolingo"
+                  ><img
+                    src="assets/img/duolingo.png"
+                    alt="Duolingo"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
@@ -648,28 +754,48 @@
                   href="https://www.linkedin.com/in/hana-mekonen-951104209/"
                   target="_blank"
                 >
-                  <img src="assets/img/haramaya.png" alt="Haramaya"
+                  <img
+                    src="assets/img/haramaya.png"
+                    alt="Haramaya"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/efridereje/"
                   target="_blank"
-                  ><img src="assets/img/Gebeya.png" alt="Gebeya"
+                  ><img
+                    src="assets/img/Gebeya.png"
+                    alt="Gebeya"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/amanuel-dejene-38b671256/"
                   target="_blank"
-                  ><img src="assets/img/echo digitals.png" alt="Echo Digitals"
+                  ><img
+                    src="assets/img/echo digitals.png"
+                    alt="Echo Digitals"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/abenezer-amanuel/"
                   target="_blank"
-                  ><img src="assets/img/columbia.png" alt="Columbia University"
+                  ><img
+                    src="assets/img/columbia.png"
+                    alt="Columbia University"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
@@ -679,20 +805,33 @@
                   ><img
                     src="assets/img/education.webp"
                     alt="Let's Talk About Education"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/mulu-tsega943/"
                   target="_blank"
-                  ><img src="assets/img/aevue.png" alt="Aevue"
+                  ><img
+                    src="assets/img/aevue.png"
+                    alt="Aevue"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/henok-belachew/"
                   target="_blank"
-                  ><img src="assets/img/addissystems.png" alt="Addis Systems"
+                  ><img
+                    src="assets/img/addissystems.png"
+                    alt="Addis Systems"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
@@ -708,63 +847,108 @@
                 <a
                   href="https://www.linkedin.com/in/hanna-girma-187974185/"
                   target="_blank"
-                  ><img src="assets/img/Chapa.png" alt="Chapa"
+                  ><img
+                    src="assets/img/Chapa.png"
+                    alt="Chapa"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/dawitmammo/"
                   target="_blank"
-                  ><img src="assets/img/flawless.png" alt="Flawless Events"
+                  ><img
+                    src="assets/img/flawless.png"
+                    alt="Flawless Events"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/yvan-gatete/"
                   target="_blank"
-                  ><img src="assets/img/Google.png" alt="Google"
+                  ><img
+                    src="assets/img/Google.png"
+                    alt="Google"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/amanuel-sisay-87b044201/"
                   target="_blank"
-                  ><img src="assets/img/Headstarter.png" alt="HeadStarter"
+                  ><img
+                    src="assets/img/Headstarter.png"
+                    alt="HeadStarter"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/sophonias-dawit-feleke-et/"
                   target="_blank"
-                  ><img src="assets/img/enzirt.png" alt="Enzirt Engineering"
+                  ><img
+                    src="assets/img/enzirt.png"
+                    alt="Enzirt Engineering"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/tsion-abreha-254494252/"
                   target="_blank"
-                  ><img src="assets/img/UVA.webp" alt="University of Virginia"
+                  ><img
+                    src="assets/img/UVA.webp"
+                    alt="University of Virginia"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/daniel-mekuriaw/"
                   target="_blank"
-                  ><img src="assets/img/microsoft.png" alt="Microsoft"
+                  ><img
+                    src="assets/img/microsoft.png"
+                    alt="Microsoft"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/biniyam-beka-1b5472232/"
                   target="_blank"
-                  ><img src="assets/img/Dn.png" alt="University of Chicago"
+                  ><img
+                    src="assets/img/Dn.png"
+                    alt="Diebold Nixdorf"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/rediet-gizachew-b23629224/"
                   target="_blank"
-                  ><img src="assets/img/rac.png" alt="Rotract Club of Atrons"
+                  ><img
+                    src="assets/img/rac.png"
+                    alt="Rotract Club of Atrons"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
@@ -774,6 +958,9 @@
                   ><img
                     src="assets/img/scitechvalley.webp"
                     alt="SciTech Valley"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
 
@@ -781,7 +968,12 @@
                 <a
                   href="https://www.linkedin.com/in/eleni-amha-1aa0b2175/"
                   target="_blank"
-                  ><img src="assets/img/cgi.webp" alt="CGI Global"
+                  ><img
+                    src="assets/img/cgi.webp"
+                    alt="CGI Global"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
 
@@ -792,18 +984,31 @@
                   ><img
                     src="assets/img/mmc.png"
                     alt="Myungsung Medical College"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/merat-semma-final/"
                   target="_blank"
-                  ><img src="assets/img/yale.png" alt="Yale University"
+                  ><img
+                    src="assets/img/yale.png"
+                    alt="Yale University"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a href="mailto:meklityohannes96@gmail.com" target="_blank"
-                  ><img src="assets/img/unity.webp" alt="Selam Medical College"
+                  ><img
+                    src="assets/img/unity.webp"
+                    alt="Selam Medical College"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
@@ -811,34 +1016,57 @@
                   ><img
                     src="assets/img/black-lion.png"
                     alt="Black Lion Hospital"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/mister-twumasi/"
                   target="_blank"
-                  ><img src="assets/img/leti.jpeg" alt="Leti Art"
+                  ><img
+                    src="assets/img/leti.jpeg"
+                    alt="Leti Art"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/yosef-engdawork-a66a041a0/"
                   target="_blank"
-                  ><img src="assets/img/safaricom.png" alt="Safaricom"
+                  ><img
+                    src="assets/img/safaricom.png"
+                    alt="Safaricom"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
               <div class="partner">
                 <a
                   href="https://www.linkedin.com/in/nati-bekele/"
                   target="_blank"
-                  ><img src="assets/img/uc.png" alt="University of Chicago"
+                  ><img
+                    src="assets/img/uc.png"
+                    alt="University of Chicago"
+                    loading="lazy"
+                    width="100"
+                    height="50"
                 /></a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <section class="questions section" id="articles">
+      <section
+        class="questions section"
+        id="articles"
+        itemscope
+        itemtype="https://schema.org/CollectionPage"
+      >
         <h2 class="section__title-center">
           Some of our <br />
           Publications
@@ -1008,7 +1236,8 @@
             "
           >
             <iframe
-              src="https://www.youtube.com/embed/Z9lzl0DzWHQ?si=VDDc9XBasRA11fB_"
+              src="https://www.youtube.com/embed/Q2xLImtHry0?si=U5j68_P8KiCgPfwp"
+             
               style="
                 top: 0;
                 left: 0;
@@ -1021,6 +1250,7 @@
               allowfullscreen
               scrolling="no"
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
+              title="Ethioware Interview Video 1"
             ></iframe>
           </div>
           <div
@@ -1049,6 +1279,7 @@
               allowfullscreen
               scrolling="no"
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
+              title="Ethioware Interview Video 2"
             ></iframe>
           </div>
           <div
@@ -1064,7 +1295,7 @@
             "
           >
             <iframe
-              src="https://www.youtube.com/embed/tiJKLReOyZM?si=XEo2YC6thfeU9Ic"
+              src="https://www.youtube.com/embed/Z9lzl0DzWHQ?si=VDDc9XBasRA11fB_"
               style="
                 top: 0;
                 width: 90%;
@@ -1076,11 +1307,17 @@
               allowfullscreen
               scrolling="yes"
               allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share;"
+              title="Ethioware Interview Video 3"
             ></iframe>
           </div>
         </div>
       </section>
-      <section class="product section container" id="train">
+      <section
+        class="product section container"
+        id="train"
+        itemscope
+        itemtype="https://schema.org/EducationalOccupationalProgram"
+      >
         <h2 class="section__title-center" id="Trainings">Current Programs</h2>
 
         <div
@@ -1240,7 +1477,8 @@
               <div class="questions__content">
                 <p class="questions__description">
                   Our goal is to direct 200,000 African youth to intentionally
-                  chosen careers by 2040 through intentional partnerships with global EdTech providers. We bridge the gap between high school
+                  chosen careers by 2040 through intentional partnerships with
+                  global EdTech providers. We bridge the gap between high school
                   and professional careers by providing direct sessions with
                   experts ("doers") from top institutions.
                 </p>
@@ -1294,9 +1532,10 @@
               </header>
               <div class="questions__content">
                 <p class="questions__description">
-                  Yes. All <strong>Pre-Trainings</strong> have AP Courses
-                  re. They also include additional courses such as
-                  introduction to electrical engineering, python programming, internet safety <b>(varies based on the selected pre-training)</b>  
+                  Yes. All <strong>Pre-Trainings</strong> have AP Courses re.
+                  They also include additional courses such as introduction to
+                  electrical engineering, python programming, internet safety
+                  <b>(varies based on the selected pre-training)</b>
                 </p>
               </div>
             </div>
@@ -1306,11 +1545,14 @@
             <div class="questions__item glass">
               <header class="questions__header">
                 <i class="ri-add-line questions__icon"></i>
-                <h3 class="questions__item-title">How much does pre-trainings cost?</h3>
+                <h3 class="questions__item-title">
+                  How much does pre-trainings cost?
+                </h3>
               </header>
               <div class="questions__content">
                 <p class="questions__description">
-                  Depends on our partner sponsors, but it'll be communicated to finalists upon acceptance
+                  Depends on our partner sponsors, but it'll be communicated to
+                  finalists upon acceptance
                 </p>
               </div>
             </div>
@@ -1325,8 +1567,13 @@
               <div class="questions__content">
                 <p class="questions__description">
                   We have 2 Internship Categories:
-                  <br><b>Technical</b>: Last for 3 months and tailored for Developers, PMs, and Data Analysts. Registrations open <b>2 months</b> prior to the summer.
-                  <br><b>Creative</b>: Duration Varies based on role and tailored for Graphics Designers, Video Editors, Youth Ambassadors <b>(highschool only)</b>, UI/UX Designers. Registrations are all year round.
+                  <br /><b>Technical</b>: Last for 3 months and tailored for
+                  Developers, PMs, and Data Analysts. Registrations open
+                  <b>2 months</b> prior to the summer. <br /><b>Creative</b>:
+                  Duration Varies based on role and tailored for Graphics
+                  Designers, Video Editors, Youth Ambassadors
+                  <b>(highschool only)</b>, UI/UX Designers. Registrations are
+                  all year round.
                 </p>
               </div>
             </div>
@@ -1340,11 +1587,25 @@
               </header>
               <div class="questions__content">
                 <p class="questions__description">
-                  Send an intorduction email on what your company does and how would Ethioware be involved to <b>admin@ethioware.org</b>. In 3-5 business days, our team will contact you and schedule a discovery virtual meeting.  
-                  <br><b>Current Partners</b><br><a class="questions__description" href="https://k12onlineschools.com" target="_blank">K-12 (Gurugram– 122018, India)</a> <br> <a class="questions__description" target="_blank" href="https://skilledup.life">Skilledup Life (Manchester, SK8 5AU, United Kingdom)</a>
+                  Send an intorduction email on what your company does and how
+                  would Ethioware be involved to <b>admin@ethioware.org</b>. In
+                  3-5 business days, our team will contact you and schedule a
+                  discovery virtual meeting. <br /><b>Current Partners</b
+                  ><br /><a
+                    class="questions__description"
+                    href="https://k12onlineschools.com"
+                    target="_blank"
+                    >K-12 (Gurugram– 122018, India)</a
+                  >
+                  <br />
+                  <a
+                    class="questions__description"
+                    target="_blank"
+                    href="https://skilledup.life"
+                    >Skilledup Life (Manchester, SK8 5AU, United Kingdom)</a
+                  >
                 </p>
               </div>
-              
             </div>
 
             <div class="questions__item glass">
@@ -1356,15 +1617,23 @@
               </header>
               <div class="questions__content">
                 <p class="questions__description">
-                  Send an email to <b>info@ethioware.org</b><br>Direct message via<b><a class="questions__description" target="_blank" href="https://wa.me/message/W4GUO2DOV4HWI1">WhatsApp</a></b></p>
+                  Send an email to <b>info@ethioware.org</b><br />Direct message
+                  via<b
+                    ><a
+                      class="questions__description"
+                      target="_blank"
+                      href="https://wa.me/message/W4GUO2DOV4HWI1"
+                      >WhatsApp</a
+                    ></b
+                  >
+                </p>
               </div>
-              
             </div>
           </div>
         </div>
       </section>
     </main>
-    <footer class="ft">
+    <footer class="ft" role="contentinfo">
       <div class="bars">
         <div class="left-bar">
           <div class="left-logo">
@@ -1477,7 +1746,7 @@
       </div>
       <div class="copy">
         <p class="copy copy-txt">
-          © 2025 Ethioware EdTech Initiative. All Rights Reserved
+          © 2026 Ethioware EdTech Initiative. All Rights Reserved
         </p>
       </div>
     </footer>
@@ -1576,5 +1845,98 @@
     <script defer src="assets/js/bio.js"></script>
     <script defer src="assets/js/sendmail.js"></script>
     <script defer src="assets/js/main.js"></script>
+
+    <!-- JSON-LD Structured Data for SEO -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "EducationalOrganization",
+        "name": "Ethioware EdTech Initiative",
+        "alternateName": "Ethioware",
+        "url": "https://ethioware.org",
+        "logo": "https://ethioware.org/assets/img/logo.png",
+        "description": "Direct online sessions with experts for high school graduates. Directing 200,000 African Youth to Intentionally Chosen Careers by 2040.",
+        "slogan": "Lessons from the doers",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "22 St.",
+          "addressLocality": "Addis Ababa",
+          "addressCountry": "ET"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+251-XXX-XXX-XXXX",
+          "contactType": "Customer Service",
+          "email": "info@ethioware.org",
+          "availableLanguage": ["en", "am"]
+        },
+        "sameAs": [
+          "https://www.linkedin.com/company/ethioware",
+          "https://www.facebook.com/ethiowareEI",
+          "https://www.instagram.com/ethioware_",
+          "https://twitter.com/ethioware",
+          "https://youtube.com/@ethioware",
+          "https://t.me/ethioware"
+        ],
+        "foundingDate": "2020",
+        "numberOfEmployees": {
+          "@type": "QuantitativeValue",
+          "value": "30+"
+        },
+        "audience": {
+          "@type": "EducationalAudience",
+          "educationalRole": "student",
+          "audienceType": "High School Graduates"
+        },
+        "offers": {
+          "@type": "Offer",
+          "name": "Pre-Training Readiness Sessions",
+          "description": "7-week online program with expert sessions and AP courses",
+          "category": "Educational Service"
+        }
+      }
+    </script>
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Ethioware EdTech Initiative",
+        "url": "https://ethioware.org",
+        "potentialAction": {
+          "@type": "SearchAction",
+          "target": {
+            "@type": "EntryPoint",
+            "urlTemplate": "https://ethioware.org/?s={search_term_string}"
+          },
+          "query-input": "required name=search_term_string"
+        }
+      }
+    </script>
+  
+    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7e6c41f7baa94f40a6b5761593935797"}'></script>
+
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Ethioware EdTech Initiative",
+        "url": "https://ethioware.org",
+        "logo": "https://ethioware.org/assets/img/logo.png",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "email": "info@ethioware.org",
+          "contactType": "Customer Service"
+        },
+        "sameAs": [
+          "https://www.linkedin.com/company/ethioware",
+          "https://www.facebook.com/ethiowareEI",
+          "https://www.instagram.com/ethioware_",
+          "https://twitter.com/ethioware",
+          "https://youtube.com/@ethioware"
+        ]
+      }
+    </script>
   </body>
 </html>

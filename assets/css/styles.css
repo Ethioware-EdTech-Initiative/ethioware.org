@@ -1,9 +1,7 @@
 /*=============== GOOGLE FONTS ===============*/
-/* Optimized font loading with font-display=swap for better performance */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap");
+/* Fonts are now loaded via <link> tags in HTML for better performance */
+/* Removed @import statements as they are render-blocking */
+/* Fonts are loaded asynchronously with media="print" onload="this.media='all'" */
 
 /*=============== VARIABLES CSS ===============*/
 :root {
@@ -433,7 +431,10 @@ the website, in dark theme
   }
 
   /* Ensure visibility of menu items */
-  .nav__menu, .nav__menu * { color: var(--title-color); }
+  .nav__menu,
+  .nav__menu * {
+    color: var(--title-color);
+  }
 
   .nav__close {
     position: absolute;
@@ -806,13 +807,20 @@ the website, in dark theme
 }
 
 .questions__container {
-  gap: 1rem;
+  gap: 2rem;
   padding: 2rem 1rem;
-  display: grid;
-  grid-template-columns: 1fr;
-  max-width: 960px;
+  display: grid !important;
+  grid-template-columns: repeat(2, 1fr) !important;
+  max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+}
+
+/* Ensure FAQ container displays 2 columns on desktop */
+@media screen and (min-width: 768px) {
+  .questions__container.container.grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
 }
 
 .questions__group {
@@ -1472,8 +1480,12 @@ the website, in dark theme
     top: 30%;
   }
 
-  /* publications centered in a single column */
-  .questions__container { align-items: flex-start; grid-template-columns: 1fr; }
+  /* FAQ section - keep 2 columns on larger screens */
+  .questions__container {
+    align-items: flex-start;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 2rem;
+  }
 
   .footer__container {
     column-gap: 3rem;
@@ -1907,9 +1919,9 @@ the website, in dark theme
     padding: 1rem;
   }
 
-  /* Publications section mobile */
+  /* Publications section mobile - single column on small screens */
   .questions__container {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
     gap: 1.5rem;
   }
 
@@ -2040,6 +2052,117 @@ img {
 .questions__item {
   border-radius: var(--radius-md);
   overflow: hidden;
+}
+
+/* Styles moved from inline in index.html for better performance */
+#google-signin-container {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  display: none; /* hidden, popup will appear automatically */
+}
+
+.stats__container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.stats__card {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+}
+
+.stats__card.glass {
+  background-color: transparent;
+  box-shadow: var(--box-shadow);
+}
+
+.stats__icon {
+  font-size: 2rem;
+  color: var(--first-color);
+  margin-bottom: 0.5rem;
+}
+
+.stats__number {
+  font-size: 1.5rem;
+  font-weight: var(--font-semi-bold);
+  color: var(--title-color);
+}
+
+.stats__title {
+  font-size: var(--small-font-size);
+  color: var(--text-color-light);
+}
+
+.animated-number {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  height: 1.5rem;
+}
+
+.animated-number span {
+  display: block;
+  line-height: 1.5rem;
+  transition: transform 0.5s ease-in-out;
+}
+
+/* FAQ ACCORDION STYLES */
+.questions__group {
+  display: grid;
+  row-gap: 1.5rem;
+}
+
+.questions__item-title {
+  font-size: var(--small-font-size, 0.938rem);
+  font-weight: 600;
+  color: var(--title-color, #fff);
+}
+
+.questions__icon {
+  font-size: 1.5rem;
+  color: var(--first-color, #00abe7);
+  margin-right: 0.5rem;
+  transition: 0.3s;
+}
+
+.questions__description {
+  font-size: var(--smaller-font-size, 0.813rem);
+  padding: 0 1.25rem 1.25rem 2.5rem;
+  color: var(--text-color-light, #e0e0e0);
+  line-height: 1.5;
+}
+
+.questions__header {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  cursor: pointer;
+}
+
+.questions__content {
+  overflow: hidden;
+  height: 0;
+  transition: height 0.3s ease;
+}
+
+/* Rotate icon when open */
+.accordion-open .questions__icon {
+  transform: rotate(45deg);
+}
+
+/* Ensure glass effect is applied to items */
+.questions__item {
+  border-radius: 0.5rem;
 }
 
 .questions__header {
