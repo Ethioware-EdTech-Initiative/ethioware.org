@@ -15,6 +15,7 @@
     />
     <link rel="stylesheet" href="../assets/css/bio.css" />
 
+
     <script type="text/javascript">
       document.addEventListener("DOMContentLoaded", function () {
         const script = document.createElement("script");
@@ -86,7 +87,7 @@
         // We validate if the user previously chose a topic
         if (selectedTheme) {
           document.body.classList[selectedTheme === "dark" ? "add" : "remove"](
-            darkTheme
+            darkTheme,
           );
           themeButton.classList[
             selectedIcon === "ri-moon-line" ? "add" : "remove"
@@ -121,7 +122,9 @@
       .dropdown-content {
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+        transition:
+          max-height 0.5s ease-in-out,
+          padding 0.5s ease-in-out;
         padding: 0; /* Horizontal padding */
         box-sizing: border-box;
       }
@@ -185,27 +188,27 @@
         />
         <div class="gradient"></div>
         <div class="left-bar">
-          <h1 class="name">Anteneh Yimman</h1>
+          <h1 class="name">Anteneh Yimmam</h1>
           <h3 class="title">Education Lead | Project Management | Research</h3>
-          <div class="buttons">
-            <a href="mailto:anteneh@ethioware.org" class="main-button"
-              ><svg
-                viewBox="0 0 22 22"
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                class="main-arrow"
-              >
-                <path
-                  d="M5.18333 21.5167L0.5 16.8334L11.1167 6.20006H2.86667V0.483398H21.5333V19.1501H15.8333V10.9001L5.18333 21.5167Z"
-                  fill="white"
-                />
+          <div class="button-container">
+            <a href="mailto:anteneh@ethioware.org" class="main-button">
+              <svg viewBox="0 0 22 22" xmlns="http://www.w3.org/2000/svg" fill="none" class="main-arrow">
+                <path d="M5.18333 21.5167L0.5 16.8334L11.1167 6.20006H2.86667V0.483398H21.5333V19.1501H15.8333V10.9001L5.18333 21.5167Z" fill="white"/>
               </svg>
-              Contact</a
-            >
+              Contact
+            </a>
+          
+            <a href="../assets/resumes/PM resume.pdf" class="main-button" download>
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" class="main-arrow">
+                <path d="M12 15L7 10H10V3H14V10H17L12 15ZM5 18H19V20H5V18Z" fill="white"/>
+              </svg>
+              Resume
+            </a>
           </div>
         </div>
+        
       </section>
-      <section class="bio" id="bio">
+      <section style="margin-top: -20px" class="bio" id="bio">
         <p class="body">
           I'm an avid proponent of bettering the educational circumstances of
           any learner. I've been teaching in one form or another since second
@@ -215,6 +218,32 @@
           educational technology. My "grand" vision is to see every student
           enjoy what he/she chooses to study and develop purpose.
         </p>
+      </section>
+      <h2>Media Appearance</h2>
+      <section id="media">
+        <div class="video-item">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/S53crEIR5uc?si=U4ev-a04IkSPIYr-&amp;controls=0"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+          <h4>EdTech Mondays, Shega Media</h4>
+        </div>
+      
+        <div class="video-item">
+          <iframe
+            src="https://www.youtube-nocookie.com/embed/rJLAD19idr0?si=3_DIaHPT4Bjo4LgU&amp;controls=0"
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+          <h4>
+            Interview, Director of Research @<a href="https://ai.northeastern.edu/">EAI</a>
+          </h4>
+        </div>
       </section>
       <section class="experience" id="experience">
         <h2>Experience</h2>
@@ -357,13 +386,9 @@
                 <img src="/assets/img/dashboard.png" alt="IMS Project" />
               </div>
               <br />
-              <div class="prj-desc">
-                Ethiopian Water & Energy IMS
-              </div>
+              <div class="prj-desc">Ethiopian Water & Energy IMS</div>
               <div class="prj-socials">
-                <a
-                  href="https://ewti-ims.vercel.app/dashboard/"
-                  target="_blank"
+                <a href="https://ewti-ims.vercel.app/dashboard/" target="_blank"
                   ><img src="assets/img/link.png" alt="website" class="social"
                 /></a>
               </div>
@@ -656,10 +681,12 @@
         <div class="right-bar">
           <div class="right-bar-links">
             <div class="col">
-              <a style="width: 60px;" href="../index.html" class="head">Home</a>
+              <a style="width: 60px" href="../index.html" class="head">Home</a>
             </div>
             <div class="col">
-              <a style="width: 100px;" href="../index.html" class="head">About Us</a>
+              <a style="width: 100px" href="../index.html" class="head"
+                >About Us</a
+              >
               <a href="../index.html" class="sub">Mission</a>
               <a href="../index.html" class="sub">Approach</a>
               <a href="https://forms.office.com/r/3SepzQNHz2" class="sub"

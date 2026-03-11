@@ -534,7 +534,9 @@ the website, in dark theme
   border-radius: var(--radius-round);
   overflow: hidden;
   display: block;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 .home__img img {
@@ -908,6 +910,7 @@ the website, in dark theme
   overflow: hidden;
   margin: 2%;
 }
+
 
 /*=============== CONTACT ===============*/
 .contact__container {
