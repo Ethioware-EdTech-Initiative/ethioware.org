@@ -120,11 +120,12 @@ img {
 }
 .button-container {
   display: flex;
-  justify-content: center; /* Centers buttons horizontally */
+  justify-content: flex-start; /* Aligns buttons with the left-aligned text */
   align-items: center;
   gap: 20px; /* Space between the two buttons */
-  margin-top: 30px; /* Space above the button group */
+  margin-top: 1rem; /* Adjusted space above the button group */
   flex-wrap: wrap; /* Allows buttons to stack on very small screens */
+  width: 100%;
 }
 
 /* Ensure icons have consistent sizing */

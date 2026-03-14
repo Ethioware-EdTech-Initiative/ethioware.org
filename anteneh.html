@@ -139,6 +139,35 @@
         width: 100%;
         height: 700px;
       }
+      .video-embed {
+        width: 100%;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow:
+          0 4px 16px rgba(0, 0, 0, 0.10),
+          0 1px 4px rgba(0, 0, 0, 0.06);
+        transition: transform 0.25s ease, box-shadow 0.25s ease;
+      }
+      .video-embed:hover {
+        transform: translateY(-3px);
+      }
+      /* 16:9 responsive ratio */
+      .video-embed__ratio {
+        position: relative;
+        width: 100%;
+        padding-bottom: 56.25%;
+        height: 0;
+        overflow: hidden;
+      }
+      .video-embed__ratio iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        display: block;
+      }
     </style>
   </head>
   <body>
@@ -219,29 +248,35 @@
           enjoy what he/she chooses to study and develop purpose.
         </p>
       </section>
-      <h2>Media Appearance</h2>
-      <section id="media">
-        <div class="video-item">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/S53crEIR5uc?si=U4ev-a04IkSPIYr-&amp;controls=0"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
-          <h4>EdTech Mondays, Shega Media</h4>
+      <h2 style="text-align: center; margin-bottom: 1rem;">Media Appearance</h2>
+      <section id="media" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 400px), 1fr)); gap: 2rem; width: 100%; max-width: 1200px; margin: 0 auto; padding: 2rem 0;">
+      <div class="video-embed">
+          <div class="video-embed__ratio">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/S53crEIR5uc?si=U4ev-a04IkSPIYr-&amp;controls=0"
+              title="EdTech Mondays, Shega Media"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <h4 style="padding: 0.5rem 0.75rem 0.6rem; font-size: 0.8rem;">EdTech Mondays, Shega Media</h4>
         </div>
       
-        <div class="video-item">
-          <iframe
-            src="https://www.youtube-nocookie.com/embed/rJLAD19idr0?si=3_DIaHPT4Bjo4LgU&amp;controls=0"
-            title="YouTube video player"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
-          <h4>
-            Interview, Director of Research @<a href="https://ai.northeastern.edu/">EAI</a>
+        <div class="video-embed">
+          <div class="video-embed__ratio">
+            <iframe
+              src="https://www.youtube-nocookie.com/embed/rJLAD19idr0?si=3_DIaHPT4Bjo4LgU&amp;controls=0"
+              title="Interview, Director of Research @ EAI"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen
+              loading="lazy"
+            ></iframe>
+          </div>
+          <h4 style="padding: 0.5rem 0.75rem 0.6rem; font-size: 0.8rem;">
+            Interview, Director of Research @ <a href="https://ai.northeastern.edu/">EAI</a>
           </h4>
         </div>
       </section>
