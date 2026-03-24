@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -119,7 +119,7 @@
       href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <noscript
       ><link
@@ -132,7 +132,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <noscript
       ><link
@@ -143,7 +143,7 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
       rel="stylesheet"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <noscript
       ><link
@@ -170,7 +170,7 @@
               }
             });
           },
-          { rootMargin: "50px" }
+          { rootMargin: "50px" },
         );
 
         // Observe footer element
@@ -316,7 +316,7 @@
               }
             });
           },
-          { rootMargin: "100px" }
+          { rootMargin: "100px" },
         );
 
         window.addEventListener("DOMContentLoaded", function () {
@@ -417,10 +417,18 @@
               EdTech Initiative
             </h1>
             <p class="home__description">Lessons from the doers</p>
+            <a
+              href="https://www.kurudy.com/company-page/6967dec9c5fb972c950a1106"
+              class="button button--flex"
+              target="_blank"
+            >
+              Sponsor a learner
+              <i class="ri-arrow-right-up-line button__icon"></i>
+            </a>
           </div>
         </div>
       </section>
-        <section class="stats section container">
+      <section class="stats section container">
         <div class="stats__container grid">
           <div class="stats__card glass">
             <i class="fa fa-graduation-cap stats__icon"></i>
@@ -476,82 +484,196 @@
           <div class="graduates__track" id="graduates-track">
             <!-- Card 1 -->
             <div class="graduates__card glass">
-              <a href="https://www.trustpilot.com/reviews/686442c089255d14e32144b5" target="_blank" class="graduates__tp-link" aria-label="View Trustpilot review">
-                <img src="assets/reviews/Kewser National School.png" alt="Trustpilot review" loading="lazy" width="280" />
+              <a
+                href="https://www.trustpilot.com/reviews/686442c089255d14e32144b5"
+                target="_blank"
+                class="graduates__tp-link"
+                aria-label="View Trustpilot review"
+              >
+                <img
+                  src="assets/reviews/Kewser National School.png"
+                  alt="Trustpilot review"
+                  loading="lazy"
+                  width="280"
+                />
               </a>
-              <p class="graduates__school">National School</p>
+              <p class="graduates__school">Ethio National School</p>
             </div>
             <!-- Card 2 -->
             <div class="graduates__card glass">
-              <a href="https://www.trustpilot.com/reviews/68ae5d74f914b2c87a6a3da2" target="_blank" class="graduates__tp-link" aria-label="View Trustpilot review">
-                <img src="assets/reviews/Ahadu Saint Joseph School.png" alt="Trustpilot review" loading="lazy" width="280" />
+              <a
+                href="https://www.trustpilot.com/reviews/68ae5d74f914b2c87a6a3da2"
+                target="_blank"
+                class="graduates__tp-link"
+                aria-label="View Trustpilot review"
+              >
+                <img
+                  src="assets/reviews/Ahadu Saint Joseph School.png"
+                  alt="Trustpilot review"
+                  loading="lazy"
+                  width="280"
+                />
               </a>
               <p class="graduates__school">Saint Joseph School</p>
             </div>
             <!-- Card 3 -->
             <div class="graduates__card glass">
-              <a href="https://www.trustpilot.com/reviews/687a65b2a4acbf2c925cd312" target="_blank" class="graduates__tp-link" aria-label="View Trustpilot review">
-                <img src="assets/reviews/Eyerusalem Lebawi International Academy.png" alt="Trustpilot review" loading="lazy" width="280" />
+              <a
+                href="https://www.trustpilot.com/reviews/687a65b2a4acbf2c925cd312"
+                target="_blank"
+                class="graduates__tp-link"
+                aria-label="View Trustpilot review"
+              >
+                <img
+                  src="assets/reviews/Eyerusalem Lebawi International Academy.png"
+                  alt="Trustpilot review"
+                  loading="lazy"
+                  width="280"
+                />
               </a>
               <p class="graduates__school">Lebawi Int. Academy</p>
             </div>
             <!-- Card 4 -->
             <div class="graduates__card glass">
-              <a href="https://www.trustpilot.com/reviews/68ae1d856a8988529fbc3a1a" target="_blank" class="graduates__tp-link" aria-label="View Trustpilot review">
-                <img src="assets/reviews/Meklit Nazareth School.png" alt="Trustpilot review" loading="lazy" width="280" />
+              <a
+                href="https://www.trustpilot.com/reviews/68ae1d856a8988529fbc3a1a"
+                target="_blank"
+                class="graduates__tp-link"
+                aria-label="View Trustpilot review"
+              >
+                <img
+                  src="assets/reviews/Meklit Nazareth School.png"
+                  alt="Trustpilot review"
+                  loading="lazy"
+                  width="280"
+                />
               </a>
               <p class="graduates__school">Nazareth School</p>
             </div>
             <!-- Card 5 -->
             <div class="graduates__card glass">
-              <a href="https://www.trustpilot.com/reviews/69881fcd4b57b5d4ed63ff65" target="_blank" class="graduates__tp-link" aria-label="View Trustpilot review">
-                <img src="assets/reviews/Imran South West Academy.png" alt="Trustpilot review" loading="lazy" width="280" />
+              <a
+                href="https://www.trustpilot.com/reviews/69881fcd4b57b5d4ed63ff65"
+                target="_blank"
+                class="graduates__tp-link"
+                aria-label="View Trustpilot review"
+              >
+                <img
+                  src="assets/reviews/Imran South West Academy.png"
+                  alt="Trustpilot review"
+                  loading="lazy"
+                  width="280"
+                />
               </a>
               <p class="graduates__school">South West Academy</p>
             </div>
             <!-- Card 6 -->
             <div class="graduates__card glass">
-              <a href="https://www.trustpilot.com/reviews/68fe11d7a14992e4c1b5c17c" target="_blank" class="graduates__tp-link" aria-label="View Trustpilot review">
-                <img src="assets/reviews/Mebea.png" alt="Trustpilot review" loading="lazy" width="280" />
+              <a
+                href="https://www.trustpilot.com/reviews/68fe11d7a14992e4c1b5c17c"
+                target="_blank"
+                class="graduates__tp-link"
+                aria-label="View Trustpilot review"
+              >
+                <img
+                  src="assets/reviews/Mebea.png"
+                  alt="Trustpilot review"
+                  loading="lazy"
+                  width="280"
+                />
               </a>
-              <p class="graduates__school">School of Tomorrow</p>
+              <p class="graduates__school">Ethio National School</p>
             </div>
             <!-- Duplicate set for seamless loop -->
             <div class="graduates__card glass" aria-hidden="true">
-              <a href="https://www.trustpilot.com/reviews/686442c089255d14e32144b5" target="_blank" class="graduates__tp-link">
-                <img src="assets/reviews/Kewser National School.png" alt="" loading="lazy" width="280" />
+              <a
+                href="https://www.trustpilot.com/reviews/686442c089255d14e32144b5"
+                target="_blank"
+                class="graduates__tp-link"
+              >
+                <img
+                  src="assets/reviews/Kewser National School.png"
+                  alt=""
+                  loading="lazy"
+                  width="280"
+                />
               </a>
-              <p class="graduates__school">National School</p>
+              <p class="graduates__school">Ethio National School</p>
             </div>
             <div class="graduates__card glass" aria-hidden="true">
-              <a href="https://www.trustpilot.com/reviews/68ae5d74f914b2c87a6a3da2" target="_blank" class="graduates__tp-link">
-                <img src="assets/reviews/Ahadu Saint Joseph School.png" alt="" loading="lazy" width="280" />
+              <a
+                href="https://www.trustpilot.com/reviews/68ae5d74f914b2c87a6a3da2"
+                target="_blank"
+                class="graduates__tp-link"
+              >
+                <img
+                  src="assets/reviews/Ahadu Saint Joseph School.png"
+                  alt=""
+                  loading="lazy"
+                  width="280"
+                />
               </a>
               <p class="graduates__school">Saint Joseph School</p>
             </div>
             <div class="graduates__card glass" aria-hidden="true">
-              <a href="https://www.trustpilot.com/reviews/68fe11d7a14992e4c1b5c17c" target="_blank" class="graduates__tp-link">
-                <img src="assets/reviews/Eyerusalem Lebawi International Academy.png" alt="" loading="lazy" width="280" />
+              <a
+                href="https://www.trustpilot.com/reviews/68fe11d7a14992e4c1b5c17c"
+                target="_blank"
+                class="graduates__tp-link"
+              >
+                <img
+                  src="assets/reviews/Eyerusalem Lebawi International Academy.png"
+                  alt=""
+                  loading="lazy"
+                  width="280"
+                />
               </a>
               <p class="graduates__school">Lebawi Int. Academy</p>
             </div>
             <div class="graduates__card glass" aria-hidden="true">
-              <a href="https://www.trustpilot.com/reviews/68ae1d856a8988529fbc3a1a" target="_blank" class="graduates__tp-link">
-                <img src="assets/reviews/Meklit Nazareth School.png" alt="" loading="lazy" width="280" />
+              <a
+                href="https://www.trustpilot.com/reviews/68ae1d856a8988529fbc3a1a"
+                target="_blank"
+                class="graduates__tp-link"
+              >
+                <img
+                  src="assets/reviews/Meklit Nazareth School.png"
+                  alt=""
+                  loading="lazy"
+                  width="280"
+                />
               </a>
               <p class="graduates__school">Nazareth School</p>
             </div>
             <div class="graduates__card glass" aria-hidden="true">
-              <a href="https://www.trustpilot.com/reviews/69881fcd4b57b5d4ed63ff65#" target="_blank" class="graduates__tp-link">
-                <img src="assets/reviews/Imran South West Academy.png" alt="" loading="lazy" width="280" />
+              <a
+                href="https://www.trustpilot.com/reviews/69881fcd4b57b5d4ed63ff65#"
+                target="_blank"
+                class="graduates__tp-link"
+              >
+                <img
+                  src="assets/reviews/Imran South West Academy.png"
+                  alt=""
+                  loading="lazy"
+                  width="280"
+                />
               </a>
               <p class="graduates__school">South West Academy</p>
             </div>
             <div class="graduates__card glass" aria-hidden="true">
-              <a href="https://www.trustpilot.com/reviews/68fe11d7a14992e4c1b5c17c" target="_blank" class="graduates__tp-link">
-                <img src="assets/reviews/Mebea.png" alt="" loading="lazy" width="280" />
+              <a
+                href="https://www.trustpilot.com/reviews/68fe11d7a14992e4c1b5c17c"
+                target="_blank"
+                class="graduates__tp-link"
+              >
+                <img
+                  src="assets/reviews/Mebea.png"
+                  alt=""
+                  loading="lazy"
+                  width="280"
+                />
               </a>
-              <p class="graduates__school">School of Tomorrow</p>
+              <p class="graduates__school">Ethio National School</p>
             </div>
           </div>
         </div>
@@ -1286,10 +1408,17 @@
           <div class="video-embed glass">
             <div class="video-embed__ratio">
               <iframe
-                src="https://www.youtube.com/embed/Q2xLImtHry0?si=U5j68_P8KiCgPfwp"
+                src="https://www.youtube.com/embed/oNVB1UYwi9U?si=G-MKJ7cNDbhNM1Dv"
                 loading="lazy"
                 allowfullscreen
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allow="
+                  accelerometer;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                  web-share;
+                "
                 title="Ethioware Interview Video 1"
               ></iframe>
             </div>
@@ -1297,10 +1426,17 @@
           <div class="video-embed glass">
             <div class="video-embed__ratio">
               <iframe
-                src="https://www.youtube.com/embed/iL99hPBBSBI?si=6mqSiE5R0kyCBNh8"
+                src="https://www.youtube.com/embed/FGg2kmo64IM?si=ieOUMfP-2eaNUpOn"
                 loading="lazy"
                 allowfullscreen
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allow="
+                  accelerometer;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                  web-share;
+                "
                 title="Ethioware Interview Video 2"
               ></iframe>
             </div>
@@ -1311,7 +1447,14 @@
                 src="https://www.youtube.com/embed/Z9lzl0DzWHQ?si=VDDc9XBasRA11fB_"
                 loading="lazy"
                 allowfullscreen
-                allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allow="
+                  accelerometer;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                  web-share;
+                "
                 title="Ethioware Interview Video 3"
               ></iframe>
             </div>
@@ -1380,6 +1523,22 @@
             <iframe
               src="https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAGuzBkhUNk9TUlJXMEc4UTlKTEZPWUlNTkozVU5VRC4u&embed=true"
               title="Medicine Basics"
+              style="width: 100%; height: 100%; border: none"
+              loading="lazy"
+            ></iframe>
+          </div>
+          <div
+            class="form-wrapper glass"
+            style="
+              aspect-ratio: 1 / 1.6;
+
+              overflow: hidden;
+              box-shadow: 0 4px 12px hsla(200, 4%, 15%, 0.2);
+            "
+          >
+            <iframe
+              src="https://forms.office.com/Pages/ResponsePage.aspx?id=DQSIkWdsW0yxEjajBLZtrQAAAAAAAAAAAAMAAGuzBkhUOVFPTTJTVUVKUkZDVFZaM1lYOExKRUxPQy4u&embed=true"
+              title="Law Basics"
               style="width: 100%; height: 100%; border: none"
               loading="lazy"
             ></iframe>
@@ -1776,7 +1935,7 @@
             // Limit repetitions for better performance
             const repeatCount = Math.min(
               Math.ceil(window.innerWidth / wrapper.scrollWidth) * 10,
-              20
+              20,
             );
             wrapper.innerHTML = content.repeat(repeatCount);
 
@@ -1786,7 +1945,7 @@
               const animationDuration = Math.max(contentWidth / 100, 20); // Minimum 20s
               wrapper.style.setProperty(
                 "--animation-duration",
-                `${animationDuration}s`
+                `${animationDuration}s`,
               );
               wrapper.classList.add("scroll-animation");
             });
@@ -1823,7 +1982,7 @@
             }
           });
         },
-        { threshold: 0.5 }
+        { threshold: 0.5 },
       );
 
       const statsSection = document.querySelector(".stats");
@@ -1919,9 +2078,12 @@
         }
       }
     </script>
-  
-    <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7e6c41f7baa94f40a6b5761593935797"}'></script>
 
+    <script
+      defer
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "7e6c41f7baa94f40a6b5761593935797"}'
+    ></script>
 
     <script type="application/ld+json">
       {
