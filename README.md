@@ -334,7 +334,7 @@ For information about how we handle user data, please see our [Privacy Policy](p
 
 ## 📄 License
 
-© 2025 Ethioware EdTech Initiative. All Rights Reserved.
+© 2026 Ethioware EdTech Initiative. All Rights Reserved.
 
 ## 🙏 Acknowledgments
 
@@ -347,6 +347,5 @@ Special thanks to:
 
 ---
 
-**Built with ❤️ for African Youth**
 
 For more information, visit [ethioware.org](https://ethioware.org)
