@@ -1,0 +1,10 @@
+{
+  "extends": ["html-validate:standard", "html-validate:browser"],
+  "rules": {
+    "no-raw-characters": ["error", { "relaxed": true }],
+    "element-required-attributes": "warn",
+    "element-permitted-content": "warn",
+    "wcag/h30": "off",
+    "tel-non-breaking": "off"
+  }
+}

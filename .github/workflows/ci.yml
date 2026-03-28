@@ -1,0 +1,63 @@
+# CI only: deployment stays on cPanel (git pull / deploy on push to master).
+# Optional hardening: Settings → Branches → rule for master → require this workflow.
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  html-primary:
+    name: HTML (primary pages)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - run: npm run lint:html
+
+  links-offline:
+    name: Links & assets (offline)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build lychee targets (primary pages + shared assets)
+        id: lychee_targets
+        run: |
+          list=$(awk '!/^#/ && NF' ci/primary-html.txt | paste -sd' ' -)
+          root_css=$(find . -maxdepth 1 -name '*.css' | paste -sd' ' -)
+          {
+            echo 'args<<LYCHEE_EOF'
+            printf '%s\n' "--offline --root-dir . --exclude-path node_modules --no-progress ${list} ${root_css} assets"
+            echo 'LYCHEE_EOF'
+          } >> "$GITHUB_OUTPUT"
+      - name: Check local href/src and url() resolve on disk
+        uses: lycheeverse/lychee-action@v2.8.0
+        with:
+          args: ${{ steps.lychee_targets.outputs.args }}
+
+  js-syntax:
+    name: JavaScript syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: node --check on checked-in scripts
+        run: |
+          set -e
+          for f in biniyam.js cognify/auth.js; do
+            if [ -f "$f" ]; then
+              node --check "$f"
+            fi
+          done

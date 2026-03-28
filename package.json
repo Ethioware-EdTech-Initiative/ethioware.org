@@ -1,0 +1,24 @@
+{
+  "name": "ethioware",
+  "version": "1.0.0",
+  "description": "[![Website](https://img.shields.io/badge/Website-ethioware.org-blue)](https://ethioware.org) [![Status](https://img.shields.io/badge/Status-Active-success)](https://ethioware.org)",
+  "main": "biniyam.js",
+  "scripts": {
+    "lint:html": "awk '!/^#/ && NF' ci/primary-html.txt | xargs html-validate",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Ethioware/ethioware.et.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Ethioware/ethioware.et/issues"
+  },
+  "homepage": "https://github.com/Ethioware/ethioware.et#readme",
+  "devDependencies": {
+    "html-validate": "^8.29.0"
+  }
+}

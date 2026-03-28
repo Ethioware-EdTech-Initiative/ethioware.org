@@ -1,0 +1,12 @@
+# Primary site pages: html-validate (see .htmlvalidate.json) and lychee offline
+# link checks use this list, plus repo-root *.css and the assets/ tree.
+# Certificate-style templates are excluded until markup is normalized repo-wide.
+index.html
+anteneh.html
+apply.html
+pay.html
+privacy.html
+samuel.html
+biniyam.html
+cognify/auth.html
+pages/template.html
