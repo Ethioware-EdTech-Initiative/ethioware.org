@@ -1,0 +1,56 @@
+# Known-missing asset references accepted by ci/check-assets.py.
+# These resolve to files that do not yet exist in the repo (mostly
+# certificate scan images to be supplied). Remove a line once the file
+# is added; check-assets.py fails on any NEW missing reference.
+assets/img/MB27032513.png
+assets/img/MB27032514.png
+assets/img/MI083102.webp
+assets/img/MI083103.webp
+assets/img/MI083105.webp
+assets/img/MeronM.png
+assets/img/RI083101.webp
+assets/img/RI083102.png
+assets/img/RI083103.png
+assets/img/RI083105.webp
+assets/img/RI083106.webp
+assets/img/RI083107.webp
+assets/img/RedietT.png
+assets/img/SEB4042605.webp
+assets/img/V030401.png
+assets/img/V030402.png
+assets/img/V030403.png
+assets/img/V050701.png
+assets/img/V050702.png
+assets/img/V050703.png
+assets/img/VI03052501.png
+assets/img/VI083101.webp
+assets/img/WI03052501.png
+assets/img/WI03052503.png
+assets/img/WI03052504.png
+assets/img/WI03052505.png
+assets/img/WI03052506.png
+assets/img/WI03052507.png
+assets/img/WI03052508.png
+assets/img/WI03052509.png
+assets/img/WI083101.png
+assets/img/WI0831010.png
+assets/img/WI0831011.png
+assets/img/WI0831012.webp
+assets/img/WI0831013.webp
+assets/img/WI0831014.webp
+assets/img/WI0831015.webp
+assets/img/WI083102.png
+assets/img/WI083103.png
+assets/img/WI083104.png
+assets/img/WI083105.png
+assets/img/WI083106.png
+assets/img/WI083107.png
+assets/img/WI083108.png
+assets/img/WI083109.png
+assets/img/YabsiraY.png
+assets/img/ru304.png
+assets/img/se302.png
+assets/img/si301.png
+experience
+index
+portfolio

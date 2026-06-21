@@ -69,3 +69,11 @@ jobs:
       - uses: actions/checkout@v4
       - name: Emulate .htaccess and verify every certificate URL resolves
         run: python3 ci/htaccess-route-check.py
+
+  assets:
+    name: Asset references resolve (all pages)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify no new broken image/link references across all 244 pages
+        run: python3 ci/check-assets.py
