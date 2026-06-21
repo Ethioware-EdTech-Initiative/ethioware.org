@@ -1,5 +1,11 @@
-# CI only: deployment stays on cPanel (git pull / deploy on push to master).
-# Optional hardening: Settings → Branches → rule for master → require this workflow.
+# CI + deploy.
+#
+# On every push/PR to master the test jobs run. They are the REQUIRED status
+# checks (see DEPLOY.md → Branch protection): a PR cannot merge until they pass.
+# The `deploy` job runs ONLY on push to master and ONLY after every test job
+# passes (needs:), rsyncing the site to cPanel over SSH. Because master is
+# protected, a push to master only happens by merging a green PR — so nothing
+# broken is ever deployed.
 name: CI
 
 on:
@@ -7,6 +13,7 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+  workflow_dispatch: {} # allow a manual re-deploy from the Actions tab
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
@@ -89,3 +96,53 @@ jobs:
           for f in $(find . -name '*.php' -not -path './node_modules/*'); do
             php -l "$f"
           done
+
+  guard:
+    name: Repo hygiene & secret guard
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: No DB-credential config.php may be committed
+        run: |
+          if git ls-files | grep -E '(^|/)config\.php$'; then
+            echo "::error::config.php (DB credentials) must never be committed — it is gitignored. Remove it from the index."
+            exit 1
+          fi
+      - name: node_modules must not be committed
+        run: |
+          if git ls-files | grep -q '^node_modules/'; then
+            echo "::error::node_modules/ must not be committed."
+            exit 1
+          fi
+      - name: Required deploy files are present
+        run: |
+          test -f .deployignore || { echo "::error::.deployignore missing"; exit 1; }
+
+  deploy:
+    name: Deploy to cPanel (rsync over SSH)
+    runs-on: ubuntu-latest
+    # Gate: every test job must pass first. If any fails, deploy is skipped.
+    needs:
+      [html-primary, links-offline, js-syntax, cert-routes, assets, php-syntax, guard]
+    # Only deploy real pushes to master (not PRs); allow manual dispatch too.
+    if: >-
+      github.ref == 'refs/heads/master' &&
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    concurrency:
+      group: deploy-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Configure SSH key
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "${{ secrets.CPANEL_SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+      - name: Deploy with rsync
+        # No --delete: server-only files (config.php, manually-managed backends,
+        # uploads) are preserved. Excludes come from .deployignore.
+        run: |
+          rsync -rltzv --checksum --chmod=D755,F644 \
+            --exclude-from=.deployignore \
+            -e "ssh -i ~/.ssh/id_deploy -p ${{ secrets.CPANEL_SSH_PORT }} -o StrictHostKeyChecking=accept-new" \
+            ./ "${{ secrets.CPANEL_SSH_USER }}@${{ secrets.CPANEL_SSH_HOST }}:${{ secrets.CPANEL_DEPLOY_PATH }}/"

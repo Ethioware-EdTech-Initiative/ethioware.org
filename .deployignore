@@ -1,0 +1,32 @@
+# Files rsync must NOT publish to public_html (used by .github/workflows/ci.yml).
+# Patterns follow rsync --exclude-from rules: a leading "/" anchors to the repo
+# root; no slash matches at any depth; a trailing "/" matches directories.
+
+# --- Version control / CI / tooling (never web-served) ---
+/.git/
+/.github/
+/.gitignore
+/.gitattributes
+/.editorconfig
+/.htmlvalidate.json
+/.hintrc
+/.vscode/
+/node_modules/
+/package.json
+/package-lock.json
+/ci/
+/.deployignore
+
+# --- Internal docs (handoff.md references structure/secrets) — don't publish ---
+*.md
+
+# --- DB schema is import-once, not web content ---
+/db/
+
+# --- Secrets: server-managed, also gitignored, never overwrite/remove ---
+config.php
+
+# --- Local source material, if ever present in the working tree ---
+*Early Registration*.pdf
+PageSpeed*.pdf
+Website Grader*.pdf

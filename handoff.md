@@ -25,11 +25,14 @@ There is **no build step** and **no framework** — hand-written HTML/CSS/JS.
 ## 2. Hosting & deployment
 
 - **Host:** cPanel / Apache (LiteSpeed, CloudLinux) shared hosting.
-- **Deploy model:** the live docroot is a git checkout. **Pushing to `master`
-  triggers a `git pull` on the server** (cPanel Git Version Control / deploy
-  hook). There is no separate build/CI deploy — CI only *validates*.
-- **To deploy:** review locally → `git push origin master`. The server pulls the
-  new tree (including file moves and `.htaccess`) atomically.
+- **Deploy model:** **GitHub Actions → rsync over SSH** to cPanel `public_html`,
+  gated on CI. The `deploy` job in `.github/workflows/ci.yml` runs only on push to
+  `master` and only after every test job passes (`needs:`). `master` is protected,
+  so code reaches it only via a green PR. rsync runs **without `--delete`**, so
+  server-only files (`config.php`, manually-managed backends, uploads) are
+  preserved; excludes live in `.deployignore`. **Full setup + secrets in `DEPLOY.md`.**
+- **To ship:** open a PR → checks go green → merge. The merge push deploys. Manual
+  re-deploy: Actions → CI → Run workflow on `master`.
 - **Smoke test after deploy:**
   ```bash
   curl -I https://ethioware.org/WI10092516     # expect 200
@@ -156,8 +159,9 @@ Full notes in `cognify/README.md`.
 
 ## 7. CI & automated testing
 
-Workflow: `.github/workflows/ci.yml` (runs on push/PR to `master`). **CI does not
-deploy** — deployment is the server-side `git pull` (§2). Jobs:
+Workflow: `.github/workflows/ci.yml` (runs on push/PR to `master`). The test jobs
+are the **required status checks**; the `deploy` job runs after them on push to
+`master` and rsyncs to cPanel (§2, `DEPLOY.md`). Jobs:
 
 | Job | What it checks |
 |-----|----------------|
@@ -167,6 +171,8 @@ deploy** — deployment is the server-side `git pull` (§2). Jobs:
 | `cert-routes` | `ci/htaccess-route-check.py` — emulates `.htaccess`; asserts all 235 cert short URLs + 7 top pages resolve (478 paths). |
 | `assets` | `ci/check-assets.py` — every local ref across **all 244 pages** resolves; baseline `ci/known-missing-assets.txt` accepts the current backlog, **fails on any new break**. (Skips `<script>`/`<style>` bodies so JS-built URLs aren't flagged.) |
 | `php-syntax` | `php -l` on every checked-in `*.php` (e.g. `apply-submit.php`). |
+| `guard` | repo hygiene: fails if `config.php` (DB creds) or `node_modules/` is committed, or `.deployignore` is missing. |
+| `deploy` | **not a required check** — rsyncs to cPanel; `needs:` all the above; runs only on push to `master`. |
 
 **Run everything locally:**
 ```bash
