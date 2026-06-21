@@ -209,9 +209,10 @@
                 </div>
             </div>
 
-            <!-- Navigation Button -->
-            <div id="nav-button-container" class="mt-8 text-right hidden">
-                 <button type="button" id="next-btn" onclick="nextQuestion()" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors">Next</button>
+            <!-- Navigation Buttons -->
+            <div id="nav-button-container" class="mt-8 hidden flex items-center justify-between">
+                <button type="button" id="back-btn" onclick="prevQuestion()" class="text-gray-600 font-medium py-2 px-4 rounded-lg hover:bg-gray-200 transition-colors">&larr; Back</button>
+                <button type="button" id="next-btn" onclick="nextQuestion()" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors">Next</button>
             </div>
         </div>
 
@@ -307,6 +308,13 @@
             navContainer.classList.add('hidden');
         }
 
+        // Back is available from the second question onward; kept invisible (not
+        // removed) on the first question so Next stays right-aligned.
+        const backBtn = document.getElementById('back-btn');
+        if (backBtn) {
+            backBtn.classList.toggle('invisible', questionIndex <= 1);
+        }
+
         const nextBtn = document.getElementById('next-btn');
         if (nextBtn) {
             if (questionIndex === DESC_SLIDE) {
@@ -331,6 +339,15 @@
         } else {
             // Last question was answered, now submit
             submitForm();
+        }
+    }
+
+    function prevQuestion() {
+        // Step back one slide. No validation; typed values and selections persist
+        // in the DOM, so nothing is lost.
+        if (currentQuestion > 1) {
+            currentQuestion--;
+            showQuestion(currentQuestion);
         }
     }
 
