@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Early Signup — EthioWare Research Scholars Program</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy-deep: #0a2c5c;
+    --navy: #104793;
+    --blue: #2265c3;
+    --sky: #2badee;
+    --ink: #1c2230;
+    --muted: #5a6478;
+    --border: #dde3ec;
+    --tint: #eef3fa;
+    --tint-deep: #dde9fb;
+    --paper: #ffffff;
+    --bg: #f6f8fc;
+    --gold: #e8a93c;
+    --gold-tint: #fdf3e1;
+    --error: #c0392b;
+    --error-tint: #fdecea;
+    --success: #1d7a4c;
+    --success-tint: #e8f7ef;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .hero {
+    background: linear-gradient(125deg, var(--navy-deep) 0%, var(--navy) 55%, var(--blue) 100%);
+    color: #fff;
+    padding: 56px 24px 64px;
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -80px;
+    width: 360px; height: 360px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(43,173,238,0.32) 0%, transparent 70%);
+  }
+  .hero-logo {
+    width: 44px; height: 44px;
+    margin: 0 auto 18px;
+    display: block;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sky);
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
+  }
+  .hero h1 {
+    font-size: clamp(26px, 4.2vw, 38px);
+    font-weight: 800;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+    letter-spacing: -0.01em;
+  }
+  .hero p {
+    color: rgba(255,255,255,0.82);
+    max-width: 540px;
+    margin: 0 auto;
+    font-size: 15.5px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .wrap {
+    max-width: 700px;
+    margin: -34px auto 60px;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .card {
+    background: var(--paper);
+    border-radius: 18px;
+    box-shadow: 0 18px 50px rgba(10,44,92,0.12);
+    padding: 36px 36px 40px;
+  }
+
+  .form-section-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin: 30px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .form-section-title:first-child { margin-top: 0; }
+  .form-section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .field {
+    margin-bottom: 18px;
+  }
+  .field label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+  .field label .req { color: var(--error); margin-left: 2px; }
+  .field .hint {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .field input[type="text"],
+  .field input[type="email"],
+  .field input[type="tel"],
+  .field select,
+  .field textarea {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--ink);
+    background: var(--paper);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px rgba(34,101,195,0.14);
+  }
+  .field textarea { resize: vertical; min-height: 80px; }
+  .field select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235a6478' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px;
+    padding-right: 36px;
+  }
+
+  .row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+
+  .radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .radio-pill {
+    position: relative;
+  }
+  .radio-pill input {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    margin: 0;
+  }
+  .radio-pill span {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 13px;
+    color: var(--muted);
+    background: var(--paper);
+    transition: all 0.15s ease;
+  }
+  .radio-pill input:checked + span {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: #fff;
+    font-weight: 600;
+  }
+  .radio-pill input:focus-visible + span {
+    box-shadow: 0 0 0 3px rgba(34,101,195,0.25);
+  }
+
+  .checkbox-field {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    background: var(--tint);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-top: 8px;
+  }
+  .checkbox-field input {
+    margin-top: 3px;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--navy);
+    flex-shrink: 0;
+  }
+  .checkbox-field label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .submit-btn {
+    width: 100%;
+    margin-top: 26px;
+    padding: 15px;
+    background: linear-gradient(120deg, var(--navy-deep), var(--navy));
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  }
+  .submit-btn:hover { transform: translateY(-1px); box-shadow: 0 10px 24px rgba(10,44,92,0.22); }
+  .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; box-shadow: none; }
+
+  .form-msg {
+    margin-top: 16px;
+    padding: 13px 16px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    display: none;
+  }
+  .form-msg.show { display: block; }
+  .form-msg.error { background: var(--error-tint); color: var(--error); }
+  .form-msg.success { background: var(--success-tint); color: var(--success); }
+
+  .privacy-note {
+    text-align: center;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 18px;
+  }
+
+  footer {
+    background: var(--navy-deep);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 30px;
+    font-size: 13px;
+  }
+  footer strong { color: var(--sky); }
+  footer a { color: var(--sky); text-decoration: none; }
+
+  @media (max-width: 560px) {
+    .card { padding: 28px 22px 32px; }
+    .row-2 { grid-template-columns: 1fr; }
+    .wrap { margin-top: -24px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <svg class="hero-logo" viewBox="0 0 1092 1092" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#2badee"/>
+        <stop offset="100%" stop-color="#0a2c5c"/>
+      </linearGradient>
+    </defs>
+    <circle cx="430" cy="250" r="180" fill="url(#logoGrad)"/>
+    <circle cx="870" cy="250" r="180" fill="url(#logoGrad)"/>
+    <circle cx="280" cy="600" r="180" fill="url(#logoGrad)"/>
+    <circle cx="650" cy="600" r="180" fill="url(#logoGrad)"/>
+    <circle cx="430" cy="950" r="180" fill="url(#logoGrad)"/>
+    <circle cx="870" cy="950" r="180" fill="url(#logoGrad)"/>
+  </svg>
+  <div class="hero-label">ethioware.org — Research Scholars Program</div>
+  <h1>Register Your Early Interest</h1>
+  <p>Tell us a bit about yourself and your research interests. Your answers will directly shape the final structure of the program — there's no wrong answer, just be honest.</p>
+</div>
+
+<div class="wrap">
+  <div class="card">
+    <form id="signupForm" novalidate>
+
+      <div class="form-section-title">Basic Information</div>
+
+      <div class="field">
+        <label for="full_name">Full name<span class="req">*</span></label>
+        <input type="text" id="full_name" name="full_name" maxlength="150" required>
+      </div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="email">Email address<span class="req">*</span></label>
+          <input type="email" id="email" name="email" maxlength="190" required>
+        </div>
+        <div class="field">
+          <label for="phone">Phone number <span style="color:var(--muted); font-weight:400;">(optional)</span></label>
+          <input type="tel" id="phone" name="phone" maxlength="40" placeholder="+251 ...">
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="age_grade">Current grade level<span class="req">*</span></label>
+        <select id="age_grade" name="age_grade" required>
+          <option value="" disabled selected>Select your grade</option>
+          <option>Grade 9</option>
+          <option>Grade 10</option>
+          <option>Grade 11</option>
+          <option>Grade 12</option>
+          <option>Recent graduate / Freshman</option>
+        </select>
+      </div>
+
+      <div class="form-section-title">School</div>
+
+      <div class="row-2">
+        <div class="field">
+          <label for="school_name">School name<span class="req">*</span></label>
+          <input type="text" id="school_name" name="school_name" maxlength="200" required>
+        </div>
+        <div class="field">
+          <label for="school_location">City / Region <span style="color:var(--muted); font-weight:400;">(optional)</span></label>
+          <input type="text" id="school_location" name="school_location" maxlength="150" placeholder="e.g. Addis Ababa, Hawassa">
+        </div>
+      </div>
+
+      <div class="form-section-title">Research Interest</div>
+
+      <div class="field">
+        <label>Which track interests you most?<span class="req">*</span></label>
+        <div class="radio-group" id="track_interest_group">
+          <label class="radio-pill"><input type="radio" name="track_interest" value="STEM" required><span>STEM &amp; Natural Sciences</span></label>
+          <label class="radio-pill"><input type="radio" name="track_interest" value="Social Sciences"><span>Social Sciences &amp; Policy</span></label>
+          <label class="radio-pill"><input type="radio" name="track_interest" value="Not sure yet"><span>Not sure yet</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="research_interest">What's a problem or question you'd want to research? <span class="req">*</span></label>
+        <textarea id="research_interest" name="research_interest" required placeholder="e.g. Why do dropout rates spike after Grade 10 in rural Oromia?"></textarea>
+        <div class="hint">A rough idea is completely fine — this doesn't need to be polished.</div>
+      </div>
+
+      <div class="field">
+        <label>Prior research experience<span class="req">*</span></label>
+        <div class="radio-group" id="prior_research_group">
+          <label class="radio-pill"><input type="radio" name="prior_research_experience" value="None" required><span>None</span></label>
+          <label class="radio-pill"><input type="radio" name="prior_research_experience" value="Some (school project)"><span>School project</span></label>
+          <label class="radio-pill"><input type="radio" name="prior_research_experience" value="Some (independent)"><span>Independent</span></label>
+          <label class="radio-pill"><input type="radio" name="prior_research_experience" value="Significant"><span>Significant</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="prior_research_detail">Tell us more about that experience <span style="color:var(--muted); font-weight:400;">(optional)</span></label>
+        <textarea id="prior_research_detail" name="prior_research_detail" placeholder="e.g. I wrote a science fair project on..."></textarea>
+      </div>
+
+      <div class="form-section-title">Helping Us Design the Program</div>
+
+      <div class="field">
+        <label>How comfortable are you writing in academic English?<span class="req">*</span></label>
+        <div class="radio-group" id="english_comfort_group">
+          <label class="radio-pill"><input type="radio" name="english_comfort" value="Very comfortable" required><span>Very comfortable</span></label>
+          <label class="radio-pill"><input type="radio" name="english_comfort" value="Somewhat comfortable"><span>Somewhat comfortable</span></label>
+          <label class="radio-pill"><input type="radio" name="english_comfort" value="Need support"><span>I'll need support</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>What device would you mainly use for this program?<span class="req">*</span></label>
+        <div class="radio-group" id="device_access_group">
+          <label class="radio-pill"><input type="radio" name="device_access" value="Smartphone only" required><span>Smartphone only</span></label>
+          <label class="radio-pill"><input type="radio" name="device_access" value="Laptop/Desktop"><span>Laptop / Desktop</span></label>
+          <label class="radio-pill"><input type="radio" name="device_access" value="Both"><span>Both</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>How reliable is your internet access?<span class="req">*</span></label>
+        <div class="radio-group" id="internet_reliability_group">
+          <label class="radio-pill"><input type="radio" name="internet_reliability" value="Reliable daily" required><span>Reliable daily</span></label>
+          <label class="radio-pill"><input type="radio" name="internet_reliability" value="Intermittent"><span>Intermittent</span></label>
+          <label class="radio-pill"><input type="radio" name="internet_reliability" value="Limited/rare"><span>Limited / rare</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>How many hours a week could you realistically commit?<span class="req">*</span></label>
+        <div class="radio-group" id="weekly_time_commitment_group">
+          <label class="radio-pill"><input type="radio" name="weekly_time_commitment" value="Less than 3 hrs" required><span>Less than 3 hrs</span></label>
+          <label class="radio-pill"><input type="radio" name="weekly_time_commitment" value="3-6 hrs"><span>3–6 hrs</span></label>
+          <label class="radio-pill"><input type="radio" name="weekly_time_commitment" value="6-10 hrs"><span>6–10 hrs</span></label>
+          <label class="radio-pill"><input type="radio" name="weekly_time_commitment" value="10+ hrs"><span>10+ hrs</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>When would you prefer live sessions to happen?<span class="req">*</span></label>
+        <div class="radio-group" id="preferred_session_time_group">
+          <label class="radio-pill"><input type="radio" name="preferred_session_time" value="Weekday mornings" required><span>Weekday mornings</span></label>
+          <label class="radio-pill"><input type="radio" name="preferred_session_time" value="Weekday evenings"><span>Weekday evenings</span></label>
+          <label class="radio-pill"><input type="radio" name="preferred_session_time" value="Weekends"><span>Weekends</span></label>
+          <label class="radio-pill"><input type="radio" name="preferred_session_time" value="Flexible/no preference"><span>Flexible / no preference</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="heard_about_us">How did you hear about EthioWare? <span style="color:var(--muted); font-weight:400;">(optional)</span></label>
+        <input type="text" id="heard_about_us" name="heard_about_us" maxlength="150" placeholder="e.g. School announcement, Telegram, a friend">
+      </div>
+
+      <div class="field">
+        <label for="questions_comments">Any questions or thoughts about the program? <span style="color:var(--muted); font-weight:400;">(optional)</span></label>
+        <textarea id="questions_comments" name="questions_comments" placeholder="Anything you're curious or unsure about — this helps us improve the program before launch."></textarea>
+      </div>
+
+      <div class="checkbox-field">
+        <input type="checkbox" id="consent_contact" name="consent_contact" required>
+        <label for="consent_contact">I agree that EthioWare may contact me by email or phone about the Research Scholars Program.<span class="req">*</span></label>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submitBtn">Submit Early Interest</button>
+
+      <div class="form-msg" id="formMsg"></div>
+    </form>
+  </div>
+
+  <p class="privacy-note">Your information is used only to plan and contact you about the EthioWare Research Scholars Program.</p>
+</div>
+
+<footer>
+  <p>Prepared for <strong>ethioware.org</strong> · EthioWare Research Scholars Program</p>
+</footer>
+
+<script>
+  const form = document.getElementById('signupForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const formMsg = document.getElementById('formMsg');
+
+  form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+    formMsg.className = 'form-msg';
+    formMsg.textContent = '';
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch('save_signup.php', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        formMsg.classList.add('show', 'success');
+        formMsg.textContent = data.message || "Thanks! You're on the list.";
+        form.reset();
+        form.style.opacity = '0.6';
+        form.style.pointerEvents = 'none';
+      } else {
+        formMsg.classList.add('show', 'error');
+        formMsg.textContent = data.message || 'Something went wrong. Please try again.';
+      }
+    } catch (err) {
+      formMsg.classList.add('show', 'error');
+      formMsg.textContent = 'Network error — please check your connection and try again.';
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Submit Early Interest';
+    }
+  });
+</script>
+
+</body>
+</html>

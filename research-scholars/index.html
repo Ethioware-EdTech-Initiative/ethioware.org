@@ -1,0 +1,1228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EthioWare Research Scholars Program — Overview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --hue: 215;
+    --navy-deep: #0a2c5c;
+    --navy: #104793;
+    --blue: #2265c3;
+    --sky: #2badee;
+    --ink: #1c2230;
+    --muted: #5a6478;
+    --border: #dde3ec;
+    --tint: #eef3fa;
+    --tint-deep: #dde9fb;
+    --paper: #ffffff;
+    --bg: #f6f8fc;
+    --gold: #e8a93c;
+    --gold-tint: #fdf3e1;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── COVER ── */
+  .cover {
+    background: linear-gradient(125deg, var(--navy-deep) 0%, var(--navy) 55%, var(--blue) 100%);
+    color: #fff;
+    padding: 84px 60px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -120px; right: -100px;
+    width: 460px; height: 460px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(43,173,238,0.35) 0%, transparent 70%);
+  }
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; left: -60px;
+    width: 320px; height: 320px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%);
+  }
+  .cover-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-logo {
+    width: 34px; height: 34px;
+    flex-shrink: 0;
+  }
+  .cover-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--sky);
+  }
+  .cover h1 {
+    font-size: clamp(30px, 4.6vw, 50px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
+    letter-spacing: -0.01em;
+  }
+  .cover h1 span {
+    color: var(--sky);
+  }
+  .cover-sub {
+    font-size: 17px;
+    color: rgba(255,255,255,0.78);
+    max-width: 580px;
+    margin-bottom: 44px;
+    font-weight: 400;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 36px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .cover-meta-item {
+    border-left: 2px solid var(--sky);
+    padding-left: 14px;
+  }
+  .cover-meta-item .label {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.55);
+    margin-bottom: 4px;
+    font-family: 'DM Mono', monospace;
+  }
+  .cover-meta-item .value {
+    font-weight: 600;
+    font-size: 14px;
+    color: #fff;
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ── SECTION ── */
+  section {
+    padding: 56px 0 20px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 30px;
+  }
+  .section-icon {
+    width: 38px; height: 38px;
+    border-radius: 10px;
+    background: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .section-icon svg { width: 19px; height: 19px; }
+  .section-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    letter-spacing: -0.01em;
+  }
+  .section-divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin-bottom: 34px;
+  }
+
+  /* ── CALLOUT ── */
+  .callout {
+    background: linear-gradient(120deg, var(--navy-deep), var(--navy));
+    color: #fff;
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin-bottom: 32px;
+  }
+  .callout p { color: rgba(255,255,255,0.88); font-size: 14.5px; }
+  .callout strong { color: var(--sky); }
+
+  .callout-gold {
+    background: var(--gold-tint);
+    border-left: 4px solid var(--gold);
+    border-radius: 0 10px 10px 0;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  .callout-gold p { color: #6b4d12; font-size: 14px; }
+  .callout-gold p:last-child { margin-bottom: 0; }
+  .citation {
+    font-size: 12.5px;
+    color: #8a6a26;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(180,130,30,0.25);
+    line-height: 1.6;
+  }
+
+  .callout-blue {
+    background: var(--tint);
+    border-left: 4px solid var(--blue);
+    border-radius: 0 10px 10px 0;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+  }
+  .callout-blue p { color: var(--navy-deep); font-size: 14px; }
+
+  /* ── HIGHLIGHT FEATURE GRID (replaces comparison) ── */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+  .feature-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 20px 22px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .feature-dot {
+    width: 30px; height: 30px;
+    border-radius: 8px;
+    background: var(--tint-deep);
+    color: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+  .feature-dot svg { width: 15px; height: 15px; }
+  .feature-card strong {
+    font-size: 14px;
+    font-weight: 600;
+    display: block;
+    margin-bottom: 3px;
+    color: var(--ink);
+  }
+  .feature-card p { font-size: 13px; color: var(--muted); margin: 0; }
+
+  /* ── PHASE TIMELINE ── */
+  .phases {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 40px;
+  }
+  .phase {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 0;
+    position: relative;
+  }
+  .phase:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 74px;
+    top: 52px;
+    bottom: -12px;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--blue), var(--border));
+  }
+  .phase-marker {
+    padding: 24px 20px 40px 0;
+    text-align: right;
+    position: relative;
+  }
+  .phase-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--navy);
+    border: 3px solid var(--sky);
+    position: absolute;
+    right: -9px; top: 28px;
+  }
+  .phase-weeks {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--blue);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .phase-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .phase-content {
+    padding: 20px 0 40px 30px;
+    border-left: 2px solid transparent;
+  }
+  .phase-title {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    margin-bottom: 10px;
+  }
+  .phase-desc {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .week-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .week-item {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: grid;
+    grid-template-columns: 68px 1fr;
+    gap: 12px;
+    align-items: start;
+  }
+  .week-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--navy);
+    background: var(--tint);
+    padding: 3px 8px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 2px;
+  }
+  .week-details strong {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    display: block;
+    margin-bottom: 3px;
+  }
+  .week-details p {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .week-details .deliverable {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 6px;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--blue);
+    background: var(--tint);
+    padding: 2px 8px;
+    border-radius: 5px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.03em;
+  }
+
+  /* ── TRACKS ── */
+  .tracks-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 36px;
+  }
+  .track-card {
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .track-header {
+    padding: 20px 24px;
+    font-size: 17px;
+    font-weight: 700;
+  }
+  .track-header.stem { background: linear-gradient(120deg, var(--navy-deep), var(--navy)); color: #fff; }
+  .track-header.social { background: linear-gradient(120deg, var(--blue), var(--sky)); color: #fff; }
+  .track-header .sub {
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.8;
+    margin-top: 3px;
+  }
+  .track-body { padding: 20px 24px; background: var(--paper); }
+  .topic-tag {
+    display: inline-block;
+    background: var(--tint);
+    color: var(--navy);
+    font-size: 12px;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin: 3px 3px 3px 0;
+  }
+  .topic-tag.alt {
+    background: var(--tint-deep);
+    color: var(--navy-deep);
+  }
+  .track-note {
+    margin-top: 16px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    font-size: 12.5px;
+    color: var(--muted);
+  }
+  .track-note strong { color: var(--ink); }
+
+  /* ── MENTORSHIP ── */
+  .mentor-model {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .mentor-card {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 22px;
+    position: relative;
+  }
+  .mentor-card .icon {
+    width: 40px; height: 40px;
+    border-radius: 10px;
+    background: var(--tint);
+    color: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+  }
+  .mentor-card .icon svg { width: 20px; height: 20px; }
+  .mentor-card h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy-deep);
+    margin-bottom: 8px;
+  }
+  .mentor-card p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+  .mentor-card .freq {
+    margin-top: 12px;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--blue);
+    font-weight: 600;
+  }
+
+  /* ── TOOLS ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .tool-item {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .tool-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--tint);
+    color: var(--navy);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .tool-icon svg { width: 18px; height: 18px; }
+  .tool-info strong { font-size: 13.5px; font-weight: 600; display: block; }
+  .tool-info span { font-size: 12px; color: var(--muted); }
+
+  /* ── SELECTION ── */
+  .criteria-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+    margin-bottom: 32px;
+  }
+  .criterion {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+  }
+  .criterion h5 {
+    font-weight: 700;
+    font-size: 13.5px;
+    margin-bottom: 5px;
+    color: var(--navy-deep);
+  }
+  .criterion p { font-size: 13px; color: var(--muted); }
+
+  /* ── PUBLICATIONS ── */
+  .pub-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 32px;
+  }
+  .pub-item {
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .pub-tier {
+    font-family: 'DM Mono', monospace;
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 2px;
+  }
+  .pub-tier.tier1 { background: var(--navy-deep); color: var(--sky); }
+  .pub-tier.tier2 { background: var(--tint-deep); color: var(--navy); }
+  .pub-tier.tier3 { background: var(--tint); color: var(--navy); }
+  .pub-details strong { font-size: 14px; font-weight: 600; display: block; margin-bottom: 3px; }
+  .pub-details p { font-size: 13px; color: var(--muted); }
+
+  /* ── CTA / SIGNUP BANNER ── */
+  .cta-banner {
+    background: linear-gradient(120deg, var(--navy-deep) 0%, var(--navy) 60%, var(--blue) 100%);
+    border-radius: 16px;
+    padding: 36px 40px;
+    color: #fff;
+    margin: 16px 0 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-banner::after {
+    content: '';
+    position: absolute;
+    top: -60px; right: -40px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(43,173,238,0.30) 0%, transparent 70%);
+  }
+  .cta-banner h3 {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-banner p {
+    color: rgba(255,255,255,0.82);
+    font-size: 14px;
+    max-width: 520px;
+    margin-bottom: 22px;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--sky);
+    color: var(--navy-deep);
+    font-weight: 700;
+    font-size: 14px;
+    padding: 13px 26px;
+    border-radius: 999px;
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .cta-button:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.18); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy-deep);
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    padding: 40px;
+    font-size: 13px;
+    margin-top: 60px;
+  }
+  footer strong { color: var(--sky); }
+
+  /* ── UTILITY ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .text-blue { color: var(--blue); }
+  .text-muted { color: var(--muted); }
+  p { margin-bottom: 14px; }
+
+  @media (max-width: 640px) {
+    .cover { padding: 50px 24px; }
+    .container { padding: 0 20px; }
+    .feature-grid, .tracks-grid, .mentor-model,
+    .tools-grid, .criteria-grid, .two-col { grid-template-columns: 1fr; }
+    .phase { grid-template-columns: 1fr; }
+    .phase-marker { display: none; }
+    .phase-content { padding-left: 0; border-left: none; }
+    .pub-item { grid-template-columns: 1fr; }
+    .cta-banner { padding: 28px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="cover-top">
+    <svg class="cover-logo" viewBox="0 0 1092 1092" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#2badee"/>
+          <stop offset="100%" stop-color="#0a2c5c"/>
+        </linearGradient>
+      </defs>
+      <circle cx="430" cy="250" r="180" fill="url(#logoGrad)"/>
+      <circle cx="870" cy="250" r="180" fill="url(#logoGrad)"/>
+      <circle cx="280" cy="600" r="180" fill="url(#logoGrad)"/>
+      <circle cx="650" cy="600" r="180" fill="url(#logoGrad)"/>
+      <circle cx="430" cy="950" r="180" fill="url(#logoGrad)"/>
+      <circle cx="870" cy="950" r="180" fill="url(#logoGrad)"/>
+    </svg>
+    <span class="cover-label">ethioware.org — Program Overview</span>
+  </div>
+  <h1>EthioWare Research<br><span>Scholars Program</span></h1>
+  <p class="cover-sub">A 16-week online research mentorship program designed to guide Ethiopian high schoolers from zero research experience to a completed, publishable paper.</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <div class="label">Duration</div>
+      <div class="value">16 Weeks</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Format</div>
+      <div class="value">Fully Online</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Tracks</div>
+      <div class="value">STEM + Social Sciences</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Cohort Size</div>
+      <div class="value">15–25 Students</div>
+    </div>
+    <div class="cover-meta-item">
+      <div class="label">Output</div>
+      <div class="value">Research Paper</div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- SECTION: PROGRAM AT A GLANCE -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.27 5.82 21 7 14.14l-5-4.87 6.91-1.01L12 2z"/></svg>
+      </div>
+      <h2 class="section-title">Program at a Glance</h2>
+    </div>
+    <div class="section-divider"></div>
+
+    <p>EthioWare Research Scholars is built around seven core commitments — the structural elements that make a 16-week research mentorship genuinely work for Ethiopian high schoolers.</p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <div class="feature-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
+        <div>
+          <strong>16 Weeks — Extended Foundations Phase</strong>
+          <p>The program devotes its first four weeks entirely to building research literacy before any paper writing begins.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 014-4h6a4 4 0 014 4v2"/><circle cx="17" cy="7" r="3"/></svg></div>
+        <div>
+          <strong>Mentor Pods: 1 Mentor per 3–4 Students</strong>
+          <p>Small, consistent pods replace pure 1-on-1 mentorship, building peer accountability alongside expert guidance.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+        <div>
+          <strong>English Academic Writing Support — Built In</strong>
+          <p>Dedicated writing coach sessions address academic English fluency directly, without stigma, as a core program pillar.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
+        <div>
+          <strong>Learning Materials, Always Within Reach</strong>
+          <p>PDF templates and writing tutorials live on the LMS, with a Telegram support group for real-time help and reminders.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.1v-2a4 4 0 014-4h14"/><path d="M7 21.9l-4-4 4-4"/><path d="M21 11.9v2a4 4 0 01-4 4H3"/></svg></div>
+        <div>
+          <strong>Ethiopian Diaspora Mentor Pipeline</strong>
+          <p>PhD students and academics with Ethiopian roots bring cultural fluency and a strong motivation to give back.</p>
+        </div>
+      </div>
+      <div class="feature-card">
+        <div class="feature-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><path d="M2 12h20"/></svg></div>
+        <div>
+          <strong>Research Topics Tied to Ethiopian Context</strong>
+          <p>Students study problems relevant to Ethiopia — public health, urban development, education access, and more.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-blue" style="margin-bottom: 0;">
+      <p><strong>Access model:</strong> Admission is merit-based — students are evaluated on curiosity, commitment, and readiness to be stretched, not on prior research credentials or pedigree.</p>
+    </div>
+
+    <div class="callout-gold">
+      <p><strong>Key adaptation rationale:</strong> Ethiopian high schoolers are largely trained in rote/exam-focused learning. Studies show 55% of students find science classes uninteresting or boring, and inquiry-based learning is rarely practiced. The program's first 4 weeks aim to build the research mindset of our students.</p>
+      <div class="citation">Teferra, T., Amare, A., Oumer, J., W/hanna, T., Aklilu, D., &amp; Berhanu, A. (2018). <em>Ethiopian education development roadmap (2018–30): An integrated executive summary.</em> Ministry of Education, Federal Democratic Republic of Ethiopia.</div>
+    </div>
+  </section>
+
+  <!-- SECTION: PROGRAM PHILOSOPHY -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 2A6.5 6.5 0 003 8.5c0 4 3 6 3 9.5h6c0-3.5 3-5.5 3-9.5A6.5 6.5 0 009.5 2z"/><path d="M9 18h6M10 22h4" transform="translate(0,0)"/></svg>
+      </div>
+      <h2 class="section-title">Program Philosophy</h2>
+    </div>
+    <div class="section-divider"></div>
+
+    <div class="callout">
+      <p><strong>The core belief:</strong> Ethiopian students are not behind — they're <em>under-scaffolded.</em> The talent is there. What's missing is exposure to the research process, access to academic resources, and a mentor who believes the question they're asking matters. This program provides all three.</p>
+    </div>
+
+    <div class="two-col">
+      <div class="criterion">
+        <h5>Research as a skill, not a credential</h5>
+        <p>The paper is the outcome — but asking rigorous questions, evaluating evidence, and arguing clearly are what students actually keep for life.</p>
+      </div>
+      <div class="criterion">
+        <h5>Ethiopia as a research site, not a footnote</h5>
+        <p>Students are encouraged to study problems relevant to Ethiopia: public health, urban development, education access, policy gaps. Home context is a research advantage.</p>
+      </div>
+      <div class="criterion">
+        <h5>Community over isolation</h5>
+        <p>Students work in mentor pods rather than purely 1-on-1. Peer learning combats dropout, especially across time zones.</p>
+      </div>
+      <div class="criterion">
+        <h5>Accessibility without sacrificing rigor</h5>
+        <p>We are merit-based — not hyper-exclusive. But the work expected is real. Students who complete this program will have done genuine academic research.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: CURRICULUM -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      </div>
+      <h2 class="section-title">16-Week Curriculum</h2>
+    </div>
+    <div class="section-divider"></div>
+
+    <p style="margin-bottom: 32px;">The program is divided into four phases. Each phase has a clear purpose, concrete deliverables, and dedicated mentor touchpoints. Weeks without a listed deliverable are drafting or practice weeks intentionally light on submission pressure.</p>
+
+    <div class="phases">
+
+      <!-- PHASE 1 -->
+      <div class="phase">
+        <div class="phase-marker">
+          <div class="phase-weeks">WK 1–4</div>
+          <div class="phase-name">Phase I</div>
+          <div class="phase-dot"></div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-title">Research Foundations</div>
+          <p class="phase-desc">Build the mindset. Most students have never read an academic paper or formed a research question. This phase normalizes that discomfort and builds core literacy before any paper is assigned.</p>
+          <div class="week-list">
+            <div class="week-item">
+              <div class="week-badge">Week 1</div>
+              <div class="week-details">
+                <strong>What is Research? + Program Orientation</strong>
+                <p>Types of research (qualitative, quantitative, review). Why research matters in an Ethiopian context. Intro to the cohort, mentors, and tools. Overview of the 16-week arc.</p>
+                <span class="deliverable">↳ 1-page "Why I Research" reflection</span>
+              </div>
+            </div>
+            <div class="week-item">
+              <div class="week-badge">Week 2</div>
+              <div class="week-details">
+                <strong>Reading Academic Papers</strong>
+                <p>How to read an abstract, introduction, and conclusion without drowning in jargon. Practice with 2 accessible papers in the student's track (STEM or Social Science). Identifying claims, evidence, and gaps.</p>
+              </div>
+            </div>
+            <div class="week-item">
+              <div class="week-badge">Week 3</div>
+              <div class="week-details">
+                <strong>Forming a Research Question</strong>
+                <p>The difference between a topic and a question. Moving from "I'm interested in malaria" to "What factors predict malaria incidence in highland Ethiopia?" FINER framework (Feasible, Interesting, Novel, Ethical, Relevant).</p>
+                <span class="deliverable">↳ 3 candidate research questions (draft)</span>
+              </div>
+            </div>
+            <div class="week-item">
+              <div class="week-badge">Week 4</div>
+              <div class="week-details">
+                <strong>Information Literacy + Source Evaluation</strong>
+                <p>Google Scholar, Semantic Scholar, African Journals Online (AJOL). Distinguishing peer-reviewed, grey literature, and non-academic sources. Intro to Zotero for citation management. CRAAP test for source quality.</p>
+                <span class="deliverable">↳ Annotated bibliography of 5 sources on chosen topic</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 2 -->
+      <div class="phase">
+        <div class="phase-marker">
+          <div class="phase-weeks">WK 5–8</div>
+          <div class="phase-name">Phase II</div>
+          <div class="phase-dot"></div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-title">Proposal &amp; Literature Review</div>
+          <p class="phase-desc">Lock in the research question and build the intellectual foundation. Students understand their topic deeply enough to know what hasn't been answered yet — and why their paper matters.</p>
+          <div class="week-list">
+            <div class="week-item">
+              <div class="week-badge">Week 5</div>
+              <div class="week-details">
+                <strong>Research Proposal Workshop</strong>
+                <p>Finalizing the research question with mentor. Writing a short research proposal: question, significance, approach, expected contribution. Mentor feedback session (group).</p>
+                <span class="deliverable">↳ 1-page Research Proposal (approved by mentor)</span>
+              </div>
+            </div>
+            <div class="week-item">
+              <div class="week-badge">Week 6</div>
+              <div class="week-details">
+                <strong>Methodology Selection</strong>
+                <p><em>STEM:</em> Literature review / meta-analysis, secondary data analysis, computational modeling, survey design. <em>Social Science:</em> Qualitative (interviews, case study), quantitative (survey, regression with existing data), comparative policy analysis. Students choose the most feasible method given their access.</p>
+              </div>
+            </div>
+            <div class="week-item">
+              <div class="week-badge">Week 7</div>
+              <div class="week-details">
+                <strong>Building the Literature Review</strong>
+                <p>Synthesizing sources — not summarizing them. Identifying debates, consensus, and gaps. Thematic organization. First mentor 1-on-1 check-in on reading progress. Academic writing conventions: hedging language, citation norms, formal tone.</p>
+              </div>
+            </div>
+            <div class="week-item">
+              <div class="week-badge">Week 8</div>
+              <div class="week-details">
+                <strong>Research Ethics + Practical Setup</strong>
+                <p>Informed consent basics. Responsible use of data. For students doing surveys: designing ethical, unbiased instruments. Setting up data collection tools (Google Forms, publicly available datasets). Mid-program check-in and cohort peer share.</p>
+                <span class="deliverable">↳ Literature Review draft (800–1,200 words)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 3 -->
+      <div class="phase">
+        <div class="phase-marker">
+          <div class="phase-weeks">WK 9–13</div>
+          <div class="phase-name">Phase III</div>
+          <div class="phase-dot"></div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-title">Research, Analysis &amp; Drafting</div>
+          <p class="phase-desc">The heaviest phase. Students execute their methodology, interpret their findings, and write a full draft. Mentor sessions shift from guidance to feedback. Writing coach enters here.</p>
+          <div class="week-list">
+            <div class="week-item">
+              <div class="week-badge">Week 9</div>
+              <div class="week-details">
+                <strong>Data Collection / Primary Research</strong>
+                <p>Students gather data (run surveys, analyze datasets, conduct literature synthesis). Mentor available for troubleshooting. For social science students: interview guide review and ethical conduct of interviews.</p>
+              </div>
+            </div>
+            <div class="week-item">
+              <div class="week-badge">Week 10</div>
+              <div class="week-details">
+                <strong>Analysis &amp; Interpretation</strong>
+                <p><em>STEM:</em> Descriptive statistics, simple regression, thematic coding if qualitative. <em>Social Science:</em> Pattern identification, comparative analysis, discourse analysis. Translating raw findings into claims supported by evidence. Mentor 1-on-1 (2nd session).</p>
+                <span class="deliverable">↳ Findings summary (bullet format) — 1 page</span>
+              </div>
+            </div>
+            <div class="week-item">
+              <div class="week-badge">Week 11</div>
+              <div class="week-details">
+                <strong>Writing the Argument: Introduction + Methods</strong>
+                <p>Academic writing workshop with writing coach (Session 1). How to open a paper — hook, context, gap, contribution. Writing the methodology section clearly enough for replication. Structuring a logical argument from evidence.</p>
+              </div>
+            </div>
+            <div class="week-item">
+              <div class="week-badge">Week 12</div>
+              <div class="week-details">
+                <strong>Writing Discussion &amp; Conclusion</strong>
+                <p>Interpreting findings beyond the data — "so what?" How to acknowledge limitations without undermining the paper. Connecting back to literature. Writing coach session 2: argumentation and clarity. Avoiding common ESL writing pitfalls in academic English.</p>
+              </div>
+            </div>
+            <div class="week-item">
+              <div class="week-badge">Week 13</div>
+              <div class="week-details">
+                <strong>Complete First Draft</strong>
+                <p>Students submit a complete first draft. Mentors provide written feedback within 5 days. Group peer review session — students read and comment on each other's work using a structured rubric (claims, evidence, clarity, structure).</p>
+                <span class="deliverable">↳ Complete first draft (2,500–4,000 words)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 4 -->
+      <div class="phase">
+        <div class="phase-marker">
+          <div class="phase-weeks">WK 14–16</div>
+          <div class="phase-name">Phase IV</div>
+          <div class="phase-dot"></div>
+        </div>
+        <div class="phase-content">
+          <div class="phase-title">Revision, Publication &amp; Symposium</div>
+          <p class="phase-desc">Polish and present. The goal is a paper the student is genuinely proud of — and a presentation they can give at a university interview or in front of peers.</p>
+          <div class="week-list">
+            <div class="week-item">
+              <div class="week-badge">Week 14</div>
+              <div class="week-details">
+                <strong>Structured Revision</strong>
+                <p>Students revise based on mentor + peer feedback. Mentor 1-on-1 (3rd and final session): line-by-line discussion of feedback. Writing coach available for a final polish session on request. Abstract writing workshop.</p>
+                <span class="deliverable">↳ Revised second draft + 250-word abstract</span>
+              </div>
+            </div>
+            <div class="week-item">
+              <div class="week-badge">Week 15</div>
+              <div class="week-details">
+                <strong>Publication Targeting + Final Submission</strong>
+                <p>Students select a target journal or competition with mentor guidance (see publication pathways). Final proofreading and formatting. Submission to publication venue. EthioWare's Research Compendium as guaranteed publication home for all completers.</p>
+                <span class="deliverable">↳ Final paper submitted to EthioWare Compendium</span>
+              </div>
+            </div>
+            <div class="week-item">
+              <div class="week-badge">Week 16</div>
+              <div class="week-details">
+                <strong>Virtual Research Symposium</strong>
+                <p>Each student presents their paper in a 7-minute presentation + 5-minute Q&amp;A. Open to parents, Ethiopian academic guests, and program alumni. Students receive a Program Certificate and Mentor Evaluation Letter. Celebration of completion.</p>
+                <span class="deliverable">↳ Symposium presentation + Certificate</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION: RESEARCH TRACKS -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
+      </div>
+      <h2 class="section-title">Research Tracks &amp; Topics</h2>
+    </div>
+    <div class="section-divider"></div>
+
+    <p style="margin-bottom: 24px;">Two tracks let students pursue work aligned with their academic strengths, while keeping every project grounded in problems that matter to Ethiopia.</p>
+
+    <div class="tracks-grid">
+      <div class="track-card">
+        <div class="track-header stem">
+          STEM &amp; Natural Sciences Track
+          <div class="sub">Biology, Chemistry, Physics, Computer Science</div>
+        </div>
+        <div class="track-body">
+          <p style="font-size:13px; margin-bottom:12px;">Designed around problems Ethiopia faces directly, where secondary data and accessible methods make rigorous work possible without a lab.</p>
+          <div>
+            <span class="topic-tag">Public Health &amp; Epidemiology</span>
+            <span class="topic-tag">Environmental Science</span>
+            <span class="topic-tag">Nutrition &amp; Food Systems</span>
+            <span class="topic-tag">AI &amp; Technology in Ethiopia</span>
+            <span class="topic-tag">Water &amp; Sanitation</span>
+            <span class="topic-tag">Agricultural Science</span>
+            <span class="topic-tag">Climate &amp; Weather Patterns</span>
+            <span class="topic-tag">Math Education</span>
+            <span class="topic-tag">Infectious Disease Modeling</span>
+          </div>
+          <div class="track-note">
+            <strong>Primary methods:</strong> Secondary data analysis (WHO, World Bank, Ethiopian CSA datasets), literature reviews, meta-analysis, simple quantitative surveys, computational modeling.
+          </div>
+        </div>
+      </div>
+      <div class="track-card">
+        <div class="track-header social">
+          Social Sciences &amp; Policy Track
+          <div class="sub">Economics, Sociology, Education, Governance</div>
+        </div>
+        <div class="track-body">
+          <p style="font-size:13px; margin-bottom:12px;">Focused on Ethiopia's social fabric and policy landscape. These papers often have the most direct local impact — and are highly valued in international university applications.</p>
+          <div>
+            <span class="topic-tag alt">Education Access &amp; Equity</span>
+            <span class="topic-tag alt">Youth Unemployment</span>
+            <span class="topic-tag alt">Gender &amp; Women's Rights</span>
+            <span class="topic-tag alt">Urban Planning (Addis Ababa)</span>
+            <span class="topic-tag alt">Informal Economy</span>
+            <span class="topic-tag alt">Digital Finance &amp; Fintech</span>
+            <span class="topic-tag alt">Ethiopian Electoral Policy</span>
+            <span class="topic-tag alt">Refugee &amp; Displacement</span>
+            <span class="topic-tag alt">Mental Health Stigma</span>
+          </div>
+          <div class="track-note">
+            <strong>Primary methods:</strong> Qualitative interviews, comparative policy analysis, case studies, thematic literature review, discourse analysis, basic survey design.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-blue">
+      <p><strong>A note on scope:</strong> First-time high school researchers should aim for a focused, answerable question — not a thesis. A paper analyzing gender disparities in one region's secondary schools is better than "fixing all of Ethiopian education." Mentors should actively scope down ambition in Week 5.</p>
+    </div>
+  </section>
+
+  <!-- SECTION: MENTORSHIP MODEL -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 014-4h6a4 4 0 014 4v2"/><circle cx="17" cy="7" r="3"/><path d="M22 21v-2a4 4 0 00-3-3.87"/></svg>
+      </div>
+      <h2 class="section-title">Mentorship Model</h2>
+    </div>
+    <div class="section-divider"></div>
+
+    <p style="margin-bottom: 24px;">We adopt a <strong>pod model</strong> rather than a pure 1-on-1 model. This makes the program sustainable from day one, reduces dropout (students are accountable to peers, not just mentors), and reflects how real research teams work.</p>
+
+    <div class="mentor-model">
+      <div class="mentor-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+        <h4>Research Mentor</h4>
+        <p>PhD student, postdoc, or faculty — ideally Ethiopian diaspora or scholars with Ethiopia expertise. Leads a pod of 3–4 students in the same track. Guides research questions, methodology, and interpretation.</p>
+        <div class="freq">3 group sessions + 3 individual 1-on-1s per student</div>
+      </div>
+      <div class="mentor-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
+        <h4>Writing Coach</h4>
+        <p>Shared resource across 2–3 pods. Specializes in academic English writing. Runs workshops in Weeks 11–12 and is available by appointment for a 30-min individual session. Priority given to ESL-challenged students.</p>
+        <div class="freq">2 group workshops + 1 optional 1-on-1</div>
+      </div>
+      <div class="mentor-card">
+        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
+        <h4>Program Coordinator</h4>
+        <p>EthioWare staff. Manages the Telegram group, sends weekly reminders, tracks milestone submissions, resolves issues, and keeps mentors and students on schedule. Single point of contact for logistics.</p>
+        <div class="freq">Weekly touchpoint + on-demand support</div>
+      </div>
+    </div>
+
+    <div class="callout-gold">
+      <p><strong>Mentor sourcing strategy:</strong> Prioritize Ethiopian diaspora PhD students at AAU, US, and European universities — they bring cultural fluency and lived understanding of the Ethiopian academic gap. Supplement with international volunteers. Compensate mentors with a modest honorarium per cohort, or offer co-authorship credit where appropriate.</p>
+    </div>
+  </section>
+
+  <!-- SECTION: TOOLS & PLATFORM -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <h2 class="section-title">Tools &amp; Platform</h2>
+    </div>
+    <div class="section-divider"></div>
+
+    <p style="margin-bottom: 20px;">All tools chosen for <strong>free access, low bandwidth, and mobile compatibility</strong> — the three constraints that matter most in Ethiopia's connectivity landscape.</p>
+
+    <div class="tools-grid">
+      <div class="tool-item">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
+        <div class="tool-info">
+          <strong>Telegram</strong>
+          <span>Primary communication hub. Channel for announcements, group chat per pod, bot for milestone reminders. Works on low data. Students already use it.</span>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></div>
+        <div class="tool-info">
+          <strong>EthioWare LMS</strong>
+          <span>Hosts weekly PDF templates, writing tutorials, and milestone tracking for every cohort. Mentor inline comments and version history for paper drafting.</span>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20M7 15h2"/></svg></div>
+        <div class="tool-info">
+          <strong>Google Meet / Zoom</strong>
+          <span>Video sessions with mentors. Sessions recorded and shared for students with connectivity issues who miss live calls.</span>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
+        <div class="tool-info">
+          <strong>Google Scholar + AJOL</strong>
+          <span>Free academic search. AJOL (African Journals Online) specifically hosts Ethiopian and African research — critical for local context papers.</span>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
+        <div class="tool-info">
+          <strong>Zotero</strong>
+          <span>Free, open-source citation manager. Students install it once; it handles all referencing automatically. Critical for APA/Chicago formatting.</span>
+        </div>
+      </div>
+      <div class="tool-item">
+        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg></div>
+        <div class="tool-info">
+          <strong>Google Forms + Sheets</strong>
+          <span>For students running surveys. Data auto-populates into Sheets for basic analysis. No statistical software license needed for entry-level quantitative work.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout-blue">
+      <p><strong>Offline-first principle:</strong> Every week's core materials — readings, instructions, templates — are distributed as PDFs via the LMS and Telegram at the start of each week. Students can download and work offline. Live sessions are supplementary, not the only path to content.</p>
+    </div>
+  </section>
+
+  <!-- SECTION: STUDENT SELECTION -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+      </div>
+      <h2 class="section-title">Student Selection</h2>
+    </div>
+    <div class="section-divider"></div>
+
+    <p style="margin-bottom: 20px;">The program is <strong>merit-based but not hyper-exclusive</strong>. We're not trying to find students who already know how to research — we're looking for curiosity, commitment, and the capacity to be stretched. Target grade level: Grade 10–12 (ages 15–18).</p>
+
+    <p>Aim for <strong>15–25 students per cohort</strong> (3–5 mentor pods of 4–5). This is manageable for a pilot, and allows enough density for a real peer community.</p>
+
+    <div class="criteria-grid">
+      <div class="criterion">
+        <h5>Written Application</h5>
+        <p>300-word motivation letter: "What problem do you want to research and why does it matter to you?" Evaluates intellectual curiosity and topic readiness, not polish.</p>
+      </div>
+      <div class="criterion">
+        <h5>Academic Record</h5>
+        <p>Strong grades in relevant subjects (Biology, Chemistry, Physics for STEM; History, Economics, Civics for Social Science). No minimum GPA cutoff — holistic review.</p>
+      </div>
+      <div class="criterion">
+        <h5>Short Written Prompt</h5>
+        <p>Students read a one-page summary of a published paper and answer: "What is the paper's main argument? What question is left unanswered?" Tests analytical reading.</p>
+      </div>
+      <div class="criterion">
+        <h5>15-min Interview</h5>
+        <p>Conversational. Focus: Is the student genuinely curious? Can they talk about something they find puzzling in their field? Do they understand this is a 16-week commitment?</p>
+      </div>
+    </div>
+
+    <div class="callout-gold">
+      <p><strong>Diversity principle:</strong> Actively recruit from schools outside Addis Ababa — Dire Dawa, Mekelle, Hawassa, Bahir Dar. Regional diversity of research perspectives makes the cohort stronger, not weaker. Consider reserving 20–30% of seats for students from regional schools with strong applications.</p>
+    </div>
+  </section>
+
+  <!-- SECTION: PUBLICATION PATHWAYS -->
+  <section>
+    <div class="section-header">
+      <div class="section-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg>
+      </div>
+      <h2 class="section-title">Publication Pathways</h2>
+    </div>
+    <div class="section-divider"></div>
+
+    <p style="margin-bottom: 20px;">Every student who completes the program will have their paper published. The platform depends on quality. Mentors help students target the right venue.</p>
+
+    <div class="pub-list">
+      <div class="pub-item">
+        <div class="pub-tier tier3">GUARANTEED</div>
+        <div class="pub-details">
+          <strong>EthioWare Research Compendium</strong>
+          <p>EthioWare's own curated online publication — every completer's paper is published here. This is the floor, not the ceiling. It gives all students a citable, public URL for their work. Built as a legitimate, indexed resource from day one.</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-tier tier2">ACCESSIBLE</div>
+        <div class="pub-details">
+          <strong>Journal of Student Research (JSR) / Curieux Academic Journal</strong>
+          <p>Peer-reviewed student journals that actively publish high school research. Free to submit, open access. Strong papers from Weeks 14–15 should target these. JSR covers STEM and social science; Curieux leans STEM.</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-tier tier2">ACCESSIBLE</div>
+        <div class="pub-details">
+          <strong>African Journals Online (AJOL) Student Section / Ethiopian Academic Conferences</strong>
+          <p>AJOL hosts Ethiopian and African academic content. Some journals accept student submissions with faculty co-author. Submitting to Ethiopian university-run conferences (AAU, Jimma, Hawassa) gives students a local publication credential.</p>
+        </div>
+      </div>
+      <div class="pub-item">
+        <div class="pub-tier tier1">STRETCH</div>
+        <div class="pub-details">
+          <strong>Regeneron ISEF / Scholastica / MIT Think</strong>
+          <p>International competitions for outstanding papers. In a 25-student cohort, 1–3 exceptional papers should realistically be nominated by mentors for these.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA: EARLY SIGNUP -->
+  <section style="padding-top: 8px;">
+    <div class="cta-banner">
+      <h3>Be first in line for the inaugural cohort</h3>
+      <p>We're collecting early signups to help shape the final program structure. Tell us about yourself and your research interests — your answers directly inform how we build this.</p>
+      <a class="cta-button" href="signup.html">
+        Register Early Interest
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+
+</div><!-- /container -->
+
+<footer>
+  <p>Prepared for <strong>ethioware.org</strong> · EthioWare Research Scholars Program · Program Overview v2.0</p>
+</footer>
+
+</body>
+</html>
