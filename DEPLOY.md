@@ -95,6 +95,27 @@ fighting the rsync). Deploy excludes `.git`, so it won't create one.
 
 ---
 
+## Staging (subdomain) vs production
+
+Deploys go to whatever `CPANEL_DEPLOY_PATH` points at. For a **staging subdomain**
+with its own document root (e.g. `staging.ethioware.org` → `/home/ethiowzj/staging`):
+
+- **Routing just works** — a subdomain root has its own `DOCUMENT_ROOT`, so the
+  certificate short URLs, `.htaccess`, and absolute paths behave exactly like
+  production. (A plain *subfolder* under `public_html` would **not** — avoid that.)
+- **It's auto-noindexed.** `.htaccess` sends `X-Robots-Tag: noindex` for any host
+  that isn't `ethioware.org` / `www.ethioware.org`, so staging can't be crawled or
+  duplicate production; production stays indexable. (Optional extra: cPanel
+  *Directory Privacy* / Basic Auth on the staging docroot to hide it from people too.)
+- **One-time staging server setup** (same as prod, in the staging docroot): place a
+  `research-scholars/config.php` there and import `db/applications.sql`. Point it at
+  a **separate staging database** if you don't want test submissions in the live
+  `applications` table.
+
+**Promote to production:** once verified, change `CPANEL_DEPLOY_PATH` to the real
+docroot (`/home/ethiowzj/public_html`) and re-deploy (Actions → CI → Run workflow on
+`master`, or merge the next PR).
+
 ## Day-to-day workflow
 
 ```bash

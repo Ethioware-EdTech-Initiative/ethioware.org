@@ -1,6 +1,21 @@
 RewriteEngine On
 
 # ---------------------------------------------------------------------------
+# Keep non-production hosts out of search engines.
+# Only the canonical production host (ethioware.org / www.ethioware.org) is
+# indexable. Staging subdomains, preview hosts, and direct hostname/IP access
+# get "X-Robots-Tag: noindex" so they can't be crawled or duplicate prod.
+# The same file deploys everywhere — this is host-aware, so production is
+# unaffected. (Combined with the canonical tags that point at ethioware.org.)
+# ---------------------------------------------------------------------------
+<IfModule mod_setenvif.c>
+  SetEnvIfNoCase Host ^(www\.)?ethioware\.org$ is_production
+</IfModule>
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow" env=!is_production
+</IfModule>
+
+# ---------------------------------------------------------------------------
 # Canonical cleanup
 # Strip a stray trailing "#" some shared links carry (e.g. /privacy# -> /privacy)
 # ---------------------------------------------------------------------------
