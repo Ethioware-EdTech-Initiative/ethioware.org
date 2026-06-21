@@ -1,17 +1,35 @@
-RewriteEngine on
+RewriteEngine On
 
-# Redirect short certificate URLs to Certificates/ directory
-# Supports: /WIxxxx, /MBxxxx, /EBxxxx, /ESxxxx with or without .html
-# Example: /WI10092516 -> /Certificates/WI10092516.html
-#          /MB1023251.html -> /Certificates/MB1023251.html
-RewriteCond %{REQUEST_URI} !^/Certificates/ [NC]
-RewriteRule ^((WI|MB|EB|ES)[0-9A-Za-z_-]+)(?:\.html)?$ Certificates/$1.html [R=301,NC,L]
+# ---------------------------------------------------------------------------
+# Canonical cleanup
+# Strip a stray trailing "#" some shared links carry (e.g. /privacy# -> /privacy)
+# ---------------------------------------------------------------------------
+RewriteCond %{THE_REQUEST} \s/([^#\s]+)#  [NC]
+RewriteRule ^ /%1 [R=301,L]
 
-# Remove the trailing hash (#) from URLs
-RewriteCond %{THE_REQUEST} \s/([^#\s]+)# [NC]
-RewriteRule ^ %1 [R=301,L]
+# ---------------------------------------------------------------------------
+# Certificate / interview short URLs
+#
+# Learner certificates are published as:  https://ethioware.org/WI10092516
+# The HTML lives in  certificates/  but the PUBLIC URL must never change, so
+# this is an INTERNAL rewrite (no 3xx redirect): the address bar still shows
+# /WI10092516 and the page's relative asset paths (assets/...) keep resolving
+# against the site root.
+#
+# It fires only when the request is not a real file/dir AND a matching
+# certificate exists on disk, so it automatically covers every code prefix
+# (WI, MB, EB, ES, SEB, MEB, CMI, DI, RI, VI, MI, SI, WD, TS, LB, EM, SM, V...)
+# now and for any future codes — no prefix list to maintain.
+# ---------------------------------------------------------------------------
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{DOCUMENT_ROOT}/certificates/$1.html -f
+RewriteRule ^([A-Za-z0-9_-]+)(?:\.html)?$ certificates/$1.html [L]
 
-# Handle requests for directories and files in the current directory
+# ---------------------------------------------------------------------------
+# Extensionless pretty URLs for top-level pages
+# /privacy -> privacy.html, /apply -> apply.html, etc.
+# ---------------------------------------------------------------------------
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}\.html -f
-RewriteRule ^(.*)$ $1.html [NC,L]
+RewriteRule ^(.*)$ $1.html [L]

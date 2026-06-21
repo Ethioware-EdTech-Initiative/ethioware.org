@@ -61,3 +61,11 @@ jobs:
               node --check "$f"
             fi
           done
+
+  cert-routes:
+    name: Certificate short URLs resolve
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Emulate .htaccess and verify every certificate URL resolves
+        run: python3 ci/htaccess-route-check.py

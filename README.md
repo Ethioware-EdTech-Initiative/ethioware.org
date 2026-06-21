@@ -130,8 +130,10 @@ Ethioware/
 │   │
 │   └── resumes/              # Resume PDFs
 │
-├── Certificates/             # Certificate pages
-│   └── [Individual certificate HTML files]
+├── certificates/             # Certificate & interview pages (235 files)
+│   └── [WI*/MB*/EB*/ES*/SEB*/MEB*/... .html]
+│       # Served at short URLs like /WI10092516 via an internal
+│       # rewrite in .htaccess — the public URL never changes.
 │
 ├── pages/                    # Additional pages
 │
