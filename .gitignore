@@ -1,1 +1,6 @@
 node_modules/
+__pycache__/
+
+# Backend DB credentials live in config.php (e.g. research-scholars/config.php).
+# Never commit it — it holds the MySQL password. Matches config.php at any depth.
+config.php

@@ -73,79 +73,145 @@
             <!-- Welcome Slide -->
             <div id="slide-0" class="question-slide active text-center">
                 <h1 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Join the Next Cohort of Innovators</h1>
-                <p class="text-lg text-gray-600 mb-8">Let's get to know you a little better. It will only take a couple of minutes.</p>
-                <button onclick="nextQuestion()" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">Start Application</button>
+                <p class="text-lg text-gray-600 mb-8">Apply to an Ethioware pre-training for the August cohort. It only takes a couple of minutes.</p>
+                <button type="button" onclick="nextQuestion()" class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition-colors">Start Application</button>
             </div>
 
-            <!-- Questions -->
+            <!-- Honeypot (hidden from humans; bots that fill it are rejected) -->
+            <input type="text" id="hp-website" name="website" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">
+
+            <!-- 1. Full name -->
             <div id="slide-1" class="question-slide">
                 <label for="full_name" class="block text-2xl font-medium text-gray-700 mb-4">1. What's your full name?</label>
                 <input type="text" id="full_name" name="full_name" placeholder="e.g., Abebe Bikila" onkeydown="handleEnter(event)">
             </div>
 
+            <!-- 2. Email -->
             <div id="slide-2" class="question-slide">
                 <label for="email" class="block text-2xl font-medium text-gray-700 mb-4">2. And your email address?</label>
                 <input type="email" id="email" name="email" placeholder="e.g., abebe.b@example.com" onkeydown="handleEnter(event)">
             </div>
-            
+
+            <!-- 3. Highschool -->
             <div id="slide-3" class="question-slide">
                 <label for="highschool" class="block text-2xl font-medium text-gray-700 mb-4">3. What's the name of your high school?</label>
                 <input type="text" id="highschool" name="highschool" placeholder="e.g., St. Joseph School" onkeydown="handleEnter(event)">
             </div>
-            
+
+            <!-- 4. Citizenship -->
             <div id="slide-4" class="question-slide">
                 <label for="citizenship" class="block text-2xl font-medium text-gray-700 mb-4">4. What is your citizenship?</label>
                 <input type="text" id="citizenship" name="citizenship" placeholder="e.g., Ethiopian" onkeydown="handleEnter(event)">
             </div>
 
+            <!-- 5. Program selection -->
             <div id="slide-5" class="question-slide">
-                <label class="block text-2xl font-medium text-gray-700 mb-6">5. Which pre-training are you interested in?</label>
+                <label class="block text-2xl font-medium text-gray-700 mb-2">5. Which pre-training are you interested in?</label>
+                <p class="text-gray-500 mb-6">For African youth aged 17–19. We'll show you what each track covers next.</p>
                 <div class="space-y-4">
+                    <div onclick="selectRadio(this, 'Software Engineering Basics')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">Software Engineering Basics</span>
+                        <input type="radio" name="program" value="Software Engineering Basics" class="hidden">
+                    </div>
                     <div onclick="selectRadio(this, 'Engineering Basics')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
                         <span class="text-lg font-medium">Engineering Basics</span>
-                        <input type="radio" name="interest" value="Engineering Basics" class="hidden">
+                        <input type="radio" name="program" value="Engineering Basics" class="hidden">
+                    </div>
+                    <div onclick="selectRadio(this, 'Law Basics')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">Law Basics</span>
+                        <input type="radio" name="program" value="Law Basics" class="hidden">
                     </div>
                     <div onclick="selectRadio(this, 'Medicine Basics')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
                         <span class="text-lg font-medium">Medicine Basics</span>
-                        <input type="radio" name="interest" value="Medicine Basics" class="hidden">
+                        <input type="radio" name="program" value="Medicine Basics" class="hidden">
                     </div>
                 </div>
             </div>
 
+            <!-- 6. Program description (populated after selection; no input) -->
             <div id="slide-6" class="question-slide">
-                <label for="commitment" class="block text-2xl font-medium text-gray-700 mb-4">6. How much time do you plan to commit per week?</label>
-                <input type="text" id="commitment" name="commitment" placeholder="e.g., 10-15 hours" onkeydown="handleEnter(event)">
+                <h2 id="desc-title" class="text-2xl font-bold text-gray-800 mb-4"></h2>
+                <div id="desc-body" class="text-gray-700 text-lg leading-relaxed space-y-3"></div>
             </div>
 
+            <!-- 7. Grade -->
             <div id="slide-7" class="question-slide">
+                <label class="block text-2xl font-medium text-gray-700 mb-6">6. What is your current grade?</label>
+                <div class="space-y-4">
+                    <div onclick="selectRadio(this, '11')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">Grade 11</span>
+                        <input type="radio" name="grade" value="11" class="hidden">
+                    </div>
+                    <div onclick="selectRadio(this, '12')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">Grade 12</span>
+                        <input type="radio" name="grade" value="12" class="hidden">
+                    </div>
+                    <div onclick="selectRadio(this, 'Graduated')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">Graduated</span>
+                        <input type="radio" name="grade" value="Graduated" class="hidden">
+                    </div>
+                    <div onclick="selectRadio(this, 'University Freshman')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">University Freshman</span>
+                        <input type="radio" name="grade" value="University Freshman" class="hidden">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 8. GPA -->
+            <div id="slide-8" class="question-slide">
                 <label for="gpa" class="block text-2xl font-medium text-gray-700 mb-4">7. What is your Grade/GPA (out of 100 or 4.0)?</label>
                 <input type="text" id="gpa" name="gpa" placeholder="e.g., 95% or 3.8" onkeydown="handleEnter(event)">
             </div>
 
-            <div id="slide-8" class="question-slide">
+            <!-- 9. Telegram -->
+            <div id="slide-9" class="question-slide">
                 <label for="telegram" class="block text-2xl font-medium text-gray-700 mb-4">8. What's your Telegram username?</label>
                 <input type="text" id="telegram" name="telegram" placeholder="@your_username" onkeydown="handleEnter(event)">
             </div>
-            
-            <div id="slide-9" class="question-slide">
-                <label class="block text-2xl font-medium text-gray-700 mb-6">9. Do you follow us on LinkedIn?</label>
+
+            <!-- 10. Where did you hear about us -->
+            <div id="slide-10" class="question-slide">
+                <label class="block text-2xl font-medium text-gray-700 mb-6">9. Where did you hear about this program?</label>
+                <div class="space-y-4">
+                    <div onclick="selectRadio(this, 'LinkedIn')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">LinkedIn</span>
+                        <input type="radio" name="where_heard" value="LinkedIn" class="hidden">
+                    </div>
+                    <div onclick="selectRadio(this, 'Telegram')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">Telegram</span>
+                        <input type="radio" name="where_heard" value="Telegram" class="hidden">
+                    </div>
+                    <div onclick="selectRadio(this, 'Friends (past learners)')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">Friends (past learners)</span>
+                        <input type="radio" name="where_heard" value="Friends (past learners)" class="hidden">
+                    </div>
+                    <div onclick="selectRadio(this, 'Other')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                        <span class="text-lg font-medium">Other</span>
+                        <input type="radio" name="where_heard" value="Other" class="hidden">
+                    </div>
+                </div>
+            </div>
+
+            <!-- 11. LinkedIn follow -->
+            <div id="slide-11" class="question-slide">
+                <label class="block text-2xl font-medium text-gray-700 mb-6">10. Do you follow us on LinkedIn?</label>
                 <p class="text-gray-500 mb-4">Stay updated with our latest news and opportunities!</p>
-                <a href="https://www.linkedin.com/company/ethioware/" target="_blank" class="text-blue-600 hover:underline mb-6 inline-block">https://www.linkedin.com/company/ethioware/</a>
+                <a href="https://www.linkedin.com/company/ethioware/" target="_blank" rel="noopener" class="text-blue-600 hover:underline mb-6 inline-block">https://www.linkedin.com/company/ethioware/</a>
                 <div class="space-y-4">
                      <div onclick="selectRadio(this, 'Yes')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
                         <span class="text-lg font-medium">Yes, I do!</span>
                         <input type="radio" name="linkedin_follow" value="Yes" class="hidden">
                     </div>
-                    <div onclick="selectRadio(this, 'Not yet, but I will')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
+                    <div onclick="selectRadio(this, 'No')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
                         <span class="text-lg font-medium">Not yet, but I will</span>
-                        <input type="radio" name="linkedin_follow" value="Not yet, but I will" class="hidden">
+                        <input type="radio" name="linkedin_follow" value="No" class="hidden">
                     </div>
                 </div>
             </div>
 
             <!-- Navigation Button -->
             <div id="nav-button-container" class="mt-8 text-right hidden">
-                 <button id="next-btn" onclick="nextQuestion()" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors">Next</button>
+                 <button type="button" id="next-btn" onclick="nextQuestion()" class="bg-blue-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-blue-700 transition-colors">Next</button>
             </div>
         </div>
 
@@ -162,21 +228,80 @@
     </div>
 <script>
     let currentQuestion = 0;
-    const totalQuestions = 9;
+    const totalQuestions = 11;        // last slide index that participates in the flow
+    const DESC_SLIDE = 6;             // program-description slide (no input)
     const formData = {};
 
-    // This is where you would paste your Zapier Webhook URL
-    const ZAPIER_WEBHOOK_URL = 'https://hooks.zapier.com/hooks/catch/23963340/uugybat/'; // Ensure this is your actual Zapier URL
+    // Backend endpoint (PHP + MySQL on cPanel). Absolute path so it works whether
+    // the page is served as /apply or /apply.html.
+    const SUBMIT_URL = '/apply-submit.php';
+
+    // Per-program copy taken from the August-cohort registration sheets. The
+    // matching description is revealed only after the applicant picks a track.
+    const COMMON_INFO =
+        "It runs for 7 weeks. All you need is a working email, English proficiency, " +
+        "and a stable internet connection. On completion you receive a joint certificate " +
+        "from our partner K12 Online Schools (valid in 70+ countries), plus a merit-based, " +
+        "customised recommendation letter emailed to any program or institution of your choice.";
+    const SYLLABUS_URL = "https://docs.google.com/document/d/1kS8v6AOYVpnyag3FIANZA1ylgCjXiIqQMeUvzr9qBrk/edit?usp=sharing";
+
+    const programInfo = {
+        'Software Engineering Basics': {
+            blurb: "Introductory virtual sessions on Software Engineering led by professionals, with hands-on practice of relevant lessons.",
+            experts: "Google, Microsoft, Safaricom, Apple, Yale, and more",
+            syllabus: SYLLABUS_URL,
+            video: "https://youtu.be/Z9lzl0DzWHQ?t=731"
+        },
+        'Engineering Basics': {
+            blurb: "Introductory virtual sessions on Engineering led by professionals, with relevant AP lessons.",
+            experts: "Google, Microsoft, Safaricom, Apple, UChicago, the Ethiopian Aviation Academy, Turing, the University of Virginia, and more",
+            syllabus: SYLLABUS_URL,
+            video: "https://youtu.be/Z9lzl0DzWHQ?t=694"
+        },
+        'Law Basics': {
+            blurb: "Introductory virtual sessions on Law from legal professionals across Civil Law, Business &amp; Commercial Law, Legal Research, and International Relations, with relevant AP lessons.",
+            experts: "renowned institutions with specialities ranging from criminal to civil law",
+            syllabus: null,
+            video: "https://youtu.be/Z9lzl0DzWHQ?t=990"
+        },
+        'Medicine Basics': {
+            blurb: "Introductory virtual sessions on Medicine from medical professionals, with relevant AP lessons.",
+            experts: "the Korean Hospital, Black Lion Medical College, Selam Nursing College, and Yale University, among others",
+            syllabus: SYLLABUS_URL,
+            video: "https://youtu.be/Z9lzl0DzWHQ?t=990"
+        }
+    };
+
+    function fillDescription(program) {
+        const info = programInfo[program];
+        const titleEl = document.getElementById('desc-title');
+        const bodyEl = document.getElementById('desc-body');
+        if (!info) { titleEl.textContent = ''; bodyEl.innerHTML = ''; return; }
+        titleEl.textContent = 'Great choice! Here’s what ' + program + ' covers';
+        let html = '<p>' + info.blurb + '</p>';
+        html += '<p><strong>Experts from:</strong> ' + info.experts + '.</p>';
+        html += '<p>' + COMMON_INFO + '</p>';
+        html += '<p class="space-x-4">';
+        if (info.syllabus) {
+            html += '<a href="' + info.syllabus + '" target="_blank" rel="noopener" class="text-blue-600 hover:underline">View the course syllabus</a>';
+        }
+        html += '<a href="' + info.video + '" target="_blank" rel="noopener" class="text-blue-600 hover:underline">Watch a past cohort graduation</a>';
+        html += '</p>';
+        bodyEl.innerHTML = html;
+    }
 
     function showQuestion(questionIndex) {
         const slides = document.querySelectorAll('.question-slide');
         slides.forEach((slide, index) => {
             slide.classList.toggle('active', index === questionIndex);
         });
+        if (questionIndex === DESC_SLIDE) {
+            fillDescription(formData.program);
+        }
         updateProgressBar();
 
         const navContainer = document.getElementById('nav-button-container');
-        if(questionIndex > 0 && questionIndex <= totalQuestions) {
+        if (questionIndex > 0 && questionIndex <= totalQuestions) {
             navContainer.classList.remove('hidden');
         } else {
             navContainer.classList.add('hidden');
@@ -184,7 +309,11 @@
 
         const nextBtn = document.getElementById('next-btn');
         if (nextBtn) {
-            nextBtn.textContent = (questionIndex === totalQuestions) ? 'Submit' : 'Next';
+            if (questionIndex === DESC_SLIDE) {
+                nextBtn.textContent = 'Continue';
+            } else {
+                nextBtn.textContent = (questionIndex === totalQuestions) ? 'Submit' : 'Next';
+            }
         }
     }
 
@@ -214,9 +343,9 @@
 
     function validateAndSaveCurrent() {
         const slide = document.getElementById(`slide-${currentQuestion}`);
+        if (!slide) { return true; }
         const input = slide.querySelector('input[type="text"], input[type="email"], input[type="tel"]');
         const radios = slide.querySelectorAll('input[type="radio"]');
-        let value;
 
         if (input) {
             if (input.type === 'email' && !/^\S+@\S+\.\S+$/.test(input.value)) {
@@ -227,32 +356,27 @@
                 alert('This field cannot be empty.');
                 return false;
             }
-            value = input.value.trim();
-            formData[input.name] = value;
+            formData[input.name] = input.value.trim();
         } else if (radios.length > 0) {
             const selectedRadio = slide.querySelector('input[type="radio"]:checked');
             if (!selectedRadio) {
                 alert('Please select an option.');
                 return false;
             }
-            value = selectedRadio.value;
-            formData[radios[0].name] = value;
+            formData[radios[0].name] = selectedRadio.value;
         }
         return true;
     }
 
     function selectRadio(element, value) {
         const container = element.parentElement;
-        // Deselect others
         container.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
-        // Select this one
         element.classList.add('selected');
-        // Check the actual radio button
         const radioInput = element.querySelector('input[type="radio"]');
         if (radioInput) {
             radioInput.checked = true;
         }
-        // Automatically move to the next question after a short delay
+        // Automatically advance after a short delay
         setTimeout(nextQuestion, 400);
     }
 
@@ -261,9 +385,7 @@
         document.getElementById('progress-bar').style.width = `${progress}%`;
     }
 
-    // --- START OF submitForm FUNCTION ---
     async function submitForm() {
-        // Make the container wider for the video
         const formWrapper = document.getElementById('form-wrapper');
         formWrapper.classList.remove('max-w-2xl');
         formWrapper.classList.add('max-w-4xl');
@@ -272,44 +394,31 @@
         document.getElementById('final-slide').classList.remove('hidden');
         document.getElementById('progress-bar').style.width = '100%';
 
-        console.log('Final form data:', formData);
-
         const submissionMessage = document.getElementById('submission-message');
 
-        if (ZAPIER_WEBHOOK_URL) {
-            try {
-                // Convert formData object to URL-encoded string
-                const urlEncodedData = new URLSearchParams(formData).toString();
+        // Include the honeypot value so the server can reject bots.
+        const payload = Object.assign({}, formData);
+        payload.website = (document.getElementById('hp-website') || {}).value || '';
 
-                const response = await fetch(ZAPIER_WEBHOOK_URL, {
-                    method: 'POST',
-                    body: urlEncodedData, // Send as URL-encoded string
-                    headers: {
-                        // Change Content-Type to x-www-form-urlencoded
-                        'Content-Type': 'application/x-www-form-urlencoded'
-                    }
-                });
-                if (response.ok) {
-                    submissionMessage.textContent = "We've sent a confirmation to your email!";
-                    submissionMessage.classList.add('text-green-600');
-                } else {
-                    // If response is not OK, try to get more details from the server
-                    const errorText = await response.text();
-                    console.error('Server responded with error:', response.status, errorText);
-                    throw new Error('Network response was not ok: ' + response.status);
-                }
-            } catch (error) {
-                console.error('Error submitting to Zapier:', error);
-                submissionMessage.textContent = "There was an error submitting your application. Please try again later.";
-                submissionMessage.classList.add('text-red-600');
+        try {
+            const response = await fetch(SUBMIT_URL, {
+                method: 'POST',
+                body: new URLSearchParams(payload).toString(),
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+            });
+            const data = await response.json().catch(() => ({}));
+            if (response.ok && data.success) {
+                submissionMessage.textContent = data.message || "We've sent a confirmation to your email!";
+                submissionMessage.className = 'mt-6 text-green-600 font-medium';
+            } else {
+                throw new Error((data && data.message) || ('HTTP ' + response.status));
             }
-        } else {
-             console.warn('Zapier Webhook URL is not set. Form data logged to console only.');
-             submissionMessage.textContent = "Submission successful (simulation).";
-             submissionMessage.classList.add('text-yellow-600');
+        } catch (error) {
+            console.error('Error submitting application:', error);
+            submissionMessage.textContent = "There was an error submitting your application. Please email info@ethioware.org and we'll help.";
+            submissionMessage.className = 'mt-6 text-red-600 font-medium';
         }
     }
-    // --- END OF submitForm FUNCTION ---
 
     // Initialize the form
     showQuestion(currentQuestion);

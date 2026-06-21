@@ -25,6 +25,9 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 BASELINE = os.path.join(ROOT, "ci", "known-missing-assets.txt")
 
 REF_RE = re.compile(r'(?:src|href|poster)\s*=\s*"([^"]+)"', re.IGNORECASE)
+# Strip <script>/<style> bodies first: URLs built inside JS (string concatenation,
+# template literals) are dynamic and not statically verifiable.
+SCRIPT_STYLE_RE = re.compile(r"<(script|style)\b[^>]*>.*?</\1>", re.IGNORECASE | re.DOTALL)
 SKIP_PREFIX = ("http://", "https://", "//", "#", "mailto:", "tel:", "data:",
                "javascript:")
 HTML_DIRS = (".", "certificates", "pages", "cognify")
@@ -85,6 +88,7 @@ def main():
             pages += 1
             base = served_base(rel)
             text = open(os.path.join(ROOT, rel), encoding="utf-8", errors="ignore").read()
+            text = SCRIPT_STYLE_RE.sub(" ", text)
             for ref in REF_RE.findall(text):
                 if ref.startswith(SKIP_PREFIX):
                     continue

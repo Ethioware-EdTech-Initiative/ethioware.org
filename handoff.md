@@ -1,7 +1,7 @@
 # Ethioware — Project Handoff
 
 > Living context document for the Ethioware EdTech Initiative website.
-> Last updated: 2026-06-21.
+> Last updated: 2026-06-21 (added the apply.html → PHP/MySQL application backend).
 
 ---
 
@@ -54,6 +54,8 @@ out of version control. `GOOGLE_CLIENT_ID` in the same file is public and fine.
 - Libraries via CDN: ScrollReveal, Font Awesome, Remix Icon, Google Fonts,
   EmailJS (contact forms), Google Analytics, Trustpilot, Google One Tap.
 - `cognify/` — a Google-OAuth auth page for a companion Chrome extension (§6).
+- **PHP + MySQL** for the application form only (`apply-submit.php`, §12). The rest
+  of the site is static; cPanel serves PHP via LiteSpeed.
 - Dev tooling: `html-validate` (only dev dependency). `node_modules/` is gitignored.
 
 ---
@@ -63,7 +65,9 @@ out of version control. `GOOGLE_CLIENT_ID` in the same file is public and fine.
 ```
 /                         repo root = site docroot
 ├── index.html            homepage (large, ~78KB)
-├── apply.html            application page
+├── apply.html            multi-step application form (posts to apply-submit.php, §12)
+├── apply-submit.php      application backend (mysqli): validate → MySQL → email (§12)
+├── db/applications.sql   schema for the `applications` table (same DB as research-scholars/)
 ├── pay.html              payment / donation page
 ├── privacy.html          privacy policy
 ├── anteneh.html / biniyam.html / samuel.html   team profiles
@@ -85,6 +89,12 @@ out of version control. `GOOGLE_CLIENT_ID` in the same file is public and fine.
 │   ├── auth.html / auth.js / auth.css
 │   ├── .htaccess         ⚠️ contains JWT_SECRET (see §2)
 │   └── api/v1/auth/exchange/   backend token-exchange endpoint (server-side)
+│
+├── research-scholars/    Research Scholars early-signup subapp (PHP/mysqli)
+│   ├── signup.html / index.html
+│   ├── save_signup.php   mysqli handler → rsp_signups table
+│   ├── schema.sql        rsp_signups schema
+│   └── config.php        ⚠️ shared MySQL credentials — gitignored (see §12)
 │
 ├── pages/template.html   reference template
 ├── ci/                   test scripts + lists (see §7)
@@ -155,7 +165,8 @@ deploy** — deployment is the server-side `git pull` (§2). Jobs:
 | `links-offline` | `lychee` offline: local `href`/`src`/`url()` resolve for primary pages + `assets/`. |
 | `js-syntax` | `node --check` on `biniyam.js`, `cognify/auth.js`. |
 | `cert-routes` | `ci/htaccess-route-check.py` — emulates `.htaccess`; asserts all 235 cert short URLs + 7 top pages resolve (478 paths). |
-| `assets` | `ci/check-assets.py` — every local ref across **all 244 pages** resolves; baseline `ci/known-missing-assets.txt` accepts the current backlog, **fails on any new break**. |
+| `assets` | `ci/check-assets.py` — every local ref across **all 244 pages** resolves; baseline `ci/known-missing-assets.txt` accepts the current backlog, **fails on any new break**. (Skips `<script>`/`<style>` bodies so JS-built URLs aren't flagged.) |
+| `php-syntax` | `php -l` on every checked-in `*.php` (e.g. `apply-submit.php`). |
 
 **Run everything locally:**
 ```bash
@@ -240,9 +251,15 @@ All local CI gates pass.
    but worth normalising the shared template once (would also let certs join the
    `html-primary` lint job).
 4. **Rotate the committed `JWT_SECRET`** and move it out of git (§2).
-5. **Housekeeping:** delete the untracked `assets/img/old-*` backups.
+5. **Housekeeping:** delete the untracked `assets/img/old-*` backups. The four
+   `* Basics Early Registration *.pdf` source files in the repo root are
+   untracked (and have a non-breaking space in the filename) — they are not
+   served; remove or archive them when convenient.
 6. **Optional:** the user's newer cert WebP images (~30 files) are ~800 KB each
    vs ~350 KB for the batch-converted ones — could be re-compressed for consistency.
+7. **Activate the application backend (one-time, on the server)** — see §12:
+   import `db/applications.sql` into the existing Research Scholars database
+   (apply reuses its `config.php`), then confirm a test submission + mail delivery.
 
 ---
 
@@ -252,3 +269,59 @@ All local CI gates pass.
 - Email: info@ethioware.org · parents@ethioware.org
 - Socials: LinkedIn/Twitter/YouTube/Telegram/Instagram/Facebook `@ethioware`
 - Stated stats (homepage): 210+ graduates, 35+ mentors, 3 partnerships, 8+ nationalities.
+
+---
+
+## 12. Application backend (`apply.html` → PHP → MySQL)
+
+`apply.html` is a multi-step (one-question-per-screen) form built from the four
+August-cohort registration sheets (Software Engineering / Engineering / Law /
+Medicine). It collects: full name, email, highschool, citizenship, **program**,
+grade (11/12/Graduated/University Freshman), GPA, Telegram, where-heard
+(LinkedIn/Telegram/Friends/Other), and LinkedIn-follow (Yes/No). After the
+applicant picks a program, a **description slide** unique to that track is shown
+(experts, 7-week/cert/recommendation blurb, syllabus link where one exists — Law
+has none — and a past-graduation video). It posts `application/x-www-form-urlencoded`
+to **`/apply-submit.php`** (the previous Zapier webhook was removed; the weekly
+time-commitment question from the PDFs was intentionally dropped).
+
+**`apply-submit.php`** (root, served by cPanel PHP/LiteSpeed) intentionally mirrors
+`research-scholars/save_signup.php` and **reuses the same MySQL database**, but a
+**separate `applications` table**:
+- Pulls the shared DB credentials + connection via
+  `require_once __DIR__ . '/research-scholars/config.php'` and `rsp_get_connection()`
+  (**mysqli**, matching the Research Scholars backend — not PDO).
+- `POST` only; returns JSON `{"success": bool, "message": string}` (same shape as
+  Research Scholars).
+- Validates required fields and whitelists `program`/`grade`/`where_heard`/
+  `linkedin_follow` against fixed sets that **must mirror apply.html and the ENUMs
+  in `db/applications.sql`**.
+- Hidden **honeypot** field `website` → bots get a silent success.
+- Inserts via a **`bind_param` prepared statement** (no SQL injection); CR/LF
+  stripped from values used in mail headers (no header injection); `mb_substr`
+  length guards.
+- Emails admin (`info@ethioware.org`) and the applicant via `mail()` (best-effort;
+  mail failure does not fail the save). Admin/from/cohort are plain `const`s at the
+  top of the file (not secrets).
+- The DB password lives only in `research-scholars/config.php`, which is gitignored
+  (the `config.php` rule matches at any depth). There is no separate apply config.
+
+**Activate on the server (one-time):**
+1. The Research Scholars backend must already be set up (its `config.php` holds the
+   shared DB credentials). If not, configure it first.
+2. Import the apply schema into that **same** database: phpMyAdmin → Import
+   `db/applications.sql` (or `mysql -u USER -p DBNAME < db/applications.sql`).
+3. Upload `apply.html` + `apply-submit.php`. Test: submit the form, confirm a row
+   in `applications` and that both emails arrive. If mail is unreliable on the host,
+   consider SMTP/PHPMailer later.
+
+**Local testing (mysqli + the cPanel DB aren't available locally, so only the
+pre-DB branches are testable):**
+```bash
+php -l apply-submit.php
+php -S 127.0.0.1:8000           # then POST to /apply-submit.php
+# GET→405, honeypot→200, bad fields→422 (the valid insert path needs the cPanel DB)
+```
+Validation/whitelist sets live in THREE places — `apply.html` (JS),
+`apply-submit.php` (PHP), and `db/applications.sql` (ENUMs). Keep them in sync if
+programs/options change.

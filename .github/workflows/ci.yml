@@ -77,3 +77,15 @@ jobs:
       - uses: actions/checkout@v4
       - name: Verify no new broken image/link references across all 244 pages
         run: python3 ci/check-assets.py
+
+  php-syntax:
+    name: PHP syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: php -l on checked-in PHP
+        run: |
+          set -e
+          for f in $(find . -name '*.php' -not -path './node_modules/*'); do
+            php -l "$f"
+          done
