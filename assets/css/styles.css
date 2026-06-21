@@ -1989,7 +1989,10 @@ the website, in dark theme
   }
 
   .steps__container.about__container {
-    grid-template-columns: 1fr;
+    /* 2-up on phones: a single column leaves the directional arrows orphaned
+       and the section tall and empty. */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
   }
 
   .partner img {
@@ -2068,7 +2071,10 @@ img {
 
 .stats__container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* auto-fit keeps this responsive on its own: 4-up on desktop, 2-up on phones.
+     (This rule sits after the media queries, so an explicit 4-col value here
+     would override them — the intrinsic grid avoids that source-order trap.) */
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: 1.5rem;
   padding: 2rem 0;
   text-align: center;
