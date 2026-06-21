@@ -51,6 +51,6 @@ assets/img/YabsiraY.png
 assets/img/ru304.png
 assets/img/se302.png
 assets/img/si301.png
-experience
-index
-portfolio
+
+
+
