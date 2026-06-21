@@ -4,3 +4,10 @@ __pycache__/
 # Backend DB credentials live in config.php (e.g. research-scholars/config.php).
 # Never commit it — it holds the MySQL password. Matches config.php at any depth.
 config.php
+
+# SSH deploy keys & other private keys — generate OUTSIDE the repo, never commit.
+ethioware_deploy
+ethioware_deploy.pub
+id_ed25519*
+id_rsa*
+*.pem

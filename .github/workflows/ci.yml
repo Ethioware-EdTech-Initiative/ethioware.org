@@ -114,6 +114,17 @@ jobs:
             echo "::error::node_modules/ must not be committed."
             exit 1
           fi
+      - name: No private keys committed
+        # Exclude this workflow (it contains the search patterns) and docs.
+        run: |
+          if git grep -lI -e 'BEGIN OPENSSH PRIVATE KEY' \
+                          -e 'BEGIN RSA PRIVATE KEY' \
+                          -e 'BEGIN EC PRIVATE KEY' \
+                          -e 'BEGIN PRIVATE KEY' \
+                          -- . ':!.github/' ':!*.md' ; then
+            echo "::error::A private key appears to be committed — remove it and rotate it."
+            exit 1
+          fi
       - name: Required deploy files are present
         run: |
           test -f .deployignore || { echo "::error::.deployignore missing"; exit 1; }

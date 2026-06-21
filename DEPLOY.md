@@ -24,18 +24,24 @@ cPanel → **SSH Access** (or ask your host to enable it). Note the **SSH port**
 (often `22`; some hosts use a custom one like `21098`).
 
 ### 2. Create a deploy SSH key (no passphrase — CI can't type one)
-On your machine:
+Generate it **outside the repo** (e.g. in `~/.ssh`) so the private key never sits
+in the working tree:
 ```bash
-ssh-keygen -t ed25519 -f ethioware_deploy -N "" -C "github-actions-deploy"
-# creates: ethioware_deploy (private)  ethioware_deploy.pub (public)
+ssh-keygen -t ed25519 -f ~/.ssh/ethioware_deploy -N "" -C "github-actions-deploy"
+# creates: ~/.ssh/ethioware_deploy (private)  ~/.ssh/ethioware_deploy.pub (public)
 ```
 Add the **public** key to cPanel → **SSH Access → Manage SSH Keys → Import**
-(paste `ethioware_deploy.pub`), then **Authorize** it.
+(paste `~/.ssh/ethioware_deploy.pub`), then **Authorize** it.
 
 Test from your machine (accept the host key once):
 ```bash
-ssh -i ethioware_deploy -p <PORT> <CPANEL_USER>@<SSH_HOST>
+ssh -i ~/.ssh/ethioware_deploy -p <PORT> <CPANEL_USER>@<SSH_HOST>
 ```
+
+> ⚠️ **Never commit the private key.** Put its contents in the `CPANEL_SSH_KEY`
+> secret (step 3), then you can delete the local copy. `.gitignore` already
+> blocks `ethioware_deploy*`, and the `guard` CI check fails on any committed
+> private key — but keep keys out of the repo folder regardless.
 
 ### 3. Add GitHub repository secrets
 GitHub repo → **Settings → Secrets and variables → Actions → New repository secret**.
@@ -46,7 +52,7 @@ Create exactly these (names must match the workflow):
 | `CPANEL_SSH_HOST` | server hostname or IP | `server123.web-hosting.com` |
 | `CPANEL_SSH_PORT` | SSH port | `22` |
 | `CPANEL_SSH_USER` | cPanel username | `ethiowzj` |
-| `CPANEL_SSH_KEY`  | **private** key contents (whole `ethioware_deploy` file) | `-----BEGIN OPENSSH PRIVATE KEY----- …` |
+| `CPANEL_SSH_KEY`  | **private** key contents (whole `ethioware_deploy` file, all lines) | *(paste the entire private key file)* |
 | `CPANEL_DEPLOY_PATH` | docroot to publish into (no trailing slash) | `/home/ethiowzj/public_html` |
 
 > Paste the **private** key (the file without `.pub`), including the BEGIN/END lines.
