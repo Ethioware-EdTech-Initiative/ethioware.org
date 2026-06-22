@@ -113,6 +113,7 @@ $stmt = $conn->prepare(
     ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
 );
 if (!$stmt) {
+    error_log('apply-submit prepare failed: ' . $conn->error);
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Server error preparing your application. Please try again.']);
     $conn->close();
@@ -125,14 +126,16 @@ $stmt->bind_param(
     $telegram, $where_heard, $linkedin, $cohort, $ip_address
 );
 $success = $stmt->execute();
-$stmt->close();
 
 if (!$success) {
+    error_log('apply-submit execute failed: ' . $stmt->error);
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Something went wrong saving your application. Please try again.']);
+    $stmt->close();
     $conn->close();
     exit;
 }
+$stmt->close();
 $conn->close();
 
 // ---- Notify (best-effort; mail failure must not fail the submission) ----
