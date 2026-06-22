@@ -120,6 +120,7 @@ $stmt = $conn->prepare(
 );
 
 if (!$stmt) {
+    error_log('save_signup prepare failed: ' . $conn->error);
     http_response_code(500);
     echo json_encode(['success' => false, 'message' => 'Server error preparing your submission. Please try again.']);
     exit;
@@ -146,6 +147,7 @@ if ($success) {
         echo json_encode(['success' => false, 'message' => 'That email is already registered for early interest.']);
     } else {
         http_response_code(500);
+        error_log('save_signup execute failed: ' . $stmt->error);
         echo json_encode(['success' => false, 'message' => 'Something went wrong saving your submission. Please try again.']);
     }
 }
