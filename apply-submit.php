@@ -5,7 +5,7 @@
  * Mirrors research-scholars/save_signup.php and reuses the SAME MySQL database
  * (via that folder's config.php + rsp_get_connection()), but stores rows in a
  * SEPARATE table, `applications` (see db/applications.sql). Validates the
- * apply.html POST, stores it, then emails the admin and the applicant.
+ * apply.html POST and stores it.
  * Returns JSON: {"success": bool, "message": string}.
  *
  * Setup on cPanel:
@@ -17,10 +17,7 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
-// Not secrets — safe to keep in the repo.
-const APPLY_ADMIN_EMAIL = 'info@ethioware.org';
-const APPLY_FROM_EMAIL  = 'no-reply@ethioware.org';
-const APPLY_COHORT      = 'Aug';
+const APPLY_COHORT = 'Aug';
 
 // Only allow POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -138,35 +135,4 @@ if (!$success) {
 $stmt->close();
 $conn->close();
 
-// ---- Notify (best-effort; mail failure must not fail the submission) ----
-$fromEmail = APPLY_FROM_EMAIL ?: ('no-reply@' . ($_SERVER['HTTP_HOST'] ?? 'ethioware.org'));
-$safeName  = preg_replace('/[\r\n]+/', ' ', $full_name); // no mail-header injection
-
-$adminHeaders = "From: Ethioware <{$fromEmail}>\r\n"
-    . "Reply-To: {$safeName} <{$email}>\r\n"
-    . "Content-Type: text/plain; charset=utf-8\r\n";
-$adminBody =
-    "New pre-training application ({$cohort} cohort)\n\n" .
-    "Name:        {$full_name}\n" .
-    "Email:       {$email}\n" .
-    "Highschool:  {$highschool}\n" .
-    "Citizenship: {$citizenship}\n" .
-    "Program:     {$program}\n" .
-    "Grade:       {$grade}\n" .
-    "GPA:         {$gpa}\n" .
-    "Telegram:    {$telegram}\n" .
-    "Heard via:   {$where_heard}\n" .
-    "Follows us:  {$linkedin}\n";
-@mail(APPLY_ADMIN_EMAIL, "New application: {$program} — {$safeName}", $adminBody, $adminHeaders);
-
-$userHeaders = "From: Ethioware <{$fromEmail}>\r\nContent-Type: text/plain; charset=utf-8\r\n";
-$userBody =
-    "Hi {$safeName},\n\n" .
-    "Thank you for applying to the Ethioware {$program} pre-training ({$cohort} cohort).\n" .
-    "We've received your application and will review it shortly. Early applicants: " .
-    "please check your email this week for updates.\n\n" .
-    "Questions? Reply to this email or contact info@ethioware.org.\n\n" .
-    "— The Ethioware Team";
-@mail($email, 'We received your Ethioware application', $userBody, $userHeaders);
-
-echo json_encode(['success' => true, 'message' => "Thank you for applying! We've sent a confirmation to your email."]);
+echo json_encode(['success' => true, 'message' => "Application received! We’ll review it and reach out via Telegram or email."]);
