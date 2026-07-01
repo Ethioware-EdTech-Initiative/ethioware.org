@@ -425,7 +425,7 @@
             });
             const data = await response.json().catch(() => ({}));
             if (response.ok && data.success) {
-                submissionMessage.textContent = data.message || "We've sent a confirmation to your email!";
+                submissionMessage.textContent = data.message || "Application received! We'll be in touch soon.";
                 submissionMessage.className = 'mt-6 text-green-600 font-medium';
             } else {
                 throw new Error((data && data.message) || ('HTTP ' + response.status));
