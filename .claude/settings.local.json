@@ -37,7 +37,21 @@
       "Bash(git check-ignore *)",
       "Bash(git grep *)",
       "Bash(pkill -f devserver2)",
-      "Bash(pkill -f back.mjs)"
+      "Bash(pkill -f back.mjs)",
+      "Bash(pdftotext -layout \"Anteneh_Yimmam_PM_Resume \\(1\\).pdf\" -)",
+      "Bash(pdftotext *)",
+      "Bash(curl -s \"https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css\")",
+      "Skill(run)",
+      "Read(//tmp/claude-1000/bundled-skills/2.1.197/**)",
+      "Bash(find / -maxdepth 4 -iname \"chromium-cli*\")",
+      "Bash(pip show *)",
+      "Bash(node -e \"require\\('playwright'\\)\")",
+      "Bash(google-chrome --headless --disable-gpu --no-sandbox --hide-scrollbars --window-size=1440,900 --screenshot=/tmp/claude-1000/-home-sda1-Downloads2-Ethioware/02a679da-5c07-437b-a435-d1d3e2002dd0/scratchpad/shots/hero.png \"file:///home/sda1/Downloads2/Ethioware/anteneh.html\")",
+      "Bash(google-chrome --headless=new --disable-gpu --no-sandbox --hide-scrollbars --window-size=1440,4000 --virtual-time-budget=8000 --screenshot=/tmp/claude-1000/-home-sda1-Downloads2-Ethioware/02a679da-5c07-437b-a435-d1d3e2002dd0/scratchpad/shots/full.png \"file:///home/sda1/Downloads2/Ethioware/anteneh.html\")",
+      "Bash(google-chrome --headless=new --disable-gpu --no-sandbox --dump-dom \"file:///home/sda1/Downloads2/Ethioware/anteneh.html\")",
+      "Bash(timeout 20 google-chrome --headless=new --disable-gpu --no-sandbox --window-size=1440,900 --screenshot=/tmp/claude-1000/-home-sda1-Downloads2-Ethioware/02a679da-5c07-437b-a435-d1d3e2002dd0/scratchpad/shots/index.png \"file:///home/sda1/Downloads2/Ethioware/index.html\")",
+      "Bash(timeout 30 google-chrome --headless=new --disable-gpu --no-sandbox --window-size=1440,900 '--host-resolver-rules=MAP cdn.jsdelivr.net 127.0.0.1, MAP fonts.googleapis.com 127.0.0.1, MAP fonts.gstatic.com 127.0.0.1, MAP www.googletagmanager.com 127.0.0.1, MAP widget.trustpilot.com 127.0.0.1, MAP img.icons8.com 127.0.0.1, MAP www.youtube-nocookie.com 127.0.0.1' --virtual-time-budget=6000 --screenshot=/tmp/claude-1000/-home-sda1-Downloads2-Ethioware/02a679da-5c07-437b-a435-d1d3e2002dd0/scratchpad/shots/index2.png file:///home/sda1/Downloads2/Ethioware/index.html)",
+      "Bash(timeout 20 google-chrome --headless=new --disable-gpu --no-sandbox --enable-logging=stderr --v=1 --dump-dom \"file:///home/sda1/Downloads2/Ethioware/anteneh.html\")"
     ]
   }
 }
