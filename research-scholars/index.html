@@ -6,6 +6,9 @@
 <title>EthioWare Research Scholars Program — Overview</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+<link rel="shortcut icon" href="../assets/img/logo.png" type="image/x-icon">
+<link rel="stylesheet" href="../assets/css/styles.css">
 <style>
   :root {
     --hue: 215;
@@ -24,8 +27,6 @@
     --gold-tint: #fdf3e1;
   }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     font-family: 'Poppins', sans-serif;
     background: var(--bg);
@@ -39,7 +40,7 @@
   .cover {
     background: linear-gradient(125deg, var(--navy-deep) 0%, var(--navy) 55%, var(--blue) 100%);
     color: #fff;
-    padding: 84px 60px 72px;
+    padding: 112px 60px 72px;
     position: relative;
     overflow: hidden;
   }
@@ -58,25 +59,6 @@
     width: 320px; height: 320px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(255,255,255,0.10) 0%, transparent 70%);
-  }
-  .cover-top {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 28px;
-    position: relative;
-    z-index: 1;
-  }
-  .cover-logo {
-    width: 34px; height: 34px;
-    flex-shrink: 0;
-  }
-  .cover-label {
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--sky);
   }
   .cover h1 {
     font-size: clamp(30px, 4.6vw, 50px);
@@ -122,6 +104,13 @@
     font-weight: 600;
     font-size: 14px;
     color: #fff;
+  }
+  .cover-cta {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 28px;
+    position: relative;
+    z-index: 1;
   }
 
   /* ── LAYOUT ── */
@@ -200,7 +189,7 @@
   }
   .callout-blue p { color: var(--navy-deep); font-size: 14px; }
 
-  /* ── HIGHLIGHT FEATURE GRID (replaces comparison) ── */
+  /* ── HIGHLIGHT FEATURE GRID ── */
   .feature-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -212,20 +201,7 @@
     border: 1px solid var(--border);
     border-radius: 12px;
     padding: 20px 22px;
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
   }
-  .feature-dot {
-    width: 30px; height: 30px;
-    border-radius: 8px;
-    background: var(--tint-deep);
-    color: var(--navy);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-    font-size: 14px;
-  }
-  .feature-dot svg { width: 15px; height: 15px; }
   .feature-card strong {
     font-size: 14px;
     font-weight: 600;
@@ -415,15 +391,6 @@
     padding: 22px;
     position: relative;
   }
-  .mentor-card .icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    background: var(--tint);
-    color: var(--navy);
-    display: flex; align-items: center; justify-content: center;
-    margin-bottom: 14px;
-  }
-  .mentor-card .icon svg { width: 20px; height: 20px; }
   .mentor-card h4 {
     font-size: 14px;
     font-weight: 700;
@@ -455,19 +422,7 @@
     border: 1px solid var(--border);
     border-radius: 10px;
     padding: 16px 18px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
   }
-  .tool-icon {
-    width: 36px; height: 36px;
-    border-radius: 8px;
-    background: var(--tint);
-    color: var(--navy);
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .tool-icon svg { width: 18px; height: 18px; }
   .tool-info strong { font-size: 13.5px; font-weight: 600; display: block; }
   .tool-info span { font-size: 12px; color: var(--muted); }
 
@@ -524,39 +479,7 @@
   .pub-details strong { font-size: 14px; font-weight: 600; display: block; margin-bottom: 3px; }
   .pub-details p { font-size: 13px; color: var(--muted); }
 
-  /* ── CTA / SIGNUP BANNER ── */
-  .cta-banner {
-    background: linear-gradient(120deg, var(--navy-deep) 0%, var(--navy) 60%, var(--blue) 100%);
-    border-radius: 16px;
-    padding: 36px 40px;
-    color: #fff;
-    margin: 16px 0 8px;
-    position: relative;
-    overflow: hidden;
-  }
-  .cta-banner::after {
-    content: '';
-    position: absolute;
-    top: -60px; right: -40px;
-    width: 220px; height: 220px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(43,173,238,0.30) 0%, transparent 70%);
-  }
-  .cta-banner h3 {
-    font-size: 21px;
-    font-weight: 700;
-    margin-bottom: 8px;
-    position: relative;
-    z-index: 1;
-  }
-  .cta-banner p {
-    color: rgba(255,255,255,0.82);
-    font-size: 14px;
-    max-width: 520px;
-    margin-bottom: 22px;
-    position: relative;
-    z-index: 1;
-  }
+  /* ── CTA BUTTON ── */
   .cta-button {
     display: inline-flex;
     align-items: center;
@@ -568,22 +491,9 @@
     padding: 13px 26px;
     border-radius: 999px;
     text-decoration: none;
-    position: relative;
-    z-index: 1;
     transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
   .cta-button:hover { transform: translateY(-1px); box-shadow: 0 8px 20px rgba(0,0,0,0.18); }
-
-  /* ── FOOTER ── */
-  footer {
-    background: var(--navy-deep);
-    color: rgba(255,255,255,0.6);
-    text-align: center;
-    padding: 40px;
-    font-size: 13px;
-    margin-top: 60px;
-  }
-  footer strong { color: var(--sky); }
 
   /* ── UTILITY ── */
   .two-col {
@@ -594,10 +504,10 @@
   }
   .text-blue { color: var(--blue); }
   .text-muted { color: var(--muted); }
-  p { margin-bottom: 14px; }
 
   @media (max-width: 640px) {
-    .cover { padding: 50px 24px; }
+    .cover { padding: 96px 24px 50px; }
+    .cover-cta { justify-content: flex-start; }
     .container { padding: 0 20px; }
     .feature-grid, .tracks-grid, .mentor-model,
     .tools-grid, .criteria-grid, .two-col { grid-template-columns: 1fr; }
@@ -605,31 +515,60 @@
     .phase-marker { display: none; }
     .phase-content { padding-left: 0; border-left: none; }
     .pub-item { grid-template-columns: 1fr; }
-    .cta-banner { padding: 28px 24px; }
   }
 </style>
 </head>
 <body>
 
+<header class="header glass" id="header">
+  <nav class="nav container">
+    <a href="/#home" class="nav__logo">
+      <img
+        src="../assets/img/logo-mini.png"
+        alt="Ethioware Logo"
+        width="40"
+        height="40"
+        loading="eager"
+        fetchpriority="high"
+      />
+      Ethioware
+    </a>
+    <div class="nav__menu" id="nav-menu">
+      <ul class="nav__list">
+        <li class="nav__item">
+          <a href="/#about" class="nav__link">About</a>
+        </li>
+        <li class="nav__item">
+          <a href="/#approach" class="nav__link">How</a>
+        </li>
+        <li class="nav__item">
+          <a href="/#mission" class="nav__link">Mission</a>
+        </li>
+        <li class="nav__item">
+          <a href="/#articles" class="nav__link">Articles</a>
+        </li>
+        <li class="nav__item">
+          <a href="/#train" class="nav__link">Register</a>
+        </li>
+        <li class="nav__item">
+          <a href="/#contact" class="nav__link">Contact Us</a>
+        </li>
+      </ul>
+      <div class="nav__close" id="nav-close">
+        <i class="ri-close-line"></i>
+      </div>
+    </div>
+    <div class="nav__btns">
+      <i class="ri-moon-line change-theme" id="theme-button"></i>
+      <div class="nav__toggle" id="nav-toggle">
+        <i class="ri-menu-line"></i>
+      </div>
+    </div>
+  </nav>
+</header>
+
 <!-- COVER -->
 <div class="cover">
-  <div class="cover-top">
-    <svg class="cover-logo" viewBox="0 0 1092 1092" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#2badee"/>
-          <stop offset="100%" stop-color="#0a2c5c"/>
-        </linearGradient>
-      </defs>
-      <circle cx="430" cy="250" r="180" fill="url(#logoGrad)"/>
-      <circle cx="870" cy="250" r="180" fill="url(#logoGrad)"/>
-      <circle cx="280" cy="600" r="180" fill="url(#logoGrad)"/>
-      <circle cx="650" cy="600" r="180" fill="url(#logoGrad)"/>
-      <circle cx="430" cy="950" r="180" fill="url(#logoGrad)"/>
-      <circle cx="870" cy="950" r="180" fill="url(#logoGrad)"/>
-    </svg>
-    <span class="cover-label">ethioware.org — Program Overview</span>
-  </div>
   <h1>EthioWare Research<br><span>Scholars Program</span></h1>
   <p class="cover-sub">A 16-week online research mentorship program designed to guide Ethiopian high schoolers from zero research experience to a completed, publishable paper.</p>
   <div class="cover-meta">
@@ -654,6 +593,12 @@
       <div class="value">Research Paper</div>
     </div>
   </div>
+  <div class="cover-cta">
+    <a class="cta-button" href="signup.html">
+      Register Early Interest
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
 </div>
 
 <div class="container">
@@ -668,50 +613,32 @@
     </div>
     <div class="section-divider"></div>
 
-    <p>EthioWare Research Scholars is built around seven core commitments — the structural elements that make a 16-week research mentorship genuinely work for Ethiopian high schoolers.</p>
+    <p>EthioWare Research Scholars is built around six core commitments — the structural elements that make a 16-week research mentorship genuinely work for Ethiopian high schoolers.</p>
 
     <div class="feature-grid">
       <div class="feature-card">
-        <div class="feature-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>
-        <div>
-          <strong>16 Weeks — Extended Foundations Phase</strong>
-          <p>The program devotes its first four weeks entirely to building research literacy before any paper writing begins.</p>
-        </div>
+        <strong>16 Weeks — Extended Foundations Phase</strong>
+        <p>The program devotes its first four weeks entirely to building research literacy before any paper writing begins.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="7" r="4"/><path d="M2 21v-2a4 4 0 014-4h6a4 4 0 014 4v2"/><circle cx="17" cy="7" r="3"/></svg></div>
-        <div>
-          <strong>Mentor Pods: 1 Mentor per 3–4 Students</strong>
-          <p>Small, consistent pods replace pure 1-on-1 mentorship, building peer accountability alongside expert guidance.</p>
-        </div>
+        <strong>Mentor Pods: 1 Mentor per 3–4 Students</strong>
+        <p>Small, consistent pods replace pure 1-on-1 mentorship, building peer accountability alongside expert guidance.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
-        <div>
-          <strong>English Academic Writing Support — Built In</strong>
-          <p>Dedicated writing coach sessions address academic English fluency directly, without stigma, as a core program pillar.</p>
-        </div>
+        <strong>English Academic Writing Support — Built In</strong>
+        <p>Dedicated writing coach sessions address academic English fluency directly, without stigma, as a core program pillar.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg></div>
-        <div>
-          <strong>Learning Materials, Always Within Reach</strong>
-          <p>PDF templates and writing tutorials live on the LMS, with a Telegram support group for real-time help and reminders.</p>
-        </div>
+        <strong>Learning Materials, Always Within Reach</strong>
+        <p>PDF templates and writing tutorials live on the LMS, with a Telegram support group for real-time help and reminders.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 2.1l4 4-4 4"/><path d="M3 12.1v-2a4 4 0 014-4h14"/><path d="M7 21.9l-4-4 4-4"/><path d="M21 11.9v2a4 4 0 01-4 4H3"/></svg></div>
-        <div>
-          <strong>Ethiopian Diaspora Mentor Pipeline</strong>
-          <p>PhD students and academics with Ethiopian roots bring cultural fluency and a strong motivation to give back.</p>
-        </div>
+        <strong>Ethiopian Diaspora Mentor Pipeline</strong>
+        <p>PhD students and academics with Ethiopian roots bring cultural fluency and a strong motivation to give back.</p>
       </div>
       <div class="feature-card">
-        <div class="feature-dot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/><path d="M2 12h20"/></svg></div>
-        <div>
-          <strong>Research Topics Tied to Ethiopian Context</strong>
-          <p>Students study problems relevant to Ethiopia — public health, urban development, education access, and more.</p>
-        </div>
+        <strong>Research Topics Tied to Ethiopian Context</strong>
+        <p>Students study problems relevant to Ethiopia — public health, urban development, education access, and more.</p>
       </div>
     </div>
 
@@ -1020,7 +947,7 @@
     </div>
 
     <div class="callout-blue">
-      <p><strong>A note on scope:</strong> First-time high school researchers should aim for a focused, answerable question — not a thesis. A paper analyzing gender disparities in one region's secondary schools is better than "fixing all of Ethiopian education." Mentors should actively scope down ambition in Week 5.</p>
+      <p><strong>A note on scope:</strong> First-time high school researchers should aim for a focused, answerable question — not a thesis. A paper analyzing gender disparities in one region's secondary schools is better than "fixing all of Ethiopian education." Mentors help scope down ambition in Week 5.</p>
     </div>
   </section>
 
@@ -1038,27 +965,20 @@
 
     <div class="mentor-model">
       <div class="mentor-card">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
         <h4>Research Mentor</h4>
         <p>PhD student, postdoc, or faculty — ideally Ethiopian diaspora or scholars with Ethiopia expertise. Leads a pod of 3–4 students in the same track. Guides research questions, methodology, and interpretation.</p>
         <div class="freq">3 group sessions + 3 individual 1-on-1s per student</div>
       </div>
       <div class="mentor-card">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg></div>
         <h4>Writing Coach</h4>
         <p>Shared resource across 2–3 pods. Specializes in academic English writing. Runs workshops in Weeks 11–12 and is available by appointment for a 30-min individual session. Priority given to ESL-challenged students.</p>
         <div class="freq">2 group workshops + 1 optional 1-on-1</div>
       </div>
       <div class="mentor-card">
-        <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div>
         <h4>Program Coordinator</h4>
         <p>EthioWare staff. Manages the Telegram group, sends weekly reminders, tracks milestone submissions, resolves issues, and keeps mentors and students on schedule. Single point of contact for logistics.</p>
         <div class="freq">Weekly touchpoint + on-demand support</div>
       </div>
-    </div>
-
-    <div class="callout-gold">
-      <p><strong>Mentor sourcing strategy:</strong> Prioritize Ethiopian diaspora PhD students at AAU, US, and European universities — they bring cultural fluency and lived understanding of the Ethiopian academic gap. Supplement with international volunteers. Compensate mentors with a modest honorarium per cohort, or offer co-authorship credit where appropriate.</p>
     </div>
   </section>
 
@@ -1076,42 +996,36 @@
 
     <div class="tools-grid">
       <div class="tool-item">
-        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
         <div class="tool-info">
           <strong>Telegram</strong>
           <span>Primary communication hub. Channel for announcements, group chat per pod, bot for milestone reminders. Works on low data. Students already use it.</span>
         </div>
       </div>
       <div class="tool-item">
-        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6"/></svg></div>
         <div class="tool-info">
           <strong>EthioWare LMS</strong>
           <span>Hosts weekly PDF templates, writing tutorials, and milestone tracking for every cohort. Mentor inline comments and version history for paper drafting.</span>
         </div>
       </div>
       <div class="tool-item">
-        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="14" rx="2"/><path d="M2 10h20M7 15h2"/></svg></div>
         <div class="tool-info">
           <strong>Google Meet / Zoom</strong>
           <span>Video sessions with mentors. Sessions recorded and shared for students with connectivity issues who miss live calls.</span>
         </div>
       </div>
       <div class="tool-item">
-        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg></div>
         <div class="tool-info">
           <strong>Google Scholar + AJOL</strong>
           <span>Free academic search. AJOL (African Journals Online) specifically hosts Ethiopian and African research — critical for local context papers.</span>
         </div>
       </div>
       <div class="tool-item">
-        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 016.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/></svg></div>
         <div class="tool-info">
           <strong>Zotero</strong>
           <span>Free, open-source citation manager. Students install it once; it handles all referencing automatically. Critical for APA/Chicago formatting.</span>
         </div>
       </div>
       <div class="tool-item">
-        <div class="tool-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/></svg></div>
         <div class="tool-info">
           <strong>Google Forms + Sheets</strong>
           <span>For students running surveys. Data auto-populates into Sheets for basic analysis. No statistical software license needed for entry-level quantitative work.</span>
@@ -1136,7 +1050,7 @@
 
     <p style="margin-bottom: 20px;">The program is <strong>merit-based but not hyper-exclusive</strong>. We're not trying to find students who already know how to research — we're looking for curiosity, commitment, and the capacity to be stretched. Target grade level: Grade 10–12 (ages 15–18).</p>
 
-    <p>Aim for <strong>15–25 students per cohort</strong> (3–5 mentor pods of 4–5). This is manageable for a pilot, and allows enough density for a real peer community.</p>
+    <p>Each cohort has <strong>15–25 students</strong> organized into 3–5 mentor pods, keeping the group small enough for a real peer community.</p>
 
     <div class="criteria-grid">
       <div class="criterion">
@@ -1156,10 +1070,6 @@
         <p>Conversational. Focus: Is the student genuinely curious? Can they talk about something they find puzzling in their field? Do they understand this is a 16-week commitment?</p>
       </div>
     </div>
-
-    <div class="callout-gold">
-      <p><strong>Diversity principle:</strong> Actively recruit from schools outside Addis Ababa — Dire Dawa, Mekelle, Hawassa, Bahir Dar. Regional diversity of research perspectives makes the cohort stronger, not weaker. Consider reserving 20–30% of seats for students from regional schools with strong applications.</p>
-    </div>
   </section>
 
   <!-- SECTION: PUBLICATION PATHWAYS -->
@@ -1172,7 +1082,7 @@
     </div>
     <div class="section-divider"></div>
 
-    <p style="margin-bottom: 20px;">Every student who completes the program will have their paper published. The platform depends on quality. Mentors help students target the right venue.</p>
+    <p style="margin-bottom: 20px;">Every student who completes the program will have their paper published. Mentors help students target the right venue.</p>
 
     <div class="pub-list">
       <div class="pub-item">
@@ -1206,23 +1116,128 @@
     </div>
   </section>
 
-  <!-- CTA: EARLY SIGNUP -->
-  <section style="padding-top: 8px;">
-    <div class="cta-banner">
-      <h3>Be first in line for the inaugural cohort</h3>
-      <p>We're collecting early signups to help shape the final program structure. Tell us about yourself and your research interests — your answers directly inform how we build this.</p>
-      <a class="cta-button" href="signup.html">
-        Register Early Interest
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </a>
-    </div>
-  </section>
-
 </div><!-- /container -->
 
-<footer>
-  <p>Prepared for <strong>ethioware.org</strong> · EthioWare Research Scholars Program · Program Overview v2.0</p>
+<footer class="ft" role="contentinfo">
+  <div class="bars">
+    <div class="left-bar">
+      <div class="left-logo">
+        <a href="../index.html"
+          ><img src="/assets/img/white.png" alt="Ethioware-Logo"
+        /></a>
+        <a href="../index.html"><p>ETHIOWARE</p></a>
+      </div>
+      <div class="left-socials">
+        <div>
+          <a
+            href="https://www.linkedin.com/company/ethioware"
+            target="_blank"
+            ><img
+              src="https://img.icons8.com/?size=100&id=84888&format=png&color=ffffff"
+              alt="LinkedIn"
+          /></a>
+        </div>
+        <div>
+          <a href="https://facebook.com/ethiowareEI" target="_blank"
+            ><img
+              src="https://img.icons8.com/?size=100&id=118490&format=png&color=ffffff"
+              alt="Facebook"
+          /></a>
+        </div>
+        <div>
+          <a href="https://instagram.com/ethioware_" target="_blank"
+            ><img
+              src="https://img.icons8.com/?size=100&id=84884&format=png&color=ffffff"
+              alt="Instagram"
+          /></a>
+        </div>
+        <div>
+          <a href="https://twitter.com/ethioware" target="_blank"
+            ><img
+              src="https://img.icons8.com/?size=100&id=102907&format=png&color=ffffff"
+              alt="Twitter"
+          /></a>
+        </div>
+        <div>
+          <a href="https://youtube.com/@ethioware" target="_blank"
+            ><img
+              src="https://img.icons8.com/?size=100&id=37326&format=png&color=ffffff"
+              alt="YouTube"
+          /></a>
+        </div>
+        <div>
+          <a href="https://t.me/ethioware" target="_blank"
+            ><img
+              src="https://img.icons8.com/?size=100&id=85428&format=png&color=ffffff"
+              alt="Telegram"
+          /></a>
+        </div>
+      </div>
+    </div>
+    <div class="right-bar">
+      <div class="right-bar-links">
+        <div class="col">
+          <a href="../index.html" class="head">Home</a>
+          <a href="https://ethioware.org/privacy" class="sub">Privacy</a>
+        </div>
+        <div class="col">
+          <a href="/#about" class="head">About Us</a>
+          <a href="/#mission" class="sub">Mission</a>
+          <a href="/#approach" class="sub">Approach</a>
+          <a href="https://forms.office.com/r/3SepzQNHz2" class="sub"
+            >Membership</a
+          >
+        </div>
+        <div class="col">
+          <a href="https://wa.me/message/W4GUO2DOV4HWI1" class="head"
+            >Work With Us</a
+          >
+          <a href="https://www.skilledup.life/" class="sub">Partners</a>
+          <a href="https://forms.office.com/r/8MtrXwTY8R" class="sub"
+            >Interns</a
+          >
+          <a href="https://forms.office.com/r/BwCszzkuXK" class="sub"
+            >Trainees</a
+          >
+        </div>
+        <div class="col">
+          <a href="/#articles" class="head">Publications</a>
+          <a href="/#articles" class="sub">Academic Papers</a>
+          <a href="https://www.youtube.com/@ethioware" class="sub"
+            >Interviews</a
+          >
+        </div>
+        <div class="col">
+          <a href="../index.html" class="head">Contact Us</a>
+          <a href="mailto:info@ethioware.org" class="sub"
+            >Send Us A Message</a
+          >
+        </div>
+      </div>
+      <div
+        class="trustpilot-widget right-review"
+        data-locale="en-US"
+        data-template-id="56278e9abfbbba0bdcd568bc"
+        data-businessunit-id="6666fe238ece8b6766f5dfc3"
+        data-style-height="4rem"
+        data-style-width="100%"
+      >
+        <a
+          href="https://www.trustpilot.com/review/ethioware.org"
+          target="_blank"
+        ></a>
+      </div>
+    </div>
+  </div>
+  <div class="copy">
+    <p class="copy copy-txt">
+      © 2026 Ethioware EdTech Initiative. All Rights Reserved
+    </p>
+  </div>
 </footer>
+
+<script defer src="../assets/js/scrollreveal.min.js"></script>
+<script defer src="../assets/js/main.js"></script>
 
 </body>
 </html>
