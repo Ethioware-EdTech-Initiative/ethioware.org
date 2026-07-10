@@ -20,6 +20,7 @@ PRIMARY = [
     ("/", "index.html", "1.0", "weekly"),
     ("/apply.html", "apply.html", "0.8", "monthly"),
     ("/pay.html", "pay.html", "0.8", "monthly"),
+    ("/support.html", "support.html", "0.8", "monthly"),
     ("/privacy.html", "privacy.html", "0.4", "yearly"),
     ("/anteneh.html", "anteneh.html", "0.6", "monthly"),
     ("/biniyam.html", "biniyam.html", "0.6", "monthly"),

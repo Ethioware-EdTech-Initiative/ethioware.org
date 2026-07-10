@@ -6,6 +6,7 @@ anteneh.html
 apply.html
 pay.html
 privacy.html
+support.html
 samuel.html
 biniyam.html
 cognify/auth.html
