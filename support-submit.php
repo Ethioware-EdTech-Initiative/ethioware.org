@@ -83,8 +83,10 @@ if ($support_type === 'sponsor') {
 } elseif ($support_type === 'volunteer') {
     $volunteer_track = pick(clean($_POST['volunteer_track'] ?? null), $TRACKS);
     $rawLink = clean($_POST['volunteer_link'] ?? null);
-    if ($rawLink !== null) {
-        $volunteer_link = filter_var($rawLink, FILTER_VALIDATE_URL) ? $rawLink : null;
+    if ($rawLink === null || !filter_var($rawLink, FILTER_VALIDATE_URL)) {
+        $errors[] = 'Please share a valid LinkedIn profile link.';
+    } else {
+        $volunteer_link = $rawLink;
     }
     $volunteer_commitment = isset($_POST['volunteer_commitment']) ? 1 : 0;
     if (!$volunteer_commitment) $errors[] = 'Please confirm you can commit to the weekly time before submitting.';

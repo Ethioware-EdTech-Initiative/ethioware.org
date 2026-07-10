@@ -22,44 +22,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <style>
-      /*=============== GOOGLE FONTS ===============*/
-      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
-
       /*=============== VARIABLES CSS ===============*/
+      /* Site-wide vars (--header-height, --hue, colors, typography, spacing,
+         z-index) already come from assets/css/styles.css. Only the
+         supporter/mentor card's own fixed brand palette is added here. */
       :root {
-        --header-height: 3.5rem; /*56px*/
-
-        /*========== Site colors (header/footer) ==========*/
-        --hue: 215;
-        --first-color: hsl(var(--hue), 80%, 32%);
-        --first-color-alt: hsl(var(--hue), 24%, 28%);
-        --title-color: hsl(var(--hue), 4%, 15%);
-        --text-color: hsl(var(--hue), 4%, 35%);
-        --text-color-light: hsl(var(--hue), 4%, 55%);
-        --body-color: hsl(var(--hue), 0%, 100%);
-        --container-color: #fff;
-
-        /*========== Font and typography ==========*/
-        --body-font: "Poppins", sans-serif;
-        --h1-font-size: 1.5rem;
-        --h2-font-size: 1.25rem;
-        --h3-font-size: 1rem;
-        --normal-font-size: 0.938rem;
-
-        /*========== Font weight ==========*/
-        --font-medium: 500;
-        --font-semi-bold: 600;
-
-        /*========== Margenes Bottom ==========*/
-        --mb-1: 1rem;
-        --mb-1-5: 1.5rem;
-        --mb-2: 2rem;
-        --mb-3: 3rem;
-
-        /*========== z index ==========*/
-        --z-fixed: 100;
-
-        /*========== Supporter form palette ==========*/
         --navy:#0A2C5C;
         --navy-deep:#0B2140;
         --blue:#1B6FC9;
@@ -75,114 +42,27 @@
         --error:#C23B3B;
       }
 
-      /* Responsive typography */
-      @media screen and (min-width: 968px) {
-        :root {
-          --h1-font-size: 2.25rem;
-          --h2-font-size: 1.5rem;
-          --h3-font-size: 1.25rem;
-          --normal-font-size: 1rem;
-        }
-      }
-
       /*=============== BASE ===============*/
-      * {
-        box-sizing: border-box;
-        padding: 0;
-        margin: 0;
+      body {
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
       }
 
-      body,
-      button,
-      input,
-      textarea,
       select {
         font-family: var(--body-font);
         font-size: var(--normal-font-size);
       }
 
-      body {
-        margin: 0;
-        background-color: var(--body-color);
-        color: var(--text-color);
-        transition: 0.3s; /* For animation dark mode */
-        line-height: 1.6;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      h1, h2, h3 {
+      /* Playfair Display is used only for the supporter/mentor card's own
+         headings — the site's default h1/h2/h3 styling (Poppins) elsewhere
+         on the page is untouched. */
+      .hero h1, h2.form-title, .success-panel h2, .guide-panel-head h3 {
         font-family: "Playfair Display", serif;
-        color: var(--title-color);
-        font-weight: var(--font-semi-bold);
-      }
-
-      a { color: inherit; text-decoration: none; }
-
-      /*=============== THEME ===============*/
-      /* The sponsorship/mentor card keeps its own fixed light card design
-         (navy/cream on white) in both themes — only the site chrome
-         (header/footer/page canvas) responds to the dark toggle. */
-      body.dark-theme {
-        --first-color-dark: hsl(var(--hue), 80%, 20%);
-        --title-color: hsl(var(--hue), 30%, 95%);
-        --text-color: hsl(var(--hue), 0%, 75%);
-        --body-color: hsl(var(--hue), 8%, 12%);
-        --container-color: hsl(var(--hue), 40%, 16%);
-      }
-
-      .dark-theme .header { background-color: var(--body-color); }
-      .dark-theme .footer { background-color: var(--container-color); }
-
-      .change-theme {
-        color: var(--title-color);
-        font-size: 1.5rem;
-        cursor: pointer;
-      }
-
-      /*=============== LAYOUT ===============*/
-      .container {
-        max-width: 1024px;
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: var(--mb-1-5);
-        padding-right: var(--mb-1-5);
-      }
-
-      /* Header (Minimal, shared across standalone pages) */
-      .header {
-        width: 100%;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: var(--z-fixed);
-        background-color: var(--body-color);
-        box-shadow: 0 1px 4px hsla(var(--hue), 4%, 15%, 0.1);
-        transition: 0.3s;
-      }
-
-      .nav {
-        height: var(--header-height);
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .nav__logo {
-        font-weight: var(--font-semi-bold);
-        color: var(--title-color);
-        font-size: var(--h3-font-size);
-        font-family: var(--body-font);
-      }
-
-      .nav__btns {
-        display: flex;
-        align-items: center;
-        column-gap: 1rem;
+        font-weight: 800;
       }
 
       /* ---------- Hero ---------- */
       .hero{
-        margin-top: var(--header-height);
         background:linear-gradient(135deg, var(--navy-deep) 0%, var(--navy) 45%, var(--blue) 100%);
         color:#fff;
         padding:56px 24px 64px;
@@ -242,14 +122,43 @@
       .stat-pill b{font-weight:700; color:var(--cream);}
 
       /* ---------- Form card ---------- */
-      .wrap{max-width:640px; margin:-40px auto 60px; padding:0 20px; position:relative; z-index:2;}
+      .wrap{
+        max-width:640px; margin:-40px auto 60px; padding:0 20px; position:relative; z-index:2;
+        display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start; justify-content:center;
+        transition:max-width .3s ease;
+      }
+      .wrap.wrap--with-guide{max-width:1080px;}
       .card{
         background:var(--surface);
         border-radius:20px;
         box-shadow:0 20px 50px -18px rgba(10,44,92,0.35);
         padding:8px;
+        flex:1 1 420px;
+        max-width:480px;
+        width:100%;
       }
       .card-inner{padding:32px 28px 28px;}
+
+      /* ---------- Mentor guide panel (volunteer mode only) ---------- */
+      .guide-panel{
+        display:none;
+        flex:1 1 380px;
+        max-width:480px;
+        width:100%;
+        background:var(--surface);
+        border-radius:20px;
+        box-shadow:0 20px 50px -18px rgba(10,44,92,0.35);
+        overflow:hidden;
+        flex-direction:column;
+      }
+      .wrap--with-guide .guide-panel{display:flex;}
+      .guide-panel-head{padding:20px 22px 14px; border-bottom:1px solid var(--line);}
+      .guide-panel-head h3{font-size:17px; color:var(--navy); margin-bottom:6px;}
+      .guide-panel-head p{font-size:13px; color:var(--slate); line-height:1.5; margin-bottom:8px;}
+      .guide-panel-head a{font-size:12.5px; color:var(--accent); font-weight:600;}
+      .guide-panel-head a:hover{text-decoration:underline;}
+      .guide-panel iframe{width:100%; height:560px; border:0; display:block; flex:1;}
+      @media (max-width:900px){ .guide-panel iframe{height:70vh;} }
 
       /* Segmented toggle */
       .toggle{
@@ -448,21 +357,48 @@
         background-color: hsl(var(--hue), 4%, 50%);
       }
 
-      @media screen and (max-width: 768px) {
-        .container {
-          padding-left: var(--mb-1);
-          padding-right: var(--mb-1);
-        }
-      }
     </style>
   </head>
   <body>
-    <header class="header" id="header">
+    <header class="header glass" id="header">
       <nav class="nav container">
-        <a href="index.html" class="nav__logo"> Ethioware EdTech Initiative </a>
-
+        <a href="index.html" class="nav__logo">
+          <img
+            src="assets/img/logo-mini.png"
+            alt="Ethioware Logo"
+            width="40"
+            height="40"
+            loading="eager"
+          />
+          Ethioware
+        </a>
+        <div class="nav__menu" id="nav-menu">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <a href="index.html#about" class="nav__link">About</a>
+            </li>
+            <li class="nav__item">
+              <a href="index.html#approach" class="nav__link">How</a>
+            </li>
+            <li class="nav__item">
+              <a href="index.html#mission" class="nav__link">Mission</a>
+            </li>
+            <li class="nav__item">
+              <a href="index.html#articles" class="nav__link">Articles</a>
+            </li>
+            <li class="nav__item">
+              <a href="index.html#contact" class="nav__link">Contact Us</a>
+            </li>
+          </ul>
+          <div class="nav__close" id="nav-close">
+            <i class="ri-close-line"></i>
+          </div>
+        </div>
         <div class="nav__btns">
-          <i class="bx bx-moon change-theme" id="theme-button"></i>
+          <i class="ri-moon-line change-theme" id="theme-button"></i>
+          <div class="nav__toggle" id="nav-toggle">
+            <i class="ri-menu-line"></i>
+          </div>
         </div>
       </nav>
     </header>
@@ -578,9 +514,10 @@
                     <option value="no_preference">No preference</option>
                   </select>
                 </div>
-                <div class="field">
-                  <label for="volunteer_link">LinkedIn or CV link <span class="opt">(optional)</span></label>
-                  <input type="url" id="volunteer_link" name="volunteer_link" placeholder="https://">
+                <div class="field" id="field_volunteer_link">
+                  <label for="volunteer_link">LinkedIn profile link</label>
+                  <input type="url" id="volunteer_link" name="volunteer_link" placeholder="https://www.linkedin.com/in/...">
+                  <div class="field-error">Please share your LinkedIn profile link.</div>
                 </div>
                 <div class="checkbox-row">
                   <input type="checkbox" id="volunteer_commitment" name="volunteer_commitment" value="yes">
@@ -599,6 +536,15 @@
 
           </div>
         </div>
+
+        <aside class="guide-panel" id="guidePanel" aria-label="Mentor commitment guide">
+          <div class="guide-panel-head">
+            <h3>Mentor Commitment Guide</h3>
+            <p>Read what mentoring involves before you apply — expectations, schedule, and what a typical week looks like.</p>
+            <a href="https://docs.google.com/document/d/e/2PACX-1vS218P242EU152-eF9krCN3EbkmRgBxsqXveDx7xI6Zw-LmfPRsheffwLaO5MD7kM2UWO8Ru_hQcwjt/pub" target="_blank" rel="noopener">Open in a new tab ↗</a>
+          </div>
+          <iframe src="https://docs.google.com/document/d/e/2PACX-1vS218P242EU152-eF9krCN3EbkmRgBxsqXveDx7xI6Zw-LmfPRsheffwLaO5MD7kM2UWO8Ru_hQcwjt/pub?embedded=true" title="Mentor Commitment Guide document" loading="lazy"></iframe>
+        </aside>
       </div>
     </main>
 
@@ -720,73 +666,50 @@
     </footer>
 
     <script>
-      const themeButton = document.getElementById("theme-button");
-      const darkTheme = "dark-theme";
-      const iconTheme = "bx-sun";
+      /*=============== SHOW MENU (mirrors assets/js/main.js) ===============*/
+      const navMenu = document.getElementById('nav-menu'),
+            navToggle = document.getElementById('nav-toggle'),
+            navClose = document.getElementById('nav-close');
 
-      const isLocalStorageAvailable = () => {
-        try {
-          const test = "test";
-          localStorage.setItem(test, test);
-          localStorage.removeItem(test);
-          return true;
-        } catch (e) {
-          return false;
-        }
-      };
+      if (navToggle) {
+        navToggle.addEventListener('click', () => { navMenu.classList.add('show-menu'); });
+      }
+      if (navClose) {
+        navClose.addEventListener('click', () => { navMenu.classList.remove('show-menu'); });
+      }
+      document.querySelectorAll('.nav__link').forEach(link => {
+        link.addEventListener('click', () => { navMenu.classList.remove('show-menu'); });
+      });
 
-      const storageAvailable = isLocalStorageAvailable();
+      /*=============== CHANGE BACKGROUND HEADER ===============*/
+      function scrollHeader(){
+        const header = document.getElementById('header');
+        if (window.scrollY >= 80) header.classList.add('scroll-header');
+        else header.classList.remove('scroll-header');
+      }
+      window.addEventListener('scroll', scrollHeader);
 
-      const getPreferredTheme = () => {
-        if (storageAvailable) {
-          return localStorage.getItem("selected-theme");
-        }
-        return window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? darkTheme
-          : null;
-      };
+      /*=============== DARK / LIGHT THEME ===============*/
+      const themeButton = document.getElementById('theme-button');
+      const darkTheme = 'dark-theme';
+      const iconTheme = 'ri-sun-line';
 
-      const getPreferredIcon = () => {
-        if (storageAvailable) {
-          return localStorage.getItem("selected-icon");
-        }
-        return window.matchMedia("(prefers-color-scheme: dark)").matches
-          ? iconTheme
-          : "bx-moon";
-      };
+      const selectedTheme = localStorage.getItem('selected-theme');
+      const selectedIcon = localStorage.getItem('selected-icon');
 
-      let currentTheme = getPreferredTheme();
-      let currentIcon = getPreferredIcon();
+      const getCurrentTheme = () => document.body.classList.contains(darkTheme) ? 'dark' : 'light';
+      const getCurrentIcon = () => themeButton.classList.contains(iconTheme) ? 'ri-moon-line' : 'ri-sun-line';
 
-      if (currentTheme) {
-        document.body.classList[currentTheme === darkTheme ? "add" : "remove"](
-          darkTheme
-        );
-        themeButton.classList[currentIcon === iconTheme ? "add" : "remove"](
-          iconTheme
-        );
-      } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-        document.body.classList.add(darkTheme);
-        themeButton.classList.add(iconTheme);
-      } else {
-        document.body.classList.remove(darkTheme);
-        themeButton.classList.remove(iconTheme);
+      if (selectedTheme) {
+        document.body.classList[selectedTheme === 'dark' ? 'add' : 'remove'](darkTheme);
+        themeButton.classList[selectedIcon === 'ri-moon-line' ? 'add' : 'remove'](iconTheme);
       }
 
-      themeButton.addEventListener("click", () => {
+      themeButton.addEventListener('click', () => {
         document.body.classList.toggle(darkTheme);
         themeButton.classList.toggle(iconTheme);
-
-        if (storageAvailable) {
-          localStorage.setItem(
-            "selected-theme",
-            document.body.classList.contains(darkTheme) ? darkTheme : null
-          );
-          localStorage.setItem(
-            "selected-icon",
-            themeButton.classList.contains(iconTheme) ? iconTheme : "bx-moon"
-          );
-        }
+        localStorage.setItem('selected-theme', getCurrentTheme());
+        localStorage.setItem('selected-icon', getCurrentIcon());
       });
     </script>
 
@@ -805,6 +728,8 @@
       const volunteerIntro = document.getElementById('volunteerIntro');
       const submitBtn = document.getElementById('submitBtn');
       const volunteerCommitment = document.getElementById('volunteer_commitment');
+      const volunteerLink = document.getElementById('volunteer_link');
+      const wrapEl = document.querySelector('.wrap');
 
       function setMode(mode){
         supportTypeInput.value = mode;
@@ -820,6 +745,8 @@
         volunteerIntro.style.display = isSponsor ? 'none' : 'block';
         submitBtn.textContent = isSponsor ? 'Sponsor Now' : 'Submit Application';
         volunteerCommitment.required = !isSponsor;
+        volunteerLink.required = !isSponsor;
+        wrapEl.classList.toggle('wrap--with-guide', !isSponsor);
       }
       btnSponsor.addEventListener('click', () => setMode('sponsor'));
       btnVolunteer.addEventListener('click', () => setMode('volunteer'));
@@ -876,10 +803,15 @@
         const country = document.getElementById('country');
         if(!country.value.trim()){ showFieldError('country', true); ok = false; } else showFieldError('country', false);
 
-        if(supportTypeInput.value === 'volunteer' && !volunteerCommitment.checked){
-          formMsg.textContent = "Please confirm you can commit to the weekly time before submitting.";
-          formMsg.classList.add('show');
-          ok = false;
+        if(supportTypeInput.value === 'volunteer'){
+          const linkOk = /^https?:\/\/.+/i.test(volunteerLink.value.trim());
+          if(!linkOk){ showFieldError('volunteer_link', true); ok = false; } else showFieldError('volunteer_link', false);
+
+          if(!volunteerCommitment.checked){
+            formMsg.textContent = "Please confirm you can commit to the weekly time before submitting.";
+            formMsg.classList.add('show');
+            ok = false;
+          }
         }
         return ok;
       }
