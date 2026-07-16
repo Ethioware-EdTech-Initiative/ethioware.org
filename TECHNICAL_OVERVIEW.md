@@ -67,11 +67,17 @@ The site includes:
 │                          via an internal .htaccess rewrite — public URL never changes
 │
 ├── assets/
-│   ├── css/   styles.css, bio.css
-│   ├── js/    main.js, script.js, bio.js, sendmail.js, scrollreveal.min.js
+│   ├── css/   styles.css, bio.css, chatbot.css
+│   ├── js/    main.js, script.js, bio.js, sendmail.js, scrollreveal.min.js, chatbot.js
 │   ├── img/   logos, certificate scans (WebP), portraits, banners
 │   ├── scss/  SCSS sources (base/components/layout/theme)
 │   └── resumes/, reviews/
+│
+├── chatbot/                site-wide AI chat widget backend (PHP/mysqli + Gemini)
+│   ├── api/                 chat.php, track.php, prompt.php, gemini.php, db.php, lib.php
+│   ├── admin/                password-gated leads dashboard (index/login/view/export.php)
+│   ├── knowledge/             *.md knowledge base (40-partnerships.md is gated)
+│   └── config.php             gitignored: Gemini key, admin password hash
 │
 ├── cognify/               Google-OAuth auth subapp for a companion Chrome extension
 │   ├── auth.html / auth.js / auth.css
@@ -116,7 +122,7 @@ This fires only when the request isn't a real file/directory and a matching cert
 - **Deploy model:** GitHub Actions → `rsync` over SSH into the cPanel docroot (`public_html`), gated on CI.
   - Flow: **open PR → CI runs required checks → merge to `master`→ deploy job rsyncs over SSH → live.**
   - The `deploy` job only runs on push to `master`, and only after every test job passes (`needs:`). `master` is branch-protected, so nothing reaches it except via a green PR.
-  - rsync runs **without `--delete`** — only changed files are uploaded; server-only files (`config.php`, uploads) are never touched. Excludes are defined in `.deployignore` (VCS/CI/tooling files, all `*.md` docs, `/db/`, `config.php`, stray local PDFs).
+  - rsync runs **without `--delete`** — only changed files are uploaded; server-only files (`config.php`, uploads) are never touched. Excludes are defined in `.deployignore` (VCS/CI/tooling files, root-level `*.md` docs — but *not* `chatbot/knowledge/*.md`, which must deploy — `/db/`, `config.php`, stray local PDFs).
   - Manual re-deploy: GitHub → Actions → CI → **Run workflow** on `master`.
 - **Repository:** `https://github.com/Ethioware-EdTech-Initiative/ethioware.org`
 - Full one-time setup (SSH keys, GitHub secrets, branch protection) is documented in [DEPLOY.md](DEPLOY.md).
@@ -141,7 +147,7 @@ Defined in `.github/workflows/ci.yml`, runs on push/PR to `master`. All jobs bel
 |-----|-----------------|
 | `html-primary` | `html-validate` on the primary pages (`ci/primary-html.txt`, config `.htmlvalidate.json`) |
 | `links-offline` | `lychee` (offline) — local `href`/`src`/`url()` resolve for primary pages + `assets/` |
-| `js-syntax` | `node --check` on checked-in JS (`biniyam.js`, `cognify/auth.js`) |
+| `js-syntax` | `node --check` on checked-in JS (`biniyam.js`, `cognify/auth.js`, `assets/js/chatbot.js`) |
 | `cert-routes` | `ci/htaccess-route-check.py` — emulates `.htaccess`, asserts all 235 certificate URLs + top pages resolve |
 | `assets` | `ci/check-assets.py` — every local asset/link reference across all ~244 pages resolves; a baseline file accepts pre-existing gaps but fails on any *new* break |
 | `php-syntax` | `php -l` on every checked-in `*.php` |
@@ -152,7 +158,7 @@ Run everything locally before pushing:
 ```bash
 npm ci
 npm run lint:html
-node --check biniyam.js && node --check cognify/auth.js
+node --check biniyam.js && node --check cognify/auth.js && node --check assets/js/chatbot.js
 python3 ci/htaccess-route-check.py
 python3 ci/check-assets.py
 for f in $(find . -name '*.php' -not -path './node_modules/*'); do php -l "$f"; done
@@ -186,7 +192,19 @@ A standalone Google Sign-In page (`ethioware.org/cognify/auth?source=extension`)
 
 ---
 
-## 9. `.htaccess` responsibilities
+## 9. Chatbot subsystem
+
+A site-wide AI chat widget (`assets/js/chatbot.js` + `assets/css/chatbot.css`, one `<script defer>` tag per page) that answers program questions from `chatbot/knowledge/*.md`, captures leads, refers enrollment-ready visitors to `apply.html` with abandonment tracking, and hard-gates partnership/pricing/donation answers behind a name+email form. Full design rationale in [CHATBOT_SPEC.md](CHATBOT_SPEC.md).
+
+- **Backend:** `chatbot/api/chat.php` — one Gemini `generateContent` REST call per user message (model `gemini-2.5-flash`, falling back to `gemini-2.5-flash-lite` on 429/5xx), stateless, same shape as `apply-submit.php`. `chatbot/api/track.php` receives `sendBeacon` events from `apply.html`. Both reuse `research-scholars/config.php`'s `rsp_get_connection()` — same database, three new tables (`chatbot_leads`, `chatbot_conversations`, `chatbot_events`, see `db/chatbot.sql`) plus a `chat_ref` column on `applications`.
+- **The partnership gate is structural, not a prompt instruction:** `chatbot/api/prompt.php` only reads `chatbot/knowledge/40-partnerships.md` off disk once a session's gate is passed — the model physically cannot leak content it was never given.
+- **Secrets:** `chatbot/config.php` (Gemini API key, admin password hash) — gitignored and deploy-excluded via the same any-depth `config.php` rule as `research-scholars/config.php`; copy it from `chatbot/config.example.php` on the server.
+- **Admin dashboard:** `chatbot/admin/` — password-gated PHP pages (leads table, filters, stats, CSV export, read-only transcripts). `robots.txt` disallows `/chatbot/`.
+- **No background workers:** "abandoned application" is derived at dashboard read time (a `LEFT JOIN` across `chatbot_events`/`applications`), not written by a cron.
+
+---
+
+## 10. `.htaccess` responsibilities
 
 A single `.htaccess` at the repo root (deployed as-is to every environment) handles:
 - **SEO host-gating** — only `ethioware.org` / `www.ethioware.org` is indexable; every other host (staging, direct IP) gets `X-Robots-Tag: noindex`.
@@ -198,7 +216,7 @@ A single `.htaccess` at the repo root (deployed as-is to every environment) hand
 
 ---
 
-## 10. Conventions & known issues
+## 11. Conventions & known issues
 
 - **Images:** prefer WebP (certificate scans were converted from ~4 MB PNGs to ~350 KB WebP at `-quality 86 -define webp:method=6`).
 - **Certificate asset paths must be root-relative**, not `../` (see §4).
@@ -208,7 +226,7 @@ A single `.htaccess` at the repo root (deployed as-is to every environment) hand
 
 ---
 
-## 11. Contacts & external links
+## 12. Contacts & external links
 
 - **Site:** https://ethioware.org
 - **Repo:** https://github.com/Ethioware-EdTech-Initiative/ethioware.org

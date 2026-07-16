@@ -71,6 +71,14 @@ $telegram    = clean($_POST['telegram'] ?? null);
 $where_heard = pick(clean($_POST['where_heard'] ?? null), $HEARD);
 $linkedin    = pick(clean($_POST['linkedin_follow'] ?? null), $YESNO);
 
+// Chatbot referral link-back. NOT part of the program/grade/where_heard/
+// linkedin_follow whitelist-sync set (CHATBOT_SPEC.md §7.2.4): it's nullable,
+// format-validated free input, not an enumerated field. A missing or
+// malformed chat_ref is silently discarded and must never fail the application.
+$chat_ref_raw = clean($_POST['chat_ref'] ?? null);
+$chat_ref = ($chat_ref_raw && preg_match('/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i', $chat_ref_raw))
+    ? $chat_ref_raw : null;
+
 // ---- Required-field validation ----
 $errors = [];
 if (!$full_name) $errors[] = 'Full name is required.';
@@ -132,7 +140,37 @@ if (!$success) {
     $conn->close();
     exit;
 }
+$insertId = $stmt->insert_id;
 $stmt->close();
+
+// Best-effort: link this application back to the chatbot referral and flip
+// the lead's status. Deliberately a separate step from the INSERT above (not
+// an extra column in it) so that a not-yet-imported db/chatbot.sql — the
+// chat_ref column, or the chatbot_leads/chatbot_events tables — can never
+// fail the application that's already been saved. mysqli_report is
+// MYSQLI_REPORT_OFF (set by rsp_get_connection()), so prepare() just returns
+// false on an unknown column/table instead of throwing.
+if ($chat_ref) {
+    $linkStmt = $conn->prepare('UPDATE applications SET chat_ref = ? WHERE id = ?');
+    if ($linkStmt) {
+        $linkStmt->bind_param('si', $chat_ref, $insertId);
+        $linkStmt->execute();
+        $linkStmt->close();
+    }
+    $leadStmt = $conn->prepare("UPDATE chatbot_leads SET status = 'apply_completed' WHERE referral_token = ?");
+    if ($leadStmt) {
+        $leadStmt->bind_param('s', $chat_ref);
+        $leadStmt->execute();
+        $leadStmt->close();
+    }
+    $eventStmt = $conn->prepare("INSERT INTO chatbot_events (referral_token, event, ip_address) VALUES (?, 'apply_completed', ?)");
+    if ($eventStmt) {
+        $eventStmt->bind_param('ss', $chat_ref, $ip_address);
+        $eventStmt->execute();
+        $eventStmt->close();
+    }
+}
+
 $conn->close();
 
 echo json_encode(['success' => true, 'message' => "Application received! We’ll review it and reach out via Telegram or email."]);

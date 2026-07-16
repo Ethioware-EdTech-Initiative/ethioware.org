@@ -17,8 +17,13 @@
 /ci/
 /.deployignore
 
-# --- Internal docs (handoff.md references structure/secrets) — don't publish ---
-*.md
+# --- Internal docs — don't publish (root-level only; chatbot/knowledge/*.md MUST deploy) ---
+/README.md
+/DEPLOY.md
+/handoff.md
+/TECHNICAL_OVERVIEW.md
+/CHATBOT_SPEC.md
+/cognify/README.md
 
 # --- DB schema is import-once, not web content ---
 /db/

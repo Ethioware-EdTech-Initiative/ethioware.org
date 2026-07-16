@@ -8,6 +8,7 @@ Allow: /
 Disallow: /cognify/
 Disallow: /.git/
 Disallow: /.vscode/
+Disallow: /chatbot/
 
 # Allow important resources
 Allow: /assets/

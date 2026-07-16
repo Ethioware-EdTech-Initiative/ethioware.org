@@ -70,7 +70,27 @@ The application form (`apply-submit.php`) reuses the Research Scholars database.
 > Only `config.php` stays server-only. Until then, those files are managed by
 > hand on the server.
 
-### 5. Protect master & require the checks
+### 5. Prepare the chatbot on the server (once)
+The chatbot (`chatbot/`) reuses the same database via
+`research-scholars/config.php` (step 4), plus its own secrets file. See
+`CHATBOT_SPEC.md` for the full design.
+- Import the schema: cPanel → phpMyAdmin → select the DB → **Import**
+  `db/chatbot.sql` (or `mysql -u USER -p DBNAME < db/chatbot.sql`). This also
+  `ALTER TABLE`s `applications` to add `chat_ref` — safe to run once; if it's
+  ever re-run after already applying, the duplicate-column error is expected
+  and harmless.
+- Create `chatbot/config.php` on the server from `chatbot/config.example.php`:
+  a Gemini API key (free tier — get one at https://aistudio.google.com/apikey),
+  the model + fallback model names, and the admin dashboard's password hash
+  (`php -r "echo password_hash('your-password', PASSWORD_DEFAULT), PHP_EOL;"`).
+  **It is gitignored and must live only on the server** — deploy never uploads
+  or deletes it, same as `research-scholars/config.php`.
+- Verify: `curl -X POST https://ethioware.org/chatbot/api/chat.php -d '{"ping":1}'`
+  should return a JSON error envelope (e.g. `{"success":false,"message":"..."}`),
+  not a PHP error page.
+- `robots.txt` already disallows `/chatbot/`; nothing else to configure.
+
+### 6. Protect master & require the checks
 GitHub repo → **Settings → Branches → Add branch ruleset (or rule)** for `master`:
 - ✅ **Require a pull request before merging**
 - ✅ **Require status checks to pass before merging** → select all of:
@@ -87,7 +107,7 @@ GitHub repo → **Settings → Branches → Add branch ruleset (or rule)** for `
 > Do **not** add `Deploy to cPanel (rsync over SSH)` as a required check — it only
 > runs on push to master, not on PRs, so it would block merges forever.
 
-### 6. Avoid double-deploys
+### 7. Avoid double-deploys
 If cPanel was previously auto-pulling this repo into `public_html` (the old
 "git pull on push" model), **disable that** so rsync is the single source of
 truth. Make sure `public_html` is a plain folder (no competing `.git` clone
@@ -135,6 +155,7 @@ Manual re-deploy (no code change): repo → **Actions → CI → Run workflow** 
 ```bash
 curl -I https://ethioware.org/                 # 200
 curl -I https://ethioware.org/WI10092516        # 200 (a certificate short URL)
+curl -X POST https://ethioware.org/chatbot/api/chat.php -d '{"ping":1}'  # JSON error, not a PHP error
 # Submit the apply form once and confirm a new row in the `applications` table.
 ```
 
@@ -163,7 +184,7 @@ Run them all locally before pushing:
 ```bash
 npm ci
 npm run lint:html
-node --check biniyam.js && node --check cognify/auth.js
+node --check biniyam.js && node --check cognify/auth.js && node --check assets/js/chatbot.js
 python3 ci/htaccess-route-check.py
 python3 ci/check-assets.py
 for f in $(find . -name '*.php' -not -path './node_modules/*'); do php -l "$f"; done
@@ -181,5 +202,13 @@ for f in $(find . -name '*.php' -not -path './node_modules/*'); do php -l "$f"; 
   docroot (subdomains/addon domains have their own folder).
 - **Apply form returns "Server is not configured yet"** — `research-scholars/config.php`
   is missing on the server (see step 4).
+- **Chatbot widget shows "briefly unavailable"** — either `chatbot/config.php` is
+  missing/has a placeholder `GEMINI_API_KEY` (see step 5), or the Gemini free-tier
+  quota is exhausted for the day; check `chatbot_events` for `quota_fallback` rows.
+- **Chatbot knowledge base seems stale/wrong** — the `.deployignore` `*.md` rule
+  was replaced with explicit root-doc excludes so `chatbot/knowledge/*.md` ships;
+  if a knowledge file was renamed/removed, delete the old file on the server by
+  hand (rsync runs without `--delete`, see the "A deleted file is still live" note
+  below).
 - **A deleted file is still live** — expected (no `--delete`); remove it on the
   server by hand, or do a one-off `rsync --delete` after verifying excludes.
