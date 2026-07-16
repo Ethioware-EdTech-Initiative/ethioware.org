@@ -44,7 +44,7 @@ function chatbot_admin_require_login(): void {
 /** Failed attempts from this IP in the trailing window. */
 function chatbot_admin_recent_failures(mysqli $conn, string $ip): int {
     $window = CHATBOT_ADMIN_ATTEMPT_WINDOW_MIN;
-    $stmt = $conn->prepare(
+    $stmt = chatbot_prepare($conn, 
         "SELECT COUNT(*) AS c FROM chatbot_events
          WHERE event = 'admin_login_fail' AND ip_address = ?
            AND created_at >= (NOW() - INTERVAL ? MINUTE)"

@@ -6,6 +6,29 @@
 
 require_once __DIR__ . '/db.php';
 
+/**
+ * Wraps mysqli::prepare() and fails with a clean JSON 500 instead of a raw
+ * PHP fatal ("call to bind_param() on bool") if it returns false — e.g. the
+ * server's chatbot/config.php is fine but db/chatbot.sql hasn't been
+ * imported yet, or a table/column is missing. Every prepare() call in the
+ * chatbot code goes through this.
+ */
+function chatbot_prepare(mysqli $conn, string $sql): mysqli_stmt {
+    $stmt = $conn->prepare($sql);
+    if ($stmt === false) {
+        error_log('chatbot: prepare() failed (' . $conn->error . ') for: ' . $sql);
+        http_response_code(500);
+        if (!headers_sent()) {
+            header('Content-Type: application/json; charset=utf-8');
+        }
+        die(json_encode([
+            'success' => false,
+            'message' => 'Chatbot is not fully configured yet (database schema). Please try again later.',
+        ]));
+    }
+    return $stmt;
+}
+
 function chatbot_client_ip(): ?string {
     $ip = $_SERVER['REMOTE_ADDR'] ?? null;
     return $ip ? substr($ip, 0, 45) : null;
@@ -32,7 +55,7 @@ function chatbot_clean(?string $v): ?string {
 
 /** Fetch a chatbot_leads row by session_id, or null. */
 function chatbot_get_lead(mysqli $conn, string $sessionId): ?array {
-    $stmt = $conn->prepare('SELECT * FROM chatbot_leads WHERE session_id = ? LIMIT 1');
+    $stmt = chatbot_prepare($conn, 'SELECT * FROM chatbot_leads WHERE session_id = ? LIMIT 1');
     $stmt->bind_param('s', $sessionId);
     $stmt->execute();
     $res = $stmt->get_result();
@@ -51,7 +74,7 @@ function chatbot_ensure_lead(mysqli $conn, string $sessionId, ?string $pageFirst
     if ($existing) {
         return $existing;
     }
-    $stmt = $conn->prepare(
+    $stmt = chatbot_prepare($conn, 
         'INSERT INTO chatbot_leads (session_id, page_first_seen) VALUES (?, ?)
          ON DUPLICATE KEY UPDATE session_id = session_id'
     );
@@ -85,7 +108,7 @@ function chatbot_update_lead(mysqli $conn, string $sessionId, array $fields): vo
     $types .= 's';
     $values[] = $sessionId;
     $sql = 'UPDATE chatbot_leads SET ' . implode(', ', $sets) . ' WHERE session_id = ?';
-    $stmt = $conn->prepare($sql);
+    $stmt = chatbot_prepare($conn, $sql);
     $stmt->bind_param($types, ...$values);
     $stmt->execute();
     $stmt->close();
@@ -98,7 +121,7 @@ function chatbot_log_event(mysqli $conn, string $event, array $opts = []): void 
     $detail = isset($opts['detail']) ? mb_substr((string) $opts['detail'], 0, 255) : null;
     $page = isset($opts['page']) ? mb_substr((string) $opts['page'], 0, 255) : null;
 
-    $stmt = $conn->prepare(
+    $stmt = chatbot_prepare($conn, 
         'INSERT INTO chatbot_events (session_id, referral_token, ip_address, event, detail, page)
          VALUES (?, ?, ?, ?, ?, ?)'
     );
@@ -109,7 +132,7 @@ function chatbot_log_event(mysqli $conn, string $event, array $opts = []): void 
 
 /** Fetch (creating if needed) the conversation row's decoded messages array. */
 function chatbot_get_conversation(mysqli $conn, string $sessionId, ?string $ipAddress): array {
-    $stmt = $conn->prepare('SELECT messages, message_count FROM chatbot_conversations WHERE session_id = ? LIMIT 1');
+    $stmt = chatbot_prepare($conn, 'SELECT messages, message_count FROM chatbot_conversations WHERE session_id = ? LIMIT 1');
     $stmt->bind_param('s', $sessionId);
     $stmt->execute();
     $row = $stmt->get_result()->fetch_assoc();
@@ -121,7 +144,7 @@ function chatbot_get_conversation(mysqli $conn, string $sessionId, ?string $ipAd
     }
 
     $empty = json_encode([]);
-    $stmt = $conn->prepare(
+    $stmt = chatbot_prepare($conn, 
         'INSERT INTO chatbot_conversations (session_id, messages, message_count, ip_address)
          VALUES (?, ?, 0, ?) ON DUPLICATE KEY UPDATE session_id = session_id'
     );
@@ -142,7 +165,7 @@ function chatbot_append_message(mysqli $conn, string $sessionId, array &$current
     $current['message_count'] = $count;
     $json = json_encode($current['messages'], JSON_UNESCAPED_UNICODE);
 
-    $stmt = $conn->prepare(
+    $stmt = chatbot_prepare($conn, 
         'UPDATE chatbot_conversations SET messages = ?, message_count = ?, last_message_at = CURRENT_TIMESTAMP
          WHERE session_id = ?'
     );
@@ -154,7 +177,7 @@ function chatbot_append_message(mysqli $conn, string $sessionId, array &$current
 
 /** Count 'message' events from an IP in the last 24h, for daily abuse caps. */
 function chatbot_ip_message_count_today(mysqli $conn, string $ipAddress): int {
-    $stmt = $conn->prepare(
+    $stmt = chatbot_prepare($conn, 
         "SELECT COUNT(*) AS c FROM chatbot_events
          WHERE event = 'message' AND ip_address = ? AND created_at >= (NOW() - INTERVAL 1 DAY)"
     );
