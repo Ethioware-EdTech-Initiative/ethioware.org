@@ -32,7 +32,9 @@ button{
 
 h1,h2,h3{
     color: var(--title-color);
-    font-weight: var(--font-semi-bold);  
+    font-weight: var(--font-semi-bold);
+    font-family: var(--heading-font);
+    letter-spacing: -0.01em;
 }
 
 ul{
