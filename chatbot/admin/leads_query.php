@@ -93,7 +93,7 @@ function chatbot_admin_fetch_leads(mysqli $conn, array $get, int $page, int $per
     $offset = max(0, ($page - 1) * $perPage);
     $params = array_merge($f['params'], [$perPage, $offset]);
 
-    $stmt = $conn->prepare($sql);
+    $stmt = chatbot_prepare($conn, $sql);
     $stmt->bind_param($types, ...$params);
     $stmt->execute();
     $rows = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -102,7 +102,7 @@ function chatbot_admin_fetch_leads(mysqli $conn, array $get, int $page, int $per
     // Count total matching rows (same filters, no LIMIT/OFFSET) for pagination.
     $countInner = CHATBOT_ADMIN_BASE_SELECT . " WHERE {$f['where']} GROUP BY l.id HAVING {$f['having']}";
     $countSql = "SELECT COUNT(*) AS c FROM ({$countInner}) t";
-    $stmt = $conn->prepare($countSql);
+    $stmt = chatbot_prepare($conn, $countSql);
     if ($f['types']) {
         $stmt->bind_param($f['types'], ...$f['params']);
     }
@@ -118,7 +118,7 @@ function chatbot_admin_fetch_leads_all(mysqli $conn, array $get): array {
     $f = chatbot_admin_build_filters($get);
     $sql = CHATBOT_ADMIN_BASE_SELECT . " WHERE {$f['where']} GROUP BY l.id HAVING {$f['having']}
             ORDER BY l.created_at DESC";
-    $stmt = $conn->prepare($sql);
+    $stmt = chatbot_prepare($conn, $sql);
     if ($f['types']) {
         $stmt->bind_param($f['types'], ...$f['params']);
     }

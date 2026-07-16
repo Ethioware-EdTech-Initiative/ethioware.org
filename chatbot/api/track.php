@@ -60,7 +60,7 @@ $conn = chatbot_db();
 
 // The token must already exist as a referral_token on a lead row — track.php
 // never creates leads.
-$stmt = $conn->prepare('SELECT id, status FROM chatbot_leads WHERE referral_token = ? LIMIT 1');
+$stmt = chatbot_prepare($conn, 'SELECT id, status FROM chatbot_leads WHERE referral_token = ? LIMIT 1');
 $stmt->bind_param('s', $token);
 $stmt->execute();
 $lead = $stmt->get_result()->fetch_assoc();
@@ -69,7 +69,7 @@ if (!$lead) {
     chatbot_track_fail(404, 'Unknown referral token.');
 }
 
-$stmt = $conn->prepare('SELECT COUNT(*) AS c FROM chatbot_events WHERE referral_token = ?');
+$stmt = chatbot_prepare($conn, 'SELECT COUNT(*) AS c FROM chatbot_events WHERE referral_token = ?');
 $stmt->bind_param('s', $token);
 $stmt->execute();
 $count = (int) ($stmt->get_result()->fetch_assoc()['c'] ?? 0);
@@ -81,7 +81,7 @@ if ($count >= CHATBOT_TRACK_EVENT_CAP_PER_TOKEN) {
 chatbot_log_event($conn, $event, ['referral_token' => $token, 'ip_address' => chatbot_client_ip(), 'detail' => $detail, 'page' => $page]);
 
 if ($event === 'apply_started' && !in_array($lead['status'], ['apply_started', 'apply_completed'], true)) {
-    $stmt = $conn->prepare("UPDATE chatbot_leads SET status = 'apply_started' WHERE referral_token = ?");
+    $stmt = chatbot_prepare($conn, "UPDATE chatbot_leads SET status = 'apply_started' WHERE referral_token = ?");
     $stmt->bind_param('s', $token);
     $stmt->execute();
     $stmt->close();

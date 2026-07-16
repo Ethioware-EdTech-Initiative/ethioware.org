@@ -17,7 +17,7 @@ if (!$lead) {
     exit('Lead not found.');
 }
 
-$stmt = $conn->prepare('SELECT messages, started_at, last_message_at, ip_address FROM chatbot_conversations WHERE session_id = ? LIMIT 1');
+$stmt = chatbot_prepare($conn, 'SELECT messages, started_at, last_message_at, ip_address FROM chatbot_conversations WHERE session_id = ? LIMIT 1');
 $stmt->bind_param('s', $sessionId);
 $stmt->execute();
 $conv = $stmt->get_result()->fetch_assoc();
