@@ -14,15 +14,22 @@
   --first-color-alt: hsl(var(--hue), 24%, 28%);
   --first-color-light: hsl(var(--hue), 24%, 66%);
   --first-color-lighten: hsl(var(--hue), 24%, 92%);
-  --title-color: hsl(var(--hue), 4%, 15%);
-  --text-color: hsl(var(--hue), 4%, 35%);
-  --text-color-light: hsl(var(--hue), 4%, 55%);
-  --body-color: hsl(var(--hue), 0%, 100%);
-  --container-color: #fff;
+  --title-color: hsl(30, 12%, 13%);
+  --text-color: hsl(30, 8%, 33%);
+  --text-color-light: hsl(30, 8%, 52%);
+  /* Warm paper, not stark white — reads as considered rather than a cold SaaS surface. */
+  --body-color: hsl(38, 30%, 97%);
+  --container-color: hsl(36, 24%, 99%);
+  --hairline-color: hsl(36, 20%, 85%);
+  /* Restrained secondary accent — muted brass. Used only for eyebrows, badges,
+     and single dividers; never competes with the brand blue as a second CTA color. */
+  --accent-color: hsl(36, 42%, 38%);
+  --accent-color-soft: hsl(36, 40%, 92%);
 
   /*========== Font and typography ==========*/
   /*.5rem = 8px | 1rem = 16px ...*/
-  --body-font: "Poppins", sans-serif;
+  --body-font: "Public Sans", system-ui, sans-serif;
+  --heading-font: "Fraunces", Georgia, serif;
   --big-font-size: 2rem;
   --h1-font-size: 1.5rem;
   --h2-font-size: 1.25rem;
@@ -153,6 +160,8 @@ h2,
 h3 {
   color: var(--title-color);
   font-weight: var(--font-semi-bold);
+  font-family: var(--heading-font);
+  letter-spacing: -0.01em;
 }
 
 ul {
@@ -171,11 +180,15 @@ img {
 /*=============== THEME ===============*/
 /*========== Variables Dark theme ==========*/
 body.dark-theme {
+  --first-color: hsl(var(--hue), 65%, 62%);
   --first-color-dark: hsl(var(--hue), 80%, 20%);
-  --title-color: hsl(var(--hue), 30%, 95%);
-  --text-color: hsl(var(--hue), 0%, 75%);
-  --body-color: hsl(var(--hue), 8%, 12%);
-  --container-color: hsl(var(--hue), 40%, 16%);
+  --title-color: hsl(36, 18%, 92%);
+  --text-color: hsl(36, 8%, 72%);
+  --body-color: hsl(30, 10%, 10%);
+  --container-color: hsl(30, 10%, 14%);
+  --hairline-color: hsl(30, 10%, 24%);
+  --accent-color: hsl(36, 55%, 62%);
+  --accent-color-soft: hsl(36, 30%, 20%);
 }
 
 /*========== Button Dark/Light ==========*/
@@ -568,7 +581,9 @@ the website, in dark theme
 
 .home__title {
   font-size: var(--big-font-size);
-  line-height: 140%;
+  line-height: 118%;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
   margin-bottom: var(--mb-1);
 }
 
@@ -2082,7 +2097,9 @@ img {
 
 .stats__card {
   padding: 1.5rem;
-  border-radius: 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--hairline-color);
+  background-color: var(--container-color);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2091,25 +2108,31 @@ img {
 }
 
 .stats__card.glass {
-  background-color: transparent;
-  box-shadow: var(--box-shadow);
+  background-color: var(--container-color);
+  box-shadow: 0 1px 2px hsla(30, 20%, 10%, 0.04);
 }
 
 .stats__icon {
-  font-size: 2rem;
+  font-size: 1.75rem;
   color: var(--first-color);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
 }
 
 .stats__number {
-  font-size: 1.5rem;
-  font-weight: var(--font-semi-bold);
+  font-family: var(--heading-font);
+  font-variant-numeric: tabular-nums;
+  font-size: 1.75rem;
+  font-weight: 700;
   color: var(--title-color);
 }
 
 .stats__title {
-  font-size: var(--small-font-size);
+  font-size: var(--smaller-font-size);
+  font-weight: var(--font-medium);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--text-color-light);
+  margin-top: 0.15rem;
 }
 
 .animated-number {
@@ -2410,4 +2433,21 @@ button.glass[type="submit"] {
   box-shadow: none;
   background: none;
   border: none;
+}
+
+/* "Trusted by" treatment: quiet grayscale at rest, full color on hover — a
+   restrained credibility cue rather than a busy row of full-color logos. */
+.partner img {
+  filter: grayscale(1) opacity(0.7);
+  transition: filter 0.25s ease;
+}
+
+.partner:hover img {
+  filter: grayscale(0) opacity(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .partner img {
+    transition: none;
+  }
 }

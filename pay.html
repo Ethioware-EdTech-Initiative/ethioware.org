@@ -15,6 +15,12 @@
       href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=Public+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="assets/css/styles.css" />
     <link rel="shortcut icon" href="assets/img/logo.png" type="image/x-icon" />
     <script type="text/javascript">
@@ -30,20 +36,29 @@
     <style>
       /*=============== VARIABLES DARK THEME ===============*/
       :root {
-        --body-color: #f4f7f9;
-        --container-color: #fff;
-        --title-color: #333;
-        --text-color: #555;
-        --text-color-light: #888;
-        --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        /* Warm paper, not stark white — matches the site-wide token in styles.css */
+        --body-color: #f7f3ea;
+        --container-color: #fdfbf7;
+        --title-color: #211d1a;
+        --text-color: #4a453f;
+        --text-color-light: #83796d;
+        --hairline: #e1d9c9;
+        --box-shadow: 0 1px 2px rgba(30, 20, 10, 0.05);
 
-        --first-color: #007bff;
-        --first-color-alt: #0069d9;
-        --first-color-dark: #0056b3;
-        --first-color-light: #66b3ff;
-        --first-color-lighter: #cce6ff;
+        /* The site's actual brand blue (hsl(215, 80%, 32%)) — this page had
+           drifted to a generic #007bff; brought back in line. */
+        --first-color: hsl(215, 80%, 32%);
+        --first-color-alt: hsl(215, 75%, 25%);
+        --first-color-dark: hsl(215, 80%, 20%);
+        --first-color-light: hsl(215, 55%, 66%);
+        --first-color-lighter: hsl(215, 55%, 92%);
 
-        --body-font: "Arial", sans-serif;
+        /* Restrained secondary accent — muted brass, used only for badges/labels */
+        --accent-color: #8a6423;
+        --accent-color-soft: #f1e6d2;
+
+        --body-font: "Public Sans", system-ui, sans-serif;
+        --heading-font: "Fraunces", Georgia, serif;
         --h1-font-size: 2.25rem;
         --h2-font-size: 1.5rem;
         --h3-font-size: 1.25rem;
@@ -59,12 +74,18 @@
       }
 
       body.dark-theme {
-        --body-color: #2c3e50;
-        --container-color: #34495e;
-        --title-color: #ecf0f1;
-        --text-color: #bdc3c7;
-        --text-color-light: #95a5a6;
-        --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        --body-color: #17140f;
+        --container-color: #211d17;
+        --title-color: #f2ede2;
+        --text-color: #c9c0b0;
+        --text-color-light: #948a79;
+        --hairline: #362f24;
+        --box-shadow: 0 1px 2px rgba(0, 0, 0, 0.35);
+        --first-color: hsl(213, 70%, 62%);
+        --first-color-alt: hsl(213, 70%, 70%);
+        --first-color-lighter: hsl(215, 35%, 22%);
+        --accent-color: #d8b064;
+        --accent-color-soft: #3a2f1a;
       }
 
       /*=============== BASE ===============*/
@@ -107,10 +128,12 @@
       }
       .section__title-center {
         text-align: center;
+        font-family: var(--heading-font);
         font-size: var(--h1-font-size);
         color: var(--title-color);
         margin-bottom: 0.5rem;
         font-weight: var(--font-bold);
+        letter-spacing: -0.01em;
       }
       .sub-heading {
         text-align: justify;
@@ -211,8 +234,8 @@
       }
       .pricing-tier {
         background-color: var(--container-color);
-        border: 2px solid var(--first-color-alt);
-        border-radius: 12px;
+        border: 1px solid var(--hairline);
+        border-radius: 8px;
         padding: 1.5rem;
         text-align: center;
         box-shadow: var(--box-shadow);
@@ -224,34 +247,38 @@
         justify-content: space-between;
       }
       .pricing-tier:hover {
-        transform: translateY(-5px);
+        transform: translateY(-3px);
+        border-color: var(--first-color-light);
       }
       .pricing-tier.selected {
         border-color: var(--first-color);
-        box-shadow: 0 6px 25px rgba(0, 123, 255, 0.2);
+        box-shadow: 0 6px 25px rgba(15, 40, 80, 0.12);
       }
       .pricing-tier.popular {
-        border: 3px solid var(--first-color);
+        border: 2px solid var(--accent-color);
         transform: scale(1.05);
         z-index: 10;
       }
       .pricing-tier.popular:hover {
-        transform: translateY(-10px) scale(1.05);
+        transform: translateY(-6px) scale(1.05);
       }
       .popular-banner {
         position: absolute;
         top: -18px;
         left: 50%;
         transform: translateX(-50%);
-        background-color: var(--first-color);
+        background-color: var(--accent-color);
         color: #fff;
         padding: 7px 20px;
         border-radius: 20px;
+        font-family: var(--body-font);
         font-size: var(--small-font-size);
         font-weight: var(--font-semi-bold);
+        letter-spacing: 0.04em;
         white-space: nowrap;
       }
       .tier-header h2 {
+        font-family: var(--heading-font);
         font-size: var(--h2-font-size);
         color: var(--title-color);
         margin-top: 0;
@@ -304,8 +331,10 @@
         transform: translateY(-70%) rotate(-5deg) skewX(-40deg);
       }
       .tier-price .current-price {
+        font-family: var(--heading-font);
         font-size: 2.5rem;
         font-weight: var(--font-bold);
+        font-variant-numeric: tabular-nums;
         color: var(--title-color);
         margin: 0.25rem 0;
       }
