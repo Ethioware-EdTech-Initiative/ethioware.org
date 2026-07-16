@@ -237,6 +237,28 @@
     // the page is served as /apply or /apply.html.
     const SUBMIT_URL = '/apply-submit.php';
 
+    // --- Chatbot referral tracking (additive; every part is a no-op when the
+    // visitor didn't arrive via a chatbot referral link). See
+    // CHATBOT_SPEC.md §7.2.3 and chatbot/api/track.php.
+    const CHATBOT_TRACK_URL = '/chatbot/api/track.php';
+    (function captureChatbotRef() {
+        const ref = new URLSearchParams(location.search).get('ref');
+        if (ref && /^[0-9a-f-]{36}$/i.test(ref)) {
+            sessionStorage.setItem('cb_ref', ref);
+            chatbotTrackBeacon('apply_started');
+        }
+    })();
+    function chatbotTrackBeacon(event, detail) {
+        const token = sessionStorage.getItem('cb_ref');
+        if (!token || !navigator.sendBeacon) return;
+        const body = JSON.stringify({
+            token, event,
+            detail: detail !== undefined && detail !== null ? String(detail) : undefined,
+            page: location.pathname
+        });
+        navigator.sendBeacon(CHATBOT_TRACK_URL, new Blob([body], { type: 'application/json' }));
+    }
+
     // Per-program copy taken from the August-cohort registration sheets. The
     // matching description is revealed only after the applicant picks a track.
     const COMMON_INFO =
@@ -300,6 +322,7 @@
             fillDescription(formData.program);
         }
         updateProgressBar();
+        chatbotTrackBeacon('apply_step', questionIndex);
 
         const navContainer = document.getElementById('nav-button-container');
         if (questionIndex > 0 && questionIndex <= totalQuestions) {
@@ -416,6 +439,9 @@
         // Include the honeypot value so the server can reject bots.
         const payload = Object.assign({}, formData);
         payload.website = (document.getElementById('hp-website') || {}).value || '';
+        // Link back to the chatbot referral, if the visitor arrived via one.
+        const chatRef = sessionStorage.getItem('cb_ref');
+        if (chatRef) payload.chat_ref = chatRef;
 
         try {
             const response = await fetch(SUBMIT_URL, {
@@ -440,5 +466,6 @@
     // Initialize the form
     showQuestion(currentQuestion);
 </script>
+<script src="/assets/js/chatbot.js" defer></script>
 </body>
 </html>
