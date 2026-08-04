@@ -143,6 +143,66 @@ if (!$success) {
 $insertId = $stmt->insert_id;
 $stmt->close();
 
+// ---------------------------------------------------------------------------
+// Instatic CMS dual-write (P3-2).
+//
+// Fire-and-forget: mirror the new application row into the Instatic CMS
+// "applications" data table so that admins can view it in the CMS dashboard.
+// On sync failure we log and move on — the MySQL INSERT already succeeded,
+// and the user must never see a sync error.
+//
+// Requires server-only env vars (set in hosting; NOT committed):
+//   INSTATIC_SYNC_URL    — e.g. http://127.0.0.1:3001/api/data/applications
+//   INSTATIC_SYNC_SECRET — shared HMAC secret for authenticating sync POSTs
+// ---------------------------------------------------------------------------
+$syncUrl    = getenv('INSTATIC_SYNC_URL');
+$syncSecret = getenv('INSTATIC_SYNC_SECRET');
+
+if ($syncUrl && $syncSecret) {
+    $syncPayload = json_encode([
+        'id'              => $insertId,
+        'full_name'       => $full_name,
+        'email'           => $email,
+        'highschool'      => $highschool,
+        'citizenship'     => $citizenship,
+        'program'         => $program,
+        'grade'           => $grade,
+        'gpa'             => $gpa,
+        'telegram'        => $telegram,
+        'where_heard'     => $where_heard,
+        'linkedin_follow' => $linkedin,
+        'cohort'          => $cohort,
+        'ip_address'      => $ip_address,
+        'created_at'      => date('c'),
+    ]);
+
+    $syncSig = hash_hmac('sha256', $syncPayload, $syncSecret);
+
+    $ch = curl_init($syncUrl);
+    curl_setopt_array($ch, [
+        CURLOPT_POST           => true,
+        CURLOPT_POSTFIELDS     => $syncPayload,
+        CURLOPT_HTTPHEADER     => [
+            'Content-Type: application/json',
+            'X-Instatic-Signature: ' . $syncSig,
+        ],
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT        => 5,           // hard cap — never block the user
+        CURLOPT_CONNECTTIMEOUT => 2,
+    ]);
+    $syncResp = curl_exec($ch);
+    $syncCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $syncErr  = curl_error($ch);
+    curl_close($ch);
+
+    if ($syncResp === false || $syncCode < 200 || $syncCode >= 300) {
+        error_log(sprintf(
+            'apply-submit: Instatic sync failed (HTTP %d): %s — payload id=%d',
+            $syncCode, $syncErr ?: $syncResp, $insertId
+        ));
+    }
+}
+
 // Best-effort: link this application back to the chatbot referral and flip
 // the lead's status. Deliberately a separate step from the INSERT above (not
 // an extra column in it) so that a not-yet-imported db/chatbot.sql — the
