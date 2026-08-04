@@ -17,12 +17,28 @@
 
 header('Content-Type: application/json; charset=utf-8');
 
+// ---------------------------------------------------------------------------
+// P3-5: Deprecation gate (post-cutover).
+// After the CMS form is live and verified (P2-4 + P4-4), set the server env
+// var ETHIOWARE_RSP_DEPRECATED=1 to return 410 Gone and direct users to the
+// new CMS-powered form. This is OFF by default.
+// ---------------------------------------------------------------------------
+if (getenv('ETHIOWARE_RSP_DEPRECATED') === '1') {
+    http_response_code(410);
+    echo json_encode([
+        'success' => false,
+        'message' => 'This signup endpoint has moved. Please use the new form at /support.',
+    ]);
+    exit;
+}
+
 // Only allow POST requests
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
     echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
     exit;
 }
+
 
 require_once __DIR__ . '/config.php';
 

@@ -63,7 +63,7 @@ jobs:
       - name: node --check on checked-in scripts
         run: |
           set -e
-          for f in biniyam.js cognify/auth.js assets/js/chatbot.js; do
+          for f in biniyam.js cognify/auth.js assets/js/chatbot.js assets/js/sendmail.js; do
             if [ -f "$f" ]; then
               node --check "$f"
             fi
