@@ -1,0 +1,52 @@
+# ---------------------------------------------------------------------------
+# cloudflared-config-prod.yml — P4-3: Production tunnel ingress config
+#
+# Copy this to ~/.cloudflared/config.yml on the VPS, replacing <TUNNEL-UUID>
+# with your actual tunnel UUID (from `cloudflared tunnel list`).
+#
+# Traffic routing:
+#   staging.ethioware.org  → Instatic staging (port 3002)
+#   cms.ethioware.org      → Instatic prod admin (port 3001)
+#   ethioware.org/apply-submit.php, /chatbot/*, /cognify/*  → Apache (port 80)
+#   ethioware.org/* (everything else)  → Instatic prod (port 3001)
+#   www.ethioware.org      → Instatic prod (port 3001)
+#
+# IMPORTANT: Path-based rules are evaluated in order. The PHP endpoints MUST
+# come before the default ethioware.org catch-all so Apache handles them.
+# ---------------------------------------------------------------------------
+
+tunnel: <TUNNEL-UUID>
+credentials-file: /home/ethiowzj/.cloudflared/<TUNNEL-UUID>.json
+
+ingress:
+  # --- Staging (keep for testing) ---
+  - hostname: staging.ethioware.org
+    service: http://127.0.0.1:3002
+
+  # --- CMS admin (always Instatic prod) ---
+  - hostname: cms.ethioware.org
+    service: http://127.0.0.1:3001
+
+  # --- Production: PHP endpoints → Apache ---
+  # These must come before the ethioware.org catch-all
+  - hostname: ethioware.org
+    path: /apply-submit\.php
+    service: http://127.0.0.1:80
+  - hostname: ethioware.org
+    path: /chatbot/.*
+    service: http://127.0.0.1:80
+  - hostname: ethioware.org
+    path: /cognify/.*
+    service: http://127.0.0.1:80
+  - hostname: ethioware.org
+    path: /research-scholars/.*
+    service: http://127.0.0.1:80
+
+  # --- Production: everything else → Instatic CMS ---
+  - hostname: ethioware.org
+    service: http://127.0.0.1:3001
+  - hostname: www.ethioware.org
+    service: http://127.0.0.1:3001
+
+  # --- Catch-all (required by cloudflared) ---
+  - service: http_status:404

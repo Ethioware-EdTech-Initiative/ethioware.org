@@ -27,6 +27,8 @@
 /cognify/README.md
 /docs/
 /scripts/README.md
+/scripts/setup-instatic-prod.sh
+/scripts/cloudflared-config-prod.yml
 
 # --- DB schema is import-once, not web content ---
 /db/
