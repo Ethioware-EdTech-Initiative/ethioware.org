@@ -86,7 +86,7 @@ jobs:
         run: python3 ci/check-assets.py
 
   php-syntax:
-    name: PHP syntax
+    name: PHP syntax & admin auth tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -96,6 +96,10 @@ jobs:
           for f in $(find . -name '*.php' -not -path './node_modules/*'); do
             php -l "$f"
           done
+      - name: Clerk token verification tests
+        # chatbot/admin/clerk.php verifies RS256 tokens by hand (no Composer on
+        # cPanel), so its accept/reject rules are covered by real assertions.
+        run: php ci/clerk-auth-test.php
 
   guard:
     name: Repo hygiene & secret guard

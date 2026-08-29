@@ -308,9 +308,14 @@ Sequence:
 
 ## 8. Admin dashboard
 
-**Location:** `chatbot/admin/index.php` (+ `login.php`, `export.php`). Plain PHP + inline CSS reusing site variables; no framework, no JS beyond a sortable-table helper if desired.
+**Location:** `chatbot/admin/index.php` (+ `login.php`, `export.php`, and `clerk.php` / `clerk-callback.php` for sign-in). Plain PHP + inline CSS reusing site variables; no framework, no JS beyond the Clerk sign-in widget on `login.php` and a sortable-table helper if desired.
 
-**Access control:** PHP session login. Single shared password, stored as a `password_hash()` value in `chatbot/config.php` (`ADMIN_PASSWORD_HASH`); `password_verify()` on login; 5 attempts / 15 min per IP (tracked in `chatbot_events`); session cookie `HttpOnly` + `Secure` + `SameSite=Lax`; 8-hour idle timeout. Add `Disallow: /chatbot/` to `robots.txt`. One shared password is a deliberate simplicity trade for a ~5-person non-technical team; per-user accounts are listed in §12.
+**Access control:** PHP session login, entered one of two ways.
+
+- **Clerk (preferred).** Staff sign in with their own account; `clerk-callback.php` verifies the resulting RS256 session token against Clerk's public JWKS (`clerk.php` — hand-rolled on `ext-openssl`, since this host has no Composer) and checks the address against a server-side allowlist that **fails closed**. Setup, settings and the failure-mode table live in [chatbot-admin-clerk.md](chatbot-admin-clerk.md); the verification rules are tested in `ci/clerk-auth-test.php`. This resolves §12.4 — `chatbot_events.detail` now records *which* person logged in, and access is revoked in Clerk rather than by rotating a secret everyone knows.
+- **Shared password (fallback).** The original single `password_hash()` value in `chatbot/config.php` (`ADMIN_PASSWORD_HASH`), `password_verify()` on login. Kept as break-glass access so a wrong key or a Clerk outage cannot lock staff out of production; retire it with `CHATBOT_ADMIN_PASSWORD_FALLBACK = false` once Clerk is verified live. It is the only path when no `CLERK_*` values are set, so a server configured the old way is unaffected.
+
+Both paths land on the same session and share the same limits: 5 failed attempts / 15 min per IP (tracked in `chatbot_events`); session cookie `HttpOnly` + `Secure` + `SameSite=Lax`; 8-hour idle timeout. Add `Disallow: /chatbot/` to `robots.txt`.
 
 **Main view — leads table** (newest first, 50/page):
 
@@ -442,6 +447,6 @@ The referral-token pipeline (`?ref=` → sessionStorage → beacon → `track.ph
 1. **Widget on `pay.html` donation flow** — the bot is installed there per "all pages," but should donation questions route to the *gate* (treats donors as pipeline; adds friction) or answer freely from a public knowledge section (friendlier; loses capture)? Spec currently gates `donation` intent per §C's letter. Tradeoff: capture vs. donor friction. Recommend revisiting after the first month's transcripts.
 2. **Weekly email digest vs. dashboard-only** — partnership leads get instant emails (§7.3); everything else is dashboard-pull. If staff won't check weekly, add a digest — but with no cron on shared hosting it would need cPanel's cron (which *does* exist on most cPanel plans and could also automate the retention cleanup in §7.4.6). Worth confirming what the plan offers; the spec deliberately doesn't depend on it.
 3. **Transcript retention period** — 12 months proposed (§7.4.6); shorten to 6 if the team prefers a stricter privacy posture. Leads (name/email) are kept indefinitely either way.
-4. **Shared vs. per-user dashboard password** — shared is specified for simplicity; per-user rows in a `chatbot_admins` table is a ~half-day upgrade if accountability for who viewed/exported leads ever matters (e.g., data-protection commitments to partners).
+4. ~~**Shared vs. per-user dashboard password**~~ — **decided: per-user, via Clerk** (§8, [chatbot-admin-clerk.md](chatbot-admin-clerk.md)). Rather than a `chatbot_admins` table, staff identities live in Clerk and the server checks an allowlist, so there are no password rows to manage here. The shared password remains only as a break-glass fallback. Still open, if accountability ever needs to go further: *login* is attributed, but viewing or exporting leads is not — per-action rows need a new `chatbot_events.event` ENUM value.
 5. **Greeting copy and chip labels** — the exact strings ("How may I help?" vs. program-led copy) should come from the education team; A/B judgment, not engineering. The spec fixes the *mechanics* (10 s, once per session), not the words.
 6. **Exact `program_interest` list** — §4.3's enum mirrors current `apply.html` programs plus `Research Scholars Program`/`Unsure`. Confirm against the program materials before Phase 2, since it also drives the dashboard's program filter (and remember it joins the whitelist sync set).
