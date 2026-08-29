@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Widget visual demo</title>
+<style>
+  body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;margin:0;padding:2.5rem;
+       background:hsl(215,24%,94%);color:#16202e;min-height:100vh}
+  body.dark-theme{background:hsl(215,20%,12%);color:#e8ecf2}
+  h1{font-size:1.4rem;margin:0 0 .5rem}
+  p{max-width:46ch;line-height:1.6;opacity:.75;font-size:.95rem}
+</style>
+</head><body>
+<h1>Ethioware EdTech Initiative</h1>
+<p>Page content sits behind the widget so the panel's translucency and shadow can be judged against a real background.</p>
+<script src="/assets/js/chatbot.js" defer></script>
+<script>
+(function () {
+  var params = new URLSearchParams(location.search);
+  if (params.get('theme') === 'dark') document.body.classList.add('dark-theme');
+  // computeTheme() checks localStorage before prefers-color-scheme, so this
+  // pins the widget's theme for screenshots (headless follows the OS).
+  try { if (params.get('theme')) localStorage.setItem('selected-theme', params.get('theme')); } catch (e) {}
+
+  function $(s) { return document.querySelector(s); }
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  async function until(fn, ms) {
+    var end = Date.now() + (ms || 4000);
+    while (Date.now() < end) { var v = fn(); if (v) return v; await sleep(40); }
+    return null;
+  }
+  async function send(text) {
+    var before = document.querySelectorAll('.cb-msg.cb-model').length;
+    $('.cb-composer input').value = text;
+    $('.cb-composer button').click();
+    await until(function () {
+      return document.querySelectorAll('.cb-msg.cb-model').length > before && !$('.cb-typing');
+    });
+  }
+
+  window.addEventListener('load', async function () {
+    await until(function () { return $('.cb-launcher'); });
+    var scene = params.get('scene') || 'chat';
+    if (scene === 'greeting') { return; } // launcher + greeting card only
+
+    $('.cb-launcher').click();
+    await sleep(80);
+    if (scene === 'chat') {
+      await send('hello');
+      await send('messy');
+    } else if (scene === 'gate') {
+      await send('partner');
+      await until(function () { return $('.cb-form'); });
+    } else if (scene === 'refer') {
+      await send('apply');
+      await until(function () { return $('.cb-referral'); });
+    }
+    document.title = 'ready';
+  });
+})();
+</script>
+</body></html>

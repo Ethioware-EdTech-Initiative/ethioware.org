@@ -11,6 +11,68 @@
   var GREETING_AUTOHIDE_MS = 15000;
   var SESSION_KEY = 'cb_session';
   var GREETED_KEY = 'cb_greeted';
+  // Server worst case is one 15s call plus a 10s fallback, so give it 30s
+  // before deciding the request is never coming back.
+  var REQUEST_TIMEOUT_MS = 30000;
+  var MAX_MESSAGE_LEN = 2000; // matches the server-side cap in chat.php
+
+  // Order matters: absolute URLs are matched before the bare-domain and
+  // site-path forms so an "https://ethioware.org/apply" is captured whole.
+  var LINK_RE = new RegExp(
+    '(https?://[^\\s<>()]+[^\\s<>().,;:!?])' +          // 1: absolute URL
+    '|([\\w.+-]+@[\\w-]+\\.[\\w.-]+[\\w])' +      // 2: email
+    '|(\\bethioware\\.org/[A-Za-z0-9_-]+)' +            // 3: certificate short URL
+    '|(/(?:apply|support|pay|privacy|research-scholars)\\b)', // 4: on-site path
+    'g'
+  );
+
+  // The prompt tells the model to write plain text, but a stray markdown link
+  // or **bold** still slips through occasionally. Flattening it here is
+  // cheaper than a retry and stops raw syntax reaching the visitor.
+  function tidy(text) {
+    return String(text)
+      .replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+|\/[^)\s]*)\)/g, '$1 ($2)')
+      .replace(/\*\*([^*]+)\*\*/g, '$1')
+      .replace(/(^|\s)\*([^*\n]+)\*(?=\s|$)/g, '$1$2')
+      .replace(/^\s*[-*]\s+/gm, '\u2022 ')
+      .trim();
+  }
+
+  // Builds a text+anchor fragment. Never uses innerHTML: link text and hrefs
+  // both come from model output, so everything goes in as a text node or a
+  // scheme we chose ourselves.
+  function linkify(text) {
+    var frag = document.createDocumentFragment();
+    var last = 0;
+    var match;
+    LINK_RE.lastIndex = 0;
+    while ((match = LINK_RE.exec(text)) !== null) {
+      if (match.index > last) {
+        frag.appendChild(document.createTextNode(text.slice(last, match.index)));
+      }
+      var a = document.createElement('a');
+      if (match[1]) {
+        a.href = match[1];
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+      } else if (match[2]) {
+        a.href = 'mailto:' + match[2];
+      } else if (match[3]) {
+        a.href = 'https://' + match[3];
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+      } else {
+        a.href = match[4];
+      }
+      a.appendChild(document.createTextNode(match[0]));
+      frag.appendChild(a);
+      last = match.index + match[0].length;
+    }
+    if (last < text.length) {
+      frag.appendChild(document.createTextNode(text.slice(last)));
+    }
+    return frag;
+  }
 
   var CHIPS = [
     { label: 'Explore programs', intent: 'enrollment', reply: "Great — we run a few different programs. Tell me a bit about your grade level or what you're interested in, and I'll help point you to the right one." },
@@ -89,7 +151,10 @@
     this.launcherDot = el('span', { class: 'cb-dot' });
     this.launcherFallback = el('span', { class: 'cb-icon-fallback', html: '💬' });
     this.launcherImg = el('img', { src: '/assets/img/logo.png', alt: 'Chat with Ethioware', onerror: 'this.remove()' });
-    this.launcher = el('button', { class: 'cb-launcher', type: 'button', 'aria-label': 'Open chat' }, [this.launcherImg, this.launcherDot]);
+    this.launcher = el('button', {
+      class: 'cb-launcher', type: 'button', 'aria-label': 'Open chat',
+      'aria-expanded': 'false', 'aria-haspopup': 'dialog',
+    }, [this.launcherImg, this.launcherDot]);
     this.launcherImg.addEventListener('error', function () {
       self.launcher.insertBefore(self.launcherFallback, self.launcherDot);
     });
@@ -106,10 +171,18 @@
       self.greetingChips.appendChild(btn);
     });
 
-    this.thread = el('div', { class: 'cb-thread' });
+    // role=log + polite live region: replies arrive asynchronously, so a
+    // screen-reader user needs them announced without stealing focus.
+    this.thread = el('div', {
+      class: 'cb-thread', role: 'log', 'aria-live': 'polite',
+      'aria-relevant': 'additions', 'aria-label': 'Conversation',
+    });
     this.chipRow = el('div', { class: 'cb-chip-row' });
     this.formArea = el('div', {});
-    this.input = el('input', { type: 'text', placeholder: 'Type a message…', 'aria-label': 'Message' });
+    this.input = el('input', {
+      type: 'text', placeholder: 'Type a message…', 'aria-label': 'Message',
+      maxlength: String(MAX_MESSAGE_LEN), autocomplete: 'off',
+    });
     this.sendBtn = el('button', { type: 'button', 'aria-label': 'Send' }, [document.createTextNode('➤')]);
     this.composer = el('div', { class: 'cb-composer' }, [this.input, this.sendBtn]);
 
@@ -126,7 +199,17 @@
       closeBtn,
     ]);
 
-    this.panel = el('div', { class: 'cb-panel' }, [header, this.thread, this.chipRow, this.formArea, this.composer]);
+    this.panel = el('div', {
+      class: 'cb-panel', role: 'dialog', 'aria-label': 'Ethioware Assistant',
+    }, [header, this.thread, this.chipRow, this.formArea, this.composer]);
+
+    // Escape closes the panel, the way every other dialog on the web does.
+    this.root.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && self.panelOpen) {
+        e.stopPropagation();
+        self.closePanel();
+      }
+    });
 
     this.root.appendChild(this.greeting);
     this.root.appendChild(this.panel);
@@ -190,20 +273,29 @@
     if (this._greetTimer) window.clearTimeout(this._greetTimer);
     this.panel.classList.add('cb-open');
     this.panelOpen = true;
+    this.launcher.setAttribute('aria-expanded', 'true');
+    this.launcher.setAttribute('aria-label', 'Close chat');
     this.launcher.classList.remove('cb-has-unread');
-    this.input.focus();
+    // Focusing the input pops the on-screen keyboard, which on a phone hides
+    // most of the conversation the moment it opens. Desktop only.
+    if (!window.matchMedia || !window.matchMedia('(pointer: coarse)').matches) {
+      this.input.focus();
+    }
     if (!this._openedOnce) {
       this._openedOnce = true;
       ga('chatbot_open', { method: 'launcher' });
       if (!this.thread.children.length) {
         this.appendMessage('model', "👋 Hi! I'm the Ethioware assistant. Ask me about our programs, applying, or how to get involved — or tap a suggestion below.");
-        this.renderChipRow(CHIPS.map(function (c) { return c; }));
+        this.renderChipRow(CHIPS);
       }
     }
   };
   Widget.prototype.closePanel = function () {
     this.panel.classList.remove('cb-open');
     this.panelOpen = false;
+    this.launcher.setAttribute('aria-expanded', 'false');
+    this.launcher.setAttribute('aria-label', 'Open chat');
+    this.launcher.focus(); // don't strand focus inside a hidden panel
   };
 
   // ---------------- Chips ----------------
@@ -231,15 +323,34 @@
   };
 
   // ---------------- Messages ----------------
+  // Only stick to the bottom if the reader is already there — yanking the
+  // view down while someone scrolls back through the thread is worse than a
+  // missed scroll.
+  Widget.prototype.isNearBottom = function () {
+    var t = this.thread;
+    return (t.scrollHeight - t.scrollTop - t.clientHeight) < 60;
+  };
+  Widget.prototype.scrollToBottom = function (force) {
+    if (force || this.isNearBottom()) this.thread.scrollTop = this.thread.scrollHeight;
+  };
+
   Widget.prototype.appendMessage = function (role, text) {
-    var msg = el('div', { class: 'cb-msg cb-' + role }, [document.createTextNode(text)]);
+    var stick = this.isNearBottom();
+    var msg = el('div', { class: 'cb-msg cb-' + role });
+    // The visitor's own words go in verbatim; model output is tidied of stray
+    // markdown and has its links and addresses made clickable.
+    msg.appendChild(role === 'user'
+      ? document.createTextNode(text)
+      : linkify(tidy(text)));
     this.thread.appendChild(msg);
-    this.thread.scrollTop = this.thread.scrollHeight;
+    this.scrollToBottom(stick || role === 'user');
+    return msg;
   };
   Widget.prototype.showTyping = function () {
-    this.typingEl = el('div', { class: 'cb-typing' }, [el('span'), el('span'), el('span')]);
+    this.typingEl = el('div', { class: 'cb-typing', 'aria-label': 'Assistant is typing' },
+      [el('span'), el('span'), el('span')]);
     this.thread.appendChild(this.typingEl);
-    this.thread.scrollTop = this.thread.scrollHeight;
+    this.scrollToBottom(true);
   };
   Widget.prototype.hideTyping = function () {
     if (this.typingEl && this.typingEl.parentNode) this.typingEl.parentNode.removeChild(this.typingEl);
@@ -253,12 +364,29 @@
   };
 
   // ---------------- Networking ----------------
+  // Aborts rather than spinning forever if the server never answers. The
+  // JSON body is still parsed on a 4xx — chat.php reports validation problems
+  // that way and the widget shows them.
   Widget.prototype.postJSON = function (payload) {
+    var controller = ('AbortController' in window) ? new AbortController() : null;
+    var timer = null;
+    if (controller) {
+      timer = window.setTimeout(function () { controller.abort(); }, REQUEST_TIMEOUT_MS);
+    }
+    var clear = function () { if (timer) window.clearTimeout(timer); };
+
     return fetch(API_URL, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload),
-    }).then(function (res) { return res.json(); });
+      signal: controller ? controller.signal : undefined,
+    }).then(function (res) {
+      clear();
+      return res.json();
+    }, function (err) {
+      clear();
+      throw err;
+    });
   };
 
   Widget.prototype.send = function () {
@@ -284,7 +412,13 @@
       .catch(function () {
         self.hideTyping();
         self.setBusy(false);
-        self.appendMessage('model', "Sorry, something went wrong. Please try again or email info@ethioware.org.");
+        self.appendMessage('model', "Sorry, I couldn't reach the server. You can try again, or email info@ethioware.org.");
+        // Offer the failed turn back rather than making them retype it.
+        self.renderChipRow(['Try again'], function () {
+          self.input.value = text;
+          self.pendingHintIntent = payload.hint_intent || null;
+          self.send();
+        });
       });
   };
 
@@ -321,11 +455,46 @@
     this.send();
   };
 
+  // Appended straight to the thread rather than wrapped in a model bubble: a
+  // solid call-to-action inside a bordered bubble reads as a box in a box, and
+  // the bubble's link styling put an underline through the button.
   Widget.prototype.renderReferral = function (url) {
-    var link = el('a', { class: 'cb-referral', href: url }, [document.createTextNode('Continue to application →')]);
-    var wrap = el('div', { class: 'cb-msg cb-model' }, [link]);
-    this.thread.appendChild(wrap);
-    this.thread.scrollTop = this.thread.scrollHeight;
+    var stick = this.isNearBottom();
+    var link = el('a', { class: 'cb-referral', href: url },
+      [document.createTextNode('Continue to application →')]);
+    this.thread.appendChild(link);
+    this.scrollToBottom(stick);
+  };
+
+  // Submitting a form must always end in one of: success, a visible error, or
+  // a re-enabled button. Before this, a network failure left the form frozen
+  // mid-submit with no feedback at all.
+  Widget.prototype.submitForm = function (payload, opts) {
+    var self = this;
+    opts.submit.disabled = true;
+    var originalLabel = opts.submit.textContent;
+    opts.submit.textContent = 'Sending…';
+    opts.error.style.display = 'none';
+
+    var restore = function () {
+      opts.submit.disabled = false;
+      opts.submit.textContent = originalLabel;
+    };
+    var fail = function (message) {
+      opts.error.textContent = message;
+      opts.error.style.display = 'block';
+      restore();
+    };
+
+    this.postJSON(payload).then(function (data) {
+      if (data && data.success) {
+        opts.onSuccess(data);
+        return;
+      }
+      fail((data && data.message) || 'Please check your details and try again.');
+    }).catch(function () {
+      fail("Couldn't reach the server. Please try again in a moment.");
+    });
   };
 
   // ---------------- Gate form (partnership/pricing/donation/investment) ----------------
@@ -344,20 +513,18 @@
     ]);
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      errorEl.style.display = 'none';
-      self.postJSON({
+      self.submitForm({
         session_id: self.sessionId, type: 'gate_submit',
         name: name.value.trim(), email: email.value.trim(),
         organization: org.value.trim(), phone: phone.value.trim(),
-      }).then(function (data) {
-        if (data && data.success) {
+      }, {
+        submit: submit,
+        error: errorEl,
+        onSuccess: function (data) {
           self.formArea.innerHTML = '';
           ga('chatbot_lead', { kind: 'gate' });
           self.handleResponse(data);
-        } else {
-          errorEl.textContent = (data && data.message) || 'Please check your details and try again.';
-          errorEl.style.display = 'block';
-        }
+        },
       });
     });
     this.formArea.appendChild(form);
@@ -377,19 +544,17 @@
     ]);
     form.addEventListener('submit', function (e) {
       e.preventDefault();
-      errorEl.style.display = 'none';
-      self.postJSON({
+      self.submitForm({
         session_id: self.sessionId, type: 'contact_submit',
         name: name.value.trim(), email: email.value.trim(),
-      }).then(function (data) {
-        if (data && data.success) {
+      }, {
+        submit: submit,
+        error: errorEl,
+        onSuccess: function (data) {
           self.formArea.innerHTML = '';
           self.appendMessage('model', data.reply);
           ga('chatbot_lead', { kind: 'fallback' });
-        } else {
-          errorEl.textContent = (data && data.message) || 'Please check your details and try again.';
-          errorEl.style.display = 'block';
-        }
+        },
       });
     });
     this.formArea.appendChild(form);

@@ -20,6 +20,13 @@ define('GEMINI_API_KEY', 'REPLACE_ME');
 define('GEMINI_MODEL', 'gemini-2.5-flash');
 define('GEMINI_FALLBACK_MODEL', 'gemini-2.5-flash-lite');
 
+// Optional. Gemini 2.5 Flash reasons before answering by default, and those
+// thinking tokens are billed against the reply's output budget — which costs
+// seconds per turn and can leave no room for the answer itself. The code
+// disables thinking on 2.5 Flash models for that reason. Uncomment to override
+// (a positive number re-enables it; 2.5 Pro cannot disable thinking at all).
+// define('CHATBOT_GEMINI_THINKING_BUDGET', 0);
+
 // ---- Admin dashboard sign-in ----
 //
 // Preferred: Clerk (per-user staff accounts, so chatbot_events records WHO
