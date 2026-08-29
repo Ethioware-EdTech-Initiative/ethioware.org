@@ -55,7 +55,8 @@
       "Bash(google-chrome --headless --disable-gpu --no-sandbox --screenshot=rs_top.png --window-size=1440,1400 \"http://localhost:8791/research-scholars/index.html\")",
       "Bash(google-chrome --headless --disable-gpu --no-sandbox --screenshot=rs_top2.png --window-size=1440,900 \"http://localhost:8791/research-scholars/index.html\")",
       "Bash(google-chrome --headless --disable-gpu --no-sandbox --screenshot=rs_full.png --window-size=1440,10000 \"http://localhost:8791/research-scholars/index.html\")",
-      "Bash(pkill -f \"http.server 8791\")"
+      "Bash(pkill -f \"http.server 8791\")",
+      "Bash(php -v)"
     ]
   }
 }
