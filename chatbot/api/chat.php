@@ -21,7 +21,6 @@ require_once __DIR__ . '/gemini.php';
 
 const CHATBOT_SESSION_MESSAGE_CAP = 30;
 const CHATBOT_IP_DAILY_CAP = 60;
-const CHATBOT_GATE_KEYWORD_RE = '/partner|sponsor|donat|invest|pricing|cost of partnership|fund/i';
 
 function chatbot_fail(int $code, string $message): void {
     http_response_code($code);
@@ -194,10 +193,11 @@ $historyBeforeThisTurn = $conversation['messages'];
 chatbot_append_message($conn, $sessionId, $conversation, 'user', $message);
 chatbot_log_event($conn, 'message', ['session_id' => $sessionId, 'ip_address' => $ip, 'page' => $page]);
 
-// ---- Gate backstop: a short keyword regex checked BEFORE the Gemini call. ----
+// ---- Gate backstop: a short keyword check BEFORE the Gemini call. ----
 // Rationale: the gate is a hard business rule and shouldn't rest solely on
-// model compliance (CHATBOT_SPEC.md §7.3).
-$backstopHit = (bool) preg_match(CHATBOT_GATE_KEYWORD_RE, $message);
+// model compliance (CHATBOT_SPEC.md §7.3). Lives in prompt.php next to the
+// gated-intent list, and is covered by ci/chatbot-content-test.php.
+$backstopHit = chatbot_gate_keyword_hit($message);
 if ($hintIntent !== null && in_array($hintIntent, CHATBOT_GATED_INTENTS, true)) {
     $backstopHit = true;
 }

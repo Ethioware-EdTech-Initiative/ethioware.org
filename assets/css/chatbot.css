@@ -53,6 +53,28 @@
   transition: transform 0.15s ease;
 }
 .cb-launcher:hover { transform: scale(1.05); }
+@media (prefers-reduced-motion: reduce) {
+  .cb-launcher { transition: none; }
+  .cb-launcher:hover { transform: none; }
+}
+
+/* Keyboard focus must be visible on every control in the widget. Scoped to
+   :focus-visible so mouse users don't get rings they didn't ask for. */
+#eth-chatbot-root button:focus-visible,
+#eth-chatbot-root a:focus-visible {
+  outline: 2px solid var(--cb-first);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+.cb-header button:focus-visible { outline-color: #fff; }
+
+/* Text fields already change border colour on focus. Stacking an outline on
+   top of that read as an error state, so they get a soft ring instead. */
+#eth-chatbot-root input:focus-visible {
+  outline: none;
+  border-color: var(--cb-first);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--cb-first) 25%, transparent);
+}
 .cb-launcher img { width: 30px; height: 30px; border-radius: 50%; object-fit: cover; }
 .cb-launcher .cb-icon-fallback {
   color: #fff; font-size: 26px; font-weight: 700; font-family: var(--cb-body-font);
@@ -146,7 +168,11 @@
 .cb-msg { max-width: 84%; padding: 9px 12px; border-radius: 14px; font-size: 14px; white-space: pre-wrap; word-wrap: break-word; }
 .cb-msg.cb-user { align-self: flex-end; background: var(--cb-first); color: #fff; border-bottom-right-radius: 4px; }
 .cb-msg.cb-model { align-self: flex-start; background: var(--cb-bubble-model); border: 1px solid var(--cb-bubble-model-border); border-bottom-left-radius: 4px; }
-.cb-msg a { color: inherit; text-decoration: underline; }
+/* Links inherit the bubble's colour rather than picking a brand blue: the
+   model bubble is light in one theme and dark in the other, and a fixed link
+   colour fails contrast in one of them. */
+.cb-msg a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+.cb-msg a:hover { text-decoration-thickness: 2px; }
 
 .cb-typing { align-self: flex-start; display: flex; gap: 4px; padding: 10px 12px; }
 .cb-typing span {
@@ -160,11 +186,16 @@
 
 .cb-chip-row { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 14px 10px; flex-shrink: 0; }
 
+/* A direct child of .cb-thread (not inside a bubble), so align-self places it
+   with the model's messages while keeping its own solid button treatment. */
 .cb-referral {
   align-self: flex-start; display: inline-block; margin-top: -2px;
   background: var(--cb-first); color: #fff; text-decoration: none;
   padding: 8px 14px; border-radius: 8px; font-size: 13.5px; font-weight: 600;
+  transition: filter 0.15s ease;
 }
+.cb-referral:hover { filter: brightness(1.12); }
+@media (prefers-reduced-motion: reduce) { .cb-referral { transition: none; } }
 
 .cb-form { padding: 10px 14px 14px; border-top: 1px solid var(--cb-border); flex-shrink: 0; }
 .cb-form p.cb-form-note { margin: 0 0 8px; font-size: 12.5px; color: var(--cb-panel-text-light); }
@@ -199,6 +230,27 @@
     width: 100%; height: 88vh; max-height: 88vh;
     border-radius: 16px 16px 0 0;
   }
+  /* dvh tracks the browser chrome as it collapses, so the composer stays on
+     screen instead of being pushed under the URL bar. Kept after the vh rule
+     as a progressive upgrade for browsers that support it. */
+  @supports (height: 88dvh) {
+    .cb-panel { height: 88dvh; max-height: 88dvh; }
+  }
+  /* The launcher floats at the bottom-right of the viewport, which on a
+     full-width bottom sheet lands squarely on top of the send button. Hide it
+     while the sheet is open — the header's × is the way back out. */
+  .cb-panel.cb-open ~ .cb-launcher { display: none; }
+
+  /* Clear the iOS home indicator. */
+  .cb-composer { padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px)); }
+  .cb-form { padding-bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+
+  /* iOS Safari zooms the whole page when a focused input is under 16px. That
+     zoom is never undone, so the site is left scaled up after one tap in the
+     composer. 16px here costs nothing and prevents it. */
+  .cb-composer input,
+  .cb-form input { font-size: 16px; }
+
   .cb-greeting { width: calc(100vw - 24px); right: 0; }
 }
 @media (max-width: 380px) {

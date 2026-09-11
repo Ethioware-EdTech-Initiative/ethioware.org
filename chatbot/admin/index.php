@@ -5,13 +5,16 @@ require_once __DIR__ . '/leads_query.php';
 
 if (isset($_GET['logout'])) {
     chatbot_admin_session_start();
-    session_unset();
-    session_destroy();
-    header('Location: login.php');
+    // login.php?signout=1 also clears the Clerk session in the browser, so
+    // "Log out" doesn't leave the next visitor silently signed back in.
+    $wasClerk = chatbot_admin_auth_method() === 'clerk';
+    chatbot_admin_end_session();
+    header('Location: login.php' . ($wasClerk ? '?signout=1' : ''));
     exit;
 }
 
 chatbot_admin_require_login();
+$adminUser = chatbot_admin_current_user();
 
 $conn = chatbot_db();
 
@@ -85,6 +88,8 @@ function qs(array $overrides = []): string {
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Poppins,sans-serif;background:var(--bg);color:var(--text-color);margin:0;padding:1.5rem;}
   h1{font-size:1.25rem;color:var(--title-color);margin:0 0 1rem;display:flex;align-items:center;justify-content:space-between;}
   h1 a{font-size:.8rem;font-weight:500;color:var(--first-color);text-decoration:none;}
+  h1 .session{display:flex;align-items:center;gap:.6rem;}
+  h1 .who{font-size:.75rem;font-weight:500;color:var(--text-color);}
   .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.75rem;margin-bottom:1.25rem;}
   .stat{background:var(--body-color);border:1px solid var(--border);border-radius:10px;padding:.85rem 1rem;}
   .stat .num{font-size:1.4rem;font-weight:700;color:var(--title-color);}
@@ -111,7 +116,12 @@ function qs(array $overrides = []): string {
 </style>
 </head>
 <body>
-  <h1>Chatbot Leads <a class="btn secondary" style="font-size:.75rem;" href="index.php?logout=1">Log out</a></h1>
+  <h1>Chatbot Leads
+    <span class="session">
+      <?php if ($adminUser !== null): ?><span class="who">Signed in as <?= chatbot_admin_html_escape($adminUser) ?></span><?php endif; ?>
+      <a class="btn secondary" style="font-size:.75rem;" href="index.php?logout=1">Log out</a>
+    </span>
+  </h1>
 
   <div class="stats">
     <div class="stat"><div class="num"><?= $leadsThisWeek ?></div><div class="label">Leads this week (<?= $leadsLastWeek ?> last week)</div></div>

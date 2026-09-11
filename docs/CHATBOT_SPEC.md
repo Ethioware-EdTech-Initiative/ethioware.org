@@ -168,7 +168,8 @@ Header: x-goog-api-key: {GEMINI_API_KEY from chatbot/config.php}
   "contents": [ ...conversation history as alternating user/model turns..., {"role":"user","parts":[{"text": userMessage}]} ],
   "generationConfig": {
     "temperature": 0.4,
-    "maxOutputTokens": 512,
+    "maxOutputTokens": 800,
+    "thinkingConfig": { "thinkingBudget": 0 },
     "responseMimeType": "application/json",
     "responseSchema": {
       "type": "OBJECT",
@@ -186,6 +187,12 @@ Header: x-goog-api-key: {GEMINI_API_KEY from chatbot/config.php}
   }
 }
 ```
+
+**`thinkingBudget: 0`.** Gemini 2.5 Flash reasons before answering by default, and those thinking tokens are billed against `maxOutputTokens`. On grounded answers off a small FAQ that buys nothing measurable, while adding seconds to every turn — and a long think can consume the whole budget, returning JSON that is cut off before the reply is complete. The visitor then sees the outage message instead of an answer. Thinking is therefore disabled for 2.5 Flash models (`chatbot_gemini_generation_config()`), overridable with `CHATBOT_GEMINI_THINKING_BUDGET` in `chatbot/config.php`; 2.5 Pro cannot disable it and is left alone. `maxOutputTokens` is 800, not 512, for the same reason — headroom for the JSON envelope plus three short paragraphs.
+
+**Truncated-output salvage.** If the structured output still fails to parse, `chatbot_gemini_salvage()` looks for a complete `"reply"` string in the raw text before giving up. The usual failure is JSON cut off *after* the reply, so the visitor's actual answer is sitting right there — returning it beats replacing a good answer with an outage message. A reply truncated mid-sentence is not salvaged. `finishReason` and `promptFeedback.blockReason` are both written to the error log, so "it didn't work" becomes searchable.
+
+**Retry policy.** The fallback model is tried on a 429, a 5xx, a transport failure, or a malformed generation — but *not* on a safety block or another 4xx, where the same request would fail the same way and the visitor would simply wait twice as long. Timeouts are 15s primary and 10s fallback, bounding the worst case a visitor waits.
 
 The single structured-output call gives us the visible reply, the intent classification, extracted contact details, and a proposed action — **one API call per message does everything**, which is what keeps us on the free tier. The `program` enum must mirror `apply.html`/`apply-submit.php`/`db/applications.sql` values (the existing three-way sync becomes a four-way sync — flag this in code comments in all four places), with `Research Scholars Program` and `Unsure` as chatbot-only additions that never flow into `applications`.
 
@@ -218,7 +225,10 @@ chatbot/knowledge/
 └── 90-faq.md            # everything else, one "## Question" heading per answer
 ```
 
-**Format rules (enforce socially, not in CI, for now):**
+**Format rules (`ci/chatbot-content-test.php` enforces the first two):**
+- **No unfinished placeholders.** Every file is pasted verbatim into the system prompt, so a leftover `[TODO: duration]` is not a note to the content team — it is something the model will read out to a visitor ("Audience: [TODO]"). CI fails on `TODO` or any `[bracketed]` text in `chatbot/knowledge/`. Leave a fact out entirely rather than stubbing it; the prompt then routes the question to info@ethioware.org, which is the honest answer. Rule 2 of the system prompt is a second line of defence for anything that slips past.
+- **No cohort dates, prices, or bank details.** They change every intake, and a chatbot quoting a stale start date is worse than one that points at the page. `/pay` owns deposit packages and the current start date, `/apply` owns which cohort is open, `/support` owns sponsorship, `/research-scholars` owns the RSP cohort. Prompt rule 3 tells the model the same thing.
+- Content should be traceable to something the site already publishes. The current files were transcribed from `index.html`, `apply.html`, `support.html`, `pay.html` and `research-scholars/index.html` — if the site doesn't say it, the bot shouldn't either.
 - Plain Markdown, one `#` title per file, `##` sections. Content team edits these directly on GitHub's web editor if they don't use git locally.
 - Numeric prefixes control injection order; `40-partnerships.md` is **special-cased by filename** in `chat.php` — it is *excluded* from the system prompt until the session's gate is passed. This is the hard gate's teeth: the model cannot leak information it was never given (§7.3).
 - Total budget: `chat.php` reads the folder with `glob()`, concatenates in filename order, and **truncates at 12,000 tokens (~48,000 chars) with a logged warning** — the content team gets a size ceiling, not a silent quality cliff. At this volume, re-reading the files per request costs nothing measurable; no cache layer.
@@ -259,6 +269,19 @@ Deliberately **not** borrowed: account-signup pressure, meeting-scheduling integ
 - Reuse the site's CSS custom properties from `assets/css/styles.css` (primary `hsl(215, 80%, 32%)`, existing background/text variables) so the widget tracks the dark/light theme automatically; read the same `localStorage` theme key `assets/js/main.js` uses, and fall back to `prefers-color-scheme`.
 - Glassmorphism per the site pattern: `backdrop-filter: blur(10px)`, semi-transparent panel, subtle border. Poppins via the already-loaded Google Fonts (don't add a new font request; declare a system-font fallback since certificate pages may not load Poppins).
 - Panel: 360 × 520 px desktop, full-width bottom sheet ≤ 480 px viewports. `z-index` above the site nav; never covers the nav toggle on mobile (bottom-anchored).
+- The bottom sheet is sized in `dvh` where supported, so it tracks the browser chrome collapsing instead of putting the composer under the URL bar. Composer and form padding clear `env(safe-area-inset-bottom)`.
+- **Inputs are 16px on ≤ 480 px viewports.** iOS Safari zooms the whole page when a focused input is smaller than that, and never zooms back out — one tap in the composer would leave the rest of the site scaled up.
+- **The launcher hides while the sheet is open on mobile.** It floats bottom-right of the viewport, which on a full-width sheet lands exactly on the send button. The header's × is the way back out.
+
+### 6.5 Rendering, accessibility and failure
+
+- **Replies are rendered, not dumped.** The model is told to write plain text, but a stray `**bold**` or `[link](/apply)` still slips through, so `tidy()` flattens it and `linkify()` turns `/apply`, `info@ethioware.org`, `ethioware.org/<code>` and absolute URLs into working links. Everything is built with `createTextNode` and explicit `href`s — never `innerHTML` — because both the link text and the target come from model output. External links get `rel="noopener noreferrer"`; on-site paths stay in the same tab.
+- **Accessibility:** the thread is a `role="log"` / `aria-live="polite"` region so replies are announced without stealing focus; the panel is a labelled `role="dialog"`; the launcher carries `aria-expanded`; Escape closes the panel and returns focus to the launcher; `:focus-visible` rings are on every control. The composer is not auto-focused on coarse-pointer devices — popping the keyboard immediately hides the conversation.
+- **Every request can end.** `fetch` is wrapped in an `AbortController` with a 30-second timeout (the server's worst case is 15s + 10s), so a hung request surfaces as an error rather than a spinner that never stops. A failed send appends an explanation *and* a "Try again" chip carrying the original text, so the visitor doesn't retype it.
+- **Forms always resolve.** `submitForm()` disables the button, shows progress, and guarantees one of three endings: success, a visible error, or a re-enabled button. Previously a network failure mid-submit left the form frozen with no feedback and the button still live for a double submit.
+- **Auto-scroll is conditional** — the thread only sticks to the bottom if the reader is already there, so a new reply doesn't yank the view while someone scrolls back.
+
+Covered by `ci/widget-harness/` (see its README): a browser-driven suite for behaviour and a 390px-viewport suite for layout.
 
 ---
 
@@ -284,7 +307,11 @@ Deliberately **not** borrowed: account-signup pressure, meeting-scheduling integ
 
 ### 7.3 Flow C — partnership / pricing / donation / investment gate
 
-**Intent detection: LLM self-report via the structured `intent` field (§4.3), with a server-side keyword backstop.** Rationale: the classification rides the same single Gemini call we're already making (zero marginal cost — decisive under free-tier budget), and an LLM handles phrasing a keyword list never will ("what would it cost our foundation to sponsor a cohort?"). The backstop — a short PHP regex list (`partner|sponsor|donat|invest|pricing|cost of partnership|fund`) checked *before* the Gemini call — exists because the gate is a hard business rule and shouldn't rest solely on model compliance.
+**Intent detection: LLM self-report via the structured `intent` field (§4.3), with a server-side keyword backstop.** Rationale: the classification rides the same single Gemini call we're already making (zero marginal cost — decisive under free-tier budget), and an LLM handles phrasing a keyword list never will ("what would it cost our foundation to sponsor a cohort?"). The backstop — `chatbot_gate_keyword_hit()` in `prompt.php`, checked *before* the Gemini call — exists because the gate is a hard business rule and shouldn't rest solely on model compliance.
+
+The pattern is **word-anchored**. An earlier substring version (`partner|sponsor|donat|invest|pricing|fund`) matched `fund` inside "fundamentals" and `invest` inside "investigate", so "do you teach programming fundamentals?" and a Research Scholars student asking how to investigate their question were both answered with a partnerships contact form. Stems that only ever begin gated words (`partner-`, `sponsor-`, `donat-`) still match their inflections; `fund` and `invest` enumerate theirs. `ci/chatbot-content-test.php` covers both the phrasings that must gate and the learner questions that must not.
+
+**A learner asking what a program costs is not gated.** The homepage FAQ answers it publicly — cost depends on partner sponsors and is communicated to finalists on acceptance, applying is free — so gating it would withhold something the site already gives away, and cost a prospective applicant. Prompt rule 5 draws the line at *offering* money or a partnership versus *asking what you would pay as a student*; the keyword list deliberately contains `pricing` but not bare `price` or `cost`.
 
 **The hard gate is structural, not behavioral:** `40-partnerships.md` is **never included in the system prompt until the gate is passed** (§5). The model can't leak content it doesn't have. Prompt instructions alone would be a soft gate; withholding the source material makes it hard.
 
@@ -308,9 +335,14 @@ Sequence:
 
 ## 8. Admin dashboard
 
-**Location:** `chatbot/admin/index.php` (+ `login.php`, `export.php`). Plain PHP + inline CSS reusing site variables; no framework, no JS beyond a sortable-table helper if desired.
+**Location:** `chatbot/admin/index.php` (+ `login.php`, `export.php`, and `clerk.php` / `clerk-callback.php` for sign-in). Plain PHP + inline CSS reusing site variables; no framework, no JS beyond the Clerk sign-in widget on `login.php` and a sortable-table helper if desired.
 
-**Access control:** PHP session login. Single shared password, stored as a `password_hash()` value in `chatbot/config.php` (`ADMIN_PASSWORD_HASH`); `password_verify()` on login; 5 attempts / 15 min per IP (tracked in `chatbot_events`); session cookie `HttpOnly` + `Secure` + `SameSite=Lax`; 8-hour idle timeout. Add `Disallow: /chatbot/` to `robots.txt`. One shared password is a deliberate simplicity trade for a ~5-person non-technical team; per-user accounts are listed in §12.
+**Access control:** PHP session login, entered one of two ways.
+
+- **Clerk (preferred).** Staff sign in with their own account; `clerk-callback.php` verifies the resulting RS256 session token against Clerk's public JWKS (`clerk.php` — hand-rolled on `ext-openssl`, since this host has no Composer) and checks the address against a server-side allowlist that **fails closed**. Setup, settings and the failure-mode table live in [chatbot-admin-clerk.md](chatbot-admin-clerk.md); the verification rules are tested in `ci/clerk-auth-test.php`. This resolves §12.4 — `chatbot_events.detail` now records *which* person logged in, and access is revoked in Clerk rather than by rotating a secret everyone knows.
+- **Shared password (fallback).** The original single `password_hash()` value in `chatbot/config.php` (`ADMIN_PASSWORD_HASH`), `password_verify()` on login. Kept as break-glass access so a wrong key or a Clerk outage cannot lock staff out of production; retire it with `CHATBOT_ADMIN_PASSWORD_FALLBACK = false` once Clerk is verified live. It is the only path when no `CLERK_*` values are set, so a server configured the old way is unaffected.
+
+Both paths land on the same session and share the same limits: 5 failed attempts / 15 min per IP (tracked in `chatbot_events`); session cookie `HttpOnly` + `Secure` + `SameSite=Lax`; 8-hour idle timeout. Add `Disallow: /chatbot/` to `robots.txt`.
 
 **Main view — leads table** (newest first, 50/page):
 
@@ -442,6 +474,6 @@ The referral-token pipeline (`?ref=` → sessionStorage → beacon → `track.ph
 1. **Widget on `pay.html` donation flow** — the bot is installed there per "all pages," but should donation questions route to the *gate* (treats donors as pipeline; adds friction) or answer freely from a public knowledge section (friendlier; loses capture)? Spec currently gates `donation` intent per §C's letter. Tradeoff: capture vs. donor friction. Recommend revisiting after the first month's transcripts.
 2. **Weekly email digest vs. dashboard-only** — partnership leads get instant emails (§7.3); everything else is dashboard-pull. If staff won't check weekly, add a digest — but with no cron on shared hosting it would need cPanel's cron (which *does* exist on most cPanel plans and could also automate the retention cleanup in §7.4.6). Worth confirming what the plan offers; the spec deliberately doesn't depend on it.
 3. **Transcript retention period** — 12 months proposed (§7.4.6); shorten to 6 if the team prefers a stricter privacy posture. Leads (name/email) are kept indefinitely either way.
-4. **Shared vs. per-user dashboard password** — shared is specified for simplicity; per-user rows in a `chatbot_admins` table is a ~half-day upgrade if accountability for who viewed/exported leads ever matters (e.g., data-protection commitments to partners).
+4. ~~**Shared vs. per-user dashboard password**~~ — **decided: per-user, via Clerk** (§8, [chatbot-admin-clerk.md](chatbot-admin-clerk.md)). Rather than a `chatbot_admins` table, staff identities live in Clerk and the server checks an allowlist, so there are no password rows to manage here. The shared password remains only as a break-glass fallback. Still open, if accountability ever needs to go further: *login* is attributed, but viewing or exporting leads is not — per-action rows need a new `chatbot_events.event` ENUM value.
 5. **Greeting copy and chip labels** — the exact strings ("How may I help?" vs. program-led copy) should come from the education team; A/B judgment, not engineering. The spec fixes the *mechanics* (10 s, once per session), not the words.
 6. **Exact `program_interest` list** — §4.3's enum mirrors current `apply.html` programs plus `Research Scholars Program`/`Unsure`. Confirm against the program materials before Phase 2, since it also drives the dashboard's program filter (and remember it joins the whitelist sync set).

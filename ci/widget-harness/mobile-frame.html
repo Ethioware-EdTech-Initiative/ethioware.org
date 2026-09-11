@@ -1,0 +1,67 @@
+<!doctype html><html><head><meta charset="utf-8"><title>mobile frame</title>
+<style>
+  body{margin:0;padding:16px;background:#c9d3e0;font-family:system-ui,sans-serif;display:flex;gap:16px;align-items:flex-start}
+  iframe{width:390px;height:820px;border:0;border-radius:14px;box-shadow:0 10px 40px rgba(0,0,0,.25);background:#fff}
+  pre{background:#fff;padding:12px;border-radius:8px;font-size:11px;margin:0;width:420px;white-space:pre-wrap}
+</style></head><body>
+<iframe id="phone" src="/ci/widget-harness/demo.html?scene=chat&theme=light"></iframe>
+<pre id="results">…</pre>
+<script>
+function sleep(ms){return new Promise(r=>setTimeout(r,ms));}
+window.addEventListener('load', async function () {
+  var out = [];
+  function ok(l, c, d){ out.push((c?'ok   ':'FAIL ')+l+(c?'':' — '+(d||''))); }
+  var f = document.getElementById('phone');
+  await sleep(2500);
+  var w = f.contentWindow, d = f.contentDocument;
+  var panel = d.querySelector('.cb-panel');
+  var cs = w.getComputedStyle(panel);
+  var composer = w.getComputedStyle(d.querySelector('.cb-composer'));
+  var input = w.getComputedStyle(d.querySelector('.cb-composer input'));
+  var formInputExists = !!d.querySelector('.cb-form input');
+
+  ok('iframe really is a phone viewport (' + w.innerWidth + 'px)', w.innerWidth === 390);
+  ok('mobile media query applies', w.matchMedia('(max-width: 480px)').matches);
+  ok('panel becomes a fixed bottom sheet', cs.position === 'fixed');
+  ok('panel spans the full width', parseFloat(cs.width) === 390, cs.width);
+  ok('panel is flush to the left edge', parseFloat(cs.left) === 0, cs.left);
+  ok('panel is flush to the bottom', parseFloat(cs.bottom) === 0, cs.bottom);
+  ok('panel does not overflow the viewport',
+     panel.getBoundingClientRect().right <= 390.5, JSON.stringify(panel.getBoundingClientRect().right));
+  ok('sheet uses dvh where supported',
+     !w.CSS.supports('height','88dvh') || Math.abs(parseFloat(cs.height) - 0.88 * w.innerHeight) < 2,
+     cs.height + ' vs 88% of ' + w.innerHeight);
+  ok('composer clears the home indicator', parseFloat(composer.paddingBottom) >= 10, composer.paddingBottom);
+  ok('composer input is 16px so iOS will not zoom', parseFloat(input.fontSize) >= 16, input.fontSize);
+  ok('rounded only at the top',
+     cs.borderTopLeftRadius === '16px' && cs.borderBottomLeftRadius === '0px',
+     cs.borderTopLeftRadius + '/' + cs.borderBottomLeftRadius);
+  ok('thread scrolls rather than the page',
+     w.getComputedStyle(d.querySelector('.cb-thread')).overflowY === 'auto');
+  ok('page body never scrolls sideways', d.documentElement.scrollWidth <= 390);
+
+  // Regression: the floating launcher used to sit on top of the send button.
+  var launcher = d.querySelector('.cb-launcher');
+  var sendBtn = d.querySelector('.cb-composer button');
+  var lr = launcher.getBoundingClientRect(), sr = sendBtn.getBoundingClientRect();
+  var overlaps = !(lr.right <= sr.left || lr.left >= sr.right || lr.bottom <= sr.top || lr.top >= sr.bottom);
+  ok('launcher is hidden while the sheet is open',
+     w.getComputedStyle(launcher).display === 'none');
+  ok('launcher never covers the send button', !overlaps || lr.width === 0,
+     JSON.stringify({launcher: lr.toJSON(), send: sr.toJSON()}));
+  ok('send button is actually reachable',
+     d.elementFromPoint(sr.left + sr.width / 2, sr.top + sr.height / 2) === sendBtn ||
+     sendBtn.contains(d.elementFromPoint(sr.left + sr.width / 2, sr.top + sr.height / 2)));
+  ok('close button is available as the way out', !!d.querySelector('.cb-header button'));
+  ok('focused input gets a ring, not a hard outline', (function () {
+    var i = d.querySelector('.cb-composer input');
+    i.focus();
+    var st = w.getComputedStyle(i);
+    return st.outlineStyle === 'none' && st.boxShadow !== 'none';
+  })());
+
+  var fails = out.filter(l => l.indexOf('FAIL') === 0).length;
+  out.push('', (out.length - 1 - fails) + ' passed, ' + fails + ' failed');
+  document.getElementById('results').textContent = out.join('\n');
+});
+</script></body></html>

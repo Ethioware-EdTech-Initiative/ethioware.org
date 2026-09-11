@@ -172,8 +172,7 @@ create_cert_page() {
     slug="$code"
 
     # Create page by duplicating the certificate template
-    local response
-    response=$(curl -sf \
+    if curl -sf \
         -X POST \
         -H "Authorization: Bearer $INSTATIC_API_KEY" \
         -H "Content-Type: application/json" \
@@ -184,10 +183,7 @@ create_cert_page() {
             \"status\": \"published\",
             \"data\": ${cert_json}
         }" \
-        "${INSTATIC_API_URL}/api/pages" 2>/dev/null)
-
-    local status=$?
-    if [ $status -eq 0 ]; then
+        "${INSTATIC_API_URL}/api/pages" >/dev/null 2>&1; then
         echo "created"
     else
         echo "error"
@@ -209,10 +205,13 @@ for html_file in "$CERT_DIR"/*.html; do
 
     # Extract data
     CERT_DATA=$(extract_cert_data "$html_file")
-    CODE=$(echo "$CERT_DATA" | python3 -c "import sys,json; print(json.load(sys.stdin)['code'])")
-    IMAGE=$(echo "$CERT_DATA" | python3 -c "import sys,json; print(json.load(sys.stdin)['image'])")
-    WORKLOG=$(echo "$CERT_DATA" | python3 -c "import sys,json; print(json.load(sys.stdin)['worklog_url'])")
-    NUM_PARTNERS=$(echo "$CERT_DATA" | python3 -c "import sys,json; print(len(json.load(sys.stdin)['partners']))")
+    # Field separator is \x1f (ASCII unit separator), not a whitespace char,
+    # so `read` won't collapse the empty fields that IFS=<tab>/<space> would.
+    IFS=$'\x1f' read -r CODE IMAGE WORKLOG NUM_PARTNERS <<< "$(echo "$CERT_DATA" | python3 -c "
+import sys, json
+d = json.load(sys.stdin)
+print('\x1f'.join([d['code'], d['image'], d['worklog_url'], str(len(d['partners']))]))
+")"
 
     if [ "$VERBOSE" = true ]; then
         echo "  [$TOTAL] $CODE"

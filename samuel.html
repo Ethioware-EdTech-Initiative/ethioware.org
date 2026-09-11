@@ -87,6 +87,13 @@
                 localStorage.setItem('selected-theme', getCurrentTheme());
                 localStorage.setItem('selected-icon', getCurrentIcon());
             });
+            // themeButton is an <i role="button">, not a real <button>, so Enter/Space needs wiring by hand.
+            themeButton.addEventListener('keydown', (event) => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    themeButton.click();
+                }
+            });
         });
     </script>
 </head>
@@ -116,15 +123,15 @@
                         <a href="/#contact" class="nav__link">Contact</a>
                     </li>
                 </ul>
-                <div class="nav__close" id="nav-close">
-                    <i class="ri-close-line"></i>
-                </div>
+                <button type="button" class="nav__close" id="nav-close" aria-label="Close menu">
+                    <i class="ri-close-line" aria-hidden="true"></i>
+                  </button>
             </div>
             <div class="nav__btns">
-                <i class="ri-moon-line change-theme" id="theme-button"></i>
-                <div class="nav__toggle" id="nav-toggle">
-                    <i class="ri-menu-line"></i>
-                </div>
+                <i class="ri-moon-line change-theme" id="theme-button" role="button" tabindex="0" aria-label="Toggle dark mode"></i>
+                <button type="button" class="nav__toggle" id="nav-toggle" aria-label="Open menu" aria-controls="nav-menu">
+                    <i class="ri-menu-line" aria-hidden="true"></i>
+                  </button>
             </div>
         </nav>
     </header>
@@ -686,7 +693,7 @@
     <!-- SCRIPTS -->
     <script src="assets/js/scrollreveal.min.js"></script>
     <script src="assets/js/bio.js"></script>
-<script src="/assets/js/chatbot.js" defer></script>
+<!-- Chatbot disabled for now: not ready. <script src="/assets/js/chatbot.js" defer></script> -->
 </body>
 </html>
 

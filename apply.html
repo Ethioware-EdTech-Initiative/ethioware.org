@@ -7,13 +7,32 @@
     <meta name="description" content="Apply to Ethioware's pre-training readiness program — expert-led online sessions helping African high-school graduates choose an intentional career path." />
     <link rel="canonical" href="https://ethioware.org/apply.html" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Brand blue (hsl(215, 80%, 32%), the same --first-color used across
+      // the rest of the site) in place of Tailwind's generic default blue,
+      // so this page reads as the same site as index.html / pay.html.
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              blue: {
+                50: '#dfe9f6',
+                500: '#104793',
+                600: '#104793',
+                700: '#103870',
+              },
+            },
+          },
+        },
+      };
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* gray-100 */
+            background-color: #f7f3ea; /* warm paper, matches --body-color site-wide */
         }
         .form-container {
             transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
@@ -27,6 +46,11 @@
         }
         .question-slide.active {
             display: block;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .question-slide {
+                animation: none;
+            }
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -43,25 +67,29 @@
             padding: 8px 0;
         }
         input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus, select:focus {
-            border-bottom-color: #3b82f6; /* blue-500 */
+            border-bottom-color: #104793; /* brand blue */
         }
         .radio-option {
             border: 2px solid #d1d5db; /* gray-300 */
-            transition: all 0.3s;
+            transition: border-color 0.3s, background-color 0.3s;
         }
         .radio-option:hover {
             border-color: #6b7280; /* gray-500 */
         }
         .radio-option.selected {
-            border-color: #3b82f6; /* blue-500 */
-            background-color: #eff6ff; /* blue-50 */
+            border-color: #104793; /* brand blue */
+            background-color: #dfe9f6; /* brand blue, lightened */
+        }
+        .radio-option:focus-visible {
+            outline: 2px solid #104793;
+            outline-offset: 2px;
         }
         .progress-bar-fill {
             transition: width 0.5s ease-in-out;
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
+<body class="flex items-center justify-center min-h-screen p-4" style="background-color: #f7f3ea;">
 
     <div id="form-wrapper" class="w-full max-w-2xl p-4 md:p-8">
         <!-- Progress Bar -->
@@ -82,19 +110,19 @@
 
             <!-- 1. Full name -->
             <div id="slide-1" class="question-slide">
-                <label for="full_name" class="block text-2xl font-medium text-gray-700 mb-4">1. What's your full name?</label>
-                <input type="text" id="full_name" name="full_name" placeholder="e.g., Abebe Bikila" onkeydown="handleEnter(event)">
+                <label for="full_name" class="block text-2xl font-medium text-gray-700 mb-4">1. What’s your full name?</label>
+                <input type="text" id="full_name" name="full_name" autocomplete="name" placeholder="e.g., Abebe Bikila" onkeydown="handleEnter(event)">
             </div>
 
             <!-- 2. Email -->
             <div id="slide-2" class="question-slide">
                 <label for="email" class="block text-2xl font-medium text-gray-700 mb-4">2. And your email address?</label>
-                <input type="email" id="email" name="email" placeholder="e.g., abebe.b@example.com" onkeydown="handleEnter(event)">
+                <input type="email" id="email" name="email" autocomplete="email" inputmode="email" placeholder="e.g., abebe.b@example.com" onkeydown="handleEnter(event)">
             </div>
 
             <!-- 3. Highschool -->
             <div id="slide-3" class="question-slide">
-                <label for="highschool" class="block text-2xl font-medium text-gray-700 mb-4">3. What's the name of your high school?</label>
+                <label for="highschool" class="block text-2xl font-medium text-gray-700 mb-4">3. What’s the name of your high school?</label>
                 <input type="text" id="highschool" name="highschool" placeholder="e.g., St. Joseph School" onkeydown="handleEnter(event)">
             </div>
 
@@ -107,8 +135,8 @@
             <!-- 5. Program selection -->
             <div id="slide-5" class="question-slide">
                 <label class="block text-2xl font-medium text-gray-700 mb-2">5. Which pre-training are you interested in?</label>
-                <p class="text-gray-500 mb-6">For African youth aged 17–19. We'll show you what each track covers next.</p>
-                <div class="space-y-4">
+                <p class="text-gray-500 mb-6">For African youth aged 17–19. We’ll show you what each track covers next.</p>
+                <div class="space-y-4" role="radiogroup">
                     <div onclick="selectRadio(this, 'Software Engineering Basics')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
                         <span class="text-lg font-medium">Software Engineering Basics</span>
                         <input type="radio" name="program" value="Software Engineering Basics" class="hidden">
@@ -137,7 +165,7 @@
             <!-- 7. Grade -->
             <div id="slide-7" class="question-slide">
                 <label class="block text-2xl font-medium text-gray-700 mb-6">6. What is your current grade?</label>
-                <div class="space-y-4">
+                <div class="space-y-4" role="radiogroup">
                     <div onclick="selectRadio(this, '11')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
                         <span class="text-lg font-medium">Grade 11</span>
                         <input type="radio" name="grade" value="11" class="hidden">
@@ -165,14 +193,14 @@
 
             <!-- 9. Telegram -->
             <div id="slide-9" class="question-slide">
-                <label for="telegram" class="block text-2xl font-medium text-gray-700 mb-4">8. What's your Telegram username?</label>
+                <label for="telegram" class="block text-2xl font-medium text-gray-700 mb-4">8. What’s your Telegram username?</label>
                 <input type="text" id="telegram" name="telegram" placeholder="@your_username" onkeydown="handleEnter(event)">
             </div>
 
             <!-- 10. Where did you hear about us -->
             <div id="slide-10" class="question-slide">
                 <label class="block text-2xl font-medium text-gray-700 mb-6">9. Where did you hear about this program?</label>
-                <div class="space-y-4">
+                <div class="space-y-4" role="radiogroup">
                     <div onclick="selectRadio(this, 'LinkedIn')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
                         <span class="text-lg font-medium">LinkedIn</span>
                         <input type="radio" name="where_heard" value="LinkedIn" class="hidden">
@@ -197,7 +225,7 @@
                 <label class="block text-2xl font-medium text-gray-700 mb-6">10. Do you follow us on LinkedIn?</label>
                 <p class="text-gray-500 mb-4">Stay updated with our latest news and opportunities!</p>
                 <a href="https://www.linkedin.com/company/ethioware/" target="_blank" rel="noopener" class="text-blue-600 hover:underline mb-6 inline-block">https://www.linkedin.com/company/ethioware/</a>
-                <div class="space-y-4">
+                <div class="space-y-4" role="radiogroup">
                      <div onclick="selectRadio(this, 'Yes')" class="radio-option p-4 rounded-lg cursor-pointer flex items-center justify-between">
                         <span class="text-lg font-medium">Yes, I do!</span>
                         <input type="radio" name="linkedin_follow" value="Yes" class="hidden">
@@ -219,7 +247,7 @@
         <!-- Final Thank You / Video Slide -->
         <div id="final-slide" class="hidden text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Thank You for Applying!</h2>
-            <p class="text-lg text-gray-600 mb-8">We've received your information. Watch this video to learn more about the impact of our program while we review your application.</p>
+            <p class="text-lg text-gray-600 mb-8">We’ve received your information. Watch this video to learn more about the impact of our program while we review your application.</p>
             <!-- Responsive video container -->
             <div class="w-full aspect-video rounded-lg overflow-hidden shadow-xl">
                 <iframe class="w-full h-full" src="https://www.youtube.com/embed/Z9lzl0DzWHQ?si=tFwddATLiNjYVw0h&amp;start=990" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="Ethioware program impact video"></iframe>
@@ -410,14 +438,35 @@
 
     function selectRadio(element, value) {
         const container = element.parentElement;
-        container.querySelectorAll('.radio-option').forEach(opt => opt.classList.remove('selected'));
+        container.querySelectorAll('.radio-option').forEach(opt => {
+            opt.classList.remove('selected');
+            opt.setAttribute('aria-checked', 'false');
+        });
         element.classList.add('selected');
+        element.setAttribute('aria-checked', 'true');
         const radioInput = element.querySelector('input[type="radio"]');
         if (radioInput) {
             radioInput.checked = true;
         }
         // Automatically advance after a short delay
         setTimeout(nextQuestion, 400);
+    }
+
+    // The custom radio options are plain <div>s (styled, animated selection
+    // state) rather than native <input type="radio">, so they need explicit
+    // role/keyboard wiring to be reachable and operable without a mouse.
+    function initRadioOptions() {
+        document.querySelectorAll('.radio-option').forEach(el => {
+            el.setAttribute('role', 'radio');
+            el.setAttribute('tabindex', '0');
+            el.setAttribute('aria-checked', el.classList.contains('selected') ? 'true' : 'false');
+            el.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    el.click();
+                }
+            });
+        });
     }
 
     function updateProgressBar() {
@@ -451,7 +500,7 @@
             });
             const data = await response.json().catch(() => ({}));
             if (response.ok && data.success) {
-                submissionMessage.textContent = data.message || "Application received! We'll be in touch soon.";
+                submissionMessage.textContent = data.message || "Application received! We’ll be in touch soon.";
                 submissionMessage.className = 'mt-6 text-green-600 font-medium';
             } else {
                 throw new Error((data && data.message) || ('HTTP ' + response.status));
@@ -465,7 +514,8 @@
 
     // Initialize the form
     showQuestion(currentQuestion);
+    initRadioOptions();
 </script>
-<script src="/assets/js/chatbot.js" defer></script>
+<!-- Chatbot disabled for now: not ready. <script src="/assets/js/chatbot.js" defer></script> -->
 </body>
 </html>

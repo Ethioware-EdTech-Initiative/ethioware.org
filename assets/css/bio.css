@@ -83,6 +83,22 @@ button {
   cursor: pointer;
   border: none;
   outline: none;
+  background: none;
+  font: inherit;
+  padding: 0;
+}
+
+/* Buttons/inputs opt out of the default outline above for visual polish, so
+   keyboard users need an explicit replacement or they get no focus feedback
+   at all. Only shows on keyboard focus (:focus-visible), not on mouse click. */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
 }
 
 a {
@@ -140,7 +156,7 @@ img {
 .main-button:hover {
   opacity: 0.9;
   transform: translateY(-2px);
-  transition: all 0.2s ease;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 #media {
   display: flex;
@@ -442,6 +458,7 @@ img {
 .about {
   display: flex;
   height: calc(100vh - var(--header-height));
+  height: calc(100dvh - var(--header-height));
   justify-content: space-between;
   align-items: flex-end;
   align-self: stretch;
@@ -770,7 +787,7 @@ h3 {
 /* From Uiverse.io by adeladel522 */
 .skill {
   position: relative;
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out, border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
   box-shadow: 0rem 0.75rem 1.25rem rgba(0, 0, 0, 0.2);
   padding: 0.5rem 1rem;
   background-color: var(--primary);
@@ -791,7 +808,7 @@ h3 {
 .skill-icon {
   width: 1.5rem;
   height: 1.5rem;
-  transition: all 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 .skill:hover {
@@ -1029,13 +1046,22 @@ h3 {
 
 .ft,
 .ft * {
-  transition: all 0.2s ease-in-out;
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
 }
 
 .ft {
   background: var(--brand-gradient);
   background-size: 300% 300%;
   animation: grad 15s ease infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ft {
+    animation: none;
+  }
+  .skill:hover::before {
+    animation: none;
+  }
 }
 
 .left-socials div:hover {

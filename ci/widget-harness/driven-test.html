@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chat widget harness</title>
+<style>body{font-family:system-ui,sans-serif;margin:0;padding:2rem;background:#eef2f7;color:#16202e}
+pre{background:#fff;padding:1rem;border-radius:8px;font-size:12px;white-space:pre-wrap}</style>
+</head><body>
+<h1>Ethioware chat widget — driven test</h1>
+<pre id="results">running…</pre>
+<script src="/assets/js/chatbot.js" defer></script>
+<script>
+(function () {
+  var out = [];
+  function ok(label, cond, detail) { out.push((cond ? 'ok   ' : 'FAIL ') + label + (cond ? '' : ' — ' + (detail || ''))); }
+  function $(s) { return document.querySelector(s); }
+  function $$(s) { return Array.prototype.slice.call(document.querySelectorAll(s)); }
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  async function until(fn, ms) {
+    var deadline = Date.now() + (ms || 4000);
+    while (Date.now() < deadline) { var v = fn(); if (v) return v; await sleep(40); }
+    return null;
+  }
+  function modelMsgs() { return $$('.cb-thread .cb-msg.cb-model'); }
+  function lastModel() { var m = modelMsgs(); return m[m.length - 1]; }
+
+  async function send(text) {
+    var before = modelMsgs().length;
+    $('.cb-composer input').value = text;
+    $('.cb-composer button').click();
+    await until(function () { return modelMsgs().length > before && !$('.cb-typing'); });
+    return lastModel();
+  }
+
+  async function run() {
+    await until(function () { return $('#eth-chatbot-root') && $('.cb-launcher'); });
+
+    // ---- structure / a11y before opening ----
+    ok('launcher reports collapsed state', $('.cb-launcher').getAttribute('aria-expanded') === 'false');
+    ok('launcher advertises a dialog', $('.cb-launcher').getAttribute('aria-haspopup') === 'dialog');
+    ok('panel is a labelled dialog',
+       $('.cb-panel').getAttribute('role') === 'dialog' && !!$('.cb-panel').getAttribute('aria-label'));
+    ok('thread is a polite live region',
+       $('.cb-thread').getAttribute('aria-live') === 'polite' && $('.cb-thread').getAttribute('role') === 'log');
+    ok('composer input is length-capped', $('.cb-composer input').getAttribute('maxlength') === '2000');
+    ok('panel starts closed', !$('.cb-panel').classList.contains('cb-open'));
+
+    // ---- open ----
+    $('.cb-launcher').click();
+    await sleep(60);
+    ok('panel opens on launcher click', $('.cb-panel').classList.contains('cb-open'));
+    ok('aria-expanded flips to true', $('.cb-launcher').getAttribute('aria-expanded') === 'true');
+    ok('launcher label becomes "Close chat"', $('.cb-launcher').getAttribute('aria-label') === 'Close chat');
+    ok('opening greeting is shown', modelMsgs().length === 1);
+    ok('four starter chips render', $$('.cb-chip-row .cb-chip').length === 4);
+
+    // ---- plain reply: links become clickable ----
+    var m = await send('hello');
+    ok('reply rendered', !!m && m.textContent.indexOf('7-week') !== -1);
+    ok('/apply is a link', !!m.querySelector('a[href="/apply"]'));
+    ok('/support is a link', !!m.querySelector('a[href="/support"]'));
+    ok('email becomes mailto', !!m.querySelector('a[href="mailto:info@ethioware.org"]'));
+    ok('user bubble echoes what was typed',
+       $$('.cb-thread .cb-msg.cb-user').pop().textContent === 'hello');
+    ok('composer cleared after send', $('.cb-composer input').value === '');
+
+    // ---- stray markdown is flattened, all link forms handled ----
+    m = await send('messy');
+    var t = m.textContent;
+    ok('bold markers removed', t.indexOf('**') === -1, JSON.stringify(t.slice(0, 60)));
+    ok('markdown link syntax removed', !/\]\(/.test(t), JSON.stringify(t.slice(0, 80)));
+    ok('italics markers removed', !/\s\*[^*]+\*/.test(t));
+    ok('bullets normalised', t.indexOf('•') !== -1);
+    ok('certificate short URL linkified',
+       !!m.querySelector('a[href="https://ethioware.org/WI10092516"]'));
+    ok('absolute URL linkified',
+       !!m.querySelector('a[href="https://www.linkedin.com/company/ethioware/"]'));
+    ok('external links get rel=noopener',
+       (m.querySelector('a[target="_blank"]') || {}).rel === 'noopener noreferrer');
+    ok('on-site link stays same-tab', !m.querySelector('a[href="/apply"][target]'));
+    ok('no raw HTML injected', m.querySelectorAll('script, iframe').length === 0);
+
+    // ---- referral ----
+    m = await send('apply');
+    await until(function () { return $('.cb-referral'); });
+    ok('referral button rendered', !!$('.cb-referral'));
+    ok('referral carries the tracking token',
+       ($('.cb-referral').getAttribute('href') || '').indexOf('?ref=') !== -1);
+    ok('referral is a button, not an underlined link',
+       getComputedStyle($('.cb-referral')).textDecorationLine === 'none',
+       getComputedStyle($('.cb-referral')).textDecorationLine);
+    ok('referral is not nested inside a message bubble',
+       !$('.cb-referral').closest('.cb-msg'));
+
+    // ---- program chips ----
+    await send('unsure');
+    await until(function () { return $$('.cb-chip-row .cb-chip').length > 0; });
+    ok('program chips offered', $$('.cb-chip-row .cb-chip').length === 5);
+    var chipCount = modelMsgs().length;
+    $$('.cb-chip-row .cb-chip')[0].click();
+    await until(function () { return modelMsgs().length > chipCount && !$('.cb-typing'); });
+    ok('picking a chip sends a message',
+       $$('.cb-thread .cb-msg.cb-user').pop().textContent.indexOf('Software Engineering Basics') !== -1);
+    ok('chips clear once picked', $$('.cb-chip-row .cb-chip').length === 0);
+
+    // ---- gate form ----
+    await send('partner');
+    await until(function () { return $('.cb-form'); });
+    ok('gate form rendered', !!$('.cb-form'));
+    var inputs = $$('.cb-form input');
+    ok('gate form asks name + email first',
+       inputs[0].placeholder.indexOf('name') !== -1 && inputs[1].type === 'email');
+    ok('optional fields are marked optional',
+       inputs[2].placeholder.indexOf('optional') !== -1 && inputs[3].placeholder.indexOf('optional') !== -1);
+
+    inputs[0].value = 'Ada Lovelace';
+    inputs[1].value = 'ada@example.com';
+    var submitBtn = $('.cb-form button');
+    $('.cb-form').dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+    ok('submit button disables while in flight', submitBtn.disabled === true);
+    ok('submit button shows progress', submitBtn.textContent.indexOf('Sending') !== -1);
+    await until(function () { return !$('.cb-form'); });
+    ok('form clears on success', !$('.cb-form'));
+    ok('gated answer now includes the withheld detail',
+       (lastModel().textContent || '').indexOf('$25') !== -1);
+
+    // ---- server failure: message + retry affordance ----
+    var beforeFail = modelMsgs().length;
+    $('.cb-composer input').value = 'boom';
+    $('.cb-composer button').click();
+    await until(function () { return modelMsgs().length > beforeFail && !$('.cb-typing'); });
+    ok('failure explains itself',
+       (lastModel().textContent || '').indexOf("couldn't reach the server") !== -1,
+       JSON.stringify((lastModel().textContent || '').slice(0, 70)));
+    ok('typing indicator removed on failure', !$('.cb-typing'));
+    ok('composer re-enabled after failure', $('.cb-composer button').disabled === false);
+    var retry = $$('.cb-chip-row .cb-chip').filter(function (c) { return c.textContent === 'Try again'; });
+    ok('retry affordance offered', retry.length === 1);
+    ok('email escape hatch offered in the failure text',
+       !!lastModel().querySelector('a[href="mailto:info@ethioware.org"]'));
+
+    // ---- escape + focus return ----
+    $('.cb-composer input').focus();
+    $('#eth-chatbot-root').dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
+    await sleep(60);
+    ok('Escape closes the panel', !$('.cb-panel').classList.contains('cb-open'));
+    ok('focus returns to the launcher', document.activeElement === $('.cb-launcher'));
+    ok('aria-expanded returns to false', $('.cb-launcher').getAttribute('aria-expanded') === 'false');
+
+    var fails = out.filter(function (l) { return l.indexOf('FAIL') === 0; }).length;
+    out.push('');
+    out.push((out.length - 1 - fails) + ' passed, ' + fails + ' failed');
+    document.getElementById('results').textContent = out.join('\n');
+    document.title = fails === 0 ? 'ALL PASS' : fails + ' FAILURES';
+  }
+
+  window.addEventListener('load', function () {
+    run().catch(function (e) {
+      document.getElementById('results').textContent = out.join('\n') + '\nHARNESS ERROR: ' + (e && e.stack || e);
+      document.title = 'HARNESS ERROR';
+    });
+  });
+})();
+</script>
+</body></html>

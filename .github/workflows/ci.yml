@@ -86,7 +86,7 @@ jobs:
         run: python3 ci/check-assets.py
 
   php-syntax:
-    name: PHP syntax
+    name: PHP syntax & admin auth tests
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -96,6 +96,17 @@ jobs:
           for f in $(find . -name '*.php' -not -path './node_modules/*'); do
             php -l "$f"
           done
+      - name: Clerk token verification tests
+        # chatbot/admin/clerk.php verifies RS256 tokens by hand (no Composer on
+        # cPanel), so its accept/reject rules are covered by real assertions.
+        run: php ci/clerk-auth-test.php
+      - name: Chatbot knowledge, prompt and gate tests
+        # Guards what the bot is allowed to say: no unfinished placeholders in
+        # the knowledge base, partnership content withheld until the gate is
+        # passed, and the gate keyword backstop not firing on ordinary learner
+        # questions. The browser-driven widget suite lives in
+        # ci/widget-harness/ and is run manually (it needs a local Chrome).
+        run: php ci/chatbot-content-test.php
 
   guard:
     name: Repo hygiene & secret guard
