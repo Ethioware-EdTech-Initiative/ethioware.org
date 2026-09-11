@@ -146,13 +146,29 @@ body {
   margin: var(--header-height) 0 0 0;
   background-color: var(--body-color);
   color: var(--text-color);
-  transition: 0.3s; /*For animation dark mode*/
+  transition: background-color 0.3s, color 0.3s; /*For animation dark mode*/
 }
 
 button {
   cursor: pointer;
   border: none;
   outline: none;
+  background: none;
+  font: inherit;
+  padding: 0;
+}
+
+/* Buttons/inputs opt out of the default outline above for visual polish, so
+   keyboard users need an explicit replacement or they get no focus feedback
+   at all. Only shows on keyboard focus (:focus-visible), not on mouse click. */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--first-color);
+  outline-offset: 2px;
 }
 
 h1,

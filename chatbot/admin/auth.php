@@ -22,13 +22,11 @@ const CHATBOT_ADMIN_ATTEMPT_WINDOW_MIN = 15;
 
 function chatbot_admin_session_start(): void {
     if (session_status() === PHP_SESSION_ACTIVE) return;
-    $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-        || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
     session_set_cookie_params([
         'lifetime' => 0,
         'path' => '/chatbot/admin/',
         'httponly' => true,
-        'secure' => $isHttps,
+        'secure' => chatbot_request_is_https(),
         'samesite' => 'Lax',
     ]);
     session_name('chatbot_admin_session');

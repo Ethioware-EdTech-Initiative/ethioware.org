@@ -261,7 +261,7 @@
         <a href="index.html" class="nav__logo"> Ethioware EdTech Initiative </a>
 
         <div class="nav__btns">
-          <i class="bx bx-moon change-theme" id="theme-button"></i>
+          <i class="bx bx-moon change-theme" id="theme-button" role="button" tabindex="0" aria-label="Toggle dark mode"></i>
         </div>
       </nav>
     </header>
@@ -589,6 +589,13 @@
             "selected-icon",
             themeButton.classList.contains(iconTheme) ? iconTheme : "bx-moon"
           );
+        }
+      });
+      // themeButton is an <i role="button">, not a real <button>, so Enter/Space needs wiring by hand.
+      themeButton.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          themeButton.click();
         }
       });
     </script>

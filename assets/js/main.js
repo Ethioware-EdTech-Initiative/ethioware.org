@@ -246,6 +246,15 @@ themeButton.addEventListener('click', () => {
     localStorage.setItem('selected-icon', getCurrentIcon())
 })
 
+// themeButton is an <i> with role="button" (it doubles as its own icon, so
+// it isn't a real <button>), so Enter/Space needs wiring up by hand.
+themeButton.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault()
+        themeButton.click()
+    }
+})
+
 /*=============== SCROLL REVEAL ANIMATION ===============*/
 const sr = ScrollReveal({
     origin: 'top',

@@ -250,7 +250,7 @@
         color:var(--navy);
         background:#fff;
         cursor:pointer;
-        transition:all .15s ease;
+        transition:background-color .15s ease, border-color .15s ease, color .15s ease;
       }
       .tier:hover{border-color:var(--accent);}
       .tier.selected{
@@ -390,15 +390,15 @@
               <a href="index.html#contact" class="nav__link">Contact Us</a>
             </li>
           </ul>
-          <div class="nav__close" id="nav-close">
-            <i class="ri-close-line"></i>
-          </div>
+          <button type="button" class="nav__close" id="nav-close" aria-label="Close menu">
+            <i class="ri-close-line" aria-hidden="true"></i>
+          </button>
         </div>
         <div class="nav__btns">
-          <i class="ri-moon-line change-theme" id="theme-button"></i>
-          <div class="nav__toggle" id="nav-toggle">
-            <i class="ri-menu-line"></i>
-          </div>
+          <i class="ri-moon-line change-theme" id="theme-button" role="button" tabindex="0" aria-label="Toggle dark mode"></i>
+          <button type="button" class="nav__toggle" id="nav-toggle" aria-label="Open menu" aria-controls="nav-menu">
+            <i class="ri-menu-line" aria-hidden="true"></i>
+          </button>
         </div>
       </nav>
     </header>
@@ -408,7 +408,7 @@
         <div class="hero-inner">
           <div class="eyebrow">Ethioware Research Scholars</div>
           <h1>Become a Supporter</h1>
-          <p class="lede">Ethiopian high schoolers have applied for our next cohort. Whether you can give $25 or four hours a week, this is where you tell us how you'd like to help.</p>
+          <p class="lede">Ethiopian high schoolers have applied for our next cohort. Whether you can give $25 or four hours a week, this is where you tell us how you’d like to help.</p>
           <div class="stat-row">
             <span class="stat-pill">Cohort starts <b>Aug 10</b></span>
             <span class="stat-pill"><b>$25</b> = one month funded</span>
@@ -430,7 +430,7 @@
             <div class="success-panel" id="successPanel">
               <div class="check">&#10003;</div>
               <h2 id="successTitle">Thank you!</h2>
-              <p id="successBody">We've received your details and someone from Ethioware will follow up shortly.</p>
+              <p id="successBody">We’ve received your details and someone from Ethioware will follow up shortly.</p>
             </div>
 
             <form id="supporterForm" novalidate>
@@ -438,7 +438,7 @@
 
               <div id="sponsorIntro">
                 <h2 class="form-title">Sponsor a Learner</h2>
-                <p class="form-sub">$25 covers one learner's month — and Ethioware matches it, so your gift funds their month in full. Give more, and we'll match that too.</p>
+                <p class="form-sub">$25 covers one learner’s month — and Ethioware matches it, so your gift funds their month in full. Give more, and we’ll match that too.</p>
               </div>
               <div id="volunteerIntro" style="display:none;">
                 <h2 class="form-title">Become a Mentor</h2>
@@ -469,7 +469,7 @@
                 <div class="field" id="field_country">
                   <label for="country">Country / city</label>
                   <input type="text" id="country" name="country" required autocomplete="country-name" placeholder="e.g. Addis Ababa, Ethiopia">
-                  <div class="field-error">Please let us know where you're based.</div>
+                  <div class="field-error">Please let us know where you’re based.</div>
                 </div>
               </div>
 
@@ -526,12 +526,12 @@
               </div>
 
               <div class="field">
-                <label for="message">Anything you'd like us to know? <span class="opt">(optional)</span></label>
+                <label for="message">Anything you’d like us to know? <span class="opt">(optional)</span></label>
                 <textarea id="message" name="message"></textarea>
               </div>
 
               <button type="submit" class="submit-btn" id="submitBtn">Sponsor Now</button>
-              <p class="required-note">We'll follow up by email within 2–3 days with next steps.</p>
+              <p class="required-note">We’ll follow up by email within 2–3 days with next steps.</p>
             </form>
 
           </div>
@@ -710,6 +710,13 @@
         themeButton.classList.toggle(iconTheme);
         localStorage.setItem('selected-theme', getCurrentTheme());
         localStorage.setItem('selected-icon', getCurrentIcon());
+      });
+      // themeButton is an <i role="button">, not a real <button>, so Enter/Space needs wiring by hand.
+      themeButton.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          themeButton.click();
+        }
       });
     </script>
 

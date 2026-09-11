@@ -101,12 +101,16 @@ function chatbot_clerk_jwt_template(): string {
     return chatbot_clerk_setting('CLERK_JWT_TEMPLATE');
 }
 
+/** Whether the current request arrived over HTTPS (direct or via a trusted proxy header). */
+function chatbot_request_is_https(): bool {
+    return (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+        || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
+}
+
 /** Scheme://host of the current request — the expected `azp` of a token. */
 function chatbot_clerk_current_origin(): string {
-    $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-        || (($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '') === 'https');
     $host = $_SERVER['HTTP_HOST'] ?? '';
-    return ($isHttps ? 'https://' : 'http://') . $host;
+    return (chatbot_request_is_https() ? 'https://' : 'http://') . $host;
 }
 
 /* -------------------------------------------------------------------------

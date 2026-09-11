@@ -239,7 +239,7 @@
         padding: 1.5rem;
         text-align: center;
         box-shadow: var(--box-shadow);
-        transition: all 0.3s ease;
+        transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         position: relative;
         cursor: pointer;
         display: flex;
@@ -355,7 +355,7 @@
         border-radius: 8px;
         font-weight: var(--font-semi-bold);
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
         width: 100%;
         box-sizing: border-box;
         color: var(--title-color);
@@ -462,7 +462,7 @@
         border: 2px solid var(--first-color-alt);
         border-radius: 9999px; /* This creates the pill shape */
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
       }
       .program-options .selectable-option.selected {
         background-color: var(--first-color);
@@ -754,7 +754,7 @@
     <header class="header" id="header">
       <nav class="nav container">
         <a href="/#home" class="nav__logo">
-          <img src="assets/img/logo-mini.png" alt="Ethioware Logo" /> Ethioware
+          <img src="assets/img/logo-mini.png" alt="Ethioware Logo" width="40" height="40" /> Ethioware
         </a>
         <div class="nav__menu" id="nav-menu">
           <ul class="nav__list">
@@ -777,15 +777,15 @@
               <a href="/#contact" class="nav__link">Contact Us</a>
             </li>
           </ul>
-          <div class="nav__close" id="nav-close">
-            <i class="ri-close-line"></i>
-          </div>
+          <button type="button" class="nav__close" id="nav-close" aria-label="Close menu">
+            <i class="ri-close-line" aria-hidden="true"></i>
+          </button>
         </div>
         <div class="nav__btns">
-          <i class="ri-moon-line change-theme" id="theme-button"></i>
-          <div class="nav__toggle" id="nav-toggle">
-            <i class="ri-menu-line"></i>
-          </div>
+          <i class="ri-moon-line change-theme" id="theme-button" role="button" tabindex="0" aria-label="Toggle dark mode"></i>
+          <button type="button" class="nav__toggle" id="nav-toggle" aria-label="Open menu" aria-controls="nav-menu">
+            <i class="ri-menu-line" aria-hidden="true"></i>
+          </button>
         </div>
       </nav>
     </header>
@@ -819,7 +819,7 @@
                 style="
                   text-decoration: underline;
                   font-weight: bold;
-                  color: #0069d9;
+                  color: var(--first-color);
                 "
                 target="_blank"
               >
@@ -1078,6 +1078,13 @@
         themeButton.classList.toggle(iconTheme);
         localStorage.setItem("selected-theme", getCurrentTheme());
         localStorage.setItem("selected-icon", getCurrentIcon());
+      });
+      // themeButton is an <i role="button">, not a real <button>, so Enter/Space needs wiring by hand.
+      themeButton.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          themeButton.click();
+        }
       });
 
       // Existing script for pricing tier selection
