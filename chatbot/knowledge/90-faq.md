@@ -1,92 +1,57 @@
-# FAQ
+# Learner frequently asked questions
 
-<!-- One "## Question" heading per answer. Transcribed from index.html's FAQ
-     section and the rest of the site. Add real questions as they come up in
-     transcripts (CHATBOT_SPEC.md §11). -->
+## How long is a pre-training?
 
-## What is the mission of Ethioware?
+Eight weeks, including seven curriculum weeks and final assessment and graduation in Week 8. Older descriptions of seven weeks refer to the curriculum rather than the full cohort.
 
-To direct 200,000 African youth to intentionally chosen careers by 2040,
-through intentional partnerships with global EdTech providers. Ethioware
-bridges the gap between high school and professional careers by providing
-direct sessions with experts — "doers" — from top institutions.
+## How much does it cost?
 
-## What is a pre-training?
+Pricing changes each cohort. Please contact info@ethioware.org for the current details. The chatbot does not quote prices, discounts, or historical offers.
 
-A 7-week online program for ambitious high-school and university-freshman
-students, built to guide career selection at the undergraduate level. It has
-two components: Advanced Curricula (AP courses and introductory college-level
-courses from Khan Academy) and Expert Sessions (anecdotal career experience
-from professionals in your industry). By the end you'll know what careers exist
-in your industry and can plan your studies accordingly.
+## How do I get an extension?
 
-## Does a pre-training include AP subjects?
+Ask your coordinator by email or in the cohort Telegram group. Extensions are reviewed individually; the chatbot cannot approve one. Discuss how to use the catch-up period if you are behind.
 
-Yes — all pre-trainings include AP course material. They also include
-additional courses such as introduction to electrical engineering, Python
-programming, or internet safety, varying by which pre-training you select.
+## Is Khan Academy self-paced?
 
-## Can I take two pre-trainings at once?
+Yes, within assigned units and deadlines. Complete assigned quizzes as part of unit progress. Expert sessions and LMS modules complement that work; Khan Academy material is not taught live by the cohort team.
 
-Yes. The Duo Pack is for learners who want to join two cohorts simultaneously.
-A popular combination, chosen for effective time management, is Medicine &
-Software Engineering Basics.
+## Is there a fixed Khan Academy energy-point target?
 
-## How much does a pre-training cost?
+No. Pre-training scoring uses progress relative to the highest scorer in the cohort. There is no fixed energy-point, skill-count, or level target.
 
-It depends on Ethioware's partner sponsors, and the amount is communicated to
-finalists upon acceptance. Applying itself is free. Accepted learners complete
-a deposit — the current packages, prices, bank details and cohort start date
-are all on /pay.
+## How is my final pre-training score calculated?
 
-## When does the next cohort start?
+Two equally weighted components: weekly quiz percentage and Khan Academy progress relative to the cohort's highest scorer. These rules apply to pre-trainings, not Research Scholars. Ask your coordinator privately about your own score; the chatbot cannot access or disclose grades.
 
-Cohort dates change between intakes, so check /pay for the current
-pre-training start date and /apply for which cohort is open. For Research
-Scholars, see /research-scholars.
+## How do I earn a recommendation letter?
 
-## How is Ethioware funded?
+Letters go to qualifying learners based on cohort assessment. The Education Lead confirms criteria in the welcome pack. The SOP leaves a universal cutoff unresolved, so do not invent a rank or score threshold or promise everyone a letter.
 
-Through partner sponsors and individual sponsorship. Sponsors can fund a
-learner's month at /support, and Ethioware matches every dollar given, up to a
-full month per learner. For questions about Ethioware's formal status or
-finances, email info@ethioware.org.
+## What is the capstone?
 
-## Where is Ethioware based, and who can apply?
+It showcases what you learned. Slides support the same capstone rather than a separate project. Work is submitted around Week 7 and presented at graduation in Week 8.
 
-Ethioware is based at 22 St., Addis Ababa, Ethiopia, and has had learners from
-8+ nationalities. Pre-trainings are for African youth aged 17–19 (Grade 11,
-Grade 12, graduated, or university freshman). The Research Scholars Program is
-for Ethiopian high schoolers in Grade 10–12, roughly ages 15–18.
+## Must I attend graduation and present in English?
 
-## Do you offer programs in Amharic?
+Yes. The pre-training SOP requires attendance at the showcase, with spoken presentation and slides in English. Recordings do not replace attendance. Contact the coordinator about access or scheduling issues.
 
-Currently the website and chat assistant operate in English only.
+## Will recordings be available?
 
-## How can I intern at Ethioware?
+Pre-training expert recordings are available through the LMS. The graduation recording is shared afterward. The welcome pack confirms the schedule.
 
-There are two categories. **Technical** internships last 3 months and are for
-developers, product managers and data analysts; registrations open 2 months
-before the summer. **Creative** internships vary in duration and are for
-graphics designers, video editors, UI/UX designers, and youth ambassadors
-(high-school students only); registrations are open all year round. Write to
-info@ethioware.org.
+## I cannot log in to Khan Academy or the LMS
 
-## How do I get in touch with a real person?
+Contact your coordinator using your registered email. Do not create a second Khan Academy account: progress on an unlinked account may not be scored. Never share passwords, access codes, or receipts in chat.
 
-Email info@ethioware.org, or parents@ethioware.org if you're a parent. There's
-also WhatsApp support from 6am to 5pm EAT, and Ethioware is on Telegram,
-LinkedIn, Twitter/X, YouTube, Instagram and Facebook as @ethioware. For payment
-questions specifically, @ethiowarecso on Telegram.
+## What if the LMS is unavailable?
 
-## I already have a certificate — how do I verify it?
+Contact the coordinator and check the cohort Telegram channel for materials. The SOP provides PDF and link-based continuity; learners are not penalised for a platform outage.
 
-Certificates are published at a permanent short URL in the form
-`ethioware.org/<code>` (for example `ethioware.org/WI10092516`). If you have
-your code, visiting that URL directly shows the certificate.
+## Does the bot speak Amharic?
 
-## Something went wrong with my application or payment
+The chatbot operates in English. Contact info@ethioware.org for human support.
 
-Email info@ethioware.org with your name and the program/cohort you applied to,
-and the team will help directly. For payment issues specifically you can also
-reach @ethiowarecso on Telegram.
+## How can a parent get help?
+
+Contact parents@ethioware.org. General support is available through info@ethioware.org or the cohort coordinator.

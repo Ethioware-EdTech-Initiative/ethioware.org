@@ -11,3 +11,17 @@ ethioware_deploy.pub
 id_ed25519*
 id_rsa*
 *.pem
+
+# Knowledge sources can contain minors' records and payment details.
+# Only reviewed bot Markdown belongs in Git. Originals remain on disk.
+.DS_Store
+/chatbot/knowledge/*
+!/chatbot/knowledge/.htaccess
+!/chatbot/knowledge/.gitkeep
+!/chatbot/knowledge/00-org.md
+!/chatbot/knowledge/10-programs.md
+!/chatbot/knowledge/20-enrollment.md
+!/chatbot/knowledge/30-mentorship.md
+!/chatbot/knowledge/40-partnerships.md
+!/chatbot/knowledge/50-research-scholars.md
+!/chatbot/knowledge/90-faq.md
