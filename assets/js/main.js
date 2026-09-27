@@ -13,7 +13,7 @@ if (applicationFrame) {
 
         const height = Number(event.data.height)
         if (!Number.isFinite(height)) return
-        applicationFrame.style.height = `${Math.min(Math.max(height, 420), 900)}px`
+        applicationFrame.style.height = `${Math.max(height, 420)}px`
     })
 }
 
@@ -97,20 +97,20 @@ document.querySelectorAll('a[href^="/"], a[href^="#"]').forEach(anchor => {
             return
         }
         
-        e.preventDefault()
-        
         let sectionId = null
         
         // Handle path-based navigation (/about, /mission, etc.)
         if (href.startsWith('/')) {
-            sectionId = routeToSectionMap[href]
+            sectionId = href.startsWith('/#') ? href.slice(2) : routeToSectionMap[href]
         }
         // Handle hash-based navigation (#about)
         else if (href.startsWith('#')) {
             sectionId = href.substring(1)
         }
         
-        if (sectionId && scrollToSection(sectionId, true)) {
+        if (sectionId && document.getElementById(sectionId)) {
+            e.preventDefault()
+            scrollToSection(sectionId, true)
             // Close mobile menu if open
             const navMenu = document.getElementById('nav-menu')
             if (navMenu) {
@@ -119,6 +119,31 @@ document.querySelectorAll('a[href^="/"], a[href^="#"]').forEach(anchor => {
         }
     })
 })
+
+// Reflect the visible section in the mobile tab bar, including manual scrolling.
+const mobileTabs = [...document.querySelectorAll('.mobile-tabs__item')]
+if (mobileTabs.length) {
+    const tabSections = mobileTabs.map(tab => document.querySelector(tab.getAttribute('href')))
+    let tabUpdatePending = false
+    const updateMobileTab = () => {
+        let active = 0
+        tabSections.forEach((section, index) => {
+            if (section && section.getBoundingClientRect().top <= window.innerHeight * 0.4) active = index
+        })
+        mobileTabs.forEach((tab, index) => {
+            if (index === active) tab.setAttribute('aria-current', 'location')
+            else tab.removeAttribute('aria-current')
+        })
+        tabUpdatePending = false
+    }
+    window.addEventListener('scroll', () => {
+        if (!tabUpdatePending) {
+            tabUpdatePending = true
+            requestAnimationFrame(updateMobileTab)
+        }
+    }, { passive: true })
+    updateMobileTab()
+}
 
 // Handle browser back/forward buttons
 window.addEventListener('popstate', function(e) {

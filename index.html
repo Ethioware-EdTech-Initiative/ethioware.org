@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+      content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"
     />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <meta
@@ -105,7 +105,7 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
     <!-- Preload critical resources -->
-    <link rel="preload" href="assets/css/styles.css?v=20260927-2" as="style" />
+    <link rel="preload" href="assets/css/styles.css?v=20260927-3" as="style" />
     <link rel="preload" href="assets/img/logo-mini.png" as="image" />
     <link rel="preload" href="assets/img/plan.webp" as="image" />
 
@@ -151,7 +151,8 @@
         rel="stylesheet"
     /></noscript>
     <!-- Critical CSS loaded immediately, non-critical deferred -->
-    <link rel="stylesheet" href="assets/css/styles.css?v=20260927-2" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=20260927-3" />
+    <meta name="theme-color" content="#f5f7fa" />
 
     <!-- Trustpilot widget - deferred loading with intersection observer for better performance -->
     <script type="text/javascript">
@@ -350,7 +351,7 @@
       });
     </script>
   </head>
-  <body>
+  <body class="mobile-app">
     <!-- Google One Tap auto prompt (no visible button) -->
     <div
       id="g_id_onload"
@@ -406,6 +407,12 @@
         </div>
       </nav>
     </header>
+    <nav class="mobile-tabs" aria-label="Main sections">
+      <a href="#home" class="mobile-tabs__item" aria-current="location"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7v10H15v-6H9v6H3Z" /></svg><span>Home</span></a>
+      <a href="#approach" class="mobile-tabs__item"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="m16 8-2 6-6 2 2-6Z" /></svg><span>Explore</span></a>
+      <a href="#train" class="mobile-tabs__item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v15M3 4c4-1 6-1 9 1 3-2 5-2 9-1v15c-4-1-6-1-9 1-3-2-5-2-9-1Z" /></svg><span>Apply</span></a>
+      <a href="#contact" class="mobile-tabs__item"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11a8 8 0 0 1-8 8H7l-4 3V11a8 8 0 0 1 8-8h2a8 8 0 0 1 8 8Z" /><path d="M8 9h8M8 13h5" /></svg><span>Contact</span></a>
+    </nav>
     <main class="main" role="main">
       <section id="home" class="home">
         <div class="home__container container grid">
@@ -2006,7 +2013,7 @@
     <script defer src="assets/js/script.js"></script>
     <script defer src="assets/js/bio.js"></script>
     <script defer src="assets/js/sendmail.js"></script>
-    <script defer src="assets/js/main.js?v=20260927-2"></script>
+    <script defer src="assets/js/main.js?v=20260927-3"></script>
 
     <!-- JSON-LD Structured Data for SEO -->
     <script type="application/ld+json">
