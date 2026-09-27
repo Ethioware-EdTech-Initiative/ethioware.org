@@ -33,6 +33,19 @@
 # --- DB schema is import-once, not web content ---
 /db/
 
+# Only reviewed knowledge is published, including when rsync runs locally.
+# Keep this list aligned with CHATBOT_KNOWLEDGE_FILES in api/prompt.php.
++ /chatbot/knowledge/.htaccess
++ /chatbot/knowledge/00-org.md
++ /chatbot/knowledge/10-programs.md
++ /chatbot/knowledge/20-enrollment.md
++ /chatbot/knowledge/30-mentorship.md
++ /chatbot/knowledge/40-partnerships.md
++ /chatbot/knowledge/50-research-scholars.md
++ /chatbot/knowledge/90-faq.md
+/chatbot/knowledge/*
+.DS_Store
+
 # --- Secrets: server-managed, also gitignored, never overwrite/remove ---
 config.php
 

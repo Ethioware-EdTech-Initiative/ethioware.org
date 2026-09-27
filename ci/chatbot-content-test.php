@@ -36,7 +36,7 @@ function check(string $label, bool $ok, string $detail = ''): void {
 echo "knowledge base\n";
 
 $knowledgeDir = $repoRoot . '/chatbot/knowledge';
-$files = glob($knowledgeDir . '/*.md') ?: [];
+$files = array_map(static fn(string $name): string => $knowledgeDir . '/' . $name, CHATBOT_KNOWLEDGE_FILES);
 check('knowledge files exist', count($files) >= 5, count($files) . ' found');
 
 // The whole file is pasted into the system prompt, so an unfinished
@@ -45,6 +45,9 @@ check('knowledge files exist', count($files) >= 5, count($files) . ' found');
 foreach ($files as $file) {
     $name = basename($file);
     $body = (string) file_get_contents($file);
+    check("$name exists", is_file($file));
+    check("$name has no monetary amounts",
+        preg_match('/(?:[$€£]\s*\d|\b(?:USD|ETB|birr)\s*\d|\d\s*(?:USD|ETB|birr)\b)/iu', $body) !== 1);
     check("$name has no TODO markers", stripos($body, 'TODO') === false);
     check("$name has no bracketed placeholders",
         preg_match('/\[[^\]\n]{0,80}\]/', $body) !== 1,
@@ -70,6 +73,12 @@ check('locked knowledge excludes the gated file',
     strpos($locked, 'Corporate / institutional partnerships') === false);
 check('unlocked knowledge includes the gated file',
     strpos($unlocked, 'Corporate / institutional partnerships') !== false);
+check('internal research context is not approved for ingestion',
+    !in_array('research-scholars-program-context.md', CHATBOT_KNOWLEDGE_FILES, true));
+check('unlocked knowledge is exactly the reviewed manifest',
+    $unlocked === implode("\n\n---\n\n", array_map('file_get_contents', $files)));
+check('pricing remains withheld after gate passes',
+    strpos($unlocked, 'Passing the contact gate never unlocks prices') !== false);
 check('sponsorship amounts never reach a locked prompt',
     strpos($locked, '$25 = one learner') === false);
 check('locked knowledge still answers ordinary questions',

@@ -1,5 +1,10 @@
 # Ethioware Website Chatbot — Implementation Specification
 
+> Updated launch decisions: see [chatbot-production-plan.md](chatbot-production-plan.md)
+> and [chatbot-knowledge-sources.md](chatbot-knowledge-sources.md). Those documents
+> supersede this historical spec on audience/provider eligibility, traffic,
+> pricing suppression, Git-only publication, retention and reviewed-file loading.
+
 > Developer-ready implementation plan for the ethioware.org AI chatbot.
 > Audience: CTO + implementing contractor. Everything here is decided unless
 > explicitly listed in §12 (Open decisions). Ground truth for the existing

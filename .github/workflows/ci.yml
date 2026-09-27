@@ -107,6 +107,8 @@ jobs:
         # questions. The browser-driven widget suite lives in
         # ci/widget-harness/ and is run manually (it needs a local Chrome).
         run: php ci/chatbot-content-test.php
+      - name: Reviewed knowledge publication boundary
+        run: python3 ci/chatbot-knowledge-check.py
 
   guard:
     name: Repo hygiene & secret guard
