@@ -1927,17 +1927,6 @@ the website, in dark theme
     padding: 1.25rem;
   }
 
-  /* Forms section mobile */
-  .forms-container {
-    grid-template-columns: 1fr !important;
-    gap: 1.5rem;
-  }
-
-  .form-wrapper {
-    aspect-ratio: 1 / 1.4;
-    min-height: 500px;
-  }
-
   /* Contact form mobile */
   .contact__container {
     grid-template-columns: 1fr;
@@ -2221,9 +2210,49 @@ img {
   border-radius: 0 0 var(--radius-md) var(--radius-md);
 }
 
-/* Form wrapper styling */
-.form-wrapper {
+/* Program application embed */
+.program-application__intro {
+  max-width: 44rem;
+  margin: 0.75rem auto 1.5rem;
+  text-align: center;
+  color: var(--text-color-light);
+}
+
+.program-application {
+  max-width: 920px;
+  margin: 0 auto;
   border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: 0 4px 12px hsla(200, 4%, 15%, 0.2);
+}
+
+.program-application iframe {
+  display: block;
+  width: 100%;
+  min-height: 860px;
+  border: 0;
+  background: #f7f3ea;
+}
+
+.program-application__fallback {
+  margin: 0;
+  padding: 1rem 1.25rem;
+  text-align: center;
+  color: var(--text-color-light);
+  background: var(--container-color);
+}
+
+.program-application__fallback a {
+  color: var(--first-color);
+  font-weight: var(--font-semi-bold);
+  text-decoration: underline;
+  text-underline-offset: 0.2rem;
+}
+
+@media screen and (max-width: 767px) {
+  .program-application iframe {
+    min-height: 720px;
+  }
 }
 
 /* Button with email style */
