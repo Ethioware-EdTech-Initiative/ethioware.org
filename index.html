@@ -105,7 +105,7 @@
     <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
 
     <!-- Preload critical resources -->
-    <link rel="preload" href="assets/css/styles.css" as="style" />
+    <link rel="preload" href="assets/css/styles.css?v=20260927-2" as="style" />
     <link rel="preload" href="assets/img/logo-mini.png" as="image" />
     <link rel="preload" href="assets/img/plan.webp" as="image" />
 
@@ -151,7 +151,7 @@
         rel="stylesheet"
     /></noscript>
     <!-- Critical CSS loaded immediately, non-critical deferred -->
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link rel="stylesheet" href="assets/css/styles.css?v=20260927-2" />
 
     <!-- Trustpilot widget - deferred loading with intersection observer for better performance -->
     <script type="text/javascript">
@@ -1535,14 +1535,11 @@
 
         <div class="program-application glass">
           <iframe
-            src="https://ethioware.org/apply"
+            id="program-application-frame"
+            src="/apply.html?embedded=1"
             title="Ethioware pre-training application"
             loading="lazy"
           ></iframe>
-          <p class="program-application__fallback">
-            Having trouble with the embedded application?
-            <a href="https://ethioware.org/apply">Open the application in a new page</a>.
-          </p>
         </div>
       </section>
       <section class="contact section container" id="contact">
@@ -2009,7 +2006,7 @@
     <script defer src="assets/js/script.js"></script>
     <script defer src="assets/js/bio.js"></script>
     <script defer src="assets/js/sendmail.js"></script>
-    <script defer src="assets/js/main.js"></script>
+    <script defer src="assets/js/main.js?v=20260927-2"></script>
 
     <!-- JSON-LD Structured Data for SEO -->
     <script type="application/ld+json">

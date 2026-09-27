@@ -2212,46 +2212,55 @@ img {
 
 /* Program application embed */
 .program-application__intro {
-  max-width: 44rem;
-  margin: 0.75rem auto 1.5rem;
+  max-width: 40rem;
+  margin: 0.5rem auto 1.75rem;
   text-align: center;
   color: var(--text-color-light);
+  line-height: 1.6;
 }
 
 .program-application {
-  max-width: 920px;
+  width: 100%;
+  max-width: 780px;
   margin: 0 auto;
-  border-radius: var(--radius-md);
+  border: 1px solid hsla(var(--hue), 24%, 24%, 0.1);
+  border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: 0 4px 12px hsla(200, 4%, 15%, 0.2);
+  background: #f7f3ea;
+  box-shadow:
+    0 18px 45px hsla(var(--hue), 24%, 18%, 0.1),
+    0 2px 8px hsla(var(--hue), 24%, 18%, 0.06);
 }
 
 .program-application iframe {
   display: block;
   width: 100%;
-  min-height: 860px;
+  height: 560px;
+  min-height: 440px;
   border: 0;
   background: #f7f3ea;
-}
-
-.program-application__fallback {
-  margin: 0;
-  padding: 1rem 1.25rem;
-  text-align: center;
-  color: var(--text-color-light);
-  background: var(--container-color);
-}
-
-.program-application__fallback a {
-  color: var(--first-color);
-  font-weight: var(--font-semi-bold);
-  text-decoration: underline;
-  text-underline-offset: 0.2rem;
+  transition: height 0.25s ease;
 }
 
 @media screen and (max-width: 767px) {
+  #train {
+    padding-left: 0.875rem;
+    padding-right: 0.875rem;
+  }
+
+  .program-application__intro {
+    margin-bottom: 1.25rem;
+    padding: 0 0.5rem;
+    font-size: 0.95rem;
+  }
+
+  .program-application {
+    border-radius: 1rem;
+  }
+
   .program-application iframe {
-    min-height: 720px;
+    height: 540px;
+    min-height: 420px;
   }
 }
 

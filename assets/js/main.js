@@ -3,6 +3,20 @@ const navMenu = document.getElementById('nav-menu'),
       navToggle = document.getElementById('nav-toggle'),
       navClose = document.getElementById('nav-close')
 
+/* Keep the same-origin application embed fitted to its active form step. */
+const applicationFrame = document.getElementById('program-application-frame')
+
+if (applicationFrame) {
+    window.addEventListener('message', (event) => {
+        if (event.origin !== window.location.origin || event.source !== applicationFrame.contentWindow) return
+        if (!event.data || event.data.type !== 'ethioware:apply-height') return
+
+        const height = Number(event.data.height)
+        if (!Number.isFinite(height)) return
+        applicationFrame.style.height = `${Math.min(Math.max(height, 420), 900)}px`
+    })
+}
+
 /*===== MENU SHOW =====*/
 /* Validate if constant exists */
 if(navToggle){
